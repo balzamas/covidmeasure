@@ -6,8 +6,59 @@
 
     <script type="text/javascript">
       google.charts.load("current", {packages:["timeline"]});
-
       google.charts.setOnLoadCallback(drawChart);
+
+      $( document ).ready(function() {
+          var dataCountries = $.ajax({
+          url: "http://localhost:8000/measuremeterdata/countries/",
+          dataType: "json",
+          async: false
+          }).responseText;
+
+          var jsonCountries = JSON.parse(dataCountries);
+
+          var optionsCountries='';
+          optionsCountries += '<input type="checkbox" name="checkbox-all" id="checkbox-all" value="all" class="custom" />';
+          optionsCountries += '<label for="checkbox-all">All</label><br>';
+
+          $.each(jsonCountries, function(id, line) {
+              console.log(line);
+               optionsCountries += '<input type="checkbox" name="checkbox-' + id + '" id="checkbox-' + id + '" value="' + line['pk'] + '" class="custom" />';
+               optionsCountries += '<label for="checkbox-' + id + '">' + line['name'] + '</label>&nbsp;';
+          });
+          $('#countries').append(optionsCountries);
+
+          var dataMeasuresTypes = $.ajax({
+          url: "http://localhost:8000/measuremeterdata/measuretypes/",
+          dataType: "json",
+          async: false
+          }).responseText;
+
+          var jsonMeasuresTypes = JSON.parse(dataMeasuresTypes);
+
+          var optionsMeasuresTypes='';
+          optionsMeasuresTypes += '<input type="checkbox" name="checkbox-all" id="checkbox-all" value="all" class="custom" />';
+          optionsMeasuresTypes += '<label for="checkbox-all">All</label>';
+
+          var category = -1;
+
+          $.each(jsonMeasuresTypes, function(id, line) {
+              console.log(line);
+              if (line['category']['pk'] != category)
+              {
+                category = line['category']['pk'];
+                optionsMeasuresTypes += '<hr><b><input type="checkbox" name="checkbox-' + category + '" id="checkbox-' + category + '" value="' + category + '" class="custom" />';
+                optionsMeasuresTypes += '<label for="checkbox-' + category + '">' + line['category']['name'] + '</label></b><br>';
+              }
+
+               optionsMeasuresTypes += '<input type="checkbox" name="checkbox-' + id + '" id="checkbox-' + id + '" value="' + line['pk'] + '" class="custom" />';
+               optionsMeasuresTypes += '<label for="checkbox-' + id + '">' + line['name'] + '</label>&nbsp;';
+          });
+          $('#measurestypes').append(optionsMeasuresTypes);
+
+
+      });
+
 
       function drawChart() {
           var data = $.ajax({
@@ -24,32 +75,29 @@
 
         dataTable.addColumn({ type: 'string', id: 'Country' });
         dataTable.addColumn({ type: 'string', id: 'Measure' });
-        dataTable.addColumn({ type: 'string', role:'tooltip'});
+        //dataTable.addColumn({ type: 'string', role:'tooltip'});
         dataTable.addColumn({ type: 'date', id: 'Start' });
         dataTable.addColumn({ type: 'date', id: 'End' });
 
+        $.each(jsonData, function(id, line) {
+          var type = line['type']['name'].toString();
+          var start_str = line['start'].split("-")
+          var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
 
-console.log("Printing line by line");
+          if (line['end'] != null)
+          {
+            var end_str = line['end'].split("-")
+            var end_date = new Date(end_str[0], end_str[1]-1, end_str[2])
+          }
+          else
+          {
+            var end_date = new Date(2020, 5, 31)
+            type = type + "*";
+          }
 
-$.each(jsonData, function(id, line) {
-  console.log("-");
-  var start_str = line['start'].split("-")
-  console.log(line['start'])
-  console.log(start_str[2])
-  console.log(start_str[1])
-  console.log(start_str[0])
+          var source = "Source: " + line['sources'].toString()
 
-  var start_date = new Date(start_str[0], start_str[1], start_str[2])
-
-  var end_str = line['end'].split("-")
-  var end_date = new Date(end_str[0], end_str[1], end_str[2])
-
-  var source = "Source: " + line['source'].toString()
-
-  dataTable.addRows([[line['country']['name'].toString(),line['type']['name'].toString(),source,start_date,end_date]])
-  console.log(id);
-  console.log(line['country'],line['type'],line['start'],line['end'],line['source']);
-
+          dataTable.addRows([[line['country']['name'].toString(),type,start_date,end_date]])
 });
         chart.draw(dataTable);
 
@@ -58,12 +106,16 @@ $.each(jsonData, function(id, line) {
     </script>
   </head>
   <body>
-    <h1>Covid measure meter</h1>
-    <div id="chart_div"></div>
-
+    <font face="arial">
+    <h1>Covid responses/measures</h1>
+    <b>Countries:</b>
+    <div id="countries"></div>
+    <hr>
+    <b>Measures:</b>
+    <div id="measurestypes"></div>
     <hr>
     <div id="example2.1" style="height: 900px;"></div>
-
+    </font>
   </body>
 </html>
 

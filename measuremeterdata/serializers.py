@@ -5,21 +5,22 @@ from rest_framework import serializers
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
-        fields = ['name', 'code']
-
-class MeasureTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = MeasureType
-        fields = ['name', 'category']
+        fields = ['pk', 'name', 'code']
 
 class MeasureCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = MeasureCategory
-        fields = ['name']
+        fields = ['pk','name']
+
+class MeasureTypeSerializer(serializers.ModelSerializer):
+    category = MeasureCategorySerializer()
+    class Meta:
+        model = MeasureType
+        fields = ['pk', 'name', 'category', 'comment']
 
 class MeasureSerializer(serializers.ModelSerializer):
     type = MeasureTypeSerializer()
     country = CountrySerializer()
     class Meta:
         model = Measure
-        fields = ['country', 'type', 'start', 'end', 'source', 'isregional']
+        fields = ['country', 'type', 'start', 'end', 'sources', 'isregional']

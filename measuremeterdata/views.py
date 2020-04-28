@@ -23,23 +23,23 @@ class MeasureFilter(filters.FilterSet):
         fields = ['country_in', 'type_in']
 
 class MeasureViewSet(viewsets.ModelViewSet):
-    queryset = Measure.objects.all().order_by('country').order_by('type')
+    queryset = Measure.objects.all().order_by('country__name', 'type__category','type__name')
     serializer_class = MeasureSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = MeasureFilter
     permission_classes = [permissions.IsAuthenticated]
 
 class CountryViewSet(viewsets.ModelViewSet):
-    queryset = Country.objects.all()
+    queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class MeasureTypeViewSet(viewsets.ModelViewSet):
-    queryset = MeasureType.objects.all()
+    queryset = MeasureType.objects.all().order_by('category','name')
     serializer_class = MeasureTypeSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 class MeasureCategoryViewSet(viewsets.ModelViewSet):
-    queryset = MeasureCategory.objects.all()
+    queryset = MeasureCategory.objects.all().order_by('name')
     serializer_class = MeasureCategorySerializer
     permission_classes = [permissions.IsAuthenticated]
