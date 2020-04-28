@@ -1,0 +1,72 @@
+<html>
+  <head>
+    <title>Covid measure meter</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["timeline"]});
+
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+          var data = $.ajax({
+          url: "http://localhost:8000/measuremeterdata/measures/",
+          dataType: "json",
+          async: false
+          }).responseText;
+          console.log(data);
+          var jsonData = JSON.parse(data);
+
+        var container = document.getElementById('example2.1');
+        var chart = new google.visualization.Timeline(container);
+        var dataTable = new google.visualization.DataTable();
+
+        dataTable.addColumn({ type: 'string', id: 'Country' });
+        dataTable.addColumn({ type: 'string', id: 'Measure' });
+        dataTable.addColumn({ type: 'string', role:'tooltip'});
+        dataTable.addColumn({ type: 'date', id: 'Start' });
+        dataTable.addColumn({ type: 'date', id: 'End' });
+
+
+console.log("Printing line by line");
+
+$.each(jsonData, function(id, line) {
+  console.log("-");
+  var start_str = line['start'].split("-")
+  console.log(line['start'])
+  console.log(start_str[2])
+  console.log(start_str[1])
+  console.log(start_str[0])
+
+  var start_date = new Date(start_str[0], start_str[1], start_str[2])
+
+  var end_str = line['end'].split("-")
+  var end_date = new Date(end_str[0], end_str[1], end_str[2])
+
+  var source = "Source: " + line['source'].toString()
+
+  dataTable.addRows([[line['country']['name'].toString(),line['type']['name'].toString(),source,start_date,end_date]])
+  console.log(id);
+  console.log(line['country'],line['type'],line['start'],line['end'],line['source']);
+
+});
+        chart.draw(dataTable);
+
+
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Covid measure meter</h1>
+    <div id="chart_div"></div>
+
+    <hr>
+    <div id="example2.1" style="height: 900px;"></div>
+
+  </body>
+</html>
+
+
+
+

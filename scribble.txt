@@ -1,0 +1,14 @@
+Free SVG maps with depts:
+https://www.amcharts.com/svg-maps/?map=italy
+
+http://polymaps.org/
+
+Generate from OpenStreetMap:
+http://maperitive.net/
+
+Full example JSON and SVG Map:
+https://www.sitepoint.com/vs-code-extensions-javascript-developers/
+
+
+Charts: Google Charts
+https://developers.google.com/chart/interactive/docs/gallery/timeline
