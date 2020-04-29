@@ -29,6 +29,7 @@ class MeasureType(models.Model):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(MeasureCategory, on_delete=models.CASCADE,blank=True,null=True)
     comment = models.TextField(max_length=500,blank=True)
+    isactive = models.BooleanField(default= True)
     ordering = ['category', 'name']
 
     def __str__(self):

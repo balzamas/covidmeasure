@@ -9,9 +9,7 @@
       google.charts.load("current", {packages:["timeline"]});
       google.charts.setOnLoadCallback(drawChart);
 
-      //This is horrbile, check later for proper delivery of env var
-      var hostname_splitted = "{{ settings.HOSTNAME }}".split('&#x27;');
-      var hostname = hostname_splitted[1];
+      var hostname = "{{ settings.HOSTNAME }}";
 
       $( document ).ready(function() {
 
@@ -131,9 +129,6 @@
     </script>
   </head>
   <body>
-  ----
-{{ settings.HOSTNAME }}
-  -----
     <font face="arial">
     <h1>Covid responses/measures</h1>
     <b>Countries:</b>

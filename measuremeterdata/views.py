@@ -23,7 +23,7 @@ class MeasureFilter(filters.FilterSet):
         fields = ['country_in', 'type_in']
 
 class MeasureViewSet(viewsets.ModelViewSet):
-    queryset = Measure.objects.all().order_by('country__name', 'type__category','type__name')
+    queryset = Measure.objects.filter(type__isactive=True).order_by('country__name', 'type__category','type__name')
     serializer_class = MeasureSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = MeasureFilter
@@ -33,7 +33,7 @@ class CountryViewSet(viewsets.ModelViewSet):
     serializer_class = CountrySerializer
 
 class MeasureTypeViewSet(viewsets.ModelViewSet):
-    queryset = MeasureType.objects.all().order_by('category','name')
+    queryset = MeasureType.objects.filter(isactive=True).order_by('category','name')
     serializer_class = MeasureTypeSerializer
 
 class MeasureCategoryViewSet(viewsets.ModelViewSet):

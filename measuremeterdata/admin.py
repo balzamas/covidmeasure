@@ -6,7 +6,7 @@ admin.site.register(MeasureCategory)
 
 class MeasureTypeAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
-    list_display = ['name', 'category', 'comment']
+    list_display = ['name', 'category', 'isactive', 'comment']
     ordering = ['category', 'name']
 admin.site.register(MeasureType, MeasureTypeAdmin)
 
