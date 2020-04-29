@@ -149,3 +149,4 @@ LOGGING = {
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+HOSTNAME = env.list("HOSTNAME", default="http://5-102-145-137.cust.cloudscale.ch:8000")

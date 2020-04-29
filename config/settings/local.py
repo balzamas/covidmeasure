@@ -62,3 +62,4 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+HOSTNAME = env.list("HOSTNAME", default="http://localhost:8000")
