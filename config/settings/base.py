@@ -270,3 +270,4 @@ SOCIALACCOUNT_ADAPTER = "measuremeter.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+HOSTNAME = env.list("HOSTNAME", default="http://localhost:8000")
