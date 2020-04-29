@@ -1,7 +1,13 @@
 {% load static i18n %}
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
 <html>
   <head>
-    <title>Covid measure meter</title>
+    <title>Covid measures by country</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -63,7 +69,7 @@
               if (line['category']['pk'] != category)
               {
                 category = line['category']['pk'];
-                optionsMeasuresTypes += '<hr><b><input type="checkbox" class="all_type" name="checkbox-' + category + '" id="checkbox-' + category + '" value="' + category + '" class="custom" />';
+                optionsMeasuresTypes += '<br><b><input type="checkbox" class="all_type" name="checkbox-' + category + '" id="checkbox-' + category + '" value="' + category + '" class="custom" />';
                 optionsMeasuresTypes += '<label for="checkbox-' + category + '">' + line['category']['name'] + '</label></b><br>';
               }
 
@@ -92,7 +98,7 @@
           }).responseText;
           var jsonData = JSON.parse(data);
 
-        var container = document.getElementById('example2.1');
+        var container = document.getElementById('datachart');
         var chart = new google.visualization.Timeline(container);
         var dataTable = new google.visualization.DataTable();
 
@@ -129,19 +135,27 @@
     </script>
   </head>
   <body>
-    <font face="arial">
-    <h1>Covid responses/measures</h1>
-    <b>Countries:</b>
-    <div id="countries"></div>
-    <hr>
-    <b>Measures:</b>
-    <div id="measurestypes"></div>
-    <hr>
-      <input id = "btnSubmit" type="submit" value="Reload"/>
-    <hr>
-      * = end of measure undefined
-    <div id="example2.1" style="height: 900px;"></div>
-    </font>
+    <div style="margin-left: 30;margin-top: 30;">
+      <h1>Covid measures by country</h1>
+        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10;">
+          <font size="1.5rem">
+          Contact: d.berger@dontsniff.co.uk // <a href="/measuremeterdata/">REST Endpoints</a> (Filter measures with country_in and type_in) // <a href="https://github.com/balzamas/covidmeasure/">Project on GitHub</a><br>
+          This is still <b>PROTOTYPING</b>! Please contact me to contribute (gathering data).
+          </font>
+        </div>
+        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10;">
+            <b>Countries:</b>
+          <div id="countries"></div>
+        </div>
+        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10;">
+          <b>Measures:</b>
+          <div id="measurestypes"></div>
+        </div>
+      <p><input id = "btnSubmit" class="btn btn-primary" type="submit" value="Reload"/></p>
+          * = end of measure undefined
+          <div id="datachart" style="height: 900px;"></div>
+
+    </div>
   </body>
 </html>
 
