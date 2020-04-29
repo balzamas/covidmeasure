@@ -15,7 +15,16 @@
       google.charts.load("current", {packages:["timeline"]});
       google.charts.setOnLoadCallback(drawChart);
 
-      var hostname = "{{ settings.HOSTNAME }}";
+      //This is horrbile, check later for proper delivery of env var
+      if ("{{ settings.HOSTNAME }}".includes('&#x27;'))
+      {
+        var hostname_splitted = "{{ settings.HOSTNAME }}".split('&#x27;');
+        var hostname = hostname_splitted[1];
+       }
+       else
+       {
+         var hostname = "{{ settings.HOSTNAME }}";
+       }
       console.log(hostname);
 
       $( document ).ready(function() {
