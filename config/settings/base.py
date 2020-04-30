@@ -70,7 +70,8 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     'rest_framework',
     'django_filters',
-    'bootstrap4'
+    'bootstrap4',
+    'ckeditor',
 ]
 
 LOCAL_APPS = [

@@ -16,3 +16,4 @@ django-redis==4.11.0  # https://github.com/jazzband/django-redis
 djangorestframework
 django-filter
 django-bootstrap4
+django-ckeditor

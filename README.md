@@ -1,5 +1,7 @@
 # covidmeasures
 
+https://www.coronameasures.ch/
+
 Heavy work in progress, but in an nutshell:
 
 Goal: 
@@ -9,8 +11,6 @@ Visualization by measures/categories
 API - REST Endpoints:
 http://address/measuremeterdata/
 To filter measures use parameters country_in= and type=
-
-Beta-System: http://5-102-145-137.cust.cloudscale.ch:8000/
 
 My JQuery/CSS/HTML is a nightmare, be warned. 
 

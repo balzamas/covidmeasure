@@ -2,5 +2,5 @@
 # ------------------------------------------------------------------------------
 USE_DOCKER=yes
 IPYTHONDIR=/app/.ipython
-DJANGO_ALLOWED_HOSTS=5-102-145-137.cust.cloudscale.ch
+DJANGO_ALLOWED_HOSTS=coronameasures.ch
 HOSTNAME=http://localhost:8000
