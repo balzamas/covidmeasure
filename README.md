@@ -9,7 +9,7 @@ Data colletion of corona measures in different countries.
 Visualization by measures/categories
 
 ###API - REST Endpoints
-http://address/measuremeterdata/
+https://www.coronameasures.ch/measuremeterdata/
 To filter measures use parameters country_in= and type=
 
 ###Contribute
