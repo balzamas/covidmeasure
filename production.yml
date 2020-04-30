@@ -42,8 +42,10 @@ services:
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
+    labels:
+      - "traefik.frontend.rule=PathPrefix:/admin/"
 
   redis:
     image: redis:5.0
 
-  
+
