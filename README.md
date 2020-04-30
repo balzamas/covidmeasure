@@ -4,18 +4,28 @@ https://www.coronameasures.ch/
 
 Heavy work in progress, but in an nutshell:
 
-Goal: 
+###Goal 
 Data colletion of corona measures in different countries.
 Visualization by measures/categories
 
-API - REST Endpoints:
+###API - REST Endpoints
 http://address/measuremeterdata/
 To filter measures use parameters country_in= and type=
 
-My JQuery/CSS/HTML is a nightmare, be warned. 
+###Contribute
 
 Contact my if you want to collaborate (collect data or code).
 Goal is to have contributors for regions/countries to keep the data updated.
-Framework is Django. 
+Framework is Django.
 
+My JQuery/CSS/HTML is a nightmare, be warned. 
+
+###Contact
 d.berger@dontsniff.co.uk
+
+Twitter: @BergerWhtur
+
+###Country contributors
+Switzerland: dbe
+Austria: dbe
+Lithuania: rfi
