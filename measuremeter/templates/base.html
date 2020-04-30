@@ -15,19 +15,9 @@
       google.charts.load("current", {packages:["timeline"]});
       google.charts.setOnLoadCallback(drawChart);
 
-      //This is horrbile, check later for proper delivery of env var
-      if ("{{ settings.HOSTNAME }}".includes('&#x27;'))
-      {
-        var hostname_splitted = "{{ settings.HOSTNAME }}".split('&#x27;');
-        var hostname = hostname_splitted[1];
-       }
-       else
-       {
-         var hostname = "{{ settings.HOSTNAME }}";
-       }
-      console.log(hostname);
-
       $( document ).ready(function() {
+          console.log(window.location.href);
+          console.log("----");
 
           $("#btnSubmit").click(function(){
             var countries = ""
@@ -44,7 +34,7 @@
           });
 
           var dataCountries = $.ajax({
-          url: "/measuremeterdata/countries/",
+          url: window.location.href + "/measuremeterdata/countries/",
           dataType: "json",
           async: false
           }).responseText;
@@ -62,7 +52,7 @@
           $('#countries').append(optionsCountries);
 
           var dataMeasuresTypes = $.ajax({
-          url: "/measuremeterdata/measuretypes/",
+          url: window.location.href + "/measuremeterdata/measuretypes/",
           dataType: "json",
           async: false
           }).responseText;
@@ -133,7 +123,7 @@
          }
          console.log(countries + " " + measuretypes);
           var data = $.ajax({
-          url: "/measuremeterdata/measures/?country_in="+countries+"&type_in="+measuretypes,
+          url: window.location.href + "/measuremeterdata/measures/?country_in="+countries+"&type_in="+measuretypes,
           dataType: "json",
           async: false
           }).responseText;
