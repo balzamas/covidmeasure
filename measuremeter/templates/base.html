@@ -34,7 +34,7 @@
           });
 
           var dataCountries = $.ajax({
-          url: window.location.href + "/measuremeterdata/countries/",
+          url: window.location.href + "measuremeterdata/countries/",
           dataType: "json",
           async: false
           }).responseText;
@@ -52,7 +52,7 @@
           $('#countries').append(optionsCountries);
 
           var dataMeasuresTypes = $.ajax({
-          url: window.location.href + "/measuremeterdata/measuretypes/",
+          url: window.location.href + "measuremeterdata/measuretypes/",
           dataType: "json",
           async: false
           }).responseText;
@@ -123,7 +123,7 @@
          }
          console.log(countries + " " + measuretypes);
           var data = $.ajax({
-          url: window.location.href + "/measuremeterdata/measures/?country_in="+countries+"&type_in="+measuretypes,
+          url: window.location.href + "measuremeterdata/measures/?country_in="+countries+"&type_in="+measuretypes,
           dataType: "json",
           async: false
           }).responseText;
