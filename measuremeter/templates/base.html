@@ -15,10 +15,34 @@
       google.charts.load("current", {packages:["timeline"]});
       google.charts.setOnLoadCallback(drawChart);
 
-      $( document ).ready(function() {
-          console.log(window.location.href);
-          console.log("----");
+      function convertMiliseconds(miliseconds, format) {
+        var days, hours, minutes, seconds, total_hours, total_minutes, total_seconds;
 
+        total_seconds = parseInt(Math.floor(miliseconds / 1000));
+        total_minutes = parseInt(Math.floor(total_seconds / 60));
+        total_hours = parseInt(Math.floor(total_minutes / 60));
+        days = parseInt(Math.floor(total_hours / 24));
+
+        seconds = parseInt(total_seconds % 60);
+        minutes = parseInt(total_minutes % 60);
+        hours = parseInt(total_hours % 24);
+
+        switch(format) {
+        case 's':
+          return total_seconds;
+        case 'm':
+          return total_minutes;
+        case 'h':
+          return total_hours;
+        case 'd':
+          return days;
+        default:
+          return { d: days, h: hours, m: minutes, s: seconds };
+        }
+      };
+
+
+      $( document ).ready(function() {
           $("#btnSubmit").click(function(){
             var countries = ""
             $.each($("input[name='country']:checked"), function(){
@@ -155,9 +179,20 @@
             type = type + "*";
           }
 
+          //Set up tooltip
+          days = convertMiliseconds(end_date - start_date,'d');
+          var tooltip = '<div style="margin-left: 30;margin-top: 30;width: 300">'
+          tooltip += "<p><b>"+type+"</b></p>";
+          tooltip += "<p>"+ line['start'] + " - " + line['end'] + " // Duration: " + days + " days</p>";
+          tooltip += "<hr>";
+          tooltip += line['comment'].toString();
+          tooltip += '</div>';
+
+
+
           var source = "Source: " + line['sources'].toString()
 
-          dataTable.addRows([[line['country']['name'].toString(),type,line['comment'].toString(),start_date,end_date]])
+          dataTable.addRows([[line['country']['name'].toString(),type,tooltip,start_date,end_date]])
 });
         chart.draw(dataTable);
 
@@ -166,12 +201,11 @@
     </script>
   </head>
   <body>
-    <div style="margin-left: 30;margin-top: 30;">
       <h1>Covid measures by country</h1>
 
         <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10;">
           <font size="1.5rem">
-          Contact: d.berger@dontsniff.co.uk // <a href="/measuremeterdata/">REST Endpoints</a> (Filter measures with country_in and type_in) // <a href="https://github.com/balzamas/covidmeasure/">Project on GitHub</a><br>
+            Contact: d.berger@dontsniff.co.uk // Twitter: <a href="https://twitter.com/BergerWthur">@BergerWthur</a>// <a href="/measuremeterdata/">REST Endpoints</a> (Filter measures with country_in and type_in) // <a href="https://github.com/balzamas/covidmeasure/">Project on GitHub</a><br>
           This is still <b>PROTOTYPING</b>! Please contact me to contribute (gathering data).
           </font>
         </div>

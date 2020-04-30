@@ -1,7 +1,8 @@
 from django.contrib import admin
-from .models import Country, MeasureCategory, MeasureType, Measure
+from .models import Country, MeasureCategory, MeasureType, Measure, Continent
 
 admin.site.register(Country)
+admin.site.register(Continent)
 admin.site.register(MeasureCategory)
 
 class MeasureTypeAdmin(admin.ModelAdmin):

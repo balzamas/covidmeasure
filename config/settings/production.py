@@ -149,4 +149,4 @@ LOGGING = {
 
 # Your stuff...
 # ------------------------------------------------------------------------------
-HOSTNAME = env.list("HOSTNAME", default="coronameasures.ch")
+

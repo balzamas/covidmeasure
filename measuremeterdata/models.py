@@ -11,10 +11,10 @@ class Continent(models.Model):
 class Country(models.Model):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=3,blank=True,null=True)
-    category = models.ForeignKey(Continent, on_delete=models.CASCADE,blank=True,null=True)
+    continent = models.ForeignKey(Continent, on_delete=models.CASCADE,blank=True,null=True)
     link_worldometer = models.CharField(max_length=200,blank=True,null=True)
     link_gov = models.CharField(max_length=200,blank=True,null=True)
-    comment = models.TextField(max_length=500,blank=True)
+    comment = RichTextField(blank=True)
     ordering = ['name']
 
     def __str__(self):
@@ -29,7 +29,7 @@ class MeasureCategory(models.Model):
 class MeasureType(models.Model):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(MeasureCategory, on_delete=models.CASCADE,blank=True,null=True)
-    comment = models.TextField(max_length=500,blank=True)
+    comment = RichTextField(blank=True)
     isactive = models.BooleanField(default= True)
     ordering = ['category', 'name']
 
