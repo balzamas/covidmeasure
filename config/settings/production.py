@@ -6,7 +6,7 @@ from .base import env
 # https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["cloudscale.ch"])
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["cloudscale.ch", "coronameasures.ch"])
 
 # DATABASES
 # ------------------------------------------------------------------------------
@@ -149,4 +149,4 @@ LOGGING = {
 
 # Your stuff...
 # ------------------------------------------------------------------------------
-HOSTNAME = env.list("HOSTNAME", default="http://5-102-145-137.cust.cloudscale.ch:8000")
+HOSTNAME = env.list("HOSTNAME", default="coronameasures.ch")

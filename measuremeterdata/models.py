@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor.fields import RichTextField
 
 class Continent(models.Model):
     name = models.CharField(max_length=200)
@@ -41,8 +42,9 @@ class Measure(models.Model):
     start = models.DateField()
     end = models.DateField(null=True,blank=True)
     sources = models.TextField(max_length=300,blank=True)
-    comment = models.TextField(max_length=500,blank=True)
+    comment = RichTextField(blank=True)
     isregional = models.BooleanField(default= False)
+
     ordering = ['country', 'type']
 
     def __str__(self):

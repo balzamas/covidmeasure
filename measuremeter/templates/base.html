@@ -145,7 +145,7 @@
 
         dataTable.addColumn({ type: 'string', id: 'Country' });
         dataTable.addColumn({ type: 'string', id: 'Measure' });
-        //dataTable.addColumn({ type: 'string', role:'tooltip'});
+        dataTable.addColumn({ type: 'string', role:'tooltip'});
         dataTable.addColumn({ type: 'date', id: 'Start' });
         dataTable.addColumn({ type: 'date', id: 'End' });
 
@@ -167,7 +167,7 @@
 
           var source = "Source: " + line['sources'].toString()
 
-          dataTable.addRows([[line['country']['name'].toString(),type,start_date,end_date]])
+          dataTable.addRows([[line['country']['name'].toString(),type,line['comment'].toString(),start_date,end_date]])
 });
         chart.draw(dataTable);
 
