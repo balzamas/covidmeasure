@@ -161,6 +161,7 @@
         dataTableCountry.addColumn({ type: 'string', id: 'Country' });
         dataTableCountry.addColumn({ type: 'string', id: 'Measure' });
         dataTableCountry.addColumn({ type: 'string', role:'tooltip'});
+        dataTableCountry.addColumn({ type: 'string', role: 'style' });
         dataTableCountry.addColumn({ type: 'date', id: 'Start' });
         dataTableCountry.addColumn({ type: 'date', id: 'End' });
 
@@ -189,11 +190,18 @@
           tooltip += line['comment'].toString();
           tooltip += '</div>';
 
-
+          if (line['partial'] == true)
+          {
+            color = '#f5a742';
+          }
+          else
+          {
+            color = '#f54242';
+          }
 
           var source = "Source: " + line['sources'].toString()
 
-          dataTableCountry.addRows([[line['country']['name'].toString(),type,tooltip,start_date,end_date]])
+          dataTableCountry.addRows([[line['country']['name'].toString(),type,tooltip,color, start_date,end_date]])
 });
         chartCountry.draw(dataTableCountry);
 
@@ -212,6 +220,7 @@
         dataTableMeasure.addColumn({ type: 'string', id: 'Country' });
         dataTableMeasure.addColumn({ type: 'string', id: 'Measure' });
         dataTableMeasure.addColumn({ type: 'string', role:'tooltip'});
+        dataTableMeasure.addColumn({ type: 'string', role: 'style' });
         dataTableMeasure.addColumn({ type: 'date', id: 'Start' });
         dataTableMeasure.addColumn({ type: 'date', id: 'End' });
 
@@ -242,9 +251,18 @@
           tooltip += line['comment'].toString();
           tooltip += '</div>';
 
+          if (line['partial'] == true)
+          {
+            color = '#f5a742';
+          }
+          else
+          {
+            color = '#f54242';
+          }
+
           var source = "Source: " + line['sources'].toString()
 
-          dataTableMeasure.addRows([[type,country,tooltip,start_date,end_date]]);
+          dataTableMeasure.addRows([[type,country,tooltip,color,start_date,end_date]]);
 
 
 });

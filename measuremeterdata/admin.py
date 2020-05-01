@@ -19,7 +19,7 @@ admin.site.register(MeasureType, MeasureTypeAdmin)
 
 class MeasureAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
-    list_display = ['country', 'type', 'type', 'comment', 'start', 'end']
+    list_display = ['country', 'type', 'partial',  'comment', 'start', 'end']
     ordering = ['country', 'type']
     autocomplete_fields = ['country', 'type']
 admin.site.register(Measure, MeasureAdmin)
