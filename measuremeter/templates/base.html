@@ -170,6 +170,7 @@
         var ColorClosed = ["#90d192", '#91e3e0', '#eba9e3', '#b4b9ed', '#e6c4a1', '#e6a1a4', '#a8e6d6'];
         var ColorPartial = ["#b7e8b9", '#bce6e4', '#f2d3ee', '#cfd1e8', '#ebd9c7', '#e6bec0', '#c7ebe2'];
         var color_count = 0;
+        var old_measure = "";
 
         $.each(jsonData, function(id, line) {
           var type = line['type']['name'].toString();
@@ -196,6 +197,23 @@
           tooltip += line['comment'].toString();
           tooltip += '</div>';
 
+          if ((old_measure.replace('*','')) !== (type.replace('*','')))
+          {
+              console.log("uneven");
+              if (color_count < ColorClosed.length)
+              {
+                color_count += 1;
+              }
+              else
+              {
+                color_count = 0;
+               }
+           }
+           else
+           {
+              console.log("even");
+           }
+
           if (line['partial'] == true)
           {
             color = ColorPartial[color_count];
@@ -205,23 +223,7 @@
             color = ColorClosed[color_count];
           }
 
-          if (color_count < ColorClosed.length)
-          {
-            color_count += 1;
-          }
-          else
-          {
-            color_count = 0;
-           }
-
-          if (line['partial'] == true)
-          {
-            color = '#f5a742';
-          }
-          else
-          {
-            color = '#f54242';
-          }
+           old_measure = type;
 
           var source = "Source: " + line['sources'].toString()
 
@@ -247,6 +249,11 @@
         dataTableMeasure.addColumn({ type: 'string', role: 'style' });
         dataTableMeasure.addColumn({ type: 'date', id: 'Start' });
         dataTableMeasure.addColumn({ type: 'date', id: 'End' });
+
+        var ColorClosed = ["#90d192", '#91e3e0', '#eba9e3', '#b4b9ed', '#e6c4a1', '#e6a1a4', '#a8e6d6'];
+        var ColorPartial = ["#b7e8b9", '#bce6e4', '#f2d3ee', '#cfd1e8', '#ebd9c7', '#e6bec0', '#c7ebe2'];
+        var color_count = 0;
+        var old_country = "";
 
         $.each(jsonDataMeasure, function(id, line) {
           var type = line['type']['name'].toString();
@@ -275,14 +282,34 @@
           tooltip += line['comment'].toString();
           tooltip += '</div>';
 
+          if ((old_country.replace('*','')) !== (country.replace('*','')))
+          {
+              console.log("uneven");
+              if (color_count < ColorClosed.length)
+              {
+                color_count += 1;
+              }
+              else
+              {
+                color_count = 0;
+               }
+           }
+           else
+           {
+              console.log("even");
+           }
+
           if (line['partial'] == true)
           {
-            color = '#f5a742';
+            color = ColorPartial[color_count];
           }
           else
           {
-            color = '#f54242';
+            color = ColorClosed[color_count];
           }
+
+           old_country = country;
+
 
           var source = "Source: " + line['sources'].toString()
 
@@ -321,13 +348,13 @@
       <p><input id = "btnSubmit" class="btn btn-primary" type="submit" value="Reload"/></p>
         <b>By country</b>
           * = end of measure undefined<br>
-          <font color="#f54242">Full closure</font> // <font color="#f5a742">Partial closure/with restrictions</font>
+          <font color="#91e3e0">Full closure</font> // <font color="#bce6e4">Partial closure/with restrictions</font>
 
           <div id="datachartCountry" style="height: 900px;"></div>
 <hr>
         <b>By measure</b>
           * = end of measure undefined<br>
-          <font color="#f54242">Full closure</font> // <font color="#f5a742">Partial closure/with restrictions</font>
+          <font color="#91e3e0">Full closure</font> // <font color="#bce6e4">Partial closure/with restrictions</font>
           <div id="datachartMeasure" style="height: 900px;"></div>
     </div>
   </body>
