@@ -174,8 +174,16 @@
 
         $.each(jsonData, function(id, line) {
           var type = line['type']['name'].toString();
-          var start_str = line['start'].split("-")
-          var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
+
+          if (line['start'] != null)
+          {
+            var start_str = line['start'].split("-")
+            var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
+          }
+          else
+          {
+            var start_date = new Date(2020, 1, 14)
+          }
 
           if (line['end'] != null)
           {
@@ -223,6 +231,11 @@
             color = ColorClosed[color_count];
           }
 
+          if (line['none'] == true)
+          {
+            color='#FFFFFF';
+          }
+
            old_measure = type;
 
           var source = "Source: " + line['sources'].toString()
@@ -257,10 +270,18 @@
 
         $.each(jsonDataMeasure, function(id, line) {
           var type = line['type']['name'].toString();
-          var start_str = line['start'].split("-")
-          var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
-
           country = line['country']['name'].toString();
+
+          if (line['start'] != null)
+          {
+            var start_str = line['start'].split("-")
+            var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
+          }
+          else
+          {
+            var start_date = new Date(2020, 1, 30)
+          }
+
 
           if (line['end'] != null)
           {
@@ -272,15 +293,6 @@
             var end_date = new Date(2020, 5, 31)
             country = country + "*";
           }
-
-          //Set up tooltip
-          days = convertMiliseconds(end_date - start_date,'d')+1;
-          var tooltip = '<div style="margin-left: 30;margin-top: 30;width: 300">'
-          tooltip += "<p><b>"+type+"</b></p>";
-          tooltip += "<p>"+ line['start'] + " - " + line['end'] + " // Duration: " + days + " days</p>";
-          tooltip += "<hr>";
-          tooltip += line['comment'].toString();
-          tooltip += '</div>';
 
           if ((old_country.replace('*','')) !== (country.replace('*','')))
           {
@@ -308,8 +320,21 @@
             color = ColorClosed[color_count];
           }
 
+          if (line['none'] == true)
+          {
+            color='#FFFFFF';
+          }
+
            old_country = country;
 
+          //Set up tooltip
+          days = convertMiliseconds(end_date - start_date,'d')+1;
+          var tooltip = '<div style="margin-left: 30;margin-top: 30;width: 300">'
+          tooltip += "<p><b>"+type+"</b></p>";
+          tooltip += "<p>"+ line['start'] + " - " + line['end'] + " // Duration: " + days + " days</p>";
+          tooltip += "<hr>";
+          tooltip += line['comment'].toString();
+          tooltip += '</div>';
 
           var source = "Source: " + line['sources'].toString()
 
@@ -348,13 +373,13 @@
       <p><input id = "btnSubmit" class="btn btn-primary" type="submit" value="Reload"/></p>
         <b>By country</b>
           * = end of measure undefined<br>
-          <font color="#91e3e0">Full closure</font> // <font color="#bce6e4">Partial closure/with restrictions</font>
+          Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
 
           <div id="datachartCountry" style="height: 900px;"></div>
 <hr>
         <b>By measure</b>
           * = end of measure undefined<br>
-          <font color="#91e3e0">Full closure</font> // <font color="#bce6e4">Partial closure/with restrictions</font>
+          Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
           <div id="datachartMeasure" style="height: 900px;"></div>
     </div>
   </body>
