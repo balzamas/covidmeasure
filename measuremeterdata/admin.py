@@ -5,6 +5,7 @@ admin.site.register(Continent)
 admin.site.register(MeasureCategory)
 
 class CountryAdmin(admin.ModelAdmin):
+    ordering = ['name']
     search_fields = ['name']
 admin.site.register(Country, CountryAdmin)
 
@@ -28,4 +29,5 @@ class MeasureAdmin(admin.ModelAdmin):
     ordering = ['country', 'type']
     autocomplete_fields = ['country', 'type']
     actions = [duplicate_record]
+    list_filter = ('country', 'type')
 admin.site.register(Measure, MeasureAdmin)
