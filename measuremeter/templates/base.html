@@ -57,6 +57,8 @@
             drawChart(countries, types);
           });
 
+
+
           var dataCountries = $.ajax({
           url: window.location.href + "measuremeterdata/countries/",
           dataType: "json",
@@ -165,6 +167,10 @@
         dataTableCountry.addColumn({ type: 'date', id: 'Start' });
         dataTableCountry.addColumn({ type: 'date', id: 'End' });
 
+        var ColorClosed = ["#90d192", '#91e3e0', '#eba9e3', '#b4b9ed', '#e6c4a1', '#e6a1a4', '#a8e6d6'];
+        var ColorPartial = ["#b7e8b9", '#bce6e4', '#f2d3ee', '#cfd1e8', '#ebd9c7', '#e6bec0', '#c7ebe2'];
+        var color_count = 0;
+
         $.each(jsonData, function(id, line) {
           var type = line['type']['name'].toString();
           var start_str = line['start'].split("-")
@@ -189,6 +195,24 @@
           tooltip += "<hr>";
           tooltip += line['comment'].toString();
           tooltip += '</div>';
+
+          if (line['partial'] == true)
+          {
+            color = ColorPartial[color_count];
+          }
+          else
+          {
+            color = ColorClosed[color_count];
+          }
+
+          if (color_count < ColorClosed.length)
+          {
+            color_count += 1;
+          }
+          else
+          {
+            color_count = 0;
+           }
 
           if (line['partial'] == true)
           {
