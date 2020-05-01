@@ -39,7 +39,7 @@ class MeasureType(models.Model):
 class Measure(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     type = models.ForeignKey(MeasureType, on_delete=models.CASCADE)
-    start = models.DateField()
+    start = models.DateField(null=True,blank=True)
     end = models.DateField(null=True,blank=True)
     partial = models.BooleanField(default=False)
     none = models.BooleanField(default=False)
