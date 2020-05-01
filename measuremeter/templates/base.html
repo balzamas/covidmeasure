@@ -137,6 +137,7 @@
 
 
       function drawChart(countries, measuretypes) {
+
          if (countries == undefined)
          {
            countries="";
@@ -153,15 +154,15 @@
           }).responseText;
           var jsonData = JSON.parse(data);
 
-        var container = document.getElementById('datachart');
-        var chart = new google.visualization.Timeline(container);
-        var dataTable = new google.visualization.DataTable();
+        var containerCountry = document.getElementById('datachartCountry');
+        var chartCountry = new google.visualization.Timeline(containerCountry);
+        var dataTableCountry = new google.visualization.DataTable();
 
-        dataTable.addColumn({ type: 'string', id: 'Country' });
-        dataTable.addColumn({ type: 'string', id: 'Measure' });
-        dataTable.addColumn({ type: 'string', role:'tooltip'});
-        dataTable.addColumn({ type: 'date', id: 'Start' });
-        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTableCountry.addColumn({ type: 'string', id: 'Country' });
+        dataTableCountry.addColumn({ type: 'string', id: 'Measure' });
+        dataTableCountry.addColumn({ type: 'string', role:'tooltip'});
+        dataTableCountry.addColumn({ type: 'date', id: 'Start' });
+        dataTableCountry.addColumn({ type: 'date', id: 'End' });
 
         $.each(jsonData, function(id, line) {
           var type = line['type']['name'].toString();
@@ -192,10 +193,50 @@
 
           var source = "Source: " + line['sources'].toString()
 
-          dataTable.addRows([[line['country']['name'].toString(),type,tooltip,start_date,end_date]])
+          dataTableCountry.addRows([[line['country']['name'].toString(),type,tooltip,start_date,end_date]])
 });
-        chart.draw(dataTable);
+        chartCountry.draw(dataTableCountry);
 
+        var containerMeasure = document.getElementById('datachartMeasure');
+        var chartMeasure = new google.visualization.Timeline(containerMeasure);
+        var dataTableMeasure = new google.visualization.DataTable();
+
+        dataTableMeasure.addColumn({ type: 'string', id: 'Country' });
+        dataTableMeasure.addColumn({ type: 'string', id: 'Measure' });
+        dataTableMeasure.addColumn({ type: 'string', role:'tooltip'});
+        dataTableMeasure.addColumn({ type: 'date', id: 'Start' });
+        dataTableMeasure.addColumn({ type: 'date', id: 'End' });
+
+        $.each(jsonData, function(id, line) {
+          var type = line['type']['name'].toString();
+          var start_str = line['start'].split("-")
+          var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
+
+          if (line['end'] != null)
+          {
+            var end_str = line['end'].split("-")
+            var end_date = new Date(end_str[0], end_str[1]-1, end_str[2])
+          }
+          else
+          {
+            var end_date = new Date(2020, 5, 31)
+            type = type + "*";
+          }
+
+          //Set up tooltip
+          days = convertMiliseconds(end_date - start_date,'d')+1;
+          var tooltip = '<div style="margin-left: 30;margin-top: 30;width: 300">'
+          tooltip += "<p><b>"+type+"</b></p>";
+          tooltip += "<p>"+ line['start'] + " - " + line['end'] + " // Duration: " + days + " days</p>";
+          tooltip += "<hr>";
+          tooltip += line['comment'].toString();
+          tooltip += '</div>';
+
+          var source = "Source: " + line['sources'].toString()
+
+          dataTableMeasure.addRows([[type,line['country']['name'].toString(),tooltip,start_date,end_date]])
+});
+        chartMeasure.draw(dataTableMeasure);
 
       }
     </script>
@@ -220,9 +261,13 @@
           <div id="measurestypes"></div>
         </div>
       <p><input id = "btnSubmit" class="btn btn-primary" type="submit" value="Reload"/></p>
+        <b>By country</b>
           * = end of measure undefined
-          <div id="datachart" style="height: 900px;"></div>
-
+          <div id="datachartCountry" style="height: 900px;"></div>
+<hr>
+        <b>By measure</b>
+          * = end of measure undefined
+          <div id="datachartMeasure" style="height: 900px;"></div>
     </div>
   </body>
 </html>
