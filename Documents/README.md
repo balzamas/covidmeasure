@@ -20,6 +20,10 @@ Usually this does not need a comment.
 When partial is set, it's open, but with limitations/restrictions. Comment what are the limitations. 
 If introduced gradually, document it in the same record (e.g. "From March 10: 10 people allowed, from March 21: 5 people allowed.")
 
+####None
+When a measure was never active or it was revoked, you can set a record to None. It's shown as a white bar in the chart.
+Please do this when a measure never was in place, so visitors see if this topic was already researched by us.
+
 #####For example
 Restaurant without partial set: 
 
