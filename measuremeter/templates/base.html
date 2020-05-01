@@ -172,6 +172,34 @@
         var color_count = 0;
         var old_measure = "";
 
+        //Get first and last date
+        var firstdate = new Date(2020, 5, 1);
+        var lastdate = new Date(2020, 5, 1);
+
+        $.each(jsonData, function(id, line) {
+          if (line['start'] != null)
+          {
+            var start_strfl = line['start'].split("-")
+            var start_datefl = new Date(start_strfl[0], start_strfl[1]-1, start_strfl[2])
+          }
+
+          if (line['end'] != null)
+          {
+            var end_strfl = line['end'].split("-")
+            var end_datefl = new Date(end_strfl[0], end_strfl[1]-1, end_strfl[2])
+          }
+
+          if (start_datefl < firstdate)
+          {
+            firstdate = start_datefl;
+          }
+
+          if (end_datefl > lastdate)
+          {
+            lastdate = end_datefl;
+          }
+        });
+
         $.each(jsonData, function(id, line) {
           var type = line['type']['name'].toString();
 
@@ -182,7 +210,7 @@
           }
           else
           {
-            var start_date = new Date(2020, 1, 14)
+            var start_date = firstdate;
           }
 
           if (line['end'] != null)
@@ -192,7 +220,7 @@
           }
           else
           {
-            var end_date = new Date(2020, 5, 31)
+            var end_date = lastdate;
             type = type + "*";
           }
 
@@ -279,7 +307,7 @@
           }
           else
           {
-            var start_date = new Date(2020, 1, 14)
+            var start_date = firstdate;
           }
 
 
@@ -290,7 +318,7 @@
           }
           else
           {
-            var end_date = new Date(2020, 5, 31)
+            var end_date = lastdate;
             country = country + "*";
           }
 
