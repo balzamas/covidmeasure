@@ -197,6 +197,14 @@
 });
         chartCountry.draw(dataTableCountry);
 
+         console.log(countries + " " + measuretypes);
+          var dataMeasure = $.ajax({
+          url: window.location.href + "measuremeterdata/measuresbymeasure/?country_in="+countries+"&type_in="+measuretypes,
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonDataMeasure = JSON.parse(dataMeasure);
+
         var containerMeasure = document.getElementById('datachartMeasure');
         var chartMeasure = new google.visualization.Timeline(containerMeasure);
         var dataTableMeasure = new google.visualization.DataTable();
@@ -207,7 +215,7 @@
         dataTableMeasure.addColumn({ type: 'date', id: 'Start' });
         dataTableMeasure.addColumn({ type: 'date', id: 'End' });
 
-        $.each(jsonData, function(id, line) {
+        $.each(jsonDataMeasure, function(id, line) {
           var type = line['type']['name'].toString();
           var start_str = line['start'].split("-")
           var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
