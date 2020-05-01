@@ -246,11 +246,13 @@
 
           dataTableMeasure.addRows([[type,country,tooltip,start_date,end_date]]);
 
-          var options = {
-            timeline: { groupByRowLabel: false }
-          };
+
 });
-        chartMeasure.draw(dataTableMeasure);
+          var options = {
+            timeline: { avoidOverlappingGridLines: false }
+          };
+
+        chartMeasure.draw(dataTableMeasure, options);
 
       }
     </script>
