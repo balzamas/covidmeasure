@@ -212,6 +212,8 @@
           var start_str = line['start'].split("-")
           var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
 
+          country = line['country']['name'].toString();
+
           if (line['end'] != null)
           {
             var end_str = line['end'].split("-")
@@ -220,7 +222,7 @@
           else
           {
             var end_date = new Date(2020, 5, 31)
-            type = type + "*";
+            country = country + "*";
           }
 
           //Set up tooltip
@@ -234,7 +236,11 @@
 
           var source = "Source: " + line['sources'].toString()
 
-          dataTableMeasure.addRows([[type,line['country']['name'].toString(),tooltip,start_date,end_date]])
+          dataTableMeasure.addRows([[type,country,tooltip,start_date,end_date]]);
+
+          var options = {
+            timeline: { groupByRowLabel: false }
+          };
 });
         chartMeasure.draw(dataTableMeasure);
 
