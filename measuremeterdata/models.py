@@ -44,7 +44,7 @@ class Measure(models.Model):
     partial = models.BooleanField(default=False)
     comment = RichTextField(blank=True)
     isregional = models.BooleanField(default= False)
-    sources = models.TextField(max_length=50,blank=True)
+    sources = models.TextField(max_length=300,blank=True)
 
     ordering = ['country', 'type']
 
