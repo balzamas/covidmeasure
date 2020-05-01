@@ -41,9 +41,10 @@ class Measure(models.Model):
     type = models.ForeignKey(MeasureType, on_delete=models.CASCADE)
     start = models.DateField()
     end = models.DateField(null=True,blank=True)
+    partial = models.BooleanField(default=False)
     comment = RichTextField(blank=True)
     isregional = models.BooleanField(default= False)
-    sources = models.TextField(max_length=50,blank=True)
+    sources = models.TextField(max_length=300,blank=True)
 
     ordering = ['country', 'type']
 

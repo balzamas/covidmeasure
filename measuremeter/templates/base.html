@@ -57,6 +57,8 @@
             drawChart(countries, types);
           });
 
+
+
           var dataCountries = $.ajax({
           url: window.location.href + "measuremeterdata/countries/",
           dataType: "json",
@@ -137,6 +139,7 @@
 
 
       function drawChart(countries, measuretypes) {
+
          if (countries == undefined)
          {
            countries="";
@@ -153,15 +156,21 @@
           }).responseText;
           var jsonData = JSON.parse(data);
 
-        var container = document.getElementById('datachart');
-        var chart = new google.visualization.Timeline(container);
-        var dataTable = new google.visualization.DataTable();
+        var containerCountry = document.getElementById('datachartCountry');
+        var chartCountry = new google.visualization.Timeline(containerCountry);
+        var dataTableCountry = new google.visualization.DataTable();
 
-        dataTable.addColumn({ type: 'string', id: 'Country' });
-        dataTable.addColumn({ type: 'string', id: 'Measure' });
-        dataTable.addColumn({ type: 'string', role:'tooltip'});
-        dataTable.addColumn({ type: 'date', id: 'Start' });
-        dataTable.addColumn({ type: 'date', id: 'End' });
+        dataTableCountry.addColumn({ type: 'string', id: 'Country' });
+        dataTableCountry.addColumn({ type: 'string', id: 'Measure' });
+        dataTableCountry.addColumn({ type: 'string', role:'tooltip'});
+        dataTableCountry.addColumn({ type: 'string', role: 'style' });
+        dataTableCountry.addColumn({ type: 'date', id: 'Start' });
+        dataTableCountry.addColumn({ type: 'date', id: 'End' });
+
+        var ColorClosed = ["#90d192", '#91e3e0', '#eba9e3', '#b4b9ed', '#e6c4a1', '#e6a1a4', '#a8e6d6'];
+        var ColorPartial = ["#b7e8b9", '#bce6e4', '#f2d3ee', '#cfd1e8', '#ebd9c7', '#e6bec0', '#c7ebe2'];
+        var color_count = 0;
+        var old_measure = "";
 
         $.each(jsonData, function(id, line) {
           var type = line['type']['name'].toString();
@@ -188,14 +197,131 @@
           tooltip += line['comment'].toString();
           tooltip += '</div>';
 
+          if ((old_measure.replace('*','')) !== (type.replace('*','')))
+          {
+              console.log("uneven");
+              if (color_count < ColorClosed.length)
+              {
+                color_count += 1;
+              }
+              else
+              {
+                color_count = 0;
+               }
+           }
+           else
+           {
+              console.log("even");
+           }
+
+          if (line['partial'] == true)
+          {
+            color = ColorPartial[color_count];
+          }
+          else
+          {
+            color = ColorClosed[color_count];
+          }
+
+           old_measure = type;
+
+          var source = "Source: " + line['sources'].toString()
+
+          dataTableCountry.addRows([[line['country']['name'].toString(),type,tooltip,color, start_date,end_date]])
+});
+        chartCountry.draw(dataTableCountry);
+
+         console.log(countries + " " + measuretypes);
+          var dataMeasure = $.ajax({
+          url: window.location.href + "measuremeterdata/measuresbymeasure/?country_in="+countries+"&type_in="+measuretypes,
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonDataMeasure = JSON.parse(dataMeasure);
+
+        var containerMeasure = document.getElementById('datachartMeasure');
+        var chartMeasure = new google.visualization.Timeline(containerMeasure);
+        var dataTableMeasure = new google.visualization.DataTable();
+
+        dataTableMeasure.addColumn({ type: 'string', id: 'Country' });
+        dataTableMeasure.addColumn({ type: 'string', id: 'Measure' });
+        dataTableMeasure.addColumn({ type: 'string', role:'tooltip'});
+        dataTableMeasure.addColumn({ type: 'string', role: 'style' });
+        dataTableMeasure.addColumn({ type: 'date', id: 'Start' });
+        dataTableMeasure.addColumn({ type: 'date', id: 'End' });
+
+        var ColorClosed = ["#90d192", '#91e3e0', '#eba9e3', '#b4b9ed', '#e6c4a1', '#e6a1a4', '#a8e6d6'];
+        var ColorPartial = ["#b7e8b9", '#bce6e4', '#f2d3ee', '#cfd1e8', '#ebd9c7', '#e6bec0', '#c7ebe2'];
+        var color_count = 0;
+        var old_country = "";
+
+        $.each(jsonDataMeasure, function(id, line) {
+          var type = line['type']['name'].toString();
+          var start_str = line['start'].split("-")
+          var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
+
+          country = line['country']['name'].toString();
+
+          if (line['end'] != null)
+          {
+            var end_str = line['end'].split("-")
+            var end_date = new Date(end_str[0], end_str[1]-1, end_str[2])
+          }
+          else
+          {
+            var end_date = new Date(2020, 5, 31)
+            country = country + "*";
+          }
+
+          //Set up tooltip
+          days = convertMiliseconds(end_date - start_date,'d')+1;
+          var tooltip = '<div style="margin-left: 30;margin-top: 30;width: 300">'
+          tooltip += "<p><b>"+type+"</b></p>";
+          tooltip += "<p>"+ line['start'] + " - " + line['end'] + " // Duration: " + days + " days</p>";
+          tooltip += "<hr>";
+          tooltip += line['comment'].toString();
+          tooltip += '</div>';
+
+          if ((old_country.replace('*','')) !== (country.replace('*','')))
+          {
+              console.log("uneven");
+              if (color_count < ColorClosed.length)
+              {
+                color_count += 1;
+              }
+              else
+              {
+                color_count = 0;
+               }
+           }
+           else
+           {
+              console.log("even");
+           }
+
+          if (line['partial'] == true)
+          {
+            color = ColorPartial[color_count];
+          }
+          else
+          {
+            color = ColorClosed[color_count];
+          }
+
+           old_country = country;
 
 
           var source = "Source: " + line['sources'].toString()
 
-          dataTable.addRows([[line['country']['name'].toString(),type,tooltip,start_date,end_date]])
-});
-        chart.draw(dataTable);
+          dataTableMeasure.addRows([[type,country,tooltip,color,start_date,end_date]]);
 
+
+});
+          var options = {
+            timeline: { avoidOverlappingGridLines: false }
+          };
+
+        chartMeasure.draw(dataTableMeasure, options);
 
       }
     </script>
@@ -220,9 +346,16 @@
           <div id="measurestypes"></div>
         </div>
       <p><input id = "btnSubmit" class="btn btn-primary" type="submit" value="Reload"/></p>
-          * = end of measure undefined
-          <div id="datachart" style="height: 900px;"></div>
+        <b>By country</b>
+          * = end of measure undefined<br>
+          <font color="#91e3e0">Full closure</font> // <font color="#bce6e4">Partial closure/with restrictions</font>
 
+          <div id="datachartCountry" style="height: 900px;"></div>
+<hr>
+        <b>By measure</b>
+          * = end of measure undefined<br>
+          <font color="#91e3e0">Full closure</font> // <font color="#bce6e4">Partial closure/with restrictions</font>
+          <div id="datachartMeasure" style="height: 900px;"></div>
     </div>
   </body>
 </html>

@@ -16,10 +16,16 @@ class MeasureTypeAdmin(admin.ModelAdmin):
     search_fields = ['name']
 admin.site.register(MeasureType, MeasureTypeAdmin)
 
+def duplicate_record(modeladmin, request, queryset):
+    for object in queryset:
+        object.id = None
+        object.save()
+duplicate_record.short_description = "Duplicate selected record"
 
 class MeasureAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
-    list_display = ['country', 'type', 'type', 'comment', 'start', 'end']
+    list_display = ['country', 'type', 'partial',  'comment', 'start', 'end']
     ordering = ['country', 'type']
     autocomplete_fields = ['country', 'type']
+    actions = [duplicate_record]
 admin.site.register(Measure, MeasureAdmin)

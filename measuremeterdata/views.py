@@ -28,6 +28,12 @@ class MeasureViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filter_class = MeasureFilter
 
+class MeasureByMeasureViewSet(viewsets.ModelViewSet):
+    queryset = Measure.objects.filter(type__isactive=True).order_by('type__category','type__name', 'country__name')
+    serializer_class = MeasureSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_class = MeasureFilter
+
 class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
