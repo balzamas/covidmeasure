@@ -42,6 +42,7 @@ class Measure(models.Model):
     start = models.DateField()
     end = models.DateField(null=True,blank=True)
     partial = models.BooleanField(default=False)
+    none = models.BooleanField(default=False)
     comment = RichTextField(blank=True)
     isregional = models.BooleanField(default= False)
     sources = models.TextField(max_length=300,blank=True)
