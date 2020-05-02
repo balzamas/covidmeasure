@@ -234,15 +234,7 @@
 
           if (line['partial'] == true)
           {
-             if(line['type']['pk'] == 8)
-                {
-                  type += " (large groups)";
-                }
-                else
-                {
-                    type += " (with restrictions/partial)";
-
-                }
+            type += " " +  line['type']['tooltip_partial'];
             color = ColorPartial[line['type']['category']['pk']];
           }
           else
@@ -250,14 +242,7 @@
             color = ColorClosed[line['type']['category']['pk']];
             if (line['none'] != true)
            {
-                if(line['type']['pk'] == 8)
-                {
-                  type += " (small groups)";
-                }
-                else
-                {
-                   type += " (closed)";
-                }
+             type += " " + line['type']['tooltip_nonpartial'];
            }
           }
 
@@ -323,28 +308,14 @@
 
           if (line['partial'] == true)
           {
-                if(line['type']['pk'] == 8)
-                {
-                  country += " (large groups)";
-                }
-                else
-                {
-                    country += " (with restrictions/partial)";
-                 }
-            color = ColorPartial[line['type']['category']['pk']];
+             country += " " +  line['type']['tooltip_partial'];
+             color = ColorPartial[line['type']['category']['pk']];
           }
           else
           {
               if (line['none'] != true)
              {
-                if(line['type']['pk'] == 8)
-                {
-                  country += " (small groups)";
-                }
-                else
-                {
-                  country += " (closed)";
-                }
+                country += " " + line['type']['tooltip_nonpartial'];
              }
             color = ColorClosed[line['type']['category']['pk']];
           }
