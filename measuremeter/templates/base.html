@@ -8,6 +8,7 @@
 <html>
   <head>
     <title>Covid measures by country</title>
+    <meta name="google-site-verification" content="hQ8G-HCPFQgyGYjjxJcseIc0Vxv1Fou_3HEMFCItEOA" />
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -169,8 +170,6 @@
 
         var ColorClosed = ["#90d192", '#91e3e0', '#eba9e3', '#b4b9ed', '#e6c4a1', '#e6a1a4', '#a8e6d6'];
         var ColorPartial = ["#b7e8b9", '#bce6e4', '#f2d3ee', '#cfd1e8', '#ebd9c7', '#e6bec0', '#c7ebe2'];
-        var color_count = 0;
-        var old_measure = "";
 
         //Get first and last date
         var firstdate = new Date(2020, 5, 1);
@@ -233,38 +232,40 @@
           tooltip += line['comment'].toString();
           tooltip += '</div>';
 
-          if ((old_measure.replace('*','')) !== (type.replace('*','')))
-          {
-              console.log("uneven");
-              if (color_count < ColorClosed.length)
-              {
-                color_count += 1;
-              }
-              else
-              {
-                color_count = 0;
-               }
-           }
-           else
-           {
-              console.log("even");
-           }
-
           if (line['partial'] == true)
           {
-            color = ColorPartial[color_count];
+             if(line['type']['pk'] == 8 | line['type']['pk'] == 9 | line['type']['pk'] == 10)
+                {
+                  type += " (large groups)";
+                }
+                else
+                {
+                    type += " (with restrictions/partial)";
+
+                }
+            color = ColorPartial[line['type']['category']['pk']];
           }
           else
           {
-            color = ColorClosed[color_count];
+            color = ColorClosed[line['type']['category']['pk']];
+            if (line['none'] != true)
+           {
+                if(line['type']['pk'] == 8 | line['type']['pk'] == 9 | line['type']['pk'] == 10)
+                {
+                  type += " (small groups)";
+                }
+                else
+                {
+                   type += " (closed)";
+                }
+           }
           }
 
           if (line['none'] == true)
           {
+            type += " (none)";
             color='#FFFFFF';
           }
-
-           old_measure = type;
 
           var source = "Source: " + line['sources'].toString()
 
@@ -293,8 +294,6 @@
 
         var ColorClosed = ["#90d192", '#91e3e0', '#eba9e3', '#b4b9ed', '#e6c4a1', '#e6a1a4', '#a8e6d6'];
         var ColorPartial = ["#b7e8b9", '#bce6e4', '#f2d3ee', '#cfd1e8', '#ebd9c7', '#e6bec0', '#c7ebe2'];
-        var color_count = 0;
-        var old_country = "";
 
         $.each(jsonDataMeasure, function(id, line) {
           var type = line['type']['name'].toString();
@@ -322,38 +321,39 @@
             country = country + "*";
           }
 
-          if ((old_country.replace('*','')) !== (country.replace('*','')))
-          {
-              console.log("uneven");
-              if (color_count < ColorClosed.length)
-              {
-                color_count += 1;
-              }
-              else
-              {
-                color_count = 0;
-               }
-           }
-           else
-           {
-              console.log("even");
-           }
-
           if (line['partial'] == true)
           {
-            color = ColorPartial[color_count];
+                if(line['type']['pk'] == 8 | line['type']['pk'] == 9 | line['type']['pk'] == 10)
+                {
+                  country += " (large groups)";
+                }
+                else
+                {
+                    country += " (with restrictions/partial)";
+                 }
+            color = ColorPartial[line['type']['category']['pk']];
           }
           else
           {
-            color = ColorClosed[color_count];
+              if (line['none'] != true)
+             {
+                if(line['type']['pk'] == 8 | line['type']['pk'] == 9 | line['type']['pk'] == 10)
+                {
+                  country += " (small groups)";
+                }
+                else
+                {
+                  country += " (closed)";
+                }
+             }
+            color = ColorClosed[line['type']['category']['pk']];
           }
 
           if (line['none'] == true)
           {
+            country += " (none)";
             color='#FFFFFF';
           }
-
-           old_country = country;
 
           //Set up tooltip
           days = convertMiliseconds(end_date - start_date,'d')+1;
@@ -371,7 +371,7 @@
 
 });
           var options = {
-            timeline: { avoidOverlappingGridLines: false }
+            timeline: { avoidOverlappingGridLines: true}
           };
 
         chartMeasure.draw(dataTableMeasure, options);
