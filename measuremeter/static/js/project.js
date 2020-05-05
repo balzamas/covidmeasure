@@ -11,6 +11,22 @@
         document.getElementById("mySidenav").style.width = "0";
       }
 
+      function switchPanels() {
+          var x = document.getElementById("bycountry");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+          } else {
+            x.style.display = "none";
+          }
+          var y = document.getElementById("bymeasure");
+          if (y.style.display === "none") {
+            y.style.display = "block";
+          } else {
+            y.style.display = "none";
+          }
+
+        }
+
       function convertMiliseconds(miliseconds, format) {
         var days, hours, minutes, seconds, total_hours, total_minutes, total_seconds;
 
@@ -39,6 +55,7 @@
 
 
       $( document ).ready(function() {
+
           $("#btnSubmit").click(function(){
             var countries = ""
             $.each($("input[name='country']:checked"), function(){
@@ -134,8 +151,9 @@
                   }
                 });
             });
-
       });
+
+
 
      //-----------------------------DrawChart-------------------------------------
 

@@ -53,20 +53,24 @@
           This is still <b>PROTOTYPING</b>! Please contact me to contribute (gathering data).
           </font>
         </div>
-<div class="sticky">
-  <span onclick="openNav()"><img src="{% static 'images/filter.png' %}">Filter</span>
-</div>
-        <b>By country</b>
-          * = end of measure undefined<br>
-          Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
+      <div class="sticky">
+        <span onclick="openNav()"><img src="{% static 'images/filter.png' %}">Filter</span><br>
+        <span onclick="switchPanels()"><img src="{% static 'images/filter.png' %}">Switch</span>
+      </div>
+      <div id="bycountry">
+              <b>By country</b>
+                * = end of measure undefined<br>
+                Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
 
-          <div id="datachartCountry" style="height: 900px;"></div>
-<hr>
-        <b>By measure</b>
-          * = end of measure undefined<br>
-          Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
-          <div id="datachartMeasure" style="height: 900px;"></div>
-    </div>
+                <div id="datachartCountry" style="height: 900px;"></div>
+      </div>
+      <div id="bymeasure" style="display:none">
+              <b>By measure</b>
+                * = end of measure undefined<br>
+                Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
+                <div id="datachartMeasure" style="height: 900px"></div>
+          </div>
+      </div>
   </body>
 </html>
 
