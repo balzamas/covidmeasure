@@ -58,8 +58,6 @@
             drawChart(countries, types);
           });
 
-
-
           var dataCountries = $.ajax({
           url: window.location.href + "measuremeterdata/countries/",
           dataType: "json",
@@ -137,7 +135,6 @@
             });
 
       });
-
 
       function drawChart(countries, measuretypes) {
 
@@ -354,7 +351,6 @@
       <div style="margin-left: 30;margin-top: 30;">
 
       <h1>Covid measures by country</h1>
-
         <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10;">
           <font size="1.5rem">
             Contact: d.berger@dontsniff.co.uk // Twitter: <a href="https://twitter.com/BergerWthur">@BergerWthur</a>// <a href="/measuremeterdata/">REST Endpoints</a> (Filter measures with country_in and type_in) // <a href="https://github.com/balzamas/covidmeasure/">Project on GitHub</a><br>

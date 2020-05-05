@@ -38,6 +38,6 @@ class MeasureAdmin(admin.ModelAdmin):
     ordering = ['country', 'type']
     autocomplete_fields = ['country', 'type']
     actions = [duplicate_record]
-    list_filter = ('country', 'type')
+    list_filter = ('country', 'type', 'type__category')
     form = MeasureAddForm
 admin.site.register(Measure, MeasureAdmin)
