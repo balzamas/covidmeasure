@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django import forms
 from .models import Country, MeasureCategory, MeasureType, Measure, Continent
 
 admin.site.register(Continent)
@@ -23,6 +24,14 @@ def duplicate_record(modeladmin, request, queryset):
         object.save()
 duplicate_record.short_description = "Duplicate selected record"
 
+class MeasureAddForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super().clean()
+        start_date = cleaned_data.get("start")
+        end_date = cleaned_data.get("end")
+        if end_date < start_date:
+            raise forms.ValidationError("End date should be greater than start date.")
+
 class MeasureAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
     list_display = ['country', 'type', 'partial', 'none', 'comment', 'start', 'end']
@@ -30,4 +39,5 @@ class MeasureAdmin(admin.ModelAdmin):
     autocomplete_fields = ['country', 'type']
     actions = [duplicate_record]
     list_filter = ('country', 'type')
+    form = MeasureAddForm
 admin.site.register(Measure, MeasureAdmin)
