@@ -213,18 +213,25 @@
           {
             var end_str = line['end'].split("-")
             var end_date = new Date(end_str[0], end_str[1]-1, end_str[2])
+            var end_date_str = line['end']
           }
           else
           {
             var end_date = lastdate;
             type = type + "*";
+            var end_date_str = 'undefined'
           }
+
+
 
           //Set up tooltip
           days = convertMiliseconds(end_date - start_date,'d')+1;
           var tooltip = '<div style="margin-left: 30;margin-top: 30;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
-          tooltip += "<p>"+ line['start'] + " - " + line['end'] + " // Duration: " + days + " days</p>";
+          if (line['none'] == false)
+          {
+            tooltip += "<p>"+ line['start'] + " - " + end_date_str + " // Duration: " + days + " days</p>";
+          }
           tooltip += "<hr>";
           tooltip += line['comment'].toString();
           tooltip += '</div>';
@@ -296,11 +303,13 @@
           {
             var end_str = line['end'].split("-")
             var end_date = new Date(end_str[0], end_str[1]-1, end_str[2])
+            var end_date_str = line['end']
           }
           else
           {
             var end_date = lastdate;
             country = country + "*";
+            var end_date_str = 'undefined'
           }
 
           if (line['partial'] == true)
@@ -327,7 +336,10 @@
           days = convertMiliseconds(end_date - start_date,'d')+1;
           var tooltip = '<div style="margin-left: 30;margin-top: 30;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
-          tooltip += "<p>"+ line['start'] + " - " + line['end'] + " // Duration: " + days + " days</p>";
+          if (line['none'] == false)
+          {
+            tooltip += "<p>"+ line['start'] + " - " + end_date_str + " // Duration: " + days + " days</p>";
+          }
           tooltip += "<hr>";
           tooltip += line['comment'].toString();
           tooltip += '</div>';
