@@ -11,6 +11,21 @@
         document.getElementById("mySidenav").style.width = "0";
       }
 
+      function LoadPanelsFiltered()
+      {
+            var countries = ""
+            $.each($("input[name='country']:checked"), function(){
+                countries = countries + $(this).val() +",";
+            });
+
+            var types = ""
+            $.each($("input[name='type']:checked"), function(){
+                types = types + $(this).val() +",";
+            });
+
+            drawChart(countries, types);
+      }
+
       function switchPanels() {
           var x = document.getElementById("bycountry");
           if (x.style.display === "none") {
@@ -24,6 +39,9 @@
           } else {
             y.style.display = "none";
           }
+
+          LoadPanelsFiltered();
+
 
         }
 
@@ -57,17 +75,7 @@
       $( document ).ready(function() {
 
           $("#btnSubmit").click(function(){
-            var countries = ""
-            $.each($("input[name='country']:checked"), function(){
-                countries = countries + $(this).val() +",";
-            });
-
-            var types = ""
-            $.each($("input[name='type']:checked"), function(){
-                types = types + $(this).val() +",";
-            });
-
-            drawChart(countries, types);
+            LoadPanelsFiltered();
           });
 
           //-----------------------------Load countries----------------------

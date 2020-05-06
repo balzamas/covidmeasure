@@ -29,7 +29,8 @@ class MeasureAddForm(forms.ModelForm):
         cleaned_data = super().clean()
         start_date = cleaned_data.get("start")
         end_date = cleaned_data.get("end")
-        if end_date < start_date:
+        print(end_date)
+        if end_date != None and start_date != None and end_date < start_date:
             raise forms.ValidationError("End date should be greater than start date.")
 
 class MeasureAdmin(admin.ModelAdmin):

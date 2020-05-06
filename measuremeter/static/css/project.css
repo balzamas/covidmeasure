@@ -20,7 +20,7 @@
   z-index: 2; /* Stay on top */
   top: 0; /* Stay at the top */
   left: 0;
-  background-color: #8c8c97;
+  background-color: #d2d0d0;
   font-size: 15px;
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 60px; /* Place content 60px from the top */
@@ -71,3 +71,4 @@ div.sticky {
   font-size: 20px;
   z-index: 1;
 }
+
