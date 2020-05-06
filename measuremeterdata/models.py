@@ -30,6 +30,8 @@ class MeasureType(models.Model):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(MeasureCategory, on_delete=models.CASCADE,blank=True,null=True)
     comment = RichTextField(blank=True)
+    tooltip_nonpartial =models.CharField(max_length=200,blank=True)
+    tooltip_partial =models.CharField(max_length=200,blank=True)
     isactive = models.BooleanField(default= True)
     ordering = ['category', 'name']
 
