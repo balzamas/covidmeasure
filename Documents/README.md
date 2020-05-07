@@ -7,7 +7,7 @@ Have a look at the data from Switzerland and Czech republic as an example.
 Start day: when the measure was introduced.
 End day: The date when the measure was replaced by another one or when it was lifted.
 
-Example: measure 1 was valie March 12, 13, 14, measure 2 started 15 and no end is known yet.
+Example: measure 1 was valid March 12, 13, 14, measure 2 started 15 and no end is known yet.
 
 Measure 1 Start date: March 12, End date March 15.
 
@@ -42,4 +42,7 @@ The amount of information if overwhelming. Stick to the categories in the backen
 Tables to help with data collecting and checklist for measure types:
 
 https://github.com/balzamas/covidmeasure/blob/master/Documents/datainput.ods
-https://github.com/balzamas/covidmeasure/blob/master/Documents/datainput.ods
+https://github.com/balzamas/covidmeasure/blob/master/Documents/datainput.xlsx
+
+Excellent source, measures by country (we are working on an import function):
+http://acaps.org/covid19-government-measures-dataset
