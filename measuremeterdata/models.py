@@ -11,6 +11,7 @@ class Continent(models.Model):
 class Country(models.Model):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=3,blank=True,null=True)
+    mapcode_europe = models.CharField(max_length=10,blank=True,null=True)
     continent = models.ForeignKey(Continent, on_delete=models.CASCADE,blank=True,null=True)
     link_worldometer = models.CharField(max_length=200,blank=True,null=True)
     link_gov = models.CharField(max_length=200,blank=True,null=True)

@@ -5,6 +5,7 @@ from rest_framework import permissions
 from .serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
+import datetime
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -14,13 +15,18 @@ from django_filters import rest_framework as filters
 class NumberInFilter(filters.BaseInFilter, filters.NumberFilter):
     pass
 
+class DateFilter(filters.BaseInFilter, filters.DateFilter):
+    pass
+
 class MeasureFilter(filters.FilterSet):
-    country_in = NumberInFilter(field_name='country', lookup_expr='in')
-    type_in = NumberInFilter(field_name='type', lookup_expr='in')
+    country = NumberInFilter(field_name='country', lookup_expr='in')
+    type = NumberInFilter(field_name='type', lookup_expr='in')
+    start = filters.DateFilter(lookup_expr="lte")
+    end = filters.DateFilter(lookup_expr="gte")
 
     class Meta:
         model = Measure
-        fields = ['country_in', 'type_in']
+        fields = ['country', 'type', 'start', 'end']
 
 class MeasureViewSet(viewsets.ModelViewSet):
     queryset = Measure.objects.filter(type__isactive=True).order_by('country__name', 'type__category','type__name')

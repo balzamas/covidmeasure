@@ -73,9 +73,16 @@
 
 
       $( document ).ready(function() {
+          document.getElementById("dateselect").valueAsDate = new Date();
 
           $("#btnSubmit").click(function(){
             LoadPanelsFiltered();
+          });
+
+          $("#btnSubmitMap").click(function(){
+                var measuretype = $("#measurechooser").children("option:selected").val();
+                var seldate = document.getElementById("dateselect").value;
+                loadMapData(measuretype,seldate);
           });
 
           //-----------------------------Load countries----------------------
@@ -114,15 +121,24 @@
 
           var category = -1;
 
+          var select = document.getElementById("measurechooser");
+
           $.each(jsonMeasuresTypes, function(id, line) {
               if (line['category']['pk'] != category)
               {
                 category = line['category']['pk'];
                 optionsMeasuresTypes += '<b><div class="form-check"><input type="checkbox" class="form-check-input" name="category" id="category" value="' + category + '" />';
                 optionsMeasuresTypes += '<label class="form-check-label" for="checkbox-' + category + '">' + line['category']['name'] + '</label></div></b>';
+
+
               }
                optionsMeasuresTypes += '<div class="form-check form-check-inline"><input type="checkbox" class="form-check-input" name="type" id="' + category + '" value="' + line['pk'] + '"  />';
                optionsMeasuresTypes += '<label class="form-check-label" for="checkbox-' + id + '">' + line['name'] + '</label></div>&nbsp;';
+
+                var el = document.createElement("option");
+                el.textContent = line['name'];
+                el.value = line['pk'];
+                select.appendChild(el);
           });
           $('#measurestypes').append(optionsMeasuresTypes);
 
@@ -178,7 +194,7 @@
          }
          console.log(countries + " " + measuretypes);
           var data = $.ajax({
-          url: window.location.href + "measuremeterdata/measures/?country_in="+countries+"&type_in="+measuretypes,
+          url: window.location.href + "measuremeterdata/measures/?country="+countries+"&type="+measuretypes,
           dataType: "json",
           async: false
           }).responseText;
@@ -256,7 +272,7 @@
 
           //Set up tooltip
           days = convertMiliseconds(end_date - start_date,'d')+1;
-          var tooltip = '<div style="margin-left: 30;margin-top: 30;width: 300">'
+          var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
           if (line['none'] == false)
           {
@@ -294,7 +310,7 @@
 
          console.log(countries + " " + measuretypes);
           var dataMeasure = $.ajax({
-          url: window.location.href + "measuremeterdata/measuresbymeasure/?country_in="+countries+"&type_in="+measuretypes,
+          url: window.location.href + "measuremeterdata/measuresbymeasure/?country="+countries+"&type="+measuretypes,
           dataType: "json",
           async: false
           }).responseText;
@@ -364,7 +380,7 @@
 
           //Set up tooltip
           days = convertMiliseconds(end_date - start_date,'d')+1;
-          var tooltip = '<div style="margin-left: 30;margin-top: 30;width: 300">'
+          var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
           if (line['none'] == false)
           {
