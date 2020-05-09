@@ -1,6 +1,6 @@
 ﻿var eujsconfig ="";
 loadMapData(26,'2020-05-09');
-
+//26
 function loadMapData(measuretype,filterdate) {
 eujsconfig = {
   "eujs1":{
@@ -261,6 +261,7 @@ eujsconfig = {
 
         $.each(jsonData, function(id, line) {
           console.log(line['country']['name']);
+          console.log(line['country']['mapcode_europe']);
           if (line['start'] != null)
           {
             var start_date_str = line['start']
@@ -292,6 +293,12 @@ eujsconfig = {
           {
              color_norm = fullcolor
              color_hover= fullcolorhover
+          }
+
+          if (line['none'] == true)
+          {
+             color_norm = "#FFFFFF"
+             color_hover= "#f1f1f1"
           }
 
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
