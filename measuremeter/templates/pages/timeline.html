@@ -27,6 +27,27 @@
   </head>
   <body bgcolor="black">
 
+ <div id="mySidenav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+   <div style="margin-left: 10;margin-top: 10;margin-right: 10;">
+      <font color="#000000">
+          <h3>Filter</h3>
+        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10;">
+
+            <b>Countries:</b>
+          <div id="countries"></div>
+        </div>
+        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10;">
+          <b>Measures:</b>
+          <div id="measurestypes"></div>
+        </div>
+      </font>
+      <p><input id = "btnSubmit" type="submit" value="Reload"/></p>
+ </div>
+</div>
+
+
+
 <div style="margin-left: 30;margin-top: 30;">
 
 
@@ -38,9 +59,25 @@
           </font>
         </div>
 
-  <h2><a href="timeline">Timeline mode</a></h2>
-  <h2><a href="euromap">Map Europe mode</a></h2>
-</div>
+      <div class="sticky">
+        <span onclick="openNav()"><img src="{% static 'images/filter.png' %}"></span>
+        <span onclick="switchPanels()"><img src="{% static 'images/switch.png' %}"></span>
+      </div>
+
+      <div id="bycountry">
+              <b>By country</b>
+                * = end of measure undefined<br>
+                Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
+
+                <div id="datachartCountry" style="height: 900px;"></div>
+      </div>
+      <div id="bymeasure" style="display:none">
+              <b>By measure</b>
+                * = end of measure undefined<br>
+                Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
+                <div id="datachartMeasure" style="height: 900px"></div>
+          </div>
+      </div>
   </body>
 </html>
 

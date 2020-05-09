@@ -13,12 +13,14 @@ https://www.coronameasures.ch/measuremeterdata/
 To filter measures use parameters country_in= and type=
 
 ###Contribute
-
 Contact my if you want to collaborate (collect data or code). 
 Goal is to have local contributors for regions/countries to keep the data updated.
 Framework is Django.
 
 My JQuery/CSS/HTML is a nightmare, be warned. 
+
+Excellent ressource: 
+http://acaps.org/covid19-government-measures-dataset
 
 ###Contact
 d.berger@dontsniff.co.uk
