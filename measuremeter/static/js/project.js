@@ -79,12 +79,6 @@
             LoadPanelsFiltered();
           });
 
-          $("#btnSubmitMap").click(function(){
-                var measuretype = $("#measurechooser").children("option:selected").val();
-                var seldate = document.getElementById("dateselect").value;
-                loadMapData(measuretype,seldate);
-          });
-
           //-----------------------------Load countries----------------------
 
           var dataCountries = $.ajax({
@@ -121,8 +115,6 @@
 
           var category = -1;
 
-          var select = document.getElementById("measurechooser");
-
           $.each(jsonMeasuresTypes, function(id, line) {
               if (line['category']['pk'] != category)
               {
@@ -134,11 +126,6 @@
               }
                optionsMeasuresTypes += '<div class="form-check form-check-inline"><input type="checkbox" class="form-check-input" name="type" id="' + category + '" value="' + line['pk'] + '"  />';
                optionsMeasuresTypes += '<label class="form-check-label" for="checkbox-' + id + '">' + line['name'] + '</label></div>&nbsp;';
-
-             //   var el = document.createElement("option");
-             //   el.textContent = line['name'];
-             //   el.value = line['pk'];
-             //   select.appendChild(el);
           });
           $('#measurestypes').append(optionsMeasuresTypes);
 

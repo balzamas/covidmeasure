@@ -1,8 +1,4 @@
-﻿var eujsconfig ="";
-loadMapData(26,'2020-05-09');
-//26
-function loadMapData(measuretype,filterdate) {
-eujsconfig = {
+﻿var eujsconfig_fresh = {
   "eujs1":{
     "hover": "ALBANIA",//info of the popup
     "upColor": "#d5d5d5",//default color
@@ -52,7 +48,6 @@ eujsconfig = {
   },
   "eujs10":{
     "hover": "CZECH REPUBLIC",
-    "url": "https://www.html5interactivemaps.com/", "target": "same_window",
     "upColor": "#d5d5d5", "overColor": "#ECFFB3", "downColor": "#cae9af",
     "active": false
   },
@@ -242,7 +237,60 @@ eujsconfig = {
   }
 };
 
+$( document ).ready(function() {
 
+            var d = new Date();
+
+            var month = d.getMonth()+1;
+            var day = d.getDate();
+
+            var today = d.getFullYear() + '-' +
+                (month<10 ? '0' : '') + month + '-' +
+                (day<10 ? '0' : '') + day;
+            console.log(today);
+            loadMapData(1,today);
+            document.getElementById("dateselect").value = today;
+
+          $("#btnSubmitMap").click(function(){
+                console.log(eujsconfig.eujs1.hover);
+                var measuretype = $("#measurechooser").children("option:selected").val();
+                var seldate = document.getElementById("dateselect").value;
+                loadMapData(measuretype,seldate);
+          });
+
+
+          var dataMeasuresTypes = $.ajax({
+          url: window.location.href + "../measuremeterdata/measuretypes/",
+          dataType: "json",
+          async: false
+          }).responseText;
+
+          var jsonMeasuresTypes = JSON.parse(dataMeasuresTypes);
+          var select = document.getElementById("measurechooser");
+
+          $.each(jsonMeasuresTypes, function(id, line) {
+                var el = document.createElement("option");
+                el.textContent = line['name'];
+                el.value = line['pk'];
+                select.appendChild(el);
+          });
+});
+
+var eujsconfig ={};
+
+function loadMapData(measuretype,filterdate) {
+
+jQuery.each(eujsconfig_fresh, function(i, val) {
+  var ctry_val = {};
+  eujsconfig[i] = '';
+  jQuery.each(val, function(i_key, val_key) {
+            ctry_val[i_key] = val_key;
+         });
+     $("#"+i).attr("fill",eujsconfig_fresh[i]['upColor']);
+    console.log(ctry_val);
+    eujsconfig[i] = ctry_val;
+});
+console.log(eujsconfig);
 /*----------------------------------------------------------------------------------*/
 
           var data = $.ajax({
@@ -251,7 +299,6 @@ eujsconfig = {
           async: false
           }).responseText;
           var jsonData = JSON.parse(data);
-
 
           var fullcolor="#c54e35";
           var fullcolorhover ="#e5573a";
@@ -320,6 +367,7 @@ eujsconfig = {
             eujsconfig[line['country']['mapcode_europe']]['overColor'] = color_hover;
             /*eujsconfig[line['country']['mapcode_europe']]['downColor'] = partcolor;*/
             eujsconfig[line['country']['mapcode_europe']]['active'] = true;
+            $("#"+line['country']['mapcode_europe']).attr("fill",color_norm);
             }
           }
         );
