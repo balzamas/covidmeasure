@@ -1,5 +1,5 @@
 ﻿var eujsconfig ="";
-loadMapData(1,'2020-05-06');
+loadMapData(26,'2020-05-09');
 
 function loadMapData(measuretype,filterdate) {
 eujsconfig = {
