@@ -1,5 +1,5 @@
 ﻿var eujsconfig ="";
-loadMapData(26,'2020-05-09');
+loadMapData(1,'2020-05-09');
 //26
 function loadMapData(measuretype,filterdate) {
 eujsconfig = {
@@ -260,6 +260,8 @@ eujsconfig = {
           var partcolorhover="#f5da3c";
 
         $.each(jsonData, function(id, line) {
+        if (line['country']['mapcode_europe'] != null)
+        {
           console.log(line['country']['name']);
           console.log(line['country']['mapcode_europe']);
           if (line['start'] != null)
@@ -318,6 +320,7 @@ eujsconfig = {
             eujsconfig[line['country']['mapcode_europe']]['overColor'] = color_hover;
             /*eujsconfig[line['country']['mapcode_europe']]['downColor'] = partcolor;*/
             eujsconfig[line['country']['mapcode_europe']]['active'] = true;
+            }
           }
         );
 
