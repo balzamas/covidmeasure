@@ -73,7 +73,7 @@
 
 
       $( document ).ready(function() {
-          document.getElementById("dateselect").valueAsDate = new Date();
+          //document.getElementById("dateselect").valueAsDate = new Date();
 
           $("#btnSubmit").click(function(){
             LoadPanelsFiltered();
@@ -88,7 +88,7 @@
           //-----------------------------Load countries----------------------
 
           var dataCountries = $.ajax({
-          url: window.location.href + "measuremeterdata/countries/",
+          url: window.location.href + "../measuremeterdata/countries/",
           dataType: "json",
           async: false
           }).responseText;
@@ -108,7 +108,7 @@
           //-----------------------------Load MeasureTypes----------------------
 
           var dataMeasuresTypes = $.ajax({
-          url: window.location.href + "measuremeterdata/measuretypes/",
+          url: window.location.href + "../measuremeterdata/measuretypes/",
           dataType: "json",
           async: false
           }).responseText;
@@ -135,10 +135,10 @@
                optionsMeasuresTypes += '<div class="form-check form-check-inline"><input type="checkbox" class="form-check-input" name="type" id="' + category + '" value="' + line['pk'] + '"  />';
                optionsMeasuresTypes += '<label class="form-check-label" for="checkbox-' + id + '">' + line['name'] + '</label></div>&nbsp;';
 
-                var el = document.createElement("option");
-                el.textContent = line['name'];
-                el.value = line['pk'];
-                select.appendChild(el);
+             //   var el = document.createElement("option");
+             //   el.textContent = line['name'];
+             //   el.value = line['pk'];
+             //   select.appendChild(el);
           });
           $('#measurestypes').append(optionsMeasuresTypes);
 
@@ -194,7 +194,7 @@
          }
          console.log(countries + " " + measuretypes);
           var data = $.ajax({
-          url: window.location.href + "measuremeterdata/measures/?country="+countries+"&type="+measuretypes,
+          url: window.location.href + "../measuremeterdata/measures/?country="+countries+"&type="+measuretypes,
           dataType: "json",
           async: false
           }).responseText;
@@ -310,7 +310,7 @@
 
          console.log(countries + " " + measuretypes);
           var dataMeasure = $.ajax({
-          url: window.location.href + "measuremeterdata/measuresbymeasure/?country="+countries+"&type="+measuretypes,
+          url: window.location.href + "../measuremeterdata/measuresbymeasure/?country="+countries+"&type="+measuretypes,
           dataType: "json",
           async: false
           }).responseText;

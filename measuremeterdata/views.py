@@ -5,6 +5,7 @@ from rest_framework import permissions
 from .serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
+from django.db.models import Q
 import datetime
 
 def index(request):
@@ -19,10 +20,31 @@ class DateFilter(filters.BaseInFilter, filters.DateFilter):
     pass
 
 class MeasureFilter(filters.FilterSet):
-    country = NumberInFilter(field_name='country', lookup_expr='in')
-    type = NumberInFilter(field_name='type', lookup_expr='in')
-    start = filters.DateFilter(lookup_expr="lte")
-    end = filters.DateFilter(lookup_expr="gte")
+#    country = NumberInFilter(field_name='country', lookup_expr='in')
+#    type = NumberInFilter(field_name='type', lookup_expr='in')
+#    start = filters.DateFilter(lookup_expr="lte")
+#    end = filters.DateFilter(lookup_expr="gte")
+    country = NumberInFilter(field_name='country')
+    type = NumberInFilter(field_name='type')
+    start = filters.DateFilter(field_name='start')
+    end = filters.DateFilter(field_name='end')
+
+    def get_queryset(self):
+        print("XENA")
+        countries = self.request.query_params.get('country')
+        types = self.request.query_params.get('type')
+        start = self.request.query_params.get('start')
+        end = self.request.query_params.get('end')
+        measures = Measure.objects.all()
+        if countries:
+            measures.filter(country__in=countries)  # returned queryset filtered by ids
+        if type:
+            measures.filter(type__in=types)  # returned queryset filtered by ids
+        if start:
+            measures.filter(start__lte=start)  # returned queryset filtered by ids
+        if end:
+            measures.filter(end__gte=end)  # returned queryset filtered by ids
+        return measures  # return whole queryset
 
     class Meta:
         model = Measure
@@ -31,8 +53,43 @@ class MeasureFilter(filters.FilterSet):
 class MeasureViewSet(viewsets.ModelViewSet):
     queryset = Measure.objects.filter(type__isactive=True).order_by('country__name', 'type__category','type__name')
     serializer_class = MeasureSerializer
-    filter_backends = [DjangoFilterBackend]
-    filter_class = MeasureFilter
+#    filter_backends = [DjangoFilterBackend]
+#    filter_class = MeasureFilter
+
+    def get_queryset(self):
+        """
+        This view should return a list of all the purchases for
+        the user as determined by the username portion of the URL.
+        """
+        queryset = Measure.objects.all()
+        countries = self.request.query_params.get('country', None)
+        types = self.request.query_params.get('type', None)
+        start = self.request.query_params.get('start', None)
+        end = self.request.query_params.get('end', None)
+        print("XENA")
+        if countries is not None and countries is not '' and types is not ',':
+            print(countries)
+            country_params = []
+            for x in countries.split(','):
+                if (x is not ''):
+                    country_params.append(x)
+            queryset = queryset.filter(country__in=country_params)
+
+        if types is not None and types is not '' and types is not ',':
+            type_params = []
+            for x in types.split(','):
+                if (x is not ''):
+                    type_params.append(x)
+            queryset = queryset.filter(type__in=type_params)
+
+        if start is not None:
+            queryset = queryset.filter(Q(start__lte=start)|Q(start__isnull=True))
+
+        if end is not None:
+            queryset = queryset.filter(Q(end__gte=end)|Q(end__isnull=True))
+
+        queryset = queryset.filter(type__isactive=True).order_by('country__name', 'type__category','type__name')
+        return queryset
 
 class MeasureByMeasureViewSet(viewsets.ModelViewSet):
     queryset = Measure.objects.filter(type__isactive=True).order_by('type__category','type__name', 'country__name')

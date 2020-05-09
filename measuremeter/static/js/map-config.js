@@ -1,5 +1,5 @@
 ﻿var eujsconfig ="";
-loadMapData(1,'2020-05-05');
+loadMapData(1,'2020-05-06');
 
 function loadMapData(measuretype,filterdate) {
 eujsconfig = {
@@ -246,28 +246,28 @@ eujsconfig = {
 /*----------------------------------------------------------------------------------*/
 
           var data = $.ajax({
-          url: window.location.href + "measuremeterdata/measures/?type="+measuretype.toString()+"&start="+filterdate.replace('-', '\-')+"&end="+filterdate.replace('-', '\-'),
+          url: window.location.href + "../measuremeterdata/measures/?type="+measuretype.toString()+"&start="+filterdate.replace('-', '\-')+"&end="+filterdate.replace('-', '\-'),
           dataType: "json",
           async: false
           }).responseText;
           var jsonData = JSON.parse(data);
 
 
-          var fullcolor="#90d192";
-          var fullcolorhover ="";
+          var fullcolor="#c54e35";
+          var fullcolorhover ="#e5573a";
 
-          var partcolor="#b7e8b9";
-          var partcolorhover="";
+          var partcolor="#d3bb33";
+          var partcolorhover="#f5da3c";
 
         $.each(jsonData, function(id, line) {
+          console.log(line['country']['name']);
           if (line['start'] != null)
           {
-            var start_str = line['start'].split("-")
-            var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
+            var start_date_str = line['start']
           }
           else
           {
-            var start_date = firstdate;
+            var start_date_str = 'undefined'
           }
 
 
@@ -280,11 +280,25 @@ eujsconfig = {
             var end_date_str = 'undefined'
           }
 
+          var color_norm = ''
+          var color_hover= ''
+
+          if (line['partial'] == true)
+          {
+             color_norm = partcolor
+             color_hover= partcolorhover
+          }
+          else
+          {
+             color_norm = fullcolor
+             color_hover= fullcolorhover
+          }
+
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+line['country']['name']+"</b></p>";
           if (line['none'] == false)
           {
-            tooltip += "<p>"+ line['start'] + " - " + end_date_str + " </p>";
+            tooltip += "<p>"+ start_date_str + " - " + end_date_str + " </p>";
           }
           tooltip += "<hr>";
           tooltip += line['comment'].toString();
@@ -293,8 +307,8 @@ eujsconfig = {
             eujsconfig[line['country']['mapcode_europe']]['hover'] = tooltip;
             /*eujsconfig[line['country']['mapcode_europe']]['url'] = 'XXXXX';
             eujsconfig[line['country']['mapcode_europe']]['target'] = 'XXXXX';*/
-            eujsconfig[line['country']['mapcode_europe']]['upColor'] = fullcolor;
-            eujsconfig[line['country']['mapcode_europe']]['overColor'] = partcolor;
+            eujsconfig[line['country']['mapcode_europe']]['upColor'] = color_norm;
+            eujsconfig[line['country']['mapcode_europe']]['overColor'] = color_hover;
             /*eujsconfig[line['country']['mapcode_europe']]['downColor'] = partcolor;*/
             eujsconfig[line['country']['mapcode_europe']]['active'] = true;
           }
