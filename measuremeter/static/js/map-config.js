@@ -247,8 +247,7 @@ $( document ).ready(function() {
             var today = d.getFullYear() + '-' +
                 (month<10 ? '0' : '') + month + '-' +
                 (day<10 ? '0' : '') + day;
-            console.log(today);
-            loadMapData(1,today);
+            loadMapData(26,today);
             document.getElementById("dateselect").value = today;
 
           $("#btnSubmitMap").click(function(){
@@ -280,17 +279,35 @@ var eujsconfig ={};
 
 function loadMapData(measuretype,filterdate) {
 
+          var dataMeasuresType = $.ajax({
+          url: window.location.href + "../measuremeterdata/measuretypes/?pk="+measuretype,
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonMeasuresType = JSON.parse(dataMeasuresType);
+
+          console.log(jsonMeasuresType);
+          console.log(jsonMeasuresType[0]['name'])
+
+            document.getElementById('measuretype').innerHTML = jsonMeasuresType[0]['name'];
+            document.getElementById('seldate').innerHTML = filterdate;
+
+            document.getElementById('legend').innerHTML = '<font color="#c54e35">'+jsonMeasuresType[0]['tooltip_nonpartial']+'</div></font> //  <font color="#d3bb33">'+jsonMeasuresType[0]['tooltip_partial']+'</div></font> //  <font color="#FFFFFF">No regulation</font>'
+
 jQuery.each(eujsconfig_fresh, function(i, val) {
   var ctry_val = {};
   eujsconfig[i] = '';
   jQuery.each(val, function(i_key, val_key) {
             ctry_val[i_key] = val_key;
          });
+     /*Remove attributes, reset to normal*/
      $("#"+i).attr("fill",eujsconfig_fresh[i]['upColor']);
-    console.log(ctry_val);
+     $("#"+i).attr("cursor",'default');
+     $("#"+i).off();
+     $("#"+i.replace('eujs','eujsvn')).off();
+     $("#"+i.replace('eujs','eujsvn')).attr("cursor",'default');
     eujsconfig[i] = ctry_val;
 });
-console.log(eujsconfig);
 /*----------------------------------------------------------------------------------*/
 
           var data = $.ajax({

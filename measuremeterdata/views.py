@@ -19,6 +19,9 @@ class NumberInFilter(filters.BaseInFilter, filters.NumberFilter):
 class DateFilter(filters.BaseInFilter, filters.DateFilter):
     pass
 
+class MeasureTypeFilter(filters.FilterSet):
+     pk = NumberInFilter(field_name='pk', lookup_expr='in')
+
 class MeasureFilter(filters.FilterSet):
 #    country = NumberInFilter(field_name='country', lookup_expr='in')
 #    type = NumberInFilter(field_name='type', lookup_expr='in')
@@ -104,6 +107,8 @@ class CountryViewSet(viewsets.ModelViewSet):
 class MeasureTypeViewSet(viewsets.ModelViewSet):
     queryset = MeasureType.objects.filter(isactive=True).order_by('category','name')
     serializer_class = MeasureTypeSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_class = MeasureTypeFilter
 
 class MeasureCategoryViewSet(viewsets.ModelViewSet):
     queryset = MeasureCategory.objects.all().order_by('name')
