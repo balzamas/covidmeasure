@@ -285,9 +285,7 @@ function loadMapData(measuretype,filterdate) {
           }).responseText;
           var jsonMeasuresType = JSON.parse(dataMeasuresType);
 
-            document.getElementById('measuretype').innerHTML = jsonMeasuresType[0]['name'];
-            document.getElementById('seldate').innerHTML = filterdate;
-
+            document.getElementById('chosen_options').innerHTML = jsonMeasuresType[0]['name'] + ' // ' + filterdate;
             document.getElementById('legend').innerHTML = '<font color="#c54e35">'+jsonMeasuresType[0]['tooltip_nonpartial']+'</div></font> //  <font color="#d3bb33">'+jsonMeasuresType[0]['tooltip_partial']+'</div></font> //  <font color="#FFFFFF">No regulation</font>'
 
 jQuery.each(eujsconfig_fresh, function(i, val) {

@@ -33,7 +33,6 @@ class MeasureFilter(filters.FilterSet):
     end = filters.DateFilter(field_name='end')
 
     def get_queryset(self):
-        print("XENA")
         countries = self.request.query_params.get('country')
         types = self.request.query_params.get('type')
         start = self.request.query_params.get('start')
@@ -46,7 +45,7 @@ class MeasureFilter(filters.FilterSet):
         if start:
             measures.filter(start__lte=start)  # returned queryset filtered by ids
         if end:
-            measures.filter(end__gte=end)  # returned queryset filtered by ids
+            measures.filter(end__gt=end)  # returned queryset filtered by ids
         return measures  # return whole queryset
 
     class Meta:
@@ -89,7 +88,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(Q(start__lte=start)|Q(start__isnull=True))
 
         if end is not None:
-            queryset = queryset.filter(Q(end__gte=end)|Q(end__isnull=True))
+            queryset = queryset.filter(Q(end__gt=end)|Q(end__isnull=True))
 
         queryset = queryset.filter(type__isactive=True).order_by('country__name', 'type__category','type__name')
         return queryset

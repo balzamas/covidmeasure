@@ -257,6 +257,11 @@
             var end_date_str = 'undefined'
           }
 
+          if (line['isregional'] == true)
+          {
+            type = type + "#";
+          }
+
 
 
           //Set up tooltip
@@ -347,6 +352,11 @@
             var end_date_str = 'undefined'
           }
 
+           if (line['isregional'] == true)
+          {
+            country = country + "#";
+          }
+
           if (line['partial'] == true)
           {
              country += " " +  line['type']['tooltip_partial'];
@@ -360,6 +370,8 @@
              }
             color = ColorClosed[line['type']['category']['pk']];
           }
+
+
 
           if (line['none'] == true)
           {
