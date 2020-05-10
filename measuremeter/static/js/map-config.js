@@ -251,7 +251,6 @@ $( document ).ready(function() {
             document.getElementById("dateselect").value = today;
 
           $("#btnSubmitMap").click(function(){
-                console.log(eujsconfig.eujs1.hover);
                 var measuretype = $("#measurechooser").children("option:selected").val();
                 var seldate = document.getElementById("dateselect").value;
                 loadMapData(measuretype,seldate);
@@ -286,9 +285,6 @@ function loadMapData(measuretype,filterdate) {
           }).responseText;
           var jsonMeasuresType = JSON.parse(dataMeasuresType);
 
-          console.log(jsonMeasuresType);
-          console.log(jsonMeasuresType[0]['name'])
-
             document.getElementById('measuretype').innerHTML = jsonMeasuresType[0]['name'];
             document.getElementById('seldate').innerHTML = filterdate;
 
@@ -303,6 +299,7 @@ jQuery.each(eujsconfig_fresh, function(i, val) {
      /*Remove attributes, reset to normal*/
      $("#"+i).attr("fill",eujsconfig_fresh[i]['upColor']);
      $("#"+i).attr("cursor",'default');
+     $("#"+i).removeAttr("style");
      $("#"+i).off();
      $("#"+i.replace('eujs','eujsvn')).off();
      $("#"+i.replace('eujs','eujsvn')).attr("cursor",'default');
@@ -326,8 +323,6 @@ jQuery.each(eujsconfig_fresh, function(i, val) {
         $.each(jsonData, function(id, line) {
         if (line['country']['mapcode_europe'] != null)
         {
-          console.log(line['country']['name']);
-          console.log(line['country']['mapcode_europe']);
           if (line['start'] != null)
           {
             var start_date_str = line['start']
@@ -385,6 +380,7 @@ jQuery.each(eujsconfig_fresh, function(i, val) {
             /*eujsconfig[line['country']['mapcode_europe']]['downColor'] = partcolor;*/
             eujsconfig[line['country']['mapcode_europe']]['active'] = true;
             $("#"+line['country']['mapcode_europe']).attr("fill",color_norm);
+            euaddEvent(line['country']['mapcode_europe']);
             }
           }
         );
