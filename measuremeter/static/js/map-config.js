@@ -421,7 +421,8 @@ function loadMapData(measuretype,filterdate) {
                          color_norm = partcolor
                          color_hover= partcolorhover
                       }
-                      else
+
+                      if (countrydata[0]['level'] == 2)
                       {
                          color_norm = fullcolor
                          color_hover= fullcolorhover
