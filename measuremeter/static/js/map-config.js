@@ -267,12 +267,9 @@ $( document ).ready(function() {
 
                 var seldate = document.getElementById("dateselect").value;
 
-                console.log(seldate)
                 nextdate = addDays(seldate, 3);
 
                 nextdate_f = formatDate(nextdate);
-                console.log(nextdate_f);
-
 
                 document.getElementById("dateselect").value = nextdate_f;
                 loadMapData(measuretype,nextdate_f);
@@ -283,12 +280,9 @@ $( document ).ready(function() {
 
                 var seldate = document.getElementById("dateselect").value;
 
-                console.log(seldate)
                 nextdate = addDays(seldate, -3);
 
                 nextdate_f = formatDate(nextdate);
-                console.log(nextdate_f);
-
 
                 document.getElementById("dateselect").value = nextdate_f;
                 loadMapData(measuretype,nextdate_f);
@@ -358,17 +352,13 @@ function loadMapData(measuretype,filterdate) {
           var partcolor="#d3bb33";
           var partcolorhover="#f5da3c";
 
-          console.log("HANSA")
-
         var i;
             for (i = 0; i < 47; i++) {
-            console.log(i);
             json_i=i+1;
             record_id='eujs'+json_i;
             countrydata = $.grep(jsonData, function( n, i ) {
                 return n.country.mapcode_europe===record_id;
                 });
-            console.log(countrydata[0]);
             if (countrydata.length > 0)
             {
                    if (countrydata[0]['country']['mapcode_europe'] != null)
@@ -437,7 +427,7 @@ function loadMapData(measuretype,filterdate) {
             else
             {
                   /*Remove attributes, reset to normal*/
-                 $("#"+record_id).attr("fill",eujsconfig_fresh[record_id]['upColor']);
+                 $("#"+record_id).attr("fill","#d5d5d5");
                  $("#"+record_id).attr("cursor",'default');
                  $("#"+record_id).removeAttr("style");
                  $("#"+record_id).off();
