@@ -268,7 +268,7 @@
           days = convertMiliseconds(end_date - start_date,'d')+1;
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
-          if (line['none'] == false)
+          if (line['level'] == 0)
           {
             tooltip += "<p>"+ line['start'] + " - " + end_date_str + " // Duration: " + days + " days</p>";
           }
@@ -276,7 +276,7 @@
           tooltip += line['comment'].toString();
           tooltip += '</div>';
 
-          if (line['partial'] == true)
+          if (line['level'] == 1)
           {
             type += " " +  line['type']['tooltip_partial'];
             color = ColorPartial[line['type']['category']['pk']];
@@ -284,13 +284,13 @@
           else
           {
             color = ColorClosed[line['type']['category']['pk']];
-            if (line['none'] != true)
+            if (line['level'] > 0)
            {
              type += " " + line['type']['tooltip_nonpartial'];
            }
           }
 
-          if (line['none'] == true)
+          if (line['level'] == 0)
           {
             type += " (none)";
             color='#FFFFFF';
@@ -357,14 +357,14 @@
             country = country + "#";
           }
 
-          if (line['partial'] == true)
+          if (line['level'] == 1)
           {
              country += " " +  line['type']['tooltip_partial'];
              color = ColorPartial[line['type']['category']['pk']];
           }
           else
           {
-              if (line['none'] != true)
+              if (line['level'] != 0)
              {
                 country += " " + line['type']['tooltip_nonpartial'];
              }
@@ -373,7 +373,7 @@
 
 
 
-          if (line['none'] == true)
+          if (line['level'] == 0)
           {
             country += " (none)";
             color='#FFFFFF';
@@ -383,7 +383,7 @@
           days = convertMiliseconds(end_date - start_date,'d')+1;
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
-          if (line['none'] == false)
+          if (line['level'] > 0)
           {
             tooltip += "<p>"+ line['start'] + " - " + end_date_str + " // Duration: " + days + " days</p>";
           }

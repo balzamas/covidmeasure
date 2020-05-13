@@ -343,7 +343,7 @@ jQuery.each(eujsconfig_fresh, function(i, val) {
           var color_norm = ''
           var color_hover= ''
 
-          if (line['partial'] == true)
+          if (line['level'] == 1)
           {
              color_norm = partcolor
              color_hover= partcolorhover
@@ -354,7 +354,10 @@ jQuery.each(eujsconfig_fresh, function(i, val) {
              color_hover= fullcolorhover
           }
 
-          if (line['none'] == true)
+
+          console.log(line['level'])
+
+          if (line['level'] == 0)
           {
              color_norm = "#FFFFFF"
              color_hover= "#f1f1f1"
@@ -362,7 +365,7 @@ jQuery.each(eujsconfig_fresh, function(i, val) {
 
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+line['country']['name']+"</b></p>";
-          if (line['none'] == false)
+          if (line['level'] > 0)
           {
             tooltip += "<p>"+ start_date_str + " - " + end_date_str + " </p>";
           }
