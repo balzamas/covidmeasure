@@ -403,7 +403,6 @@ function loadMapData(measuretype,filterdate) {
                         var start_date_str = 'undefined'
                       }
 
-
                       if (countrydata[0]['end'] != null)
                       {
                         var end_date_str = countrydata[0]['end']
@@ -421,14 +420,12 @@ function loadMapData(measuretype,filterdate) {
                          color_norm = partcolor
                          color_hover= partcolorhover
                       }
-
-                      if (countrydata[0]['level'] == 2)
+                      else if (countrydata[0]['level'] == 2)
                       {
                          color_norm = fullcolor
                          color_hover= fullcolorhover
                       }
-
-                      if (countrydata[0]['level'] == 0)
+                      else if (countrydata[0]['level'] == 0)
                       {
                          color_norm = "#FFFFFF"
                          color_hover= "#f1f1f1"
@@ -444,6 +441,7 @@ function loadMapData(measuretype,filterdate) {
                       tooltip += countrydata[0]['comment'].toString();
                       tooltip += '</div>';
 
+                        $("#"+countrydata[0]['country']['mapcode_europe']).removeAttr("style");
                         eujsconfig[countrydata[0]['country']['mapcode_europe']]['hover'] = tooltip;
                         /*eujsconfig[line['country']['mapcode_europe']]['url'] = 'XXXXX';
                         eujsconfig[line['country']['mapcode_europe']]['target'] = 'XXXXX';*/
