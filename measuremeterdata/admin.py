@@ -36,7 +36,7 @@ class MeasureAddForm(forms.ModelForm):
 class MeasureAdmin(admin.ModelAdmin):
     # a list of displayed columns name.
     list_display = ['country', 'type', 'level', 'comment', 'start', 'end']
-    ordering = ['country', 'type']
+    ordering = ['country__name', 'type__category', 'type__name']
     autocomplete_fields = ['country', 'type']
     actions = [duplicate_record]
     list_filter = ('country', 'type', 'type__category')

@@ -56,7 +56,7 @@ class Measure(models.Model):
     isregional = models.BooleanField(default= False)
     sources = models.TextField(max_length=300,blank=True)
 
-    ordering = ['country', 'type']
+    ordering = ['country', 'type__category', 'type__name']
 
     def __str__(self):
         return f"{self.country} {self.type}"
