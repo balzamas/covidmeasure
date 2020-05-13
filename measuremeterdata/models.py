@@ -16,6 +16,7 @@ class Country(models.Model):
     link_worldometer = models.CharField(max_length=200,blank=True,null=True)
     link_gov = models.CharField(max_length=200,blank=True,null=True)
     comment = RichTextField(blank=True)
+    isactive = models.BooleanField(default= True)
     ordering = ['name']
 
     def __str__(self):
