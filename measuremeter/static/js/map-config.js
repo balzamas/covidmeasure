@@ -333,9 +333,6 @@ $( document ).ready(function() {
                 }
           });
 
-
-
-
              var d = new Date();
 
             today = formatDate(d);
