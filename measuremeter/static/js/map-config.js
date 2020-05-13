@@ -254,13 +254,38 @@ function formatDate(d)
             return date;
 }
 
-$( document ).ready(function() {
-
-          $("#btnSubmitMap").click(function(){
+function readloadDate()
+{
                 var measuretype = $("#measurechooser").children("option:selected").val();
                 var seldate = document.getElementById("dateselect").value;
                 loadMapData(measuretype,seldate);
+}
+
+$( document ).ready(function() {
+
+          var dataMeasuresTypes = $.ajax({
+          url: window.location.href + "../measuremeterdata/measuretypes/",
+          dataType: "json",
+          async: false
+          }).responseText;
+
+          var jsonMeasuresTypes = JSON.parse(dataMeasuresTypes);
+          var select = document.getElementById("measurechooser");
+
+          $.each(jsonMeasuresTypes, function(id, line) {
+                var el = document.createElement("option");
+                el.textContent = line['name'];
+                el.value = line['pk'];
+                select.appendChild(el);
           });
+
+            $('#dateselect').change(function() {
+                           readloadDate();
+            });
+
+           $("#measurechooser").change(function() {
+               readloadDate();
+            });
 
           $("#btnPlusDays").click(function(){
                 var measuretype = $("#measurechooser").children("option:selected").val();
@@ -288,22 +313,23 @@ $( document ).ready(function() {
                 loadMapData(measuretype,nextdate_f);
           });
 
+          $("#btnPlay").click(function(){
+                var measuretype = $("#measurechooser").children("option:selected").val();
 
-          var dataMeasuresTypes = $.ajax({
-          url: window.location.href + "../measuremeterdata/measuretypes/",
-          dataType: "json",
-          async: false
-          }).responseText;
+                date = new Date(2020,1,20);
+                enddate_x = new Date();
+                enddate = addDays(enddate_x, 1);
 
-          var jsonMeasuresTypes = JSON.parse(dataMeasuresTypes);
-          var select = document.getElementById("measurechooser");
-
-          $.each(jsonMeasuresTypes, function(id, line) {
-                var el = document.createElement("option");
-                el.textContent = line['name'];
-                el.value = line['pk'];
-                select.appendChild(el);
+                while (date < enddate)
+                {
+                        date_f = formatDate(date);
+                        loadMapData(measuretype,date_f);
+                        date = addDays(date, 3);
+                }
           });
+
+
+
 
              var d = new Date();
 

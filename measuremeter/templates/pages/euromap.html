@@ -34,17 +34,29 @@
       <h1>Covid measures by country</h1>
       <div id="menu"></div>
     <font size="5rem">
-        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10">
+       <div class="container-fluid" >
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto">
+
+        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;height: 70px;vertical-align:middle">
            <select id="measurechooser"></select>
             <input type="date" id="dateselect"
                  value="2020-06-01">
 
+        </div>
+    </div>
+        <div class="col-md-auto">
+                  <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;height: 70px;vertical-align:middle">
 
-          <input id = "btnSubmitMap" type="submit" class="btn btn-secondary btn-lg" value="Reload"/>
-          &nbsp;&nbsp;Days:
+          &nbsp;&nbsp;Browse days
           <input id = "btnMinusDays" type="submit" class="btn btn-secondary btn-lg" value="-3"/>
           <input id = "btnPlusDays" type="submit"  class="btn btn-secondary btn-lg" value="+3"/>
+                    &nbsp;&nbsp;Time Lapse
+          <input id = "btnPlay" type="submit"  class="btn btn-secondary btn-lg" value="Play"/>
+
         </div>
+        </div>
+  </div>
       <div align="center">
           <h2>  <div id="chosen_options"></div></h2>
            <div id="legend"></div>
