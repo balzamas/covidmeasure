@@ -75,7 +75,7 @@
       $( document ).ready(function() {
           //document.getElementById("dateselect").valueAsDate = new Date();
           document.getElementById('title_bar').innerHTML =
-          '<div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10"><font size="3rem">Contact: d.berger@dontsniff.co.uk // Twitter: <a href="https://twitter.com/BergerWthur">@BergerWthur</a>// <a href="/measuremeterdata/">REST Endpoints</a>  // <a href="https://github.com/balzamas/covidmeasure/">Project on GitHub</a><br>         Please contact me if you have corrections/find wrong data.<br><br> <a href="/">Home</a> // <a href="/timeline/">Timeline</a> // <a href="/euromap/">EuroMap</a>         </font>        </div>';
+          '<div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10"><font size="3rem">Contact: d.berger@dontsniff.co.uk // Twitter: <a href="https://twitter.com/BergerWthur">@BergerWthur</a>// <a href="/measuremeterdata/">REST Endpoints</a>  // <a href="https://github.com/balzamas/covidmeasure/">Project on GitHub</a><br>         Please contact me if you have corrections/find wrong data.<br><br> <a href="/">Home</a> // <a href="/about/">About</a> // <a href="/timeline/">Timeline</a> // <a href="/euromap/">EuroMap</a>         </font>        </div>';
 
           $("#btnSubmit").click(function(){
             LoadPanelsFiltered();

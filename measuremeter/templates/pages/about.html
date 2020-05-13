@@ -1,1 +1,36 @@
-{% extends "base.html" %}
+{% load static i18n %}
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+<html>
+ <head>
+   <title>Covid measures by country - Map Europe</title>
+       <meta name="google-site-verification" content="hQ8G-HCPFQgyGYjjxJcseIc0Vxv1Fou_3HEMFCItEOA" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+ </head>
+ <body>
+ <div style="margin-left: 30;margin-top: 30;margin-bottom: 110">
+<h1>About/Info</h1>
+   <div id="title_bar"></div>
+
+<h3>Sources</h3>
+
+<p>Blavatnik school of government -  Coronavirus government response tracker - <a href="https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker">Link</a></p>
+<p>acaps.org -  Covid-19 Government Measures Dataset - <a href="https://www.acaps.org/covid19-government-measures-dataset">Link</a></p>
+<p>Wikipedia - Covid-19 by country - <a href="https://en.wikipedia.org/wiki/COVID-19_pandemic_by_country_and_territory">Link</a></p>
+ <p>Official governmet/health ministry sites (see country profiles)</p>
+ <p>...various newsapapers/news sources</p>
+
+ </div>
+ </body>
+</html>
