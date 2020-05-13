@@ -16,6 +16,7 @@ class Country(models.Model):
     link_worldometer = models.CharField(max_length=200,blank=True,null=True)
     link_gov = models.CharField(max_length=200,blank=True,null=True)
     comment = RichTextField(blank=True)
+    isactive = models.BooleanField(default= True)
     ordering = ['name']
 
     def __str__(self):
@@ -40,17 +41,22 @@ class MeasureType(models.Model):
         return self.name
 
 class Measure(models.Model):
+    LEVEL_CHOICES=[
+        (0, 'None'),
+        (1, 'Partial'),
+        (2, 'Full'),
+    ]
+
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     type = models.ForeignKey(MeasureType, on_delete=models.CASCADE)
     start = models.DateField(null=True,blank=True)
     end = models.DateField(null=True,blank=True)
-    partial = models.BooleanField(default=False)
-    none = models.BooleanField(default=False)
+    level = models.IntegerField(choices=LEVEL_CHOICES,default=0)
     comment = RichTextField(blank=True)
     isregional = models.BooleanField(default= False)
     sources = models.TextField(max_length=300,blank=True)
 
-    ordering = ['country', 'type']
+    ordering = ['country', 'type__category', 'type__name']
 
     def __str__(self):
         return f"{self.country} {self.type}"

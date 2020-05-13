@@ -19,6 +19,9 @@ class NumberInFilter(filters.BaseInFilter, filters.NumberFilter):
 class DateFilter(filters.BaseInFilter, filters.DateFilter):
     pass
 
+class MeasureTypeFilter(filters.FilterSet):
+     pk = NumberInFilter(field_name='pk', lookup_expr='in')
+
 class MeasureFilter(filters.FilterSet):
 #    country = NumberInFilter(field_name='country', lookup_expr='in')
 #    type = NumberInFilter(field_name='type', lookup_expr='in')
@@ -28,13 +31,15 @@ class MeasureFilter(filters.FilterSet):
     type = NumberInFilter(field_name='type')
     start = filters.DateFilter(field_name='start')
     end = filters.DateFilter(field_name='end')
+    level = filters.DateFilter(field_name='level')
 
-    def get_queryset(self):
-        print("XENA")
+
+def get_queryset(self):
         countries = self.request.query_params.get('country')
         types = self.request.query_params.get('type')
         start = self.request.query_params.get('start')
         end = self.request.query_params.get('end')
+        levels = self.request.query_params.get('level')
         measures = Measure.objects.all()
         if countries:
             measures.filter(country__in=countries)  # returned queryset filtered by ids
@@ -43,12 +48,15 @@ class MeasureFilter(filters.FilterSet):
         if start:
             measures.filter(start__lte=start)  # returned queryset filtered by ids
         if end:
-            measures.filter(end__gte=end)  # returned queryset filtered by ids
+            measures.filter(end__gt=end)  # returned queryset filtered by ids
+        if levels:
+            measures.filter(level__in=levels)  # returned queryset filtered by ids
+
         return measures  # return whole queryset
 
-    class Meta:
-        model = Measure
-        fields = ['country', 'type', 'start', 'end']
+        class Meta:
+            model = Measure
+            fields = ['country', 'type', 'start', 'end', 'level']
 
 class MeasureViewSet(viewsets.ModelViewSet):
     queryset = Measure.objects.filter(type__isactive=True).order_by('country__name', 'type__category','type__name')
@@ -66,6 +74,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
         types = self.request.query_params.get('type', None)
         start = self.request.query_params.get('start', None)
         end = self.request.query_params.get('end', None)
+        levels = self.request.query_params.get('level')
         print("XENA")
         if countries is not None and countries is not '' and types is not ',':
             print(countries)
@@ -86,7 +95,14 @@ class MeasureViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(Q(start__lte=start)|Q(start__isnull=True))
 
         if end is not None:
-            queryset = queryset.filter(Q(end__gte=end)|Q(end__isnull=True))
+            queryset = queryset.filter(Q(end__gt=end)|Q(end__isnull=True))
+
+        if levels is not None and levels is not '' and types is not ',':
+            level_params = []
+            for x in levels.split(','):
+                if (x is not ''):
+                    level_params.append(x)
+            queryset = queryset.filter(level__in=level_params)
 
         queryset = queryset.filter(type__isactive=True).order_by('country__name', 'type__category','type__name')
         return queryset
@@ -104,6 +120,8 @@ class CountryViewSet(viewsets.ModelViewSet):
 class MeasureTypeViewSet(viewsets.ModelViewSet):
     queryset = MeasureType.objects.filter(isactive=True).order_by('category','name')
     serializer_class = MeasureTypeSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_class = MeasureTypeFilter
 
 class MeasureCategoryViewSet(viewsets.ModelViewSet):
     queryset = MeasureCategory.objects.all().order_by('name')

@@ -14,6 +14,7 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
     <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/timeline.js' %}"></script>
     <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
     <!-- / Fathom -->
@@ -52,12 +53,7 @@
 
 
       <h1>Covid measures by country</h1>
-        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10">
-          <font size="1.5rem">
-            Contact: d.berger@dontsniff.co.uk // Twitter: <a href="https://twitter.com/BergerWthur">@BergerWthur</a>// <a href="/measuremeterdata/">REST Endpoints</a>  // <a href="https://github.com/balzamas/covidmeasure/">Project on GitHub</a><br>
-          This is still <b>PROTOTYPING</b>! Please contact me to contribute (gathering data).
-          </font>
-        </div>
+      <div id="menu"></div>
 
       <div class="sticky">
         <span onclick="openNav()"><img src="{% static 'images/filter.png' %}"></span>
@@ -66,16 +62,18 @@
 
       <div id="bycountry">
               <b>By country</b>
-                * = end of measure undefined<br>
+                * = end of measure undefined,
+                # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
 
-                <div id="datachartCountry" style="height: 900px;"></div>
+                <div id="datachartCountry" style="height: 600px;"></div>
       </div>
       <div id="bymeasure" style="display:none">
               <b>By measure</b>
-                * = end of measure undefined<br>
+                * = end of measure undefined,
+                # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
-                <div id="datachartMeasure" style="height: 900px"></div>
+                <div id="datachartMeasure" style="height: 600px"></div>
           </div>
       </div>
   </body>

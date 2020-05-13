@@ -3,7 +3,6 @@
 Have a look at the data from Switzerland and Czech republic as an example.
 
 ####Dates
-
 Start day: when the measure was introduced.
 End day: The date when the measure was replaced by another one or when it was lifted.
 
