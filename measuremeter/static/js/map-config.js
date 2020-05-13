@@ -261,6 +261,10 @@ function readloadDate()
                 loadMapData(measuretype,seldate);
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 $( document ).ready(function() {
 
           var dataMeasuresTypes = $.ajax({
@@ -313,10 +317,10 @@ $( document ).ready(function() {
                 loadMapData(measuretype,nextdate_f);
           });
 
-          $("#btnPlay").click(function(){
+          $("#btnPlay").click(async function(){
                 var measuretype = $("#measurechooser").children("option:selected").val();
 
-                date = new Date(2020,1,20);
+                date = new Date(2020,2,5);
                 enddate_x = new Date();
                 enddate = addDays(enddate_x, 1);
 
@@ -324,7 +328,8 @@ $( document ).ready(function() {
                 {
                         date_f = formatDate(date);
                         loadMapData(measuretype,date_f);
-                        date = addDays(date, 3);
+                        await sleep(100);
+                        date = addDays(date, 2);
                 }
           });
 
