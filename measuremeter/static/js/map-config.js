@@ -237,23 +237,61 @@
   }
 };
 
-$( document ).ready(function() {
+function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
 
-            var d = new Date();
-
+function formatDate(d)
+{
             var month = d.getMonth()+1;
             var day = d.getDate();
 
-            var today = d.getFullYear() + '-' +
+            var date = d.getFullYear() + '-' +
                 (month<10 ? '0' : '') + month + '-' +
                 (day<10 ? '0' : '') + day;
-            loadMapData(26,today);
-            document.getElementById("dateselect").value = today;
+            return date;
+}
+
+$( document ).ready(function() {
 
           $("#btnSubmitMap").click(function(){
                 var measuretype = $("#measurechooser").children("option:selected").val();
                 var seldate = document.getElementById("dateselect").value;
                 loadMapData(measuretype,seldate);
+          });
+
+          $("#btnPlusDays").click(function(){
+                var measuretype = $("#measurechooser").children("option:selected").val();
+
+                var seldate = document.getElementById("dateselect").value;
+
+                console.log(seldate)
+                nextdate = addDays(seldate, 3);
+
+                nextdate_f = formatDate(nextdate);
+                console.log(nextdate_f);
+
+
+                document.getElementById("dateselect").value = nextdate_f;
+                loadMapData(measuretype,nextdate_f);
+          });
+
+          $("#btnMinusDays").click(function(){
+                var measuretype = $("#measurechooser").children("option:selected").val();
+
+                var seldate = document.getElementById("dateselect").value;
+
+                console.log(seldate)
+                nextdate = addDays(seldate, -3);
+
+                nextdate_f = formatDate(nextdate);
+                console.log(nextdate_f);
+
+
+                document.getElementById("dateselect").value = nextdate_f;
+                loadMapData(measuretype,nextdate_f);
           });
 
 
@@ -272,6 +310,13 @@ $( document ).ready(function() {
                 el.value = line['pk'];
                 select.appendChild(el);
           });
+
+             var d = new Date();
+
+            today = formatDate(d);
+            document.getElementById("dateselect").value = today;
+            $("#measurechooser").val("26");
+            loadMapData(26,today);
 });
 
 var eujsconfig ={};
