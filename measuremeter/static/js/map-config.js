@@ -333,21 +333,14 @@ function loadMapData(measuretype,filterdate) {
             document.getElementById('chosen_options').innerHTML = jsonMeasuresType[0]['name'] + ' // ' + filterdate;
             document.getElementById('legend').innerHTML = '<font color="#c54e35">'+jsonMeasuresType[0]['tooltip_nonpartial']+'</div></font> //  <font color="#d3bb33">'+jsonMeasuresType[0]['tooltip_partial']+'</div></font> //  <font color="#FFFFFF">No regulation</font>'
 
-jQuery.each(eujsconfig_fresh, function(i, val) {
-  var ctry_val = {};
-  eujsconfig[i] = '';
-  jQuery.each(val, function(i_key, val_key) {
-            ctry_val[i_key] = val_key;
-         });
-     /*Remove attributes, reset to normal*/
-     $("#"+i).attr("fill",eujsconfig_fresh[i]['upColor']);
-     $("#"+i).attr("cursor",'default');
-     $("#"+i).removeAttr("style");
-     $("#"+i).off();
-     $("#"+i.replace('eujs','eujsvn')).off();
-     $("#"+i.replace('eujs','eujsvn')).attr("cursor",'default');
-    eujsconfig[i] = ctry_val;
-});
+            jQuery.each(eujsconfig_fresh, function(i, val) {
+              var ctry_val = {};
+              eujsconfig[i] = '';
+              jQuery.each(val, function(i_key, val_key) {
+                        ctry_val[i_key] = val_key;
+                     });
+                eujsconfig[i] = ctry_val;
+            });
 /*----------------------------------------------------------------------------------*/
 
           var data = $.ajax({
@@ -357,80 +350,101 @@ jQuery.each(eujsconfig_fresh, function(i, val) {
           }).responseText;
           var jsonData = JSON.parse(data);
 
+           /* +"&level=1,2" */
+
           var fullcolor="#c54e35";
           var fullcolorhover ="#e5573a";
 
           var partcolor="#d3bb33";
           var partcolorhover="#f5da3c";
 
-        $.each(jsonData, function(id, line) {
-        if (line['country']['mapcode_europe'] != null)
-        {
-          if (line['start'] != null)
-          {
-            var start_date_str = line['start']
-          }
-          else
-          {
-            var start_date_str = 'undefined'
-          }
+          console.log("HANSA")
+
+        var i;
+            for (i = 0; i < 47; i++) {
+            console.log(i);
+            json_i=i+1;
+            record_id='eujs'+json_i;
+            countrydata = $.grep(jsonData, function( n, i ) {
+                return n.country.mapcode_europe===record_id;
+                });
+            console.log(countrydata[0]);
+            if (countrydata.length > 0)
+            {
+                   if (countrydata[0]['country']['mapcode_europe'] != null)
+                    {
+                      if (countrydata[0]['start'] != null)
+                      {
+                        var start_date_str = countrydata[0]['start']
+                      }
+                      else
+                      {
+                        var start_date_str = 'undefined'
+                      }
 
 
-          if (line['end'] != null)
-          {
-            var end_date_str = line['end']
-          }
-          else
-          {
-            var end_date_str = 'undefined'
-          }
+                      if (countrydata[0]['end'] != null)
+                      {
+                        var end_date_str = countrydata[0]['end']
+                      }
+                      else
+                      {
+                        var end_date_str = 'undefined'
+                      }
 
-          var color_norm = ''
-          var color_hover= ''
+                      var color_norm = ''
+                      var color_hover= ''
 
-          if (line['level'] == 1)
-          {
-             color_norm = partcolor
-             color_hover= partcolorhover
-          }
-          else
-          {
-             color_norm = fullcolor
-             color_hover= fullcolorhover
-          }
+                      if (countrydata[0]['level'] == 1)
+                      {
+                         color_norm = partcolor
+                         color_hover= partcolorhover
+                      }
+                      else
+                      {
+                         color_norm = fullcolor
+                         color_hover= fullcolorhover
+                      }
 
+                      if (countrydata[0]['level'] == 0)
+                      {
+                         color_norm = "#FFFFFF"
+                         color_hover= "#f1f1f1"
+                      }
 
-          console.log(line['level'])
+                      var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
+                      tooltip += "<p><b>"+countrydata[0]['country']['name']+"</b></p>";
+                      if (countrydata[0]['level'] > 0)
+                      {
+                        tooltip += "<p>"+ start_date_str + " - " + end_date_str + " </p>";
+                      }
+                      tooltip += "<hr>";
+                      tooltip += countrydata[0]['comment'].toString();
+                      tooltip += '</div>';
 
-          if (line['level'] == 0)
-          {
-             color_norm = "#FFFFFF"
-             color_hover= "#f1f1f1"
-          }
+                        eujsconfig[countrydata[0]['country']['mapcode_europe']]['hover'] = tooltip;
+                        /*eujsconfig[line['country']['mapcode_europe']]['url'] = 'XXXXX';
+                        eujsconfig[line['country']['mapcode_europe']]['target'] = 'XXXXX';*/
+                        eujsconfig[countrydata[0]['country']['mapcode_europe']]['upColor'] = color_norm;
+                        eujsconfig[countrydata[0]['country']['mapcode_europe']]['overColor'] = color_hover;
+                        /*eujsconfig[line['country']['mapcode_europe']]['downColor'] = partcolor;*/
+                        eujsconfig[countrydata[0]['country']['mapcode_europe']]['active'] = true;
+                        $("#"+countrydata[0]['country']['mapcode_europe']).attr("fill",color_norm);
+                        euaddEvent(countrydata[0]['country']['mapcode_europe']);
+                        }
+                      }
 
-          var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
-          tooltip += "<p><b>"+line['country']['name']+"</b></p>";
-          if (line['level'] > 0)
-          {
-            tooltip += "<p>"+ start_date_str + " - " + end_date_str + " </p>";
-          }
-          tooltip += "<hr>";
-          tooltip += line['comment'].toString();
-          tooltip += '</div>';
+            else
+            {
+                  /*Remove attributes, reset to normal*/
+                 $("#"+record_id).attr("fill",eujsconfig_fresh[record_id]['upColor']);
+                 $("#"+record_id).attr("cursor",'default');
+                 $("#"+record_id).removeAttr("style");
+                 $("#"+record_id).off();
+                 $("#"+record_id.replace('eujs','eujsvn')).off();
+                 $("#"+record_id.replace('eujs','eujsvn')).attr("cursor",'default');
 
-            eujsconfig[line['country']['mapcode_europe']]['hover'] = tooltip;
-            /*eujsconfig[line['country']['mapcode_europe']]['url'] = 'XXXXX';
-            eujsconfig[line['country']['mapcode_europe']]['target'] = 'XXXXX';*/
-            eujsconfig[line['country']['mapcode_europe']]['upColor'] = color_norm;
-            eujsconfig[line['country']['mapcode_europe']]['overColor'] = color_hover;
-            /*eujsconfig[line['country']['mapcode_europe']]['downColor'] = partcolor;*/
-            eujsconfig[line['country']['mapcode_europe']]['active'] = true;
-            $("#"+line['country']['mapcode_europe']).attr("fill",color_norm);
-            euaddEvent(line['country']['mapcode_europe']);
             }
-          }
-        );
-
-
+        }
 
 }
