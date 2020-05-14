@@ -10,8 +10,11 @@
           var x = document.getElementById("bycountry");
           if (x.style.display === "none") {
             x.style.display = "block";
+            $('#loadtext').html("by measure");
+
           } else {
             x.style.display = "none";
+            $('#loadtext').html("by country");
           }
           var y = document.getElementById("bymeasure");
           if (y.style.display === "none") {
@@ -21,8 +24,6 @@
           }
 
           LoadPanelsFiltered();
-
-
         }
 
       function convertMiliseconds(miliseconds, format) {
@@ -57,6 +58,11 @@
           $("#load_data").click(function(){
             LoadPanelsFiltered();
           });
+
+          $("#change_mode").click(function(){
+            switchPanels();
+          });
+
 
           //-----------------------------Load countries----------------------
 
@@ -135,7 +141,6 @@
          {
            measuretypes="";
          }
-         console.log(countries + " " + measuretypes);
           var data = $.ajax({
           url: window.location.href + "../measuremeterdata/measures/?country="+countries+"&type="+measuretypes,
           dataType: "json",
@@ -222,9 +227,13 @@
           days = convertMiliseconds(end_date - start_date,'d')+1;
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
-          if (line['level'] == 0)
+          if (line['level'] > 0)
           {
-            tooltip += "<p>"+ line['start'] + " - " + end_date_str + " // Duration: " + days + " days</p>";
+            tooltip += "<p>"+ line['start'] + " - " + end_date_str
+            if (line['end'] != null && line['start'] != null)
+            {
+               tooltip += " // Duration: " + days + " days</p>"
+            }
           }
           tooltip += "<hr>";
           tooltip += line['comment'].toString();
@@ -256,7 +265,6 @@
 });
         chartCountry.draw(dataTableCountry);
 
-         console.log(countries + " " + measuretypes);
           var dataMeasure = $.ajax({
           url: window.location.href + "../measuremeterdata/measuresbymeasure/?country="+countries+"&type="+measuretypes,
           dataType: "json",
@@ -290,6 +298,7 @@
           else
           {
             var start_date = firstdate;
+            var end_date_str = 'undefined'
           }
 
 
@@ -335,11 +344,17 @@
 
           //Set up tooltip
           days = convertMiliseconds(end_date - start_date,'d')+1;
+
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
+
           if (line['level'] > 0)
           {
-            tooltip += "<p>"+ line['start'] + " - " + end_date_str + " // Duration: " + days + " days</p>";
+            tooltip += "<p>"+ line['start'] + " - " + end_date_str;
+            if (line['end'] != null && line['start'] != null)
+            {
+               tooltip += " // Duration: " + days + " days</p>"
+            }
           }
           tooltip += "<hr>";
           tooltip += line['comment'].toString();

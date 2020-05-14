@@ -2,7 +2,6 @@
       $( document ).ready(function() {
           //document.getElementById("dateselect").valueAsDate = new Date();
 
-            console.log($( "#menu" ).length)
           if ( $( "#menu" ).length ) {
                document.getElementById('menu').innerHTML =
               '<div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10"><font size="5rem"><a href="/">Home</a> // <a href="/about/">About</a> // <a href="/timeline/">Timeline</a> // <a href="/euromap/">EuroMap</a>         </font>        </div>';
