@@ -1,37 +1,20 @@
       google.charts.load("current", {packages:["timeline"]});
       google.charts.setOnLoadCallback(drawChart);
 
-      /* Set the width of the side navigation to 250px */
-      function openNav() {
-        document.getElementById("mySidenav").style.width = "500px";
-      }
-
-      /* Set the width of the side navigation to 0 */
-      function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-      }
-
       function LoadPanelsFiltered()
       {
-            var countries = ""
-            $.each($("input[name='country']:checked"), function(){
-                countries = countries + $(this).val() +",";
-            });
-
-            var types = ""
-            $.each($("input[name='type']:checked"), function(){
-                types = types + $(this).val() +",";
-            });
-
-            drawChart(countries, types);
+            drawChart($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
       }
 
       function switchPanels() {
           var x = document.getElementById("bycountry");
           if (x.style.display === "none") {
             x.style.display = "block";
+            $('#loadtext').html("by measure");
+
           } else {
             x.style.display = "none";
+            $('#loadtext').html("by country");
           }
           var y = document.getElementById("bymeasure");
           if (y.style.display === "none") {
@@ -41,8 +24,6 @@
           }
 
           LoadPanelsFiltered();
-
-
         }
 
       function convertMiliseconds(miliseconds, format) {
@@ -71,13 +52,17 @@
         }
       };
 
-
       $( document ).ready(function() {
           //document.getElementById("dateselect").valueAsDate = new Date();
 
-          $("#btnSubmit").click(function(){
+          $("#load_data").click(function(){
             LoadPanelsFiltered();
           });
+
+          $("#change_mode").click(function(){
+            switchPanels();
+          });
+
 
           //-----------------------------Load countries----------------------
 
@@ -89,15 +74,22 @@
 
           var jsonCountries = JSON.parse(dataCountries);
 
-          var optionsCountries='';
-          optionsCountries += '<div class="form-check"><input type="checkbox" class="form-check-input" name="checkbox-all" id="checkbox-all-country" value="all"  />';
-          optionsCountries += '<label class="form-check-label" for="checkbox-all">All</label></div>';
+          countries = []
+          countries_html=''
 
           $.each(jsonCountries, function(id, line) {
-               optionsCountries += '<div class="form-check form-check-inline"><input type="checkbox" class="form-check-input" name="country" id="checkbox-' + id + '" value="' + line['pk'] + '"  />';
-               optionsCountries += '<label class="form-check-label" for="checkbox-' + id + '">' + line['name'] + '</label></div>&nbsp;';
+               countries.push({
+                    name: '<i class="'+line['code'] +' flag"/>'+line['name'],
+                    value: line['pk']
+                  });
           });
-          $('#countries').append(optionsCountries);
+
+          $('#countries_dd')
+              .dropdown({
+                values:countries
+              })
+            ;
+
 
           //-----------------------------Load MeasureTypes----------------------
 
@@ -115,53 +107,21 @@
 
           var category = -1;
 
+          measuretypes = []
+
           $.each(jsonMeasuresTypes, function(id, line) {
-              if (line['category']['pk'] != category)
-              {
-                category = line['category']['pk'];
-                optionsMeasuresTypes += '<b><div class="form-check"><input type="checkbox" class="form-check-input" name="category" id="category" value="' + category + '" />';
-                optionsMeasuresTypes += '<label class="form-check-label" for="checkbox-' + category + '">' + line['category']['name'] + '</label></div></b>';
-
-
-              }
-               optionsMeasuresTypes += '<div class="form-check form-check-inline"><input type="checkbox" class="form-check-input" name="type" id="' + category + '" value="' + line['pk'] + '"  />';
-               optionsMeasuresTypes += '<label class="form-check-label" for="checkbox-' + id + '">' + line['name'] + '</label></div>&nbsp;';
-          });
-          $('#measurestypes').append(optionsMeasuresTypes);
-
-          //-----------------------------CheckBox logix-------------------------------------
-
-          $("#checkbox-all-country").click(function() {
-              if($(this).is(":checked"))
-              {
-                  $.each($("input[name='country']"), function(){
-                      $(this).prop("checked", true);
+                 measuretypes.push({
+                    name: line['name'],
+                    value: line['pk']
                   });
-              }
-              else
-              {
-                  $.each($("input[name='country']"), function(){
-                      $(this).prop("checked", false);
-                  });
-              }
           });
 
-           $.each($("input[name='category']"), function(){
-                $(this).click(function() {
-                  if($(this).is(":checked"))
-                  {
-                    $.each($("input[id="+$(this).val()+"]"), function(){
-                        $(this).prop("checked", true);
-                    });
-                  }
-                  else
-                  {
-                    $.each($("input[id="+$(this).val()+"]"), function(){
-                        $(this).prop("checked", false);
-                    });
-                  }
-                });
-            });
+          $('#measuretypes_dd')
+              .dropdown({
+                values:measuretypes
+              })
+            ;
+
       });
 
 
@@ -173,13 +133,14 @@
 
          if (countries == undefined)
          {
-           countries="";
+          //Startup: set random country
+          rnd_country = Math.floor(Math.random() * 43) + 1;  // returns a random integer from 1 to 10
+           countries=rnd_country.toString();
          }
          if (measuretypes == undefined)
          {
            measuretypes="";
          }
-         console.log(countries + " " + measuretypes);
           var data = $.ajax({
           url: window.location.href + "../measuremeterdata/measures/?country="+countries+"&type="+measuretypes,
           dataType: "json",
@@ -266,9 +227,13 @@
           days = convertMiliseconds(end_date - start_date,'d')+1;
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
-          if (line['level'] == 0)
+          if (line['level'] > 0)
           {
-            tooltip += "<p>"+ line['start'] + " - " + end_date_str + " // Duration: " + days + " days</p>";
+            tooltip += "<p>"+ line['start'] + " - " + end_date_str
+            if (line['end'] != null && line['start'] != null)
+            {
+               tooltip += " // Duration: " + days + " days</p>"
+            }
           }
           tooltip += "<hr>";
           tooltip += line['comment'].toString();
@@ -300,7 +265,6 @@
 });
         chartCountry.draw(dataTableCountry);
 
-         console.log(countries + " " + measuretypes);
           var dataMeasure = $.ajax({
           url: window.location.href + "../measuremeterdata/measuresbymeasure/?country="+countries+"&type="+measuretypes,
           dataType: "json",
@@ -334,6 +298,7 @@
           else
           {
             var start_date = firstdate;
+            var end_date_str = 'undefined'
           }
 
 
@@ -379,11 +344,17 @@
 
           //Set up tooltip
           days = convertMiliseconds(end_date - start_date,'d')+1;
+
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
+
           if (line['level'] > 0)
           {
-            tooltip += "<p>"+ line['start'] + " - " + end_date_str + " // Duration: " + days + " days</p>";
+            tooltip += "<p>"+ line['start'] + " - " + end_date_str;
+            if (line['end'] != null && line['start'] != null)
+            {
+               tooltip += " // Duration: " + days + " days</p>"
+            }
           }
           tooltip += "<hr>";
           tooltip += line['comment'].toString();

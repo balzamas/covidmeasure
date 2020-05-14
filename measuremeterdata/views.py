@@ -104,11 +104,11 @@ class MeasureViewSet(viewsets.ModelViewSet):
                     level_params.append(x)
             queryset = queryset.filter(level__in=level_params)
 
-        queryset = queryset.filter(type__isactive=True).order_by('country__name', 'type__category','type__name')
+        queryset = queryset.filter(type__isactive=True).order_by('country__name', 'type__category__name','type__name')
         return queryset
 
 class MeasureByMeasureViewSet(viewsets.ModelViewSet):
-    queryset = Measure.objects.filter(type__isactive=True).order_by('type__category','type__name', 'country__name')
+    queryset = Measure.objects.filter(type__isactive=True).order_by('country__name', 'type__category__name','type__name' )
     serializer_class = MeasureSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = MeasureFilter

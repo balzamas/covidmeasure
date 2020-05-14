@@ -6,18 +6,30 @@
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
+
+
+
 <html xmlns="http://www.w3.org/1999/html">
   <head>
     <title>Covid measures by country</title>
     <meta name="google-site-verification" content="hQ8G-HCPFQgyGYjjxJcseIc0Vxv1Fou_3HEMFCItEOA" />
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/timeline.js' %}"></script>
+
     <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
     <!-- / Fathom -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/timeline.js' %}"></script>
 
     <style>
       body {
@@ -28,37 +40,64 @@
   </head>
   <body bgcolor="black">
 
- <div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-   <div style="margin-left: 10;margin-top: 10;margin-right: 10;">
-      <font color="#000000">
-          <h3>Filter</h3>
-        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10;">
 
-            <b>Countries:</b>
-          <div id="countries"></div>
-        </div>
-        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;margin-bottom: 10;">
-          <b>Measures:</b>
-          <div id="measurestypes"></div>
-        </div>
-      </font>
-      <p><input id = "btnSubmit" type="submit" value="Reload"/></p>
- </div>
-</div>
-
-
-
-<div style="margin-left: 30;margin-top: 30;">
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
 
 
       <h1>Covid measures by country</h1>
       <div id="menu"></div>
 
-      <div class="sticky">
-        <span onclick="openNav()"><img src="{% static 'images/filter.png' %}"></span>
-        <span onclick="switchPanels()"><img src="{% static 'images/switch.png' %}"></span>
+       <div class="container-fluid" >
+          <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+              Countries (empty=all)
+              <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;width:400px;vertical-align:middle">
+                <div class="ui multiple fluid search selection dropdown" id="countries_dd">
+                  <i class="large flag outline icon"></i>
+                  <input type="hidden" name="countries">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Countries</div>
+                  <div class="menu" id="countries_list">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-auto">
+            Measures (empty=all)
+            <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;width:400px;vertical-align:middle">
+              <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
+                <i class="large heartbeat icon"></i>
+                <input type="hidden" name="measuretypes">
+                <i class="dropdown icon"></i>
+                <div class="default text">Measure types</div>
+                <div class="menu">
+              </div>
+            </div>
+          </div>
+        </div>
+       </div>
       </div>
+
+         <div class="container-fluid" >
+          <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+              <div class="ui vertical animated massive button" tabindex="0" id="load_data" style="width:200px">
+                <div class="hidden content" >Load</div>
+                <div class="visible content">
+                  <i class="large arrow circle down icon"></i>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-auto">
+              <div class="ui vertical animated massive button" tabindex="0" id="change_mode" style="width:200px">
+                <div class="hidden content" id="loadtext">by measure</div>
+                <div class="visible content">
+                  <i class="large exchange alternate icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+         </div>
 
       <div id="bycountry">
               <b>By country</b>

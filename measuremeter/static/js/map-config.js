@@ -256,7 +256,7 @@ function formatDate(d)
 
 function readloadDate()
 {
-                var measuretype = $("#measurechooser").children("option:selected").val();
+                var measuretype = $('#measurechooser').dropdown('get value');
                 var seldate = document.getElementById("dateselect").value;
                 loadMapData(measuretype,seldate);
 }
@@ -274,14 +274,21 @@ $( document ).ready(function() {
           }).responseText;
 
           var jsonMeasuresTypes = JSON.parse(dataMeasuresTypes);
-          var select = document.getElementById("measurechooser");
+
+          measuretypes = []
 
           $.each(jsonMeasuresTypes, function(id, line) {
-                var el = document.createElement("option");
-                el.textContent = line['name'];
-                el.value = line['pk'];
-                select.appendChild(el);
+                 measuretypes.push({
+                    name: line['name'],
+                    value: line['pk']
+                  });
           });
+
+          $('#measurechooser')
+              .dropdown({
+                values:measuretypes
+              })
+            ;
 
             $('#dateselect').change(function() {
                            readloadDate();
@@ -292,7 +299,7 @@ $( document ).ready(function() {
             });
 
           $("#btnPlusDays").click(function(){
-                var measuretype = $("#measurechooser").children("option:selected").val();
+                var measuretype = $('#measurechooser').dropdown('get value');
 
                 var seldate = document.getElementById("dateselect").value;
 
@@ -305,7 +312,7 @@ $( document ).ready(function() {
           });
 
           $("#btnMinusDays").click(function(){
-                var measuretype = $("#measurechooser").children("option:selected").val();
+                var measuretype = $('#measurechooser').dropdown('get value');
 
                 var seldate = document.getElementById("dateselect").value;
 
@@ -318,7 +325,7 @@ $( document ).ready(function() {
           });
 
           $("#btnPlay").click(async function(){
-                var measuretype = $("#measurechooser").children("option:selected").val();
+                var measuretype = $('#measurechooser').dropdown('get value');
 
                 date = new Date(2020,2,5);
                 enddate_x = new Date();
@@ -337,7 +344,7 @@ $( document ).ready(function() {
 
             today = formatDate(d);
             document.getElementById("dateselect").value = today;
-            $("#measurechooser").val("26");
+            $('#measurechooser').dropdown('set selected',26)
             loadMapData(26,today);
 });
 
