@@ -127,7 +127,9 @@
 
          if (countries == undefined)
          {
-           countries="";
+          //Startup: set random country
+          rnd_country = Math.floor(Math.random() * 43) + 1;  // returns a random integer from 1 to 10
+           countries=rnd_country.toString();
          }
          if (measuretypes == undefined)
          {
