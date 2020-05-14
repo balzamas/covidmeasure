@@ -14,6 +14,13 @@
     <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
     <!-- / Fathom -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+
     <!-- Map -->
     <link rel="stylesheet" type="text/css" href="{% static 'css/map-style.css'%}"/>
     <script src="{% static 'js/map-config.js'%}"></script>
@@ -35,21 +42,52 @@
   <div class="row justify-content-md-center">
     <div class="col-md-auto">
 
-        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;height: 70px;vertical-align:middle">
-           <select id="measurechooser"></select>
-            <input type="date" id="dateselect"
-                 value="2020-06-01">
+        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;height:85px;width:750px;vertical-align:middle">
+
+                <div class="ui fluid search selection dropdown" id="measurechooser">
+                  <input type="hidden" name="countries">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Countries</div>
+                  <div class="menu" id="countries_list">
+                </div>
+              </div>
+
+
+
+
+
 
         </div>
     </div>
         <div class="col-md-auto">
-                  <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;height: 70px;vertical-align:middle">
+          <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;height:85px;vertical-align:middle">
+             <input style="font-size: 2rem;height:60px" type="date" id="dateselect" value="2020-06-01">
+          </div>
+        </div>
 
-          &nbsp;&nbsp;Browse days
-          <input id = "btnMinusDays" type="submit" class="btn btn-secondary btn-lg" value="-3"/>
-          <input id = "btnPlusDays" type="submit"  class="btn btn-secondary btn-lg" value="+3"/>
-                    &nbsp;&nbsp;Time Lapse
-          <input id = "btnPlay" type="submit"  class="btn btn-secondary btn-lg" value="Play"/>
+        <div class="col-md-auto">
+                  <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;vertical-align:middle">
+
+              <div class="ui vertical animated massive button" tabindex="0" id="btnMinusDays">
+                <div class="hidden content">-3</div>
+                <div class="visible content">
+                  <i class="large angle double left icon"></i>
+                </div>
+              </div>
+
+              <div class="ui vertical animated massive button" tabindex="0" id="btnPlusDays">
+                <div class="hidden content">+3</div>
+                <div class="visible content">
+                  <i class="large angle double right icon"></i>
+                </div>
+              </div>
+
+              <div class="ui vertical animated massive button" tabindex="0" id="btnPlay">
+                <div class="hidden content">Play</div>
+                <div class="visible content">
+                  <i class="large play icon"></i>
+                </div>
+              </div>
 
         </div>
         </div>
