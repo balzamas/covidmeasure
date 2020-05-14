@@ -1,6 +1,8 @@
       google.charts.load("current", {packages:["timeline"]});
       google.charts.setOnLoadCallback(drawChart);
 
+
+
       /* Set the width of the side navigation to 250px */
       function openNav() {
         document.getElementById("mySidenav").style.width = "500px";
@@ -70,7 +72,6 @@
           return { d: days, h: hours, m: minutes, s: seconds };
         }
       };
-
 
       $( document ).ready(function() {
           //document.getElementById("dateselect").valueAsDate = new Date();

@@ -6,18 +6,23 @@
 {# Load CSS and JavaScript #}
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
+
+
+
 <html xmlns="http://www.w3.org/1999/html">
   <head>
     <title>Covid measures by country</title>
     <meta name="google-site-verification" content="hQ8G-HCPFQgyGYjjxJcseIc0Vxv1Fou_3HEMFCItEOA" />
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/timeline.js' %}"></script>
+
     <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
     <!-- / Fathom -->
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/timeline.js' %}"></script>
 
     <style>
       body {
@@ -27,6 +32,7 @@
 
   </head>
   <body bgcolor="black">
+
 
  <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
