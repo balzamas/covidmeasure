@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .models import Measure, Country, MeasureType, MeasureCategory
+from .models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer
+from .serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
@@ -21,6 +21,10 @@ class DateFilter(filters.BaseInFilter, filters.DateFilter):
 
 class MeasureTypeFilter(filters.FilterSet):
      pk = NumberInFilter(field_name='pk', lookup_expr='in')
+
+class CasesDeathsFilter(filters.FilterSet):
+    country = NumberInFilter(field_name='country', lookup_expr='in')
+    date = filters.DateFromToRangeFilter(field_name='date')
 
 class MeasureFilter(filters.FilterSet):
 #    country = NumberInFilter(field_name='country', lookup_expr='in')
@@ -126,3 +130,9 @@ class MeasureTypeViewSet(viewsets.ModelViewSet):
 class MeasureCategoryViewSet(viewsets.ModelViewSet):
     queryset = MeasureCategory.objects.all().order_by('name')
     serializer_class = MeasureCategorySerializer
+
+class CasesDeathsViewSet(viewsets.ModelViewSet):
+    queryset = CasesDeaths.objects.all().order_by('date')
+    serializer_class = CasesDeathsSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_class = CasesDeathsFilter

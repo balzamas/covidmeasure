@@ -62,3 +62,13 @@ class Measure(models.Model):
         return f"{self.country} {self.type}"
 
 
+class CasesDeaths(models.Model):
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    date = models.DateField()
+    cases = models.IntegerField(default=0)
+    deaths = models.IntegerField(default=0)
+
+    ordering = ['country__pk', 'date', 'cases', 'deaths']
+
+    def __str__(self):
+        return f"{self.country} {self.date}"

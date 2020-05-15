@@ -8,6 +8,7 @@ router.register(r'measuresbymeasure', views.MeasureByMeasureViewSet)
 router.register(r'countries', views.CountryViewSet)
 router.register(r'measuretypes', views.MeasureTypeViewSet)
 router.register(r'measurecatgories', views.MeasureCategoryViewSet)
+router.register(r'casesdeaths', views.CasesDeathsViewSet)
 
 
 # Wire up our API using automatic URL routing.

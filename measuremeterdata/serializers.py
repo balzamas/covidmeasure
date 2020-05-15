@@ -1,4 +1,4 @@
-from .models import Measure, Country, MeasureType, MeasureCategory
+from .models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths
 from rest_framework import serializers
 
 
@@ -6,6 +6,12 @@ class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
         fields = ['pk', 'name', 'code', 'mapcode_europe']
+
+class CasesDeathsSerializer(serializers.ModelSerializer):
+    country = CountrySerializer()
+    class Meta:
+        model = CasesDeaths
+        fields = ['pk', 'country', 'date', 'deaths', 'cases']
 
 class MeasureCategorySerializer(serializers.ModelSerializer):
     class Meta:
