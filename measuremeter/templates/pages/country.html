@@ -11,7 +11,7 @@
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>Covid/Coronavirus measures by country - Timeline</title>
+    <title>Covid/Coronavirus measures by country - Country profile</title>
         <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
 
     <meta name="google-site-verification" content="hQ8G-HCPFQgyGYjjxJcseIc0Vxv1Fou_3HEMFCItEOA" />
@@ -31,7 +31,9 @@
 
        <link href="{% static 'css/project.css' %}" rel="stylesheet">
        <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
-       <script type="text/javascript" src="{% static 'js/timeline.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/timeline_base.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/country.js' %}"></script>
+
 
     <style>
       body {
@@ -47,6 +49,7 @@
 
 
       <h1>Covid/Coronavirus measures by country - Timeline</h1>
+      <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu"></div>
 
        <div class="container-fluid" >
@@ -66,13 +69,36 @@
        </div>
       </div>
 
-      <div id="bymeasure" style="display:none">
-              <b>By measure</b>
+     <font size="3rem">
+       <div class="container-fluid" >
+  <div class="row justify-content-md-center">
+    <div class="col-md-auto">
+
+        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;height:85px;vertical-align:middle">
+          <p><a href={{ item.link_worldometer }} target="_blank">Link World-o-meter</a></p>
+          <p><a href={{ item.link_gov }} target="_blank">Link government</a></p>
+
+        </div>
+    </div>
+  </div>
+       </div>
+
+      <div id="bycountry">
+              <b>By country</b>
                 * = end of measure undefined,
                 # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
-                <div id="datachartMeasure" style="height: 600px"></div>
-          </div>
+
+                <div id="datachartCountry" style="height: 600px;"></div>
+      </div>
+            <div id="cases">
+              <b>By country</b>
+                * = end of measure undefined,
+                # = regional<br>
+                Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
+
+                <div id="datachartCases" style="height: 600px;"></div>
+      </div>
       </div>
   </body>
 </html>
