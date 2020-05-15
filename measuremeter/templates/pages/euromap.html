@@ -38,6 +38,7 @@
 <body>
 <div style="margin-left: 30;margin-top: 30;margin-bottom: 110">
       <h1>Covid/Coronavirus measures by country - Europe map</h1>
+      <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu"></div>
     <font size="5rem">
        <div class="container-fluid" >
@@ -95,9 +96,16 @@
         </div>
   </div>
       <div align="center">
-          <h2>  <div id="chosen_options"></div></h2>
+                <div class="ui animated button" tabindex="0" id="btnCopyLink">
+          <div class="visible content"><i class="copy icon"></i></div>
+          <div class="hidden content">
+            Copy link
+          </div>
+      </div>
+          <h2>  <div id="chosen_options"></div>  </h2>
            <div id="legend"></div>
       </div>
+
 
   </font>
   <span id="eujstip"></span>
