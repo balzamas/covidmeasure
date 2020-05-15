@@ -1,14 +1,83 @@
-<html>
+{% load static i18n %}
+{% load static %}
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
+
+
+<html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>Hans</title>
+    <title>Covid/Coronavirus measures by country - Timeline</title>
+        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+
+    <meta name="google-site-verification" content="hQ8G-HCPFQgyGYjjxJcseIc0Vxv1Fou_3HEMFCItEOA" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/timeline.js' %}"></script>
+
+    <style>
+      body {
+        background-color: #d5d5d5;
+      }
+    </style>
+
   </head>
-
-<body>
-    <div class="item-detail">
-        <h1> Detail </h1>
-        <p>{{ item.name }}</p>
-    </div>
-</body>
+  <body bgcolor="black">
 
 
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+
+
+      <h1>Covid/Coronavirus measures by country - Timeline</h1>
+      <div id="menu"></div>
+
+       <div class="container-fluid" >
+          <div class="row justify-content-md-center">
+            <div class="col-md-auto">
+              <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;width:400px;vertical-align:middle">
+                <div class="ui fluid search selection dropdown" id="countries_dd">
+                  <i class="large flag outline icon"></i>
+                  <input type="hidden" name="countries">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Countries</div>
+                  <div class="menu" id="countries_list">
+                </div>
+              </div>
+            </div>
+          </div>
+       </div>
+      </div>
+
+      <div id="bymeasure" style="display:none">
+              <b>By measure</b>
+                * = end of measure undefined,
+                # = regional<br>
+                Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
+                <div id="datachartMeasure" style="height: 600px"></div>
+          </div>
+      </div>
+  </body>
 </html>
+
+
+
+
+

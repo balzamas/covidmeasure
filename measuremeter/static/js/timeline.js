@@ -197,10 +197,12 @@
           {
             var start_str = line['start'].split("-")
             var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
+            var start_date_str = line['start'];
           }
           else
           {
             var start_date = firstdate;
+            var start_date_str = ""
           }
 
           if (line['end'] != null)
@@ -227,9 +229,10 @@
           days = convertMiliseconds(end_date - start_date,'d')+1;
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
-          if (line['level'] > 0)
+
+          if (line['end'] != null || line['start'] != null)
           {
-            tooltip += "<p>"+ line['start'] + " - " + end_date_str
+            tooltip += "<p>"+ start_date_str + " - " + end_date_str
             if (line['end'] != null && line['start'] != null)
             {
                tooltip += " // Duration: " + days + " days</p>"
@@ -294,11 +297,12 @@
           {
             var start_str = line['start'].split("-")
             var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
+            var start_date_str = line['start'];
           }
           else
           {
             var start_date = firstdate;
-            var end_date_str = 'undefined'
+            var start_date_str = ""
           }
 
 
@@ -348,9 +352,9 @@
           var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
           tooltip += "<p><b>"+type+"</b></p>";
 
-          if (line['level'] > 0)
+          if (line['end'] != null || line['start'] != null)
           {
-            tooltip += "<p>"+ line['start'] + " - " + end_date_str;
+            tooltip += "<p>"+ start_date_str + " - " + end_date_str;
             if (line['end'] != null && line['start'] != null)
             {
                tooltip += " // Duration: " + days + " days</p>"
