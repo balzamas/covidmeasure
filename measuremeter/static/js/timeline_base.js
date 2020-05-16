@@ -114,9 +114,6 @@
         });
 
         var percent = dayscount * 100 / diffDays;
-        console.log(percent);
-
-
 
           dataTableCases.addColumn('string', 'Year');
           dataTableCases.addColumn('number', 'cases');
