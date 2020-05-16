@@ -4,6 +4,7 @@
       function LoadPanelsFiltered()
       {
             drawChartByCountries($('#countries_dd').dropdown('get value'));
+            drawChartCases($('#countries_dd').dropdown('get value'));
       }
 
 
@@ -20,7 +21,7 @@
 
                 $('#countries_dd').dropdown('set selected',$('#param').text());
                  google.charts.setOnLoadCallback(drawChartByCountries($('#param').text()));
-                 google.charts.setOnLoadCallback(drawChartCases);
+                 google.charts.setOnLoadCallback(drawChartCases($('#param').text()));
             }
             else
             {

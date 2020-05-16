@@ -10,25 +10,31 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         workpath = os.path.dirname(os.path.abspath(__file__))  # Returns the Path your .py file is in
 
-        #Should move to datasources directory
-        with open(os.path.join(workpath, 'covidcasesdeath.csv'), newline='') as csvfile:
-            spamreader = csv.reader(csvfile, delimiter=';', quotechar='"')
+        cntry = Country.objects.all();
 
-            countrycode="cz"
-            country = Country.objects.get(code=countrycode)
-            for row in spamreader:
-                if (row[7].lower() == countrycode.lower()):
-                    date_field = row[0].split(".")
-                    date_object = datetime.date(int(date_field[2]), int(date_field[1]), int(date_field[0]))
-                    print("Check if entry exists:")
+        for cntry in Country.objects.all():
+            countrycode = cntry.code;
+            print(countrycode)
 
-                    try:
-                        cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
-                        print("it exists")
-                    except CasesDeaths.DoesNotExist:
-                        print("it's new!")
-                        cd = CasesDeaths(country=country, deaths=row[5], cases=row[4], date=date_object)
-                        cd.save()
+            # Should move to datasources directory
+            with open(os.path.join(workpath, 'covidcasesdeath.csv'), newline='') as csvfile:
+                spamreader = csv.reader(csvfile, delimiter=';', quotechar='"')
+
+                country = Country.objects.get(code=countrycode)
+                for row in spamreader:
+                    if (row[7].lower() == countrycode.lower()):
+                        date_field = row[0].split(".")
+                        date_object = datetime.date(int(date_field[2]), int(date_field[1]), int(date_field[0]))
+
+                        try:
+                            cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
+                        except CasesDeaths.DoesNotExist:
+                            cd = CasesDeaths(country=country, deaths=row[5], cases=row[4], date=date_object)
+                            cd.save()
+
+
+
+
 
 
 

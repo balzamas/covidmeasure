@@ -1,19 +1,18 @@
       google.charts.load("current", {packages:["timeline"]});
-        google.charts.load('current', {'packages':['corechart']});
-
-
-
-
+      google.charts.load('current', {'packages':['corechart']});
 
       var ColorClosed = ["#90d192", '#91e3e0', '#eba9e3', '#b4b9ed', '#e6c4a1', '#e6a1a4', '#a8e6d6'];
       var ColorPartial = ["#b7e8b9", '#bce6e4', '#f2d3ee', '#cfd1e8', '#ebd9c7', '#e6bec0', '#c7ebe2'];
+
+      var firstdate = new Date(2020, 5, 1);
+      var lastdate = new Date(2020, 5, 1);
 
      //-----------------------------DrawChart-------------------------------------
 
       function getStartEndDate(jsonData) {
             //Get first and last date
-            var firstdate = new Date(2020, 5, 1);
-            var lastdate = new Date(2020, 5, 1);
+            firstdate = new Date(2020, 5, 1);
+            lastdate = new Date(2020, 5, 1);
 
             $.each(jsonData, function(id, line) {
               if (line['start'] != null)
@@ -68,10 +67,23 @@
         }
       };
 
-      function drawChartCases(country, datefrom, dateto) {
+      function formatDate(d)
+        {
+            var month = d.getMonth()+1;
+            var day = d.getDate();
+
+            var date = d.getFullYear() + '-' +
+                (month<10 ? '0' : '') + month + '-' +
+                (day<10 ? '0' : '') + day;
+            return date;
+        }
+
+      function drawChartCases(country) {
+          lastdate_x = formatDate(lastdate);
+          firstdate_x = formatDate(firstdate);
 
           var data = $.ajax({
-          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after="+datefrom+"&date_before="+dateto,
+          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
           dataType: "json",
           async: false
           }).responseText;
@@ -83,30 +95,37 @@
         var chartCases = new google.visualization.Timeline(containerCases);
         var dataTableCases = new google.visualization.DataTable();
 
-        dataTableCases.addColumn({ type: 'string', id: 'Country' });
-        dataTableCases.addColumn({ type: 'int', id: 'Country2' });
-        dataTableCases.addColumn({ type: 'int', id: 'Country3' });
+        var dataTableCases = new google.visualization.DataTable();
+        var rows = new Array();
 
+        var diffTime = Math.abs(lastdate - firstdate);
+        var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        dayscount = 0
 
         $.each(jsonData, function(id, line) {
-            dataTableCases.addRows("aa",33,33);
-
-
+            dayscount += 1;
+            rows.push([line['date'], line['cases'],line['deaths']]);
         });
-                var data = google.visualization.arrayToDataTable([
-                  ['Year', 'Sales', 'Expenses'],
-                  ['2004',  1000,      400],
-                  ['2005',  1170,      460],
-                  ['2006',  660,       1120],
-                  ['2007',  1030,      540]
-                ]);
 
-                var options = {
-                  title: 'Company Performance',
-                  curveType: 'function',
-                  legend: { position: 'bottom' }
-                };
-                cases.draw(dataTableCases, options);
+        var percent = dayscount * 100 / diffDays;
+        console.log(percent);
+
+
+
+          dataTableCases.addColumn('string', 'Year');
+          dataTableCases.addColumn('number', 'cases');
+          dataTableCases.addColumn('number', 'deaths');
+
+          //  alert(rows);
+          dataTableCases.addRows(rows);
+
+        var options = {
+              legend: { position: 'bottom' },
+             chartArea:{left:60,top:20,width:percent+'%'},
+             fontSize: 13
+           };
+
+        cases.draw(dataTableCases, options);
       }
 
 
@@ -143,9 +162,9 @@
         dataTableCountry.addColumn({ type: 'date', id: 'Start' });
         dataTableCountry.addColumn({ type: 'date', id: 'End' });
 
-            var startend_dates=getStartEndDate(jsonData)
-            var firstdate = startend_dates[0]
-            var lastdate = startend_dates[1]
+        var startend_dates=getStartEndDate(jsonData);
+        firstdate = startend_dates[0];
+        lastdate = startend_dates[1];
 
         $.each(jsonData, function(id, line) {
 
@@ -258,8 +277,8 @@
         dataTableMeasure.addColumn({ type: 'date', id: 'End' });
 
         var startend_dates=getStartEndDate(jsonDataMeasure)
-        var firstdate = startend_dates[0]
-        var lastdate = startend_dates[1]
+        firstdate = startend_dates[0]
+        lastdate = startend_dates[1]
 
 
         $.each(jsonDataMeasure, function(id, line) {
