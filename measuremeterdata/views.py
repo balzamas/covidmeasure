@@ -44,7 +44,7 @@ def get_queryset(self):
         start = self.request.query_params.get('start')
         end = self.request.query_params.get('end')
         levels = self.request.query_params.get('level')
-        measures = Measure.objects.all()
+        measures = Measure.objects.all().order_by('country__name', 'type__category','type__name')
         if countries:
             measures.filter(country__in=countries)  # returned queryset filtered by ids
         if type:

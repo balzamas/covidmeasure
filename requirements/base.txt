@@ -17,4 +17,6 @@ djangorestframework
 django-filter
 django-bootstrap4
 django-ckeditor
+pandas
+xlrd
 
