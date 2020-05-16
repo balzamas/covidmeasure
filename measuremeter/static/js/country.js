@@ -25,8 +25,9 @@
             }
             else
             {
-                 google.charts.setOnLoadCallback(drawChartByCountries);
-
+                 $('#countries_dd').dropdown('set selected',1);
+                 google.charts.setOnLoadCallback(drawChartByCountries(1));
+                 google.charts.setOnLoadCallback(drawChartCases(1));
             }
 
 

@@ -7,12 +7,18 @@
       var firstdate = new Date(2020, 5, 1);
       var lastdate = new Date(2020, 5, 1);
 
+        function addDays(date, days) {
+          var result = new Date(date);
+          result.setDate(result.getDate() + days);
+          return result;
+        }
+
      //-----------------------------DrawChart-------------------------------------
 
       function getStartEndDate(jsonData) {
             //Get first and last date
             firstdate = new Date(2020, 5, 1);
-            lastdate = new Date(2020, 5, 1);
+            lastdate = new Date();
 
             $.each(jsonData, function(id, line) {
               if (line['start'] != null)
@@ -131,9 +137,6 @@
 
 
       function drawChartByCountries(countries, measuretypes) {
-
-         console.log("Country:");
-         console.log(countries);
          if (countries == undefined)
          {
           //Startup: set random country
