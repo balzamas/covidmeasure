@@ -98,7 +98,6 @@
         var cases = new google.visualization.LineChart(document.getElementById('datachartCases'));
 
         var containerCases = document.getElementById('datachartCases');
-        var chartCases = new google.visualization.Timeline(containerCases);
         var dataTableCases = new google.visualization.DataTable();
 
         var dataTableCases = new google.visualization.DataTable();
