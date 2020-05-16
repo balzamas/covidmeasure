@@ -99,8 +99,6 @@
 
         var containerCases = document.getElementById('datachartCases');
         var dataTableCases = new google.visualization.DataTable();
-
-        var dataTableCases = new google.visualization.DataTable();
         var rows = new Array();
 
         var diffTime = Math.abs(lastdate - firstdate);
