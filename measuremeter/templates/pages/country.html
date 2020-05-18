@@ -7,8 +7,6 @@
 {% bootstrap_css %}
 {% bootstrap_javascript jquery='full' %}
 
-
-
 <html xmlns="http://www.w3.org/1999/html">
   <head>
     <title>Covid/Coronavirus measures by country - Country profile</title>
@@ -71,17 +69,16 @@
 
      <font size="3rem">
        <div class="container-fluid" >
-<!--  <div class="row justify-content-md-center">
+  <div class="row justify-content-md-center">
     <div class="col-md-auto">
 
         <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;height:85px;vertical-align:middle">
-          <p><a href={{ item.link_worldometer }} target="_blank">Link World-o-meter</a></p>
-          <p><a href={{ item.link_gov }} target="_blank">Link government</a></p>
-
+          <div id="worldometer"></div><br>
+          <div id="gov"></div>
         </div>
     </div>
   </div>
-       </div> -->
+       </div>
 
       <div id="bycountry">
               <b>By country</b>
