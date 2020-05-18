@@ -41,8 +41,12 @@ class Command(BaseCommand):
                                 date_field = row[0].split(".")
                                 date_object = datetime.date(int(date_field[2]), int(date_field[1]), int(date_field[0]))
                             except:
-                                date_field = row[0].split("/")
-                                date_object = datetime.date(int(date_field[2]), int(date_field[1]), int(date_field[0]))
+                                try:
+                                    date_field = row[0].split("/")
+                                    date_object = datetime.date(int(date_field[2]), int(date_field[1]), int(date_field[0]))
+                                except:
+                                    date_field = row[0].split("-")
+                                    date_object = datetime.date(int(date_field[2]), int(date_field[1]), int(date_field[0]))
                             try:
                                 cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
                             except CasesDeaths.DoesNotExist:
