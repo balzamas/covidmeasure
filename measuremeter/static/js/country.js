@@ -1,7 +1,7 @@
       function LoadCountryData(country_id)
       {
           var data = $.ajax({
-          url: "/measuremeterdata/countries/?country="+country_id,
+          url: "/measuremeterdata/countries/?pk="+country_id,
           dataType: "json",
           async: false
           }).responseText;
@@ -32,10 +32,4 @@
             {
                 $('#countries_dd').dropdown('set selected',$('#param').text());
             }
-            else
-            {
-                 $('#countries_dd').dropdown('set selected',1);
-            }
-
-
       });
