@@ -54,7 +54,6 @@ class Command(BaseCommand):
                                 cd.save()
                     except:
                         print("Error reading line:")
-                        print(row[7])
                         print(row)
 
 
