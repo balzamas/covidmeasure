@@ -38,15 +38,9 @@ class Command(BaseCommand):
                     try:
                         if (row[7].lower() == countrycode.lower()):
                             try:
-                                date_field = row[0].split(".")
-                                date_object = datetime.date(int(date_field[2]), int(date_field[1]), int(date_field[0]))
+                                   date_object = datetime.date(int(row[3]), int(row[2]), int(row[1]))
                             except:
-                                try:
-                                    date_field = row[0].split("/")
-                                    date_object = datetime.date(int(date_field[2]), int(date_field[1]), int(date_field[0]))
-                                except:
-                                    date_field = row[0].split("-")
-                                    date_object = datetime.date(int(date_field[2]), int(date_field[1]), int(date_field[0]))
+                                    print("Error")
                             try:
                                 cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
                             except CasesDeaths.DoesNotExist:
