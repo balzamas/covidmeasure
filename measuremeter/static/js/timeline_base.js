@@ -96,10 +96,12 @@
           var jsonData = JSON.parse(data);
 
         var cases = new google.visualization.LineChart(document.getElementById('datachartCases'));
+        var deaths = new google.visualization.LineChart(document.getElementById('datachartDeaths'));
 
-        var containerCases = document.getElementById('datachartCases');
         var dataTableCases = new google.visualization.DataTable();
-        var rows = new Array();
+        var dataTableDeaths = new google.visualization.DataTable();
+        var rowsCases = new Array();
+        var rowsDeaths = new Array();
 
         var diffTime = Math.abs(lastdate - firstdate);
         var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -107,17 +109,22 @@
 
         $.each(jsonData, function(id, line) {
             dayscount += 1;
-            rows.push([line['date'], line['cases'],line['deaths']]);
+            rowsCases.push([line['date'], line['cases']]);
+            rowsDeaths.push([line['date'], line['deaths'], line['deathstotal']]);
         });
 
         var percent = dayscount * 100 / diffDays;
 
           dataTableCases.addColumn('string', 'Year');
           dataTableCases.addColumn('number', 'cases');
-          dataTableCases.addColumn('number', 'deaths');
+
+          dataTableDeaths.addColumn('string', 'Date');
+          dataTableDeaths.addColumn('number', 'Deaths Corona');
+          dataTableDeaths.addColumn('number', 'Deaths Total');
 
           //  alert(rows);
-          dataTableCases.addRows(rows);
+          dataTableCases.addRows(rowsCases);
+          dataTableDeaths.addRows(rowsDeaths);
 
         var options = {
               legend: { position: 'bottom' },
@@ -126,6 +133,9 @@
            };
 
         cases.draw(dataTableCases, options);
+        deaths.draw(dataTableDeaths, options);
+
+
       }
 
 
