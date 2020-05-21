@@ -31,7 +31,7 @@ class Command(BaseCommand):
                 spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
 
                 rowcount = 0
-                savedate = datetime.date(2020,12,30)
+                savedate = datetime.date(2019,12,30)
                 for row in spamreader:
                     rowcount += 1
                     if (rowcount > 7 and rowcount < 61 and row[1] is not ''):
