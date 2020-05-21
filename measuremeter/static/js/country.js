@@ -46,6 +46,10 @@
                LoadPanelsFiltered()
             });
 
+            $('.ui.accordion')
+                 .accordion()
+            ;
+
             $('#param').hide();
 
             if ($('#param').text() != '')

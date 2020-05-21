@@ -267,8 +267,14 @@
           var source = "Source: " + line['sources'].toString()
 
           dataTableCountry.addRows([[line['country']['name'].toString(),type,tooltip,color, start_date,end_date]])
-});
-        chartCountry.draw(dataTableCountry);
+        });
+
+        var options = {
+            timeline: { avoidOverlappingGridLines: true},
+            height:550
+          };
+
+        chartCountry.draw(dataTableCountry, options);
       }
 
 

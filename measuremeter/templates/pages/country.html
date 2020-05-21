@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
@@ -86,12 +87,21 @@
                 # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
 
-                <div id="datachartCountry" style="height: 500px;"></div>
+                <div id="datachartCountry"></div>
       </div>
             <div id="cases"></div>
+
+          <div class="ui accordion">
+            <div class="title active">
+              <i class="dropdown icon"></i>
               <p><b>Reported cases</b></p>
-                <div id="datachartCases" style="height: 300px;"></div>
-              <br>
+            </div>
+            <div class="content active">
+              <p class="transition visible"><div id="datachartCases" style="height: 300px;"></div><br></p>
+            </div>
+          </div>
+
+
               <p><b>Reported deaths</b></p>
               <p>
                 <div id="avg_desc"></div>
