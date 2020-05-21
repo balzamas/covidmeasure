@@ -43,6 +43,9 @@ class Command(BaseCommand):
                                     print("Error")
                             try:
                                 cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
+                                cd_existing.deaths=row[5]
+                                cd_existing.cases = row[4]
+                                cd_existing.save()
                             except CasesDeaths.DoesNotExist:
                                 cd = CasesDeaths(country=country, deaths=row[5], cases=row[4], date=date_object)
                                 cd.save()

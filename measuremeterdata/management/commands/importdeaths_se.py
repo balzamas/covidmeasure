@@ -11,7 +11,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        url = 'https://www.scb.se/hitta-statistik/statistik-efter-amne/befolkning/befolkningens-sammansattning/befolkningsstatistik/pong/tabell-och-diagram/preliminar-statistik-over-doda/'
+        country = Country.objects.get(pk=23)
+
+        url = country.source_death
 
         myfile = requests.get(url)
 
@@ -20,7 +22,7 @@ class Command(BaseCommand):
         print("Convert and write:")
         read_file.to_csv('/tmp/death_se.csv', index=None, header=True)
 
-        country = Country.objects.get(pk=23)
+
 
         workpath = os.path.dirname(os.path.abspath(__file__))  # Returns the Path your .py file is in
 
