@@ -17,10 +17,11 @@ class Country(models.Model):
     link_gov = models.CharField(max_length=200,blank=True,null=True)
     comment = RichTextField(blank=True)
     isactive = models.BooleanField(default= True)
-    average_death_per_day = models.IntegerField(default=0)
-    average_death_per_day_peak = models.IntegerField(default=0)
-    avg_desc = models.CharField(max_length=200,blank=True,null=True)
-    avg_peak_desc = models.CharField(max_length=200,blank=True,null=True)
+    average_death_per_day = models.DecimalField(default=0,max_digits=7, decimal_places=1)
+    average_death_per_day_peak = models.DecimalField(default=0,max_digits=7, decimal_places=1)
+    avg_desc = models.CharField(max_length=500,blank=True,null=True)
+    avg_peak_desc = models.CharField(max_length=500,blank=True,null=True)
+    source_death = models.CharField(max_length=500,blank=True,null=True)
     ordering = ['name']
 
     def __str__(self):

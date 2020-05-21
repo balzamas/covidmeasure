@@ -84,7 +84,8 @@
             return date;
         }
 
-      function drawChartCases(country) {
+      function drawChartCases(country, avg_values) {
+          console.log(avg_values);
           lastdate_x = formatDate(lastdate);
           firstdate_x = formatDate(firstdate);
 
@@ -110,7 +111,14 @@
         $.each(jsonData, function(id, line) {
             dayscount += 1;
             rowsCases.push([line['date'], line['cases']]);
-            rowsDeaths.push([line['date'], line['deaths'], line['deathstotal']]);
+              if (Number(avg_values[0] > 0))
+              {
+                rowsDeaths.push([line['date'], line['deaths'], line['deathstotal'], Number(avg_values[0]), Number(avg_values[1])]);
+              }
+              else
+              {
+                rowsDeaths.push([line['date'], line['deaths']]);
+              }
         });
 
         var percent = dayscount * 100 / diffDays;
@@ -120,7 +128,13 @@
 
           dataTableDeaths.addColumn('string', 'Date');
           dataTableDeaths.addColumn('number', 'Deaths Corona');
-          dataTableDeaths.addColumn('number', 'Deaths Total');
+
+          if (Number(avg_values[0] > 0))
+          {
+            dataTableDeaths.addColumn('number', 'Deaths Total');
+            dataTableDeaths.addColumn('number', 'Deaths Average.');
+            dataTableDeaths.addColumn('number', 'Deaths Peak');
+          }
 
           //  alert(rows);
           dataTableCases.addRows(rowsCases);
@@ -129,7 +143,12 @@
         var options = {
               legend: { position: 'bottom' },
              chartArea:{left:60,top:20,width:percent+'%'},
-             fontSize: 13
+             fontSize: 13,
+             series: {
+                2: { lineDashStyle: [4, 4] },
+                3: { lineDashStyle: [4, 4] },
+            }
+
            };
 
         cases.draw(dataTableCases, options);
