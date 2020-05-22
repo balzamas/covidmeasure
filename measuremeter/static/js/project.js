@@ -3,8 +3,16 @@
           //document.getElementById("dateselect").valueAsDate = new Date();
 
           if ( $( "#menu" ).length ) {
-               document.getElementById('menu').innerHTML =
-              '<div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10"><font size="5rem"><a href="/">Home</a> // <a href="/about/">About</a> // <a href="/timeline/">Compare countries</a> // <a href="/country/">Country profiles</a> // <a href="/euromap/">EuroMap</a>         </font>        </div>';
+               document.getElementById('menu').innerHTML = `
+               <div style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10">
+               <div class="ui five item menu">
+                  <a class="item" href="/">Home</a>
+                  <a class="item" href="/about/">Info/About</a>
+                  <a class="item" href="/timeline/">Compare countries</a>
+                  <a class="item" href="/country/">Country profiles</a>
+                  <a class="item" href="/euromap/">Euro Map</a>
+                  </div>
+                </div> `
            }
 
           if ( $( "#title_bar" ).length ) {

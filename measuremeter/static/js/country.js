@@ -50,17 +50,19 @@
 
             current_content +=`<div class="ui link cards">`
            $.each(jsonData, function(id, line) {
-                console.log(line)
                 if (line['level'] > 0)
                 {
                     var tooltip = ''
+                    var color_symbol = 'white'
                     if (line['level'] == 1 )
                     {
                         tooltip = line['type']['tooltip_partial']
+                        color_symbol = 'orange'
                     }
-                    else if (line['level'] == 1 )
+                    else if (line['level'] == 2 )
                     {
                         tooltip = line['type']['tooltip_nonpartial']
+                        color_symbol = 'red'
                     }
 
                     var start_str = line['start']
@@ -79,9 +81,9 @@
                     <div class="content">
                       <div class="header">`+ line['type']['name'] +`</div>
                       <div class="meta">
-                        <a>`+ tooltip +`</a>
+                        <a><i class="ban icon" style='color:`+ color_symbol +`'></i>&nbsp;`+ tooltip +`</a>
                       </div>
-                      <div class="description">
+                      <div class="description" >
                         `+ line['comment'] +`
                       </div>
                     </div>
@@ -131,5 +133,11 @@
             if ($('#param').text() != '')
             {
                 $('#countries_dd').dropdown('set selected',$('#param').text());
+            }
+            else
+            {
+                var rnd_country = Math.floor(Math.random() * 43) + 1;
+
+                $('#countries_dd').dropdown('set selected',rnd_country);
             }
       });

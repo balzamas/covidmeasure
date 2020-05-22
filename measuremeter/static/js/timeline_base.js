@@ -85,7 +85,6 @@
         }
 
       function drawChartCases(country, avg_values) {
-          console.log(avg_values);
           lastdate_x = formatDate(lastdate);
           firstdate_x = formatDate(firstdate);
 
