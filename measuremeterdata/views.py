@@ -90,7 +90,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
                     country_params.append(x)
             queryset = queryset.filter(country__in=country_params)
 
-        if types is not None and types is not '' and types is not ',':
+        if types != None and types != '' and types != ',':
             type_params = []
             for x in types.split(','):
                 if (x != ''):
@@ -106,7 +106,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
         if levels != None and levels != '' and types != ',':
             level_params = []
             for x in levels.split(','):
-                if (x is not ''):
+                if (x != ''):
                     level_params.append(x)
             queryset = queryset.filter(level__in=level_params)
 
