@@ -7,6 +7,9 @@
           }).responseText;
           var jsonData = JSON.parse(data);
 
+          LoadMeasures(country_id);
+
+
           document.getElementById('worldometer').innerHTML = '<a href= "' + jsonData[0].link_worldometer + '" target="_blank">Link World-o-meter</a>';
           document.getElementById('gov').innerHTML = '<a href="' + jsonData[0].link_gov + '" target="_blank">Link Government</a>' ;
           if (Number(jsonData[0].average_death_per_day)>0)
@@ -28,6 +31,79 @@
             $('#deaths_description').hide();
            }
           return [jsonData[0].average_death_per_day, jsonData[0].average_death_per_day_peak];
+      }
+
+      function LoadMeasures(country_id)
+      {
+            var d = new Date();
+            today = formatDate(d);
+
+
+          var data = $.ajax({
+          url: "/measuremeterdata/measures/?country="+country_id.toString()+"&start="+today.replace('-', '\-')+"&end="+today.replace('-', '\-'),
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonData = JSON.parse(data);
+
+            var current_content = ''
+
+            current_content +=`<div class="ui link cards">`
+           $.each(jsonData, function(id, line) {
+                console.log(line)
+                if (line['level'] > 0)
+                {
+                    var tooltip = ''
+                    if (line['level'] == 1 )
+                    {
+                        tooltip = line['type']['tooltip_partial']
+                    }
+                    else if (line['level'] == 1 )
+                    {
+                        tooltip = line['type']['tooltip_nonpartial']
+                    }
+
+                    var start_str = line['start']
+                    if (line['start'] == null)
+                    {
+                         start_str = 'undefined'
+                    }
+
+                    var end_str = line['end']
+                    if (line['end'] == null)
+                    {
+                         end_str = 'undefined'
+                    }
+
+                   current_content +=` <div class="card">
+                    <div class="content">
+                      <div class="header">`+ line['type']['name'] +`</div>
+                      <div class="meta">
+                        <a>`+ tooltip +`</a>
+                      </div>
+                      <div class="description">
+                        `+ line['comment'] +`
+                      </div>
+                    </div>
+                    <div class="extra content">
+                      <span class="right floated">
+                        `+ end_str +`
+                      </span>
+                      <span>
+                        <i class="calendar alternate outline icon"></i>
+                        `+ start_str +`
+                      </span>
+                      <span> until </span>
+                    </div></div>`
+
+
+                }
+                });
+
+           current_content += '</div>'
+
+          document.getElementById('current').innerHTML = current_content
+
       }
 
       function LoadPanelsFiltered()
