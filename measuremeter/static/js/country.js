@@ -41,7 +41,7 @@
              }
       }
 
-      $( document ).ready(function() {
+      $(window).on('load', function() {
          $("#countries_dd").change(function() {
                LoadPanelsFiltered()
             });
