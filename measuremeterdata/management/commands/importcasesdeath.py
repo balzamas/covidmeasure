@@ -27,6 +27,8 @@ class Command(BaseCommand):
         print("Load data into django")
         for cntry in Country.objects.all():
             countrycode = cntry.code;
+            if (countrycode.lower() == 'gb'):
+                countrycode = 'uk'
             print(countrycode)
 
             # Should move to datasources directory
@@ -34,6 +36,7 @@ class Command(BaseCommand):
                 spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
 
                 country = Country.objects.get(code=countrycode)
+
                 for row in spamreader:
                     try:
                         if (row[7].lower() == countrycode.lower()):

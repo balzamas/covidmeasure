@@ -82,29 +82,28 @@ class MeasureViewSet(viewsets.ModelViewSet):
         start = self.request.query_params.get('start', None)
         end = self.request.query_params.get('end', None)
         levels = self.request.query_params.get('level')
-        print("XENA")
-        if countries is not None and countries is not '' and types is not ',':
+        if countries != None and countries != '' and types != ',':
             print(countries)
             country_params = []
             for x in countries.split(','):
-                if (x is not ''):
+                if (x != ''):
                     country_params.append(x)
             queryset = queryset.filter(country__in=country_params)
 
         if types is not None and types is not '' and types is not ',':
             type_params = []
             for x in types.split(','):
-                if (x is not ''):
+                if (x != ''):
                     type_params.append(x)
             queryset = queryset.filter(type__in=type_params)
 
-        if start is not None:
+        if start != None:
             queryset = queryset.filter(Q(start__lte=start)|Q(start__isnull=True))
 
-        if end is not None:
+        if end != None:
             queryset = queryset.filter(Q(end__gt=end)|Q(end__isnull=True))
 
-        if levels is not None and levels is not '' and types is not ',':
+        if levels != None and levels != '' and types != ',':
             level_params = []
             for x in levels.split(','):
                 if (x is not ''):
