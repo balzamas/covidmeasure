@@ -29,7 +29,7 @@ class Command(BaseCommand):
             countrycode = cntry.code;
             if (countrycode.lower() == 'gb'):
                 countrycode = 'uk'
-            if (countrycode.lower() == 'ge'):
+            if (countrycode.lower() == 'gr'):
                 countrycode = 'el'
             print(countrycode)
 
