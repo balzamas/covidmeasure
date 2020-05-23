@@ -88,6 +88,7 @@
                       </div>
                     </div>
                     <div class="extra content">
+
                       <span class="right floated">
                         `+ end_str +`
                       </span>
@@ -96,6 +97,8 @@
                         `+ start_str +`
                       </span>
                       <span> until </span>
+                      <span><br><font size='1rem'>Last updated: `+ line['updated'] +`</font></span>
+
                     </div></div>`
 
 

@@ -1,14 +1,21 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
-class Continent(models.Model):
+class MotherModel(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
+class Continent(MotherModel):
     name = models.CharField(max_length=200)
     ordering = ['name']
 
     def __str__(self):
         return self.name
 
-class Country(models.Model):
+class Country(MotherModel):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=3,blank=True,null=True)
     mapcode_europe = models.CharField(max_length=10,blank=True,null=True)
@@ -27,13 +34,13 @@ class Country(models.Model):
     def __str__(self):
         return self.name
 
-class MeasureCategory(models.Model):
+class MeasureCategory(MotherModel):
     name = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
 
-class MeasureType(models.Model):
+class MeasureType(MotherModel):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(MeasureCategory, on_delete=models.CASCADE,blank=True,null=True)
     comment = RichTextField(blank=True)
@@ -45,7 +52,7 @@ class MeasureType(models.Model):
     def __str__(self):
         return self.name
 
-class Measure(models.Model):
+class Measure(MotherModel):
     LEVEL_CHOICES=[
         (0, 'None'),
         (1, 'Partial'),
@@ -67,7 +74,7 @@ class Measure(models.Model):
         return f"{self.country} {self.type}"
 
 
-class CasesDeaths(models.Model):
+class CasesDeaths(MotherModel):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     date = models.DateField()
     cases = models.IntegerField(default=0)

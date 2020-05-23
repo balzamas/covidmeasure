@@ -29,4 +29,4 @@ class MeasureSerializer(serializers.ModelSerializer):
     country = CountrySerializer()
     class Meta:
         model = Measure
-        fields = ['country', 'type', 'level', 'start', 'end', 'sources', 'comment', 'isregional']
+        fields = ['country', 'type', 'level', 'start', 'end', 'sources', 'comment', 'isregional', 'created', 'updated']
