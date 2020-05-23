@@ -77,6 +77,20 @@
                          end_str = 'undefined'
                     }
 
+                    var details='';
+                    if (line['comment'] != '')
+                    {
+                    details = `                        <div class="ui accordion">
+                          <div class="active title">
+                            <i class="dropdown icon"></i>
+                            Details
+                          </div>
+                          <div class="active content">
+                                                `+ line['comment'] +`
+                          </div>
+                          </div>`
+                          }
+
                    current_content +=` <div class="card">
                     <div class="content">
                       <div class="header">`+ line['type']['name'] +`</div>
@@ -84,7 +98,7 @@
                         <a><i class="ban icon" style='color:`+ color_symbol +`'></i>&nbsp;`+ tooltip +`</a>
                       </div>
                       <div class="description" >
-                        `+ line['comment'] +`
+                        `+ details +`
                       </div>
                     </div>
                     <div class="extra content">
