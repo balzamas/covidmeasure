@@ -29,6 +29,8 @@ class Command(BaseCommand):
             countrycode = cntry.code;
             if (countrycode.lower() == 'gb'):
                 countrycode = 'uk'
+            if (countrycode.lower() == 'ge'):
+                countrycode = 'el'
             print(countrycode)
 
             # Should move to datasources directory
