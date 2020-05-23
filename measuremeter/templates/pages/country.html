@@ -9,7 +9,7 @@
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>Covid/Coronavirus measures by country - Country profile</title>
+    <title>CovidLaws // Coronavirus measures by country - Country profile</title>
         <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
 
     <meta name="google-site-verification" content="hQ8G-HCPFQgyGYjjxJcseIc0Vxv1Fou_3HEMFCItEOA" />
@@ -48,14 +48,16 @@
 <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
 
 
-      <h1>Covid/Coronavirus measures by country - Timeline</h1>
+      <h1>CovidLaws // Country profiles</h1>
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu"></div>
+
+      <font size="5rem">
 
        <div class="container-fluid" >
           <div class="row justify-content-md-center">
             <div class="col-md-auto">
-              <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;width:400px;vertical-align:middle">
+              <div style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;width:400px;vertical-align:middle">
                 <div class="ui fluid search selection dropdown" id="countries_dd">
                   <i class="large flag outline icon"></i>
                   <input type="hidden" name="countries">
@@ -68,16 +70,20 @@
           </div>
        </div>
       </div>
+      </font>
+
+
+
 
      <font size="3rem">
        <div class="container-fluid" >
   <div class="row justify-content-md-center">
     <div class="col-md-auto">
 
-        <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;height:85px;vertical-align:middle">
-          <div id="worldometer"></div><br>
+                    <div class="ui segment">
+          <div id="worldometer"></div>
           <div id="gov"></div>
-        </div>
+                    </div>
     </div>
   </div>
        </div>
