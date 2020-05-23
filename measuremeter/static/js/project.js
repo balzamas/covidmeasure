@@ -5,7 +5,7 @@
           if ( $( "#menu" ).length ) {
                document.getElementById('menu').innerHTML = `
                <div style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10">
-               <div class="ui massive five item inverted menu">
+               <div class="ui five item inverted huge menu">
                   <a class="item" href="/">Home</a>
                   <a class="item" href="/about/">Info/About</a>
                   <a class="item" href="/timeline/">Compare countries</a>
