@@ -37,7 +37,7 @@ class Command(BaseCommand):
             with open('/tmp/casedeath_source.csv', newline='') as csvfile:
                 spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
 
-                country = Country.objects.get(code=countrycode)
+                country = Country.objects.get(code=cntry.code)
 
                 for row in spamreader:
                     try:
