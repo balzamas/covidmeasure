@@ -23,7 +23,7 @@ certificatesResolvers:
 http:
   routers:
     web-router:
-      rule: "Host(`coronameasures.ch`) || Host(`www.coronameasures.ch`) || Host(`covidlaws.net.ch`) || Host(`www.covidlaws.net.ch`)"
+      rule: "Host(`coronameasures.ch`) || Host(`www.coronameasures.ch`) || Host(`covidlaws.net`) || Host(`www.covidlaws.net`)"
 
       entryPoints:
         - web
@@ -33,7 +33,7 @@ http:
       service: django
 
     web-secure-router:
-      rule: "Host(`coronameasures.ch`) || Host(`www.coronameasures.ch`) || Host(`covidlaws.net.ch`) || Host(`www.covidlaws.net.ch`)"
+      rule: "Host(`coronameasures.ch`) || Host(`www.coronameasures.ch`) || Host(`covidlaws.net`) || Host(`www.covidlaws.net`)"
 
       entryPoints:
         - web-secure
