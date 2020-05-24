@@ -39,14 +39,15 @@ class Command(BaseCommand):
                for row in spamreader:
                     rowcount += 1
                     if (rowcount > 4 and row[2] != ''):
+
+                        tdy_temp=int(row[2])
+
+                        deaths_today = tdy_temp - deaths_yesterday
+                        deaths_yesterday = tdy_temp
+
                         print(savedate)
-                        print(row[1])
+                        print(deaths_today)
                         print("-----")
-
-                        tdy_temp=int(row[1])
-
-                        deaths_today = deaths_yesterday -tdy_temp
-                        deaths_yesterday = int(row[2])
 
                         try:
                             cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
