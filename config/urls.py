@@ -6,6 +6,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework import routers
 from measuremeterdata.views import MeasureViewSet
+from . import views
 
 router = routers.DefaultRouter()
 router.register(r'measures', MeasureViewSet)
@@ -18,12 +19,17 @@ urlpatterns = [
     path(
         "euromap/", TemplateView.as_view(template_name="pages/euromap.html"), name="EuroMap"
       ),
+    path('euromap/<str:measure_id>/', views.render_euromap, name='item'),
     path(
-                      "timeline/", TemplateView.as_view(template_name="pages/timeline.html"), name="Timeline"
+    "timeline/", TemplateView.as_view(template_name="pages/timeline.html"), name="Timeline"
                   ),
     path(
     "about/", TemplateView.as_view(template_name="pages/about.html"), name="About"
                   ),
+    path(
+    "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
+                  ),
+    path('country/<str:country_name>/',views.render_country, name='item'),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management

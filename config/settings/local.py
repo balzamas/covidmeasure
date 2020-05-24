@@ -11,7 +11,7 @@ SECRET_KEY = env(
     default="6mvPbqkfiVap7L1yheEn7bUNRlmNygyVxdRt1A1gNGZcT2gsRhYnva5sN5Tj9RqM",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1","5-102-145-137.cust.cloudscale.ch", "coronameasures.ch"]
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1","5-102-145-137.cust.cloudscale.ch", "coronameasures.ch", "covidlaws.net"]
 
 # CACHES
 # ------------------------------------------------------------------------------

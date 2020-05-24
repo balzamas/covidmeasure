@@ -1,6 +1,5 @@
-###Instructions Data
+###How to categorize the data
 
-Have a look at the data from Switzerland and Czech republic as an example.
 
 ####Dates
 Start day: when the measure was introduced.
@@ -34,14 +33,120 @@ Example 1: All restaurants are open again but with restrictions like maximum peo
 
 Example 2: Only restaurants to a certain size can be open, only outside areas are allowed, strict hygiene concept. 
 
+###Measure types
 
-#### Checklist
-The amount of information if overwhelming. Stick to the categories in the backend or from the tables below. If you think an important measure is missing, please contact me.
+####Primary schools
+Grade 1 to 9
 
-Tables to help with data collecting and checklist for measure types:
+#####Partial
+Schools are open with restrictions like class size, reduced hours.
 
-https://github.com/balzamas/covidmeasure/blob/master/Documents/datainput.ods
-https://github.com/balzamas/covidmeasure/blob/master/Documents/datainput.xlsx
+#####Full
+All schools are closed.
 
-Excellent source, measures by country (we are working on an import function):
-http://acaps.org/covid19-government-measures-dataset
+####Secondary/Vocational/High schools, Universities
+
+#####Partial
+Schools are open with restrictions like class size, reduced hours.
+
+#####Full
+Schools are closed for teaching, maybe exceptions to attend final exams in small groups.
+
+####Secondary/Vocational/High schools, Universities
+
+#####Partial
+Schools are open with restrictions like class size, reduced hours.
+
+#####Full
+Schools are closed for teaching, maybe exceptions to attend final exams in small groups.
+
+####Face cover/mask
+
+#####Partial
+Has to be worn in certain areas/buildings. 
+
+#####Full
+In general: Has to be worn all the time when leaving the house (small exceptions possible)
+
+####Gathering restrictions
+Usually together with a minimal distancing rule.
+
+#####Partial
+Maximum of people who are allowed to meed if larger then 10.
+
+#####Full
+No gatherings with more then 10 people allowed.
+
+####Lock in/curfew
+
+#####Partial
+Curfew for certain times.
+Leaving the house only permitted for essential tasks.
+Movement restricted to certain radius/same settlement.
+Checks by police/authorities.
+
+#####Full
+Same as partial, but always an authorization is needed (paper/digital).
+Can also be a self declaration.
+
+####Tracing app
+
+#####Partial
+Only anonymized key stored in central system (e.g. DP-3T).
+
+#####Full
+Personal data stored on central system (e.g. phone number, GPS data). 
+
+####Non-essential shops/services
+Essential shops can slightly differ from country to country, but in general groceries, pharmacies.
+Measures counts as none when all types of shops and services reopen, even when they have some restrictions about people per sqm or similar.  
+
+#####Partial
+Some categories of shops are allowed to open, other not.
+
+#####Full
+All non-essentail shops are closed.
+
+####Restaurants/Bar
+
+#####Partial
+Restrictions to count as partial: maximum people per table, restricted opening hours, only outside areas allowed, only seats allowed.
+
+#####Full
+Take-Away/Delivery still allowed.
+
+####Border
+Land, Air and Sea borders
+
+#####Partial
+Border are open for certain nationals, closed for others.
+Land border to some countries open, closed to others.
+
+#####Full
+All borders are closed for all nationals, except for residents/nationals, other exceptions possible (e.g. workers, funerals). 
+
+####Quarantine after return
+Obligatory quarantine, in self isolation or at government place.
+
+#####Partial
+Quarantine mandatory for some nationals/destinations.
+
+#####Full
+All incoming have to go into quarantine (exceptions for workers etc. possible)
+
+####International flights
+
+#####Partial
+Flights to/from certain destinations not allowed.
+
+#####Full
+All flights stopped (except charter for special missions)
+
+####Cinemas/Theater, Clubs/concert, Museums/Libraries/Zoos
+Set to none when allowed to be open and only restricted by general social distancing measures/gathering restrictions.
+
+#####Partial
+Some subcategories allowed, others not
+
+#####Full
+Closed

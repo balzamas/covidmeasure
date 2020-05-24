@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .models import Measure, Country, MeasureType, MeasureCategory
+from .models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer
+from .serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
@@ -22,6 +22,13 @@ class DateFilter(filters.BaseInFilter, filters.DateFilter):
 class MeasureTypeFilter(filters.FilterSet):
      pk = NumberInFilter(field_name='pk', lookup_expr='in')
 
+class CountryFilter(filters.FilterSet):
+    pk = NumberInFilter(field_name='pk', lookup_expr='in')
+
+class CasesDeathsFilter(filters.FilterSet):
+    country = NumberInFilter(field_name='country', lookup_expr='in')
+    date = filters.DateFromToRangeFilter(field_name='date')
+
 class MeasureFilter(filters.FilterSet):
 #    country = NumberInFilter(field_name='country', lookup_expr='in')
 #    type = NumberInFilter(field_name='type', lookup_expr='in')
@@ -40,7 +47,7 @@ def get_queryset(self):
         start = self.request.query_params.get('start')
         end = self.request.query_params.get('end')
         levels = self.request.query_params.get('level')
-        measures = Measure.objects.all()
+        measures = Measure.objects.all().order_by('country__name', 'type__category','type__name')
         if countries:
             measures.filter(country__in=countries)  # returned queryset filtered by ids
         if type:
@@ -75,32 +82,31 @@ class MeasureViewSet(viewsets.ModelViewSet):
         start = self.request.query_params.get('start', None)
         end = self.request.query_params.get('end', None)
         levels = self.request.query_params.get('level')
-        print("XENA")
-        if countries is not None and countries is not '' and types is not ',':
+        if countries != None and countries != '' and types != ',':
             print(countries)
             country_params = []
             for x in countries.split(','):
-                if (x is not ''):
+                if (x != ''):
                     country_params.append(x)
             queryset = queryset.filter(country__in=country_params)
 
-        if types is not None and types is not '' and types is not ',':
+        if types != None and types != '' and types != ',':
             type_params = []
             for x in types.split(','):
-                if (x is not ''):
+                if (x != ''):
                     type_params.append(x)
             queryset = queryset.filter(type__in=type_params)
 
-        if start is not None:
+        if start != None:
             queryset = queryset.filter(Q(start__lte=start)|Q(start__isnull=True))
 
-        if end is not None:
+        if end != None:
             queryset = queryset.filter(Q(end__gt=end)|Q(end__isnull=True))
 
-        if levels is not None and levels is not '' and types is not ',':
+        if levels != None and levels != '' and types != ',':
             level_params = []
             for x in levels.split(','):
-                if (x is not ''):
+                if (x != ''):
                     level_params.append(x)
             queryset = queryset.filter(level__in=level_params)
 
@@ -116,6 +122,8 @@ class MeasureByMeasureViewSet(viewsets.ModelViewSet):
 class CountryViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_class = CountryFilter
 
 class MeasureTypeViewSet(viewsets.ModelViewSet):
     queryset = MeasureType.objects.filter(isactive=True).order_by('category','name')
@@ -126,3 +134,9 @@ class MeasureTypeViewSet(viewsets.ModelViewSet):
 class MeasureCategoryViewSet(viewsets.ModelViewSet):
     queryset = MeasureCategory.objects.all().order_by('name')
     serializer_class = MeasureCategorySerializer
+
+class CasesDeathsViewSet(viewsets.ModelViewSet):
+    queryset = CasesDeaths.objects.all().order_by('date')
+    serializer_class = CasesDeathsSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_class = CasesDeathsFilter

@@ -237,6 +237,11 @@
   }
 };
 
+function copyToClipboard() {
+  var copyText = window.location.host + "/euromap/" + $('#measurechooser').dropdown('get value');
+  navigator.clipboard.writeText(copyText);
+}
+
 function addDays(date, days) {
   var result = new Date(date);
   result.setDate(result.getDate() + days);
@@ -268,7 +273,7 @@ function sleep(ms) {
 $( document ).ready(function() {
 
           var dataMeasuresTypes = $.ajax({
-          url: window.location.href + "../measuremeterdata/measuretypes/",
+          url: "/measuremeterdata/measuretypes/",
           dataType: "json",
           async: false
           }).responseText;
@@ -329,7 +334,7 @@ $( document ).ready(function() {
 
                 date = new Date(2020,2,5);
                 enddate_x = new Date();
-                enddate = addDays(enddate_x, 1);
+                enddate = addDays(enddate_x, 8);
 
                 while (date < enddate)
                 {
@@ -340,12 +345,26 @@ $( document ).ready(function() {
                 }
           });
 
+          $("#btnCopyLink").click(async function(){
+                copyToClipboard();
+          });
+
              var d = new Date();
 
             today = formatDate(d);
             document.getElementById("dateselect").value = today;
-            $('#measurechooser').dropdown('set selected',26)
-            loadMapData(26,today);
+
+            $('#param').hide();
+            if ($('#param').text() != '')
+            {
+                $('#measurechooser').dropdown('set selected',$('#param').text());
+                loadMapData($('#param').text(),today);
+            }
+            else
+            {
+                $('#measurechooser').dropdown('set selected',26);
+                loadMapData(26,today);
+            }
 });
 
 var eujsconfig ={};
@@ -353,7 +372,7 @@ var eujsconfig ={};
 function loadMapData(measuretype,filterdate) {
 
           var dataMeasuresType = $.ajax({
-          url: window.location.href + "../measuremeterdata/measuretypes/?pk="+measuretype,
+          url: "/measuremeterdata/measuretypes/?pk="+measuretype,
           dataType: "json",
           async: false
           }).responseText;
@@ -373,7 +392,7 @@ function loadMapData(measuretype,filterdate) {
 /*----------------------------------------------------------------------------------*/
 
           var data = $.ajax({
-          url: window.location.href + "../measuremeterdata/measures/?type="+measuretype.toString()+"&start="+filterdate.replace('-', '\-')+"&end="+filterdate.replace('-', '\-'),
+          url: "/measuremeterdata/measures/?type="+measuretype.toString()+"&start="+filterdate.replace('-', '\-')+"&end="+filterdate.replace('-', '\-'),
           dataType: "json",
           async: false
           }).responseText;

@@ -1,18 +1,18 @@
 {% load static i18n %}
 {% load static %}
-{# Load the tag library #}
-{% load bootstrap4 %}
-
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
-
 
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>Covid measures by country</title>
+    <title>CovidLaws // Coronavirus measures by country - Compare</title>
+        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+
     <meta name="google-site-verification" content="hQ8G-HCPFQgyGYjjxJcseIc0Vxv1Fou_3HEMFCItEOA" />
+    <script
+			  src="https://code.jquery.com/jquery-3.5.1.min.js"
+			  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+			  crossorigin="anonymous"></script>
+
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
@@ -29,6 +29,7 @@
 
        <link href="{% static 'css/project.css' %}" rel="stylesheet">
        <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/timeline_base.js' %}"></script>
        <script type="text/javascript" src="{% static 'js/timeline.js' %}"></script>
 
     <style>
@@ -44,14 +45,17 @@
 <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
 
 
-      <h1>Covid measures by country</h1>
+      <h1>CovidLaws // Timeline</h1>
       <div id="menu"></div>
 
-       <div class="container-fluid" >
-          <div class="row justify-content-md-center">
-            <div class="col-md-auto">
-              Countries (empty=all)
-              <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;width:400px;vertical-align:middle">
+    <font size="5rem">
+      <div class="ui placeholder segment">
+        <div class="ui two column stackable center aligned grid">
+          <div class="ui vertical divider"></div>
+          <div class="middle aligned row">
+            <div class="column">
+              <h2>Countries (empty=all)</h2>
+
                 <div class="ui multiple fluid search selection dropdown" id="countries_dd">
                   <i class="large flag outline icon"></i>
                   <input type="hidden" name="countries">
@@ -60,27 +64,23 @@
                   <div class="menu" id="countries_list">
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-md-auto">
-            Measures (empty=all)
-            <div class="border border-dark" style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10;width:400px;vertical-align:middle">
-              <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
-                <i class="large heartbeat icon"></i>
-                <input type="hidden" name="measuretypes">
-                <i class="dropdown icon"></i>
-                <div class="default text">Measure types</div>
-                <div class="menu">
-              </div>
-            </div>
-          </div>
-        </div>
-       </div>
-      </div>
 
-         <div class="container-fluid" >
-          <div class="row justify-content-md-center">
-            <div class="col-md-auto">
+            </div>
+            <div class="column">
+             <h2>Measures (empty=all)</h2>
+                  <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
+                    <i class="large heartbeat icon"></i>
+                    <input type="hidden" name="measuretypes">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Measure types</div>
+                    <div class="menu">
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="ui divider"></div>
+          <div class="middle aligned row">
+            <div class="column">
               <div class="ui vertical animated massive button" tabindex="0" id="load_data" style="width:200px">
                 <div class="hidden content" >Load</div>
                 <div class="visible content">
@@ -88,7 +88,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-auto">
+            <div class="column">
               <div class="ui vertical animated massive button" tabindex="0" id="change_mode" style="width:200px">
                 <div class="hidden content" id="loadtext">by measure</div>
                 <div class="visible content">
@@ -96,23 +96,29 @@
                 </div>
               </div>
             </div>
+
           </div>
-         </div>
+
+        </div>
+      </div>
+      <br>
+
+    </font>
 
       <div id="bycountry">
-              <b>By country</b>
+              <h2>By country</h2>
                 * = end of measure undefined,
                 # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
 
-                <div id="datachartCountry" style="height: 600px;"></div>
+                <div id="datachartCountry" style="height: 800px;"></div>
       </div>
       <div id="bymeasure" style="display:none">
-              <b>By measure</b>
+              <h2>By measure</h2>
                 * = end of measure undefined,
                 # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
-                <div id="datachartMeasure" style="height: 600px"></div>
+                <div id="datachartMeasure" style="height: 800px"></div>
           </div>
       </div>
   </body>
