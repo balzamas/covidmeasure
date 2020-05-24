@@ -45,7 +45,7 @@ class Command(BaseCommand):
 
                         tdy_temp=int(row[1])
 
-                        deaths_today = tdy_temp - deaths_yesterday
+                        deaths_today = deaths_yesterday -tdy_temp
                         deaths_yesterday = int(row[2])
 
                         try:
