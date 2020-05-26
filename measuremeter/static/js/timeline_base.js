@@ -270,8 +270,6 @@
         });
 
         var options = {
-            timeline: { avoidOverlappingGridLines: true},
-            height:550
           };
 
         chartCountry.draw(dataTableCountry, options);
@@ -395,7 +393,6 @@
 
 });
           var options = {
-            timeline: { avoidOverlappingGridLines: true}
           };
 
         chartMeasure.draw(dataTableMeasure, options);
