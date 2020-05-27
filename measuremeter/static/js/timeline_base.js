@@ -170,8 +170,11 @@
          if (countries == undefined)
          {
           //Startup: set random country
-          rnd_country = Math.floor(Math.random() * 43) + 1;  // returns a random integer from 1 to 10
-           countries=rnd_country.toString();
+          rnd_country = Math.floor(Math.random() * 43) + 1;
+          rnd_country2 = Math.floor(Math.random() * 43) + 1;
+          rnd_country3 = Math.floor(Math.random() * 43) + 1;
+
+           countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
          }
          if (measuretypes == undefined)
          {
@@ -288,8 +291,12 @@
          if (countries == undefined)
          {
           //Startup: set random country
-          rnd_country = Math.floor(Math.random() * 43) + 1;  // returns a random integer from 1 to 10
-           countries=rnd_country.toString();
+          rnd_country = Math.floor(Math.random() * 43) + 1;
+          rnd_country2 = Math.floor(Math.random() * 43) + 1;
+          rnd_country3 = Math.floor(Math.random() * 43) + 1;
+
+          countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
+
          }
          if (measuretypes == undefined)
          {
