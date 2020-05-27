@@ -19,7 +19,7 @@
             //Get first and last date
             firstdate = new Date(2020, 5, 1);
             lastdate = new Date();
-            lastdate = addDays(lastdate, 10)
+            lastdate = addDays(lastdate, 7)
 
             $.each(jsonData, function(id, line) {
               if (line['start'] != null)
@@ -39,11 +39,18 @@
                 firstdate = start_datefl;
               }
 
+              if (start_datefl > lastdate)
+              {
+                lastdate = addDays(start_datefl,7);
+              }
+
               if (end_datefl > lastdate)
               {
                 lastdate = end_datefl;
               }
             });
+
+            console.log(firstdate)
 
             return [firstdate, lastdate];
       }
