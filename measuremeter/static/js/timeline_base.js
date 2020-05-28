@@ -413,7 +413,7 @@
 
       }
 
-      $( document ).ready(function() {
+      $(window).on('load', function() {
           //-----------------------------Load countries----------------------
 
           var dataCountries = $.ajax({

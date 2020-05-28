@@ -31,7 +31,7 @@
           navigator.clipboard.writeText(copyText);
         }
 
-      $( document ).ready(function() {
+      $(window).on('load', function() {
           //document.getElementById("dateselect").valueAsDate = new Date();
 
           $("#load_data").click(function(){
