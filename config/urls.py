@@ -23,6 +23,7 @@ urlpatterns = [
     path(
     "timeline/", TemplateView.as_view(template_name="pages/timeline.html"), name="Timeline"
                   ),
+    path('timeline/<str:country_name>/', views.render_timeline, name='item'),
     path(
     "about/", TemplateView.as_view(template_name="pages/about.html"), name="About"
                   ),

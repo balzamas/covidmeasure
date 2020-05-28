@@ -169,10 +169,10 @@
       function drawChartByCountries(countries, measuretypes) {
          if (countries == undefined)
          {
-          //Startup: set random country
-          rnd_country = Math.floor(Math.random() * 43) + 1;
-          rnd_country2 = Math.floor(Math.random() * 43) + 1;
-          rnd_country3 = Math.floor(Math.random() * 43) + 1;
+           //Startup: set random country
+           rnd_country = Math.floor(Math.random() * 43) + 1;
+           rnd_country2 = Math.floor(Math.random() * 43) + 1;
+           rnd_country3 = Math.floor(Math.random() * 43) + 1;
 
            countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
          }
