@@ -334,7 +334,7 @@ $( document ).ready(function() {
 
                 date = new Date(2020,2,5);
                 enddate_x = new Date();
-                enddate = addDays(enddate_x, 8);
+                enddate = addDays(enddate_x, 10);
 
                 while (date < enddate)
                 {
