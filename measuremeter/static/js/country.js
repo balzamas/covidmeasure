@@ -91,14 +91,14 @@
                           </div>`
                           }
 
-                   current_content +=` <div class="card" style="min-width:400px">
+                   current_content +=` <div class="card" style="min-width:420px">
                     <div class="content">
                       <div class="header"><font size='5em'>`+ line['type']['name'] +`</font></div>
                       <div class="meta">
-                        <a><i class="ban icon" style='color:`+ color_symbol +`'></i>&nbsp;`+ tooltip +`</a>
+                        <a><i class="ban big icon" style='color:`+ color_symbol +`'></i><font size='5em'>&nbsp;`+ tooltip +`</font></a>
                       </div>
                       <div class="description" >
-                        <font size='4em'>`+ details +`</font>
+                        <font size='5em'>`+ details +`</font>
                       </div>
                     </div>
                     <div class="extra content">
