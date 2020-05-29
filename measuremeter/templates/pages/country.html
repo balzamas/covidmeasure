@@ -80,14 +80,15 @@
 
 
 
-     <font size="3rem">
        <div class="container-fluid" >
   <div class="row justify-content-md-center">
     <div class="col-md-auto">
 
                     <div class="ui segment">
+                      <font size="6em">
           <div id="worldometer"></div>
           <div id="gov"></div>
+                      </font>
                     </div>
     </div>
   </div>
@@ -95,7 +96,7 @@
            <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
-                  <p><b>Current active measures</b></p>
+                  <p><font size="6em"><b>Current active measures</b></font></p>
                  </div>
              <div class="content active">
                   <div id="current"></div>
@@ -107,14 +108,16 @@
             <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
-                  <p><b>Timeline</b></p>
+              <p><font size="6em"><b>Timeline</b></font></p>
                  </div>
              <div class="content active">
+                      <font size="5em">
                 * = end of measure undefined,
                 # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
+                      </font>
 
-                <div id="datachartCountry" style="height: 550px"></div>
+                <div id="datachartCountry" style="height: 1050px"></div>
              </div>
            </div>
       </div>
@@ -123,7 +126,7 @@
           <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
-              <p><b>Reported new cases</b></p>
+              <p><font size="6em"><b>Reported new cases</b></font></p>
             </div>
             <div class="content active">
               <p class="transition visible"><div id="datachartCases" style="height: 300px;"></div><br></p>
@@ -131,11 +134,14 @@
           </div>
 
 
-              <p><b>Reported new deaths </b></p>
+              <p><font size="6em"><b>Reported new deaths </b></font></p>
+              <font size="5em">
               <p>
+
                 <div id="avg_desc"></div>
                 <div id="avg_peak_desc"></div>
-              </p>
+              </p><br>
+              </font>
 
 
                 <div id="datachartDeaths" style="height: 300px;"></div>

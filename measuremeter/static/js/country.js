@@ -48,7 +48,7 @@
 
             var current_content = ''
 
-            current_content +=`<div class="ui link cards">`
+            current_content +=`<div class="ui link large cards">`
            $.each(jsonData, function(id, line) {
                 if (line['level'] > 0)
                 {

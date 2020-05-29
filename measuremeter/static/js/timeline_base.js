@@ -150,7 +150,16 @@
         var options = {
               legend: { position: 'bottom' },
              chartArea:{left:60,top:20,width:percent+'%'},
-             fontSize: 13,
+              hAxis : {
+                         textStyle : {
+                        fontSize: 15 // or the number you want
+                        }
+                        },
+                   vAxis : {
+                         textStyle : {
+                        fontSize: 20 // or the number you want
+                        }
+                        },
              series: {
                 2: { lineDashStyle: [4, 4] },
                 3: { lineDashStyle: [4, 4] },
@@ -280,6 +289,18 @@
         });
 
         var options = {
+                timeline: { rowLabelStyle: {fontSize: 25},
+                     barLabelStyle: { fontSize: 25 } },
+                    hAxis : {
+                         textStyle : {
+                        fontSize: 25 // or the number you want
+                        }
+                        },
+                   vAxis : {
+                         textStyle : {
+                        fontSize: 25 // or the number you want
+                        }
+                        }
           };
 
         chartCountry.draw(dataTableCountry, options);
@@ -407,6 +428,18 @@
 
 });
           var options = {
+                timeline: { rowLabelStyle: {fontSize: 25},
+                     barLabelStyle: { fontSize: 25 } },
+                    hAxis : {
+                         textStyle : {
+                        fontSize: 25 // or the number you want
+                        }
+                        },
+                   vAxis : {
+                         textStyle : {
+                        fontSize: 25 // or the number you want
+                        }
+                        }
           };
 
         chartMeasure.draw(dataTableMeasure, options);
@@ -429,7 +462,7 @@
 
           $.each(jsonCountries, function(id, line) {
                countries.push({
-                    name: '<i class="'+line['code'] +' flag"/>'+line['name'],
+                    name: '<font size="5em"><i class="'+line['code'] +' flag"/>'+line['name']+'</font>',
                     value: line['pk']
                   });
           });

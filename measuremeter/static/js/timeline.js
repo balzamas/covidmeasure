@@ -63,7 +63,7 @@
 
           $.each(jsonMeasuresTypes, function(id, line) {
                  measuretypes.push({
-                    name: line['name'],
+                    name: '<font size="5em">'+line['name']+'</font>',
                     value: line['pk']
                   });
           });
