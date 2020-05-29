@@ -248,7 +248,7 @@
 
           //Set up tooltip
           days = convertMiliseconds(end_date - start_date,'d')+1;
-          var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
+          var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 500"><font size="4em">'
           tooltip += "<p><b>"+type+"</b></p>";
 
           if (line['end'] != null || line['start'] != null)
@@ -261,7 +261,7 @@
           }
           tooltip += "<hr>";
           tooltip += line['comment'].toString();
-          tooltip += '</div>';
+          tooltip += '</font></div>';
 
           if (line['level'] == 1)
           {
@@ -406,7 +406,7 @@
           //Set up tooltip
           days = convertMiliseconds(end_date - start_date,'d')+1;
 
-          var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
+          var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 500"><font size="4em">'
           tooltip += "<p><b>"+type+"</b></p>";
 
           if (line['end'] != null || line['start'] != null)
@@ -419,7 +419,7 @@
           }
           tooltip += "<hr>";
           tooltip += line['comment'].toString();
-          tooltip += '</div>';
+          tooltip += '</font></div>';
 
           var source = "Source: " + line['sources'].toString()
 

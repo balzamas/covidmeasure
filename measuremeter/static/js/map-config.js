@@ -454,7 +454,7 @@ function loadMapData(measuretype,filterdate) {
                          color_hover= "#f1f1f1"
                       }
 
-                      var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
+                      var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 500"><font size="4em">'
                       tooltip += "<p><b>"+countrydata[0]['country']['name']+"</b></p>";
                       if (countrydata[0]['level'] > 0)
                       {
@@ -462,7 +462,7 @@ function loadMapData(measuretype,filterdate) {
                       }
                       tooltip += "<hr>";
                       tooltip += countrydata[0]['comment'].toString();
-                      tooltip += '</div>';
+                      tooltip += '</font></div>';
 
                         $("#"+countrydata[0]['country']['mapcode_europe']).removeAttr("style");
                         eujsconfig[countrydata[0]['country']['mapcode_europe']]['hover'] = tooltip;
