@@ -93,12 +93,12 @@
 
                    current_content +=` <div class="card">
                     <div class="content">
-                      <div class="header">`+ line['type']['name'] +`</div>
+                      <div class="header"><font size='5em'>`+ line['type']['name'] +`</font></div>
                       <div class="meta">
                         <a><i class="ban icon" style='color:`+ color_symbol +`'></i>&nbsp;`+ tooltip +`</a>
                       </div>
                       <div class="description" >
-                        `+ details +`
+                        <font size='4em'>`+ details +`</font>
                       </div>
                     </div>
                     <div class="extra content">
