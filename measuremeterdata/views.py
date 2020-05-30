@@ -29,10 +29,6 @@ class CasesDeathsFilter(filters.FilterSet):
     date = filters.DateFromToRangeFilter(field_name='date')
 
 class MeasureFilter(filters.FilterSet):
-#    country = NumberInFilter(field_name='country', lookup_expr='in')
-#    type = NumberInFilter(field_name='type', lookup_expr='in')
-#    start = filters.DateFilter(lookup_expr="lte")
-#    end = filters.DateFilter(lookup_expr="gte")
     country = NumberInFilter(field_name='country')
     type = NumberInFilter(field_name='type')
     start = filters.DateFilter(field_name='start')
@@ -83,7 +79,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
         start = self.request.query_params.get('start', None)
         end = self.request.query_params.get('end', None)
         levels = self.request.query_params.get('level')
-        if countries != None and countries != '' and types != ',':
+        if countries and countries != '' and types != ',':
             print(countries)
             country_params = []
             for x in countries.split(','):
@@ -137,10 +133,8 @@ class MeasureCategoryViewSet(viewsets.ModelViewSet):
     serializer_class = MeasureCategorySerializer
 
 class CasesDeathsViewSet(viewsets.ModelViewSet):
-    queryset = CasesDeaths.objects.all().order_by('date')
+    queryset = CasesDeaths.objects
     serializer_class = CasesDeathsSerializer
-#    filter_backends = [DjangoFilterBackend]
-#    filter_class = CasesDeathsFilter
 
     def get_queryset(self):
         queryset = CasesDeaths.objects
@@ -148,10 +142,15 @@ class CasesDeathsViewSet(viewsets.ModelViewSet):
         date_after = self.request.query_params.get('date_after')
         date_before = self.request.query_params.get('date_before')
 
-        print("......")
-        print(date_after)
-
         if countries and date_after and date_before:
-            queryset.filter(country__in=countries, date__range=[date_after, date_before]).order_by('date')  # returned queryset filtered by ids
+            print(countries)
+            country_params = []
+            for x in countries.split(','):
+                if (x != ''):
+                    country_params.append(x)
+            print(country_params)
+            queryset = queryset.filter(country__in=country_params, date__range=[date_after, date_before]).order_by('date','country')
+
+        print(queryset)
 
         return queryset  # return whole queryset

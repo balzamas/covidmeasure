@@ -2,6 +2,7 @@
 
       function LoadPanelsFiltered()
       {
+            console.log("llll");
             drawChartByCountries($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
             drawChartByMeasures($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
             drawChartCasesTimeline($('#countries_dd').dropdown('get value'))
@@ -76,10 +77,14 @@
 
             $('#param').hide();
 
+            console.log("hahahahah");
             if ($('#param').text().length > 0)
             {
+                            console.log("hahahahah11");
                 console.log($('#param').text())
                 drawChartByMeasures($('#param').text(), $('#measuretypes_dd').dropdown('get value'));
+                drawChartCasesTimeline($('#param').text())
+
             }
             else
             {
@@ -89,6 +94,8 @@
 
                 countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
                 drawChartByMeasures(countries, $('#measuretypes_dd').dropdown('get value'));
+                drawChartCasesTimeline(countries);
+
             }
 
           $("#btnCopyLink").click(async function(){

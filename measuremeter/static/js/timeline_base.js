@@ -16,6 +16,7 @@
      //-----------------------------DrawChart-------------------------------------
 
       function getStartEndDate(jsonData) {
+            console.log("GetStart");
             //Get first and last date
             firstdate = new Date(2020, 5, 1);
             lastdate = new Date();
@@ -97,7 +98,7 @@
           firstdate_x = formatDate(firstdate);
 
           var data = $.ajax({
-          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
+          url: "/measuremeterdata/casesdeaths/?country="+countries+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
           dataType: "json",
           async: false
           }).responseText;
@@ -106,45 +107,60 @@
         var cases = new google.visualization.LineChart(document.getElementById('datachartCasesMulti'));
 
         var dataTableCases = new google.visualization.DataTable();
-        var dataTableDeaths = new google.visualization.DataTable();
         var rowsCases = new Array();
-        var rowsDeaths = new Array();
 
         var diffTime = Math.abs(lastdate - firstdate);
         var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         dayscount = 0
+        ctry_count = countries.split(',').length;
+        var row = new Array()
+        old_date = new Date(2020, 1, 1);
+
+        countries_data = new Array()
 
         $.each(jsonData, function(id, line) {
-            dayscount += 1;
-            rowsCases.push([line['date'], line['cases']]);
-              if (Number(avg_values[0] > 0))
-              {
-                rowsDeaths.push([line['date'], line['deaths'], line['deathstotal'], Number(avg_values[0]), Number(avg_values[1])]);
+            if (old_date != line['date'])
+            {
+                if (dayscount > 0)
+                {
+                    rowsCases.push(row);
+                }
+                if (dayscount == 0)
+                {
+                    console.log(line['country']['name'])
+                    countries_data.push(line['country']['name'])
+                }
+                old_date = line['date'];
+                row = new Array();
+                row.push(line['date']);
+                row.push(line['cases']);
+                dayscount += 1;
+                }
+             else
+             {
+                if (dayscount == 1)
+                {
+                                    console.log(line['country']['name'])
+                    countries_data.push(line['country']['name'])
+                }
+                row.push(line['cases'])
               }
-              else
-              {
-                rowsDeaths.push([line['date'], line['deaths']]);
-              }
+
+
+
         });
 
         var percent = dayscount * 100 / diffDays;
 
-          dataTableCases.addColumn('string', 'Year');
-          dataTableCases.addColumn('number', 'cases');
-
-          dataTableDeaths.addColumn('string', 'Date');
-          dataTableDeaths.addColumn('number', 'Deaths Corona');
-
-          if (Number(avg_values[0] > 0))
-          {
-            dataTableDeaths.addColumn('number', 'Deaths Total');
-            dataTableDeaths.addColumn('number', 'Deaths Average.');
-            dataTableDeaths.addColumn('number', 'Deaths Peak');
+          dataTableCases.addColumn('string', 'Date');
+          console.log(countries_data)
+          for (i = 0; i < countries_data.length; i++) {
+                 dataTableCases.addColumn('number', countries_data[i]);
           }
 
-          //  alert(rows);
+           console.log(rowsCases)
           dataTableCases.addRows(rowsCases);
-          dataTableDeaths.addRows(rowsDeaths);
+
 
         var options = {
               legend: { position: 'bottom' },
@@ -159,16 +175,9 @@
                         fontSize: 20 // or the number you want
                         }
                         },
-             series: {
-                2: { lineDashStyle: [4, 4] },
-                3: { lineDashStyle: [4, 4] },
-            }
-
            };
 
         cases.draw(dataTableCases, options);
-        deaths.draw(dataTableDeaths, options);
-
 
       }
 
