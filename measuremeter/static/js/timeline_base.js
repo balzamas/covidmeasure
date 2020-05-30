@@ -92,6 +92,86 @@
             return date;
         }
 
+        function drawChartCasesTimeline(countries) {
+          lastdate_x = formatDate(lastdate);
+          firstdate_x = formatDate(firstdate);
+
+          var data = $.ajax({
+          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonData = JSON.parse(data);
+
+        var cases = new google.visualization.LineChart(document.getElementById('datachartCasesMulti'));
+
+        var dataTableCases = new google.visualization.DataTable();
+        var dataTableDeaths = new google.visualization.DataTable();
+        var rowsCases = new Array();
+        var rowsDeaths = new Array();
+
+        var diffTime = Math.abs(lastdate - firstdate);
+        var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        dayscount = 0
+
+        $.each(jsonData, function(id, line) {
+            dayscount += 1;
+            rowsCases.push([line['date'], line['cases']]);
+              if (Number(avg_values[0] > 0))
+              {
+                rowsDeaths.push([line['date'], line['deaths'], line['deathstotal'], Number(avg_values[0]), Number(avg_values[1])]);
+              }
+              else
+              {
+                rowsDeaths.push([line['date'], line['deaths']]);
+              }
+        });
+
+        var percent = dayscount * 100 / diffDays;
+
+          dataTableCases.addColumn('string', 'Year');
+          dataTableCases.addColumn('number', 'cases');
+
+          dataTableDeaths.addColumn('string', 'Date');
+          dataTableDeaths.addColumn('number', 'Deaths Corona');
+
+          if (Number(avg_values[0] > 0))
+          {
+            dataTableDeaths.addColumn('number', 'Deaths Total');
+            dataTableDeaths.addColumn('number', 'Deaths Average.');
+            dataTableDeaths.addColumn('number', 'Deaths Peak');
+          }
+
+          //  alert(rows);
+          dataTableCases.addRows(rowsCases);
+          dataTableDeaths.addRows(rowsDeaths);
+
+        var options = {
+              legend: { position: 'bottom' },
+             chartArea:{left:60,top:20,width:percent+'%'},
+              hAxis : {
+                         textStyle : {
+                        fontSize: 15 // or the number you want
+                        }
+                        },
+                   vAxis : {
+                         textStyle : {
+                        fontSize: 20 // or the number you want
+                        }
+                        },
+             series: {
+                2: { lineDashStyle: [4, 4] },
+                3: { lineDashStyle: [4, 4] },
+            }
+
+           };
+
+        cases.draw(dataTableCases, options);
+        deaths.draw(dataTableDeaths, options);
+
+
+      }
+
       function drawChartCases(country, avg_values) {
           lastdate_x = formatDate(lastdate);
           firstdate_x = formatDate(firstdate);

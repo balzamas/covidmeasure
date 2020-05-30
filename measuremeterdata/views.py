@@ -26,7 +26,6 @@ class CountryFilter(filters.FilterSet):
     pk = NumberInFilter(field_name='pk', lookup_expr='in')
 
 class CasesDeathsFilter(filters.FilterSet):
-    country = NumberInFilter(field_name='country', lookup_expr='in')
     date = filters.DateFromToRangeFilter(field_name='date')
 
 class MeasureFilter(filters.FilterSet):
@@ -47,7 +46,7 @@ def get_queryset(self):
         start = self.request.query_params.get('start')
         end = self.request.query_params.get('end')
         levels = self.request.query_params.get('level')
-        measures = Measure.objects.all().order_by('country__name', 'type__category','type__name')
+        measures = Measure.objects
         if countries:
             measures.filter(country__in=countries)  # returned queryset filtered by ids
         if type:
@@ -58,6 +57,8 @@ def get_queryset(self):
             measures.filter(end__gt=end)  # returned queryset filtered by ids
         if levels:
             measures.filter(level__in=levels)  # returned queryset filtered by ids
+
+        measures.order_by('country__name', 'type__category','type__name')
 
         return measures  # return whole queryset
 
@@ -76,7 +77,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
         This view should return a list of all the purchases for
         the user as determined by the username portion of the URL.
         """
-        queryset = Measure.objects.all()
+        queryset = Measure.objects
         countries = self.request.query_params.get('country', None)
         types = self.request.query_params.get('type', None)
         start = self.request.query_params.get('start', None)
@@ -138,5 +139,19 @@ class MeasureCategoryViewSet(viewsets.ModelViewSet):
 class CasesDeathsViewSet(viewsets.ModelViewSet):
     queryset = CasesDeaths.objects.all().order_by('date')
     serializer_class = CasesDeathsSerializer
-    filter_backends = [DjangoFilterBackend]
-    filter_class = CasesDeathsFilter
+#    filter_backends = [DjangoFilterBackend]
+#    filter_class = CasesDeathsFilter
+
+    def get_queryset(self):
+        queryset = CasesDeaths.objects
+        countries = self.request.query_params.get('country')
+        date_after = self.request.query_params.get('date_after')
+        date_before = self.request.query_params.get('date_before')
+
+        print("......")
+        print(date_after)
+
+        if countries and date_after and date_before:
+            queryset.filter(country__in=countries, date__range=[date_after, date_before]).order_by('date')  # returned queryset filtered by ids
+
+        return queryset  # return whole queryset

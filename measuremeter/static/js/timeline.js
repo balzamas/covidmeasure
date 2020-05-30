@@ -4,6 +4,7 @@
       {
             drawChartByCountries($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
             drawChartByMeasures($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
+            drawChartCasesTimeline($('#countries_dd').dropdown('get value'))
       }
 
       function switchPanels() {
