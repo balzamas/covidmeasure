@@ -29,6 +29,7 @@ class Country(MotherModel):
     avg_desc = models.CharField(max_length=500,blank=True,null=True)
     avg_peak_desc = models.CharField(max_length=500,blank=True,null=True)
     source_death = models.CharField(max_length=500,blank=True,null=True)
+    population = models.IntegerField(default=1)
     ordering = ['name']
 
     def __str__(self):
@@ -80,6 +81,7 @@ class CasesDeaths(MotherModel):
     cases = models.IntegerField(default=0)
     deaths = models.IntegerField(default=0)
     deathstotal = models.IntegerField(default=0)
+    cases_per_mio = models.DecimalField(default=0,max_digits=7, decimal_places=2)
 
     ordering = ['country__pk', 'date', 'cases', 'deaths']
 
