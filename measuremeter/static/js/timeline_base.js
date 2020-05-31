@@ -156,6 +156,8 @@
 
 
         var options = {
+                smoothLine: true,
+
               legend: { position: 'bottom', textStyle: {fontSize: 25} },
              chartArea:{left:60,top:20,width:percent+'%'},
               hAxis : {
@@ -164,6 +166,7 @@
                         }
                         },
                    vAxis : {
+                                      viewWindowMode: 'maximized',
                          textStyle : {
                         fontSize: 20 // or the number you want
                         }
@@ -230,6 +233,7 @@
           dataTableDeaths.addRows(rowsDeaths);
 
         var options = {
+        smoothLine: true,
               legend: { position: 'bottom', textStyle: {fontSize: 25} },
              chartArea:{left:60,top:20,width:percent+'%'},
               hAxis : {
@@ -238,6 +242,7 @@
                         }
                         },
                    vAxis : {
+                   viewWindowMode: 'maximized',
                          textStyle : {
                         fontSize: 20 // or the number you want
                         }
