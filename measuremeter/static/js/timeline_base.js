@@ -156,7 +156,7 @@
 
 
         var options = {
-              legend: { position: 'bottom' },
+              legend: { position: 'bottom', textStyle: {fontSize: 25} },
              chartArea:{left:60,top:20,width:percent+'%'},
               hAxis : {
                          textStyle : {
@@ -230,7 +230,7 @@
           dataTableDeaths.addRows(rowsDeaths);
 
         var options = {
-              legend: { position: 'bottom' },
+              legend: { position: 'bottom', textStyle: {fontSize: 25} },
              chartArea:{left:60,top:20,width:percent+'%'},
               hAxis : {
                          textStyle : {

@@ -32,12 +32,6 @@
        <script type="text/javascript" src="{% static 'js/timeline_base.js' %}"></script>
        <script type="text/javascript" src="{% static 'js/timeline.js' %}"></script>
 
-    <style>
-      body {
-        background-color: #d5d5d5;
-      }
-    </style>
-
   </head>
   <body bgcolor="black">
 
@@ -57,7 +51,6 @@
           </div>
       </div>
         <br><br>
-    <font size="5rem">
       <div class="ui placeholder segment">
         <div class="ui two column stackable center aligned grid">
           <div class="ui vertical divider"></div>
@@ -90,7 +83,7 @@
           <div class="ui divider"></div>
           <div class="middle aligned row">
             <div class="column">
-              <div class="ui vertical animated massive button" tabindex="0" id="load_data" style="width:200px">
+              <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
                 <div class="hidden content" >Load</div>
                 <div class="visible content">
                   <i class="large arrow circle down icon"></i>
@@ -98,7 +91,7 @@
               </div>
             </div>
             <div class="column">
-              <div class="ui vertical animated massive button" tabindex="0" id="change_mode" style="width:200px">
+              <div class="ui vertical animated large button" tabindex="0" id="change_mode" style="width:200px">
                 <div class="hidden content" id="loadtext">by country</div>
                 <div class="visible content">
                   <i class="large exchange alternate icon"></i>
@@ -112,27 +105,30 @@
       </div>
       <br>
 
-    </font>
 
       <div id="bycountry" style="display:none">
               <h2>By country</h2>
+        <p>
                 * = end of measure undefined,
                 # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
+        </p>
 
                 <div id="datachartCountry" style="height: 1050px;"></div>
       </div>
       <div id="bymeasure" >
-        <font size="30px"><b>By measure</b></font><br>
-              <font size="5em">  * = end of measure undefined,
+        <h2>By measure</h2>
+        <p>
+                * = end of measure undefined,
                 # = regional<br>
-                Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced</font>
+                Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
+        </p>
                 <div id="datachartMeasure" style="height: 1050px"></div>
           </div>
            <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
-              <p><font size="6em"><b>Reported new cases per day/per 1Mio inhabitants</b></font></p>
+              <p><b>Reported new cases per day/per 1Mio inhabitants</b></p>
             </div>
             <div class="content active">
               <p class="transition visible"><div id="datachartCasesMulti" style="height: 300px;"></div><br></p>

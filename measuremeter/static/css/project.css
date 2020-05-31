@@ -1,4 +1,15 @@
 /* These styles are generated from project.scss. */
+html {
+    font-size: 30px;
+}
+
+      body {
+        background-color: #d5d5d5;
+      }
+
+p {
+font-size: 30px;
+}
 
 .alert-debug {
   color: black;

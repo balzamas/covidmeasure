@@ -12,7 +12,6 @@
 			  crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
     <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
     <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
@@ -22,11 +21,7 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
-    <style>
-      body {
-        background-color: #d5d5d5;
-      }
-    </style>
+        <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
   </head>
   <body bgcolor="black">
@@ -40,10 +35,10 @@
 
 <div class="ui three column grid">
   <div class="column">
-  <div class="ui card">
+  <div class="ui fluid card" style="text-align:center">
     <a href="/timeline">
-      <i class="flag icon massive"></i>
-      <i class="flag outline icon massive"></i>
+      <i class="flag icon huge"></i>
+      <i class="flag outline icon huge"></i>
     </a>
     <div class="content" >
       <a class="header" href="/timeline">Compare countries</a>
@@ -54,10 +49,10 @@
   </div>
   </div>
     <div class="column">
-  <div class="ui card">
+  <div class="ui fluid card" style="text-align:center">
     <a href="/country">
-      <i class="flag outline icon massive"></i>
-      <i class="info icon massive"></i>
+      <i class="flag outline icon huge"></i>
+      <i class="info icon huge"></i>
     </a>
     <div class="content" >
       <a class="header" href="/country">Country profiles</a>
@@ -68,10 +63,10 @@
   </div>
     </div>
     <div class="column">
-  <div class="ui card">
+  <div class="ui fluid card" style="text-align:center">
     <a href="/euromap">
-      <i class="globe icon massive"></i>
-      <i class="heartbeat icon massive"></i>
+      <i class="globe icon huge"></i>
+      <i class="heartbeat icon huge"></i>
 
     </a>
     <div class="content" >

@@ -32,13 +32,6 @@
        <script type="text/javascript" src="{% static 'js/timeline_base.js' %}"></script>
        <script type="text/javascript" src="{% static 'js/country.js' %}"></script>
 
-
-    <style>
-      body {
-        background-color: #d5d5d5;
-      }
-    </style>
-
   </head>
   <body bgcolor="black">
 
@@ -50,13 +43,11 @@
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu"></div>
 
-      <font size="5rem">
 
 <div class="ui placeholder segment">
   <div class="ui one column stackable center aligned grid">
     <div class="middle aligned row">
       <div class="column">
-            <font size="5rem">
 
                 <div class="ui fluid search selection dropdown" id="countries_dd">
                   <i class="large flag outline icon"></i>
@@ -66,7 +57,6 @@
                   <div class="menu" id="countries_list">
                 </div>
               </div>
-            </font>
       </div>
     </div>
   </div>
@@ -75,7 +65,6 @@
 
 
 
-      </font>
 
 
 
@@ -85,10 +74,8 @@
     <div class="col-md-auto">
 
                     <div class="ui segment">
-                      <font size="6em">
           <div id="worldometer"></div>
           <div id="gov"></div>
-                      </font>
                     </div>
     </div>
   </div>
@@ -96,7 +83,7 @@
            <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
-                  <p><font size="6em"><b>Current active measures</b></font></p>
+                  <p><b>Current active measures</b></p>
                  </div>
              <div class="content active">
                   <div id="current"></div>
@@ -108,15 +95,14 @@
             <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
-              <p><font size="6em"><b>Timeline</b></font></p>
+              <p><b>Timeline</b></p>
                  </div>
              <div class="content active">
-                      <font size="5em">
+               <p>
                 * = end of measure undefined,
                 # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
-                      </font>
-
+               </p>
                 <div id="datachartCountry" style="height: 1050px"></div>
              </div>
            </div>
@@ -126,7 +112,7 @@
           <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
-              <p><font size="6em"><b>Reported new cases</b></font></p>
+              <p><b>Reported new cases</b></p>
             </div>
             <div class="content active">
               <p class="transition visible"><div id="datachartCases" style="height: 300px;"></div><br></p>
@@ -134,23 +120,22 @@
           </div>
 
 
-              <p><font size="6em"><b>Reported new deaths </b></font></p>
-              <font size="5em">
-              <p>
+              <p><b>Reported new deaths </b></p>
+            <p>
 
                 <div id="avg_desc"></div>
                 <div id="avg_peak_desc"></div>
               </p><br>
-              </font>
-
 
                 <div id="datachartDeaths" style="height: 300px;"></div>
                 <p>
                   <div id="source_death"></div>
-                  <div id="deaths_description">Note: some countries provide daily total death numbers, others weekly/other formats. If not daily we calculated the per day value for the period.
+                  <div id="deaths_description">
+                    <p>Note: some countries provide daily total death numbers, others weekly/other formats. If not daily we calculated the per day value for the period.
                   <br><font color="red">Important</font>: the numbers for 2020 are in most cases incomplete! The closer the date, the larger the error margin! Please refer to the original source.
-                  <br>Also keep in mind that in all countries, the outbreaks where regional - while some regions had significant more deaths, others had usual or lower death numbers.</div>
-                  <br>As a comparison, you see the daily average in the past years and the daily average in the highest week in the past years. See explanation above the chart.
+                      <br>Also keep in mind that in all countries, the outbreaks where regional - while some regions had significant more deaths, others had usual or lower death numbers.</p>
+                  </div>
+                  <p>As a comparison, you see the daily average in the past years and the daily average in the highest week in the past years. See explanation above the chart.</p>
                 </p>
       </div>
       </div>

@@ -379,7 +379,7 @@ function loadMapData(measuretype,filterdate) {
           var jsonMeasuresType = JSON.parse(dataMeasuresType);
 
             document.getElementById('chosen_options').innerHTML = jsonMeasuresType[0]['name'] + ' // ' + filterdate;
-            document.getElementById('legend').innerHTML = '<a class="ui red circular massive label">&nbsp;<font size=4em color="#000000">'+jsonMeasuresType[0]['tooltip_nonpartial']+'</div></font></a> <a class="ui yellow circular massive label">&nbsp;<font size=4em color="#000000">'+jsonMeasuresType[0]['tooltip_partial']+'</div></font></a>  <a class="ui white circular massive label"><font color="#000000" size=4em>no regulation</font></a>'
+            document.getElementById('legend').innerHTML = '<a class="ui red circular massive label">&nbsp;<font color="#000000">'+jsonMeasuresType[0]['tooltip_nonpartial']+'</div></font></a> <a class="ui yellow circular massive label">&nbsp;<font color="#000000">'+jsonMeasuresType[0]['tooltip_partial']+'</div></font></a>  <a class="ui white circular massive label"><font color="#000000">no regulation</font></a>'
 
             jQuery.each(eujsconfig_fresh, function(i, val) {
               var ctry_val = {};

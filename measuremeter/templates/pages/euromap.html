@@ -6,7 +6,6 @@
    <title>Covid/Coronavirus measures by country - Europe map</title>
        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
 
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
    <script
 			  src="https://code.jquery.com/jquery-3.5.1.min.js"
 			  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
@@ -28,12 +27,8 @@
     <script src="{% static 'js/map-config.js'%}"></script>
     <script src="{% static 'js/map-interact.js'%}"></script>
     <script src="{% static 'js/pins-config.js'%}"></script>
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
-    <style>
-      body {
-        background-color: #d5d5d5;
-      }
-    </style>
  </head>
 <body>
 <div style="margin-left: 30;margin-top: 30;margin-bottom: 110">
@@ -45,7 +40,6 @@
         <div class="ui three column stackable center aligned grid">
           <div class="middle aligned row">
             <div class="column">
-              <font size="5rem">
 
               <div class="ui fluid search selection dropdown" id="measurechooser">
                   <input type="hidden" name="countries">
@@ -54,30 +48,29 @@
                   <div class="menu" id="countries_list">
                 </div>
               </div>
-              </font>
             </div>
             <div class="column">
-                 <input style="font-size: 2rem;height:60px" type="date" id="dateselect" value="2020-06-01">
+                 <input style="height:60px" type="date" id="dateselect" value="2020-06-01">
             </div>
             <div class="column">
-              <div class="ui vertical animated massive button" tabindex="0" id="btnMinusDays">
+              <div class="ui vertical animated button" tabindex="0" id="btnMinusDays">
                 <div class="hidden content">-3</div>
                 <div class="visible content">
-                  <i class="large angle double left icon"></i>
+                  <i class="angle double left icon"></i>
                 </div>
               </div>
 
-              <div class="ui vertical animated massive button" tabindex="0" id="btnPlusDays">
+              <div class="ui vertical animated button" tabindex="0" id="btnPlusDays">
                 <div class="hidden content">+3</div>
                 <div class="visible content">
-                  <i class="large angle double right icon"></i>
+                  <i class="angle double right icon"></i>
                 </div>
               </div>
 
-              <div class="ui vertical animated massive button" tabindex="0" id="btnPlay">
+              <div class="ui vertical animated button" tabindex="0" id="btnPlay">
                 <div class="hidden content">Play</div>
                 <div class="visible content">
-                  <i class="large play icon"></i>
+                  <i class="play icon"></i>
                 </div>
               </div>
 
@@ -97,8 +90,6 @@
            <div id="legend"></div>
       </div>
 
-
-  </font>
   <span id="eujstip"></span>
 <div id="mapwrapper">
   <div id="mapbase"><!-- V4.1 -->
