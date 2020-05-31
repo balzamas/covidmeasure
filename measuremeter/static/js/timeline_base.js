@@ -160,7 +160,7 @@
 
 
               legend: { position: 'bottom', textStyle: {fontSize: 25} },
-             chartArea:{left:350,top:20,width:percent+'%'},
+             chartArea:{left:280,top:20,width:percent+'%'},
               hAxis : {
                          textStyle : {
                         fontSize: 15 // or the number you want
