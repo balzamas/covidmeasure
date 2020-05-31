@@ -160,7 +160,7 @@
 
 
               legend: { position: 'bottom', textStyle: {fontSize: 25} },
-             chartArea:{left:60,top:20,width:percent+'%'},
+             chartArea:{left:350,top:20,width:percent+'%'},
               hAxis : {
                          textStyle : {
                         fontSize: 15 // or the number you want
@@ -237,7 +237,7 @@
         smoothLine: true,
 
               legend: { position: 'bottom', textStyle: {fontSize: 25} },
-             chartArea:{left:60,top:20,width:percent+'%'},
+             chartArea:{left:170,top:20,width:percent+'%'},
               hAxis : {
                          textStyle : {
                         fontSize: 15 // or the number you want
