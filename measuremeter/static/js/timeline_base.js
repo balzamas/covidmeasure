@@ -16,7 +16,6 @@
      //-----------------------------DrawChart-------------------------------------
 
       function getStartEndDate(jsonData) {
-            console.log("GetStart");
             //Get first and last date
             firstdate = new Date(2020, 5, 1);
             lastdate = new Date();
@@ -502,9 +501,6 @@
 
           dataTableMeasure.addRows([[type,country,tooltip,color,start_date,end_date]]);
 
-          return firstdate, lastdate;
-
-
 });
           var options = {
                 timeline: { rowLabelStyle: {fontSize: 25},
@@ -522,6 +518,7 @@
           };
 
         chartMeasure.draw(dataTableMeasure, options);
+                  return [firstdate, lastdate];
 
       }
 

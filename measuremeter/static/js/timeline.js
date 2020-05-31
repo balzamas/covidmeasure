@@ -3,8 +3,8 @@
       function LoadPanelsFiltered()
       {
             drawChartByCountries($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
-            firstdate, lastedate = drawChartByMeasures($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
-            drawChartCasesTimeline($('#countries_dd').dropdown('get value'), firstdate, lastedate)
+            var datesft = drawChartByMeasures($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
+            drawChartCasesTimeline($('#countries_dd').dropdown('get value'), datesft[0], datesft[1])
       }
 
       function switchPanels() {
@@ -80,8 +80,8 @@
             {
                             console.log("hahahahah11");
                 console.log($('#param').text())
-                drawChartByMeasures($('#param').text(), $('#measuretypes_dd').dropdown('get value'));
-                drawChartCasesTimeline($('#param').text())
+                var datesft = drawChartByMeasures($('#param').text(), $('#measuretypes_dd').dropdown('get value'));
+                drawChartCasesTimeline($('#param').text(),datesft[0], datesft[1])
 
             }
             else
@@ -90,9 +90,10 @@
                 rnd_country2 = Math.floor(Math.random() * 43) + 1;
                 rnd_country3 = Math.floor(Math.random() * 43) + 1;
 
+
                 countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
-                firstdate, lastedate = drawChartByMeasures(countries, $('#measuretypes_dd').dropdown('get value'));
-                drawChartCasesTimeline(countries, firstdate, lastdate);
+                var datesft = drawChartByMeasures(countries, $('#measuretypes_dd').dropdown('get value'));
+                drawChartCasesTimeline(countries, datesft[0], datesft[1]);
 
             }
 

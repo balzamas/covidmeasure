@@ -5,8 +5,16 @@ import csv
 import datetime
 import requests
 import pandas as pd
+from datetime import date, timedelta
+
+
 
 #Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863
+
+def daterange(start_date, end_date):
+    for n in range(int ((end_date - start_date).days)):
+        yield start_date + timedelta(n)
+
 
 def CalcCaesesPerMio(cases, population):
     casespm = int(cases) *1000000 / (int(population))
@@ -42,6 +50,16 @@ class Command(BaseCommand):
                 spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
 
                 country = Country.objects.get(code=cntry.code)
+
+                start_date = date(2020, 1, 1)
+                end_date = date.today()
+                for single_date in daterange(start_date, end_date):
+                    try:
+                        cd_existing_zero = CasesDeaths.objects.get(country=country, date=single_date)
+                    except CasesDeaths.DoesNotExist:
+                        cd = CasesDeaths(country=country, deaths=0, cases=0, date=single_date, cases_per_mio=0)
+                        cd.save()
+
 
                 for row in spamreader:
     #                try:
