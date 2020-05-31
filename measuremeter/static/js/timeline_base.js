@@ -158,6 +158,7 @@
         var options = {
                 smoothLine: true,
 
+
               legend: { position: 'bottom', textStyle: {fontSize: 25} },
              chartArea:{left:60,top:20,width:percent+'%'},
               hAxis : {
@@ -234,6 +235,7 @@
 
         var options = {
         smoothLine: true,
+
               legend: { position: 'bottom', textStyle: {fontSize: 25} },
              chartArea:{left:60,top:20,width:percent+'%'},
               hAxis : {
