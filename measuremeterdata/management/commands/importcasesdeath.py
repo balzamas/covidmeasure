@@ -8,6 +8,10 @@ import pandas as pd
 
 #Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863
 
+def CalcCaesesPerMio(cases, population):
+    casespm = int(cases) *1000000 / (int(population))
+    return casespm
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
@@ -40,7 +44,7 @@ class Command(BaseCommand):
                 country = Country.objects.get(code=cntry.code)
 
                 for row in spamreader:
-                    try:
+    #                try:
                         if (row[7].lower() == countrycode.lower()):
                             try:
                                    date_object = datetime.date(int(row[3]), int(row[2]), int(row[1]))
@@ -50,13 +54,14 @@ class Command(BaseCommand):
                                 cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
                                 cd_existing.deaths=row[5]
                                 cd_existing.cases = row[4]
+                                cd_existing.cases_per_mio = CalcCaesesPerMio(row[4],country.population)
                                 cd_existing.save()
                             except CasesDeaths.DoesNotExist:
-                                cd = CasesDeaths(country=country, deaths=row[5], cases=row[4], date=date_object)
+                                cd = CasesDeaths(country=country, deaths=row[5], cases=row[4], date=date_object, cases_per_mio=CalcCaesesPerMio(row[4],country.population))
                                 cd.save()
-                    except:
-                        print("Error reading line:")
-                        print(row)
+#                    except:
+ #                       print("Error reading line:")
+  #                      print(row)
 
 
 

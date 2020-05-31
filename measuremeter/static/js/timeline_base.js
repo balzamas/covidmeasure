@@ -132,8 +132,10 @@
                 }
                 old_date = line['date'];
                 row = new Array();
+                console.log(".-.-.-.")
+                console.log(line['cases_per_mio']);
                 row.push(line['date']);
-                row.push(line['cases']);
+                row.push(parseFloat(line['cases_per_mio']));
                 dayscount += 1;
                 }
              else
@@ -143,7 +145,7 @@
                                     console.log(line['country']['name'])
                     countries_data.push(line['country']['name'])
                 }
-                row.push(line['cases'])
+                row.push(parseFloat(line['cases_per_mio']))
               }
 
 
