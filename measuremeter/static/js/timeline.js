@@ -2,10 +2,9 @@
 
       function LoadPanelsFiltered()
       {
-            console.log("llll");
             drawChartByCountries($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
-            drawChartByMeasures($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
-            drawChartCasesTimeline($('#countries_dd').dropdown('get value'))
+            firstdate, lastedate = drawChartByMeasures($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
+            drawChartCasesTimeline($('#countries_dd').dropdown('get value'), firstdate, lastedate)
       }
 
       function switchPanels() {
@@ -77,7 +76,6 @@
 
             $('#param').hide();
 
-            console.log("hahahahah");
             if ($('#param').text().length > 0)
             {
                             console.log("hahahahah11");
@@ -93,8 +91,8 @@
                 rnd_country3 = Math.floor(Math.random() * 43) + 1;
 
                 countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
-                drawChartByMeasures(countries, $('#measuretypes_dd').dropdown('get value'));
-                drawChartCasesTimeline(countries);
+                firstdate, lastedate = drawChartByMeasures(countries, $('#measuretypes_dd').dropdown('get value'));
+                drawChartCasesTimeline(countries, firstdate, lastdate);
 
             }
 

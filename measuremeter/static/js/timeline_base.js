@@ -51,8 +51,6 @@
               }
             });
 
-            console.log(firstdate)
-
             return [firstdate, lastdate];
       }
 
@@ -93,7 +91,7 @@
             return date;
         }
 
-        function drawChartCasesTimeline(countries) {
+        function drawChartCasesTimeline(countries, firstdate, lastdate) {
           lastdate_x = formatDate(lastdate);
           firstdate_x = formatDate(firstdate);
 
@@ -127,13 +125,10 @@
                 }
                 if (dayscount == 0)
                 {
-                    console.log(line['country']['name'])
-                    countries_data.push(line['country']['name'])
+                   countries_data.push(line['country']['name'])
                 }
                 old_date = line['date'];
                 row = new Array();
-                console.log(".-.-.-.")
-                console.log(line['cases_per_mio']);
                 row.push(line['date']);
                 row.push(parseFloat(line['cases_per_mio']));
                 dayscount += 1;
@@ -142,7 +137,6 @@
              {
                 if (dayscount == 1)
                 {
-                                    console.log(line['country']['name'])
                     countries_data.push(line['country']['name'])
                 }
                 row.push(parseFloat(line['cases_per_mio']))
@@ -155,12 +149,10 @@
         var percent = dayscount * 100 / diffDays;
 
           dataTableCases.addColumn('string', 'Date');
-          console.log(countries_data)
           for (i = 0; i < countries_data.length; i++) {
                  dataTableCases.addColumn('number', countries_data[i]);
           }
 
-           console.log(rowsCases)
           dataTableCases.addRows(rowsCases);
 
 
@@ -509,6 +501,8 @@
           var source = "Source: " + line['sources'].toString()
 
           dataTableMeasure.addRows([[type,country,tooltip,color,start_date,end_date]]);
+
+          return firstdate, lastdate;
 
 
 });
