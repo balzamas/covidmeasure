@@ -11,7 +11,7 @@ class CasesDeathsSerializer(serializers.ModelSerializer):
     country = CountrySerializer()
     class Meta:
         model = CasesDeaths
-        fields = ['pk', 'country', 'date', 'deaths', 'cases', 'deathstotal', 'cases_per_mio']
+        fields = ['pk', 'country', 'date', 'deaths', 'cases', 'deathstotal', 'cases_per_mio', 'cases_per_mio_seven']
 
 class MeasureCategorySerializer(serializers.ModelSerializer):
     class Meta:

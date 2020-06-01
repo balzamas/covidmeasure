@@ -60,26 +60,51 @@ class Command(BaseCommand):
                         cd = CasesDeaths(country=country, deaths=0, cases=0, date=single_date, cases_per_mio=0)
                         cd.save()
 
-
                 for row in spamreader:
-    #                try:
+                    try:
                         if (row[7].lower() == countrycode.lower()):
                             try:
                                    date_object = datetime.date(int(row[3]), int(row[2]), int(row[1]))
                             except:
                                     print("Error")
+
+
+
                             try:
                                 cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
                                 cd_existing.deaths=row[5]
                                 cd_existing.cases = row[4]
                                 cd_existing.cases_per_mio = CalcCaesesPerMio(row[4],country.population)
+                                cd_existing.cases_per_mio_seven = 0
                                 cd_existing.save()
                             except CasesDeaths.DoesNotExist:
-                                cd = CasesDeaths(country=country, deaths=row[5], cases=row[4], date=date_object, cases_per_mio=CalcCaesesPerMio(row[4],country.population))
+                                cd = CasesDeaths(country=country, deaths=row[5], cases=row[4], date=date_object, cases_per_mio=CalcCaesesPerMio(row[4],country.population), cases_per_mio_seven = 0)
                                 cd.save()
-#                    except:
- #                       print("Error reading line:")
-  #                      print(row)
+                    except:
+                        print("Error reading line:")
+                        print(row)
+
+            #calc running avg
+            last_numbers = [0, 0, 0, 0, 0, 0, 0]
+            rec_deaths = CasesDeaths.objects.filter(country=country).order_by('date')
+
+            for day in rec_deaths:
+                last_numbers.append(day.cases_per_mio)
+                last_numbers.pop(0)
+                tot = 0
+                print(day.date)
+                print(last_numbers)
+                for x in last_numbers:
+                    tot += x
+
+                seven_avg = tot / 7
+                day.cases_per_mio_seven = seven_avg
+                day.save()
+
+
+
+
+
 
 
 

@@ -129,7 +129,7 @@
                 old_date = line['date'];
                 row = new Array();
                 row.push(line['date']);
-                row.push(parseFloat(line['cases_per_mio']));
+                row.push(parseFloat(line['cases_per_mio_seven']));
                 dayscount += 1;
                 }
              else
@@ -138,7 +138,7 @@
                 {
                     countries_data.push(line['country']['name'])
                 }
-                row.push(parseFloat(line['cases_per_mio']))
+                row.push(parseFloat(line['cases_per_mio_seven']))
               }
 
 
