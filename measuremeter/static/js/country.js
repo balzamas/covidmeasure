@@ -170,7 +170,7 @@
                 var groups = new vis.DataSet();
                 groups.add({
                     id: 0,
-                    content: names[0],
+                    content: "HANSA",
                     className: 'custom-style1',
                     options: {
                         drawPoints: {
@@ -218,10 +218,14 @@
           var dataset = new vis.DataSet(rowsCases);
           var options = {
           };
+          var optionsDeath =
+          {
+             legend: {left:{position:"top-left"}},
+          }
           var graph2d = new vis.Graph2d(container, dataset, options);
 
           var datasetDeaths = new vis.DataSet(rowsDeaths);
-          var graph2dDeaths = new vis.Graph2d(containerDeaths, datasetDeaths, options);
+          var graph2dDeaths = new vis.Graph2d(containerDeaths, datasetDeaths, groups, optionsDeath);
 
       }
 

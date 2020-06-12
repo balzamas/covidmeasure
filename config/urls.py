@@ -30,7 +30,9 @@ urlpatterns = [
     path(
     "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
                   ),
-    path(
+                  path(
+                      "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
+                  ),
     path('country/<str:country_name>/',views.render_country, name='item'),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),

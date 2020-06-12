@@ -249,11 +249,6 @@
 
               // Configuration for the Timeline
               var options = {
-
-                  groupOrder: function (a, b) {
-                  return a.value - b.value;
-                },
-
               };
 
               // Create a Timeline
@@ -295,66 +290,34 @@
         var row = new Array()
         old_date = new Date(2020, 1, 1);
 
+        country_pk = -1
+        country_elements = new Array()
         countries_data = new Array()
+        countries_groups = new Array()
+        var groups = new vis.DataSet();
 
         $.each(jsonData, function(id, line) {
-
+                  if (country_pk != line["country"]["pk"])
+                      {
+                         if (!country_elements.includes(line["country"]["pk"]))
+                         {
+                           country_elements.push(line["country"]["pk"]);
+                           console.log(line['country']['pk'])
+                           console.log(line['country']['name'])
+                           groups.add({"id": line["country"]["pk"], "content": line['country']['name'],'legendLabel':"Jjjjj"});
+                           country_pk = line["country"]["pk"]
+                          }
+                      }
             countries_data.push({"group":line['country']['pk'], "x": line['date'], "y": line['cases_per_mio_seven'] })
         });
 
-              var names = ['SquareShaded', 'Bargraph', 'Blank', 'CircleShaded'];
-                var groups = new vis.DataSet();
-                groups.add({
-                    id: 0,
-                    content: names[0],
-                    className: 'custom-style1',
-                    options: {
-                        drawPoints: {
-                            style: 'square' // square, circle
-                        },
-                        shaded: {
-                            orientation: 'bottom' // top, bottom
-                        }
-                    }});
-
-                groups.add({
-                    id: 1,
-                    content: names[1],
-                    className: 'custom-style2',
-                    options: {
-                        style:'bar',
-                        drawPoints: {style: 'circle',
-                            size: 10
-                        }
-                    }});
-
-                groups.add({
-                    id: 2,
-                    content: names[2],
-                    options: {
-                        yAxisOrientation: 'right', // right, left
-                        drawPoints: false
-                    }
-                });
-
-                groups.add({
-                    id: 3,
-                    content: names[3],
-                    className: 'custom-style3',
-                    options: {
-                        yAxisOrientation: 'right', // right, left
-                        drawPoints: {
-                            style: 'circle' // square, circle
-                        },
-                        shaded: {
-                            orientation: 'top' // top, bottom
-                        }
-                    }});
+        console.log(groups);
 
           var dataset = new vis.DataSet(countries_data);
           var options = {
+                legend: {left:{position:"top-left"}},
           };
-          var graph2d = new vis.Graph2d(container, dataset, options);
+          var graph2d = new vis.Graph2d(container, dataset, groups, options);
         }
 
 
