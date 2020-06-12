@@ -255,7 +255,6 @@
               var timeline = new vis.Timeline(container, items, groups, options);
                 timeline.setOptions(options);
                 timeline.setGroups(groups);
-            });
             return [firstdate, lastdate];
         }
 
