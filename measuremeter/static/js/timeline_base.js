@@ -254,7 +254,7 @@
               };
 
               // Create a Timeline
-              var timeline = new vis.Timeline(container, items, options);
+              var timeline = new vis.Timeline(container, items, groups, options);
                 timeline.setOptions(options);
                 timeline.setGroups(groups);
 
@@ -291,72 +291,46 @@
         $.each(jsonData, function(id, line) {
             dayscount += 1;
 
-            rowsCases.push({"group": 0, "x": line['date'], "y": line['cases']});
+            rowsCases.push({"group": "Cases", "x": line['date'], "y": line['cases']});
 
               if (Number(avg_values[0] > 0))
               {
-                rowsDeaths.push({"group":0, "x": line['date'], "y": line['deaths'] });
-                rowsDeaths.push({"group":1, "x": line['date'], "y": line['deathstotal'] });
-                rowsDeaths.push({"group":2, "x": line['date'], "y": Number(avg_values[0]) });
-                rowsDeaths.push({"group":3, "x": line['date'], "y": Number(avg_values[1]) });
+                rowsDeaths.push({"group":"Deaths Corona", "x": line['date'], "y": line['deaths'] });
+                rowsDeaths.push({"group":"Deaths Total", "x": line['date'], "y": line['deathstotal'] });
+                rowsDeaths.push({"group":"Deaths Average", "x": line['date'], "y": Number(avg_values[0]) });
+                rowsDeaths.push({"group":"Deaths Average Peak", "x": line['date'], "y": Number(avg_values[1]) });
               }
               else
               {
-                rowsDeaths.push({"group":0, "x": line['date'], "y": line['deaths'] })
+                rowsDeaths.push({"group":"Deaths Corona", "x": line['date'], "y": line['deaths'] })
               }
         });
 
-              var names = ['SquareShaded', 'Bargraph', 'Blank', 'CircleShaded'];
+
                 var groups = new vis.DataSet();
                 groups.add({
-                    id: 0,
-                    content: "HANSA",
-                    className: 'custom-style1',
-                    options: {
-                        drawPoints: {
-                            style: 'square' // square, circle
-                        },
-                        shaded: {
-                            orientation: 'bottom' // top, bottom
-                        }
-                    }});
+                    id: "Deaths Average",
+                    content: "Deaths Average",
+                        });
 
                 groups.add({
-                    id: 1,
-                    content: names[1],
-                    className: 'custom-style2',
-                    options: {
-                        style:'bar',
-                        drawPoints: {style: 'circle',
-                            size: 10
-                        }
-                    }});
+                    id: "Deaths Average Peak",
+                    content: "Deaths Average Peak",
+                  });
 
                 groups.add({
-                    id: 2,
-                    content: names[2],
-                    options: {
-                        yAxisOrientation: 'right', // right, left
-                        drawPoints: false
-                    }
+                    id: "Deaths Total",
+                    content: "Deaths Total",
                 });
 
                 groups.add({
-                    id: 3,
-                    content: names[3],
-                    className: 'custom-style3',
-                    options: {
-                        yAxisOrientation: 'right', // right, left
-                        drawPoints: {
-                            style: 'circle' // square, circle
-                        },
-                        shaded: {
-                            orientation: 'top' // top, bottom
-                        }
-                    }});
+                    id: "Deaths Corona",
+                    content: "Deaths Corona",
+                    });
 
           var dataset = new vis.DataSet(rowsCases);
           var options = {
+              defaultGroup: "Country ",
           };
           var optionsDeath =
           {
@@ -366,6 +340,7 @@
 
           var datasetDeaths = new vis.DataSet(rowsDeaths);
           var graph2dDeaths = new vis.Graph2d(containerDeaths, datasetDeaths, groups, optionsDeath);
+          graph2dDeaths.setGroups(groups)
 
       }
 
@@ -410,20 +385,23 @@
                            country_elements.push(line["country"]["pk"]);
                            console.log(line['country']['pk'])
                            console.log(line['country']['name'])
-                           groupsgraph.add({"id": line["country"]["pk"], "content": line['country']['name'],'legendLabel':"Jjjjj"});
+                           groupsgraph.add({"id": line['country']['name'], "content": line['country']['name']});
                            country_pk = line["country"]["pk"]
                           }
                       }
-            countries_data.push({"group":line['country']['pk'], "x": line['date'], "y": line['cases_per_mio_seven'] })
+            countries_data.push({"group":line['country']['name'], "x": line['date'], "y": line['cases_per_mio_seven'] })
         });
 
         console.log(groupsgraph);
 
           var datasetgraph = new vis.DataSet(countries_data);
           var optionsgraph = {
+                defaultGroup: "Country ",
+
                 legend: {left:{position:"top-left"}},
           };
-          var graph2d = new vis.Graph2d(containergraph, datasetgraph, groupsgraph, optionsgraph);
+          var graph2dline = new vis.Graph2d(containergraph, datasetgraph, groupsgraph, optionsgraph);
+          graph2dline.setGroups(groupsgraph)
         }
 
 
