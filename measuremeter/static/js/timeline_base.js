@@ -224,7 +224,7 @@
 
               var source = "Source: " + line['sources'].toString()
 
-                console.log(tooltip)
+
 
                if (mode == 1)
                {
@@ -242,8 +242,6 @@
               //dataTableCountry.addRows([[line['country']['name'].toString(),type,tooltip,color, start_date,end_date]])
             });
 
-            console.log(items_data)
-
               var groups = new vis.DataSet(groups_data);
 
               // Create a DataSet (allows two way data-binding)
@@ -257,10 +255,6 @@
               var timeline = new vis.Timeline(container, items, groups, options);
                 timeline.setOptions(options);
                 timeline.setGroups(groups);
-
-                timeline.on('select', function (properties) {$
-                console.log(properties)
-                alert('selected items: ' + properties.items[0]);
             });
             return [firstdate, lastdate];
         }
@@ -383,16 +377,12 @@
                          if (!country_elements.includes(line["country"]["pk"]))
                          {
                            country_elements.push(line["country"]["pk"]);
-                           console.log(line['country']['pk'])
-                           console.log(line['country']['name'])
                            groupsgraph.add({"id": line['country']['name'], "content": line['country']['name']});
                            country_pk = line["country"]["pk"]
                           }
                       }
             countries_data.push({"group":line['country']['name'], "x": line['date'], "y": line['cases_per_mio_seven'] })
         });
-
-        console.log(groupsgraph);
 
           var datasetgraph = new vis.DataSet(countries_data);
           var optionsgraph = {
