@@ -197,7 +197,7 @@
                    tooltip += " <br>Duration: " + days + " days</p>"
                 }
               }
-              tooltip += line['comment'].toString();
+              tooltip += line['comment'].toString()+'';
 
               if (line['level'] == 1)
               {
@@ -223,6 +223,8 @@
               }
 
               var source = "Source: " + line['sources'].toString()
+
+                console.log(tooltip)
 
                if (mode == 1)
                {
@@ -256,16 +258,120 @@
                 timeline.setOptions(options);
                 timeline.setGroups(groups);
 
-                timeline.on('select', function (properties) {
+                timeline.on('select', function (properties) {$
                 console.log(properties)
-              alert('selected items: ' + properties.alpha);
+                alert('selected items: ' + properties.items[0]);
             });
             return [firstdate, lastdate];
         }
 
+      function drawLineChart(country, avg_values, startdate, endate)
+      {
+          var container = document.getElementById('lineChartCases');
+          var containerDeaths = document.getElementById('lineChartDeaths');
+
+          lastdate_x = formatDate(endate);
+          firstdate_x = formatDate(startdate);
+
+          var data = $.ajax({
+          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonData = JSON.parse(data);
+
+         var diffTime = Math.abs(lastdate - firstdate);
+         var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+         dayscount = 0
+
+         rowsCases = new Array();
+         rowsDeaths = new Array();
+
+
+        $.each(jsonData, function(id, line) {
+            dayscount += 1;
+
+            rowsCases.push({"group": 0, "x": line['date'], "y": line['cases']});
+
+              if (Number(avg_values[0] > 0))
+              {
+                rowsDeaths.push({"group":0, "x": line['date'], "y": line['deaths'] });
+                rowsDeaths.push({"group":1, "x": line['date'], "y": line['deathstotal'] });
+                rowsDeaths.push({"group":2, "x": line['date'], "y": Number(avg_values[0]) });
+                rowsDeaths.push({"group":3, "x": line['date'], "y": Number(avg_values[1]) });
+              }
+              else
+              {
+                rowsDeaths.push({"group":0, "x": line['date'], "y": line['deaths'] })
+              }
+        });
+
+              var names = ['SquareShaded', 'Bargraph', 'Blank', 'CircleShaded'];
+                var groups = new vis.DataSet();
+                groups.add({
+                    id: 0,
+                    content: "HANSA",
+                    className: 'custom-style1',
+                    options: {
+                        drawPoints: {
+                            style: 'square' // square, circle
+                        },
+                        shaded: {
+                            orientation: 'bottom' // top, bottom
+                        }
+                    }});
+
+                groups.add({
+                    id: 1,
+                    content: names[1],
+                    className: 'custom-style2',
+                    options: {
+                        style:'bar',
+                        drawPoints: {style: 'circle',
+                            size: 10
+                        }
+                    }});
+
+                groups.add({
+                    id: 2,
+                    content: names[2],
+                    options: {
+                        yAxisOrientation: 'right', // right, left
+                        drawPoints: false
+                    }
+                });
+
+                groups.add({
+                    id: 3,
+                    content: names[3],
+                    className: 'custom-style3',
+                    options: {
+                        yAxisOrientation: 'right', // right, left
+                        drawPoints: {
+                            style: 'circle' // square, circle
+                        },
+                        shaded: {
+                            orientation: 'top' // top, bottom
+                        }
+                    }});
+
+          var dataset = new vis.DataSet(rowsCases);
+          var options = {
+          };
+          var optionsDeath =
+          {
+             legend: {left:{position:"top-left"}},
+          }
+          var graph2d = new vis.Graph2d(container, dataset, options);
+
+          var datasetDeaths = new vis.DataSet(rowsDeaths);
+          var graph2dDeaths = new vis.Graph2d(containerDeaths, datasetDeaths, groups, optionsDeath);
+
+      }
+
         function drawLineChartperPop(countries, startdate, endate)
         {
-          var container = document.getElementById('lineChartCasesPerPop');
+          var containergraph = document.getElementById('lineChartCasesPerPop');
 
           lastdate_x = formatDate(endate);
           firstdate_x = formatDate(startdate);
@@ -294,7 +400,7 @@
         country_elements = new Array()
         countries_data = new Array()
         countries_groups = new Array()
-        var groups = new vis.DataSet();
+        var groupsgraph = new vis.DataSet();
 
         $.each(jsonData, function(id, line) {
                   if (country_pk != line["country"]["pk"])
@@ -304,20 +410,20 @@
                            country_elements.push(line["country"]["pk"]);
                            console.log(line['country']['pk'])
                            console.log(line['country']['name'])
-                           groups.add({"id": line["country"]["pk"], "content": line['country']['name'],'legendLabel':"Jjjjj"});
+                           groupsgraph.add({"id": line["country"]["pk"], "content": line['country']['name'],'legendLabel':"Jjjjj"});
                            country_pk = line["country"]["pk"]
                           }
                       }
             countries_data.push({"group":line['country']['pk'], "x": line['date'], "y": line['cases_per_mio_seven'] })
         });
 
-        console.log(groups);
+        console.log(groupsgraph);
 
-          var dataset = new vis.DataSet(countries_data);
-          var options = {
+          var datasetgraph = new vis.DataSet(countries_data);
+          var optionsgraph = {
                 legend: {left:{position:"top-left"}},
           };
-          var graph2d = new vis.Graph2d(container, dataset, groups, options);
+          var graph2d = new vis.Graph2d(containergraph, datasetgraph, groupsgraph, optionsgraph);
         }
 
 

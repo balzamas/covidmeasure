@@ -1,8 +1,21 @@
     /* custom styles for individual items, load this after vis-timeline-graph2d.min.css/vis-timeline-graph2d.min.css */
 
+    p {
+      font-size: 1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    }
+
     .vis-item.green {
       background-color: greenyellow;
       border-color: green;
+    }
+
+    div.vis-tooltip {
+      white-space: normal;
+      width: 50em;
+      max-width: 500px; // just for test, adapt to your needs
+      word-wrap: break-word;
+      padding: 5px;
     }
 
     /* create a custom sized dot at the bottom of the red item */

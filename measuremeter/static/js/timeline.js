@@ -2,7 +2,7 @@
 
       function LoadPanelsFiltered()
       {
-            //drawChartByCountries($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
+            console.log(mode)
             var datesft = drawTimeline(mode,$('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
             console.log(datesft)
             drawChartCasesTimeline($('#countries_dd').dropdown('get value'), datesft[0], datesft[1])
@@ -75,6 +75,7 @@
             {
                 console.log("hahahahah11");
                 console.log($('#param').text())
+                console.log(mode)
                 var datesft = drawTimeline(mode, $('#param').text(), $('#measuretypes_dd').dropdown('get value'));
                 console.log(datesft)
                 drawChartCasesTimeline($('#param').text(),datesft[0], datesft[1])
@@ -86,7 +87,7 @@
                 rnd_country2 = Math.floor(Math.random() * 43) + 1;
                 rnd_country3 = Math.floor(Math.random() * 43) + 1;
 
-
+                console.log(mode)
                 countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
                 var datesft = drawTimeline(mode, countries, $('#measuretypes_dd').dropdown('get value'));
                  console.log(datesft)
