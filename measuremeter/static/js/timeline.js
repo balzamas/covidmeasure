@@ -1,29 +1,24 @@
-
+     var mode = 1;
 
       function LoadPanelsFiltered()
       {
-            drawChartByCountries($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
-            var datesft = drawChartByMeasures($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
+            //drawChartByCountries($('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
+            var datesft = drawTimeline(mode,$('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
+            console.log(datesft)
             drawChartCasesTimeline($('#countries_dd').dropdown('get value'), datesft[0], datesft[1])
       }
 
       function switchPanels() {
-          var x = document.getElementById("bycountry");
-          if (x.style.display === "none") {
-            x.style.display = "block";
-            $('#loadtext').html("by measure");
-
-          } else {
-            x.style.display = "none";
-            $('#loadtext').html("by country");
-          }
-          var y = document.getElementById("bymeasure");
-          if (y.style.display === "none") {
-            y.style.display = "block";
-          } else {
-            y.style.display = "none";
-          }
-
+          if (mode == 1)
+          {
+                 mode = 2;
+                $('#loadtext').html("by country");
+           }
+           else
+           {
+               mode = 1;
+               $('#loadtext').html("by measure");
+           }
           LoadPanelsFiltered();
         }
 
@@ -78,9 +73,10 @@
 
             if ($('#param').text().length > 0)
             {
-                            console.log("hahahahah11");
+                console.log("hahahahah11");
                 console.log($('#param').text())
-                var datesft = drawChartByMeasures($('#param').text(), $('#measuretypes_dd').dropdown('get value'));
+                var datesft = drawTimeline(mode, $('#param').text(), $('#measuretypes_dd').dropdown('get value'));
+                console.log(datesft)
                 drawChartCasesTimeline($('#param').text(),datesft[0], datesft[1])
 
             }
@@ -92,9 +88,9 @@
 
 
                 countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
-                var datesft = drawChartByMeasures(countries, $('#measuretypes_dd').dropdown('get value'));
-                drawChartCasesTimeline(countries, datesft[0], datesft[1]);
-
+                var datesft = drawTimeline(mode, countries, $('#measuretypes_dd').dropdown('get value'));
+                 console.log(datesft)
+                drawLineChartperPop(countries, datesft[0], datesft[1]);
             }
 
           $("#btnCopyLink").click(async function(){

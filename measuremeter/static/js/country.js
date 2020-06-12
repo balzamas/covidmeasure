@@ -125,14 +125,113 @@
 
       }
 
+      function drawLineChart(country, avg_values, startdate, endate)
+      {
+          var container = document.getElementById('lineChartCases');
+          var containerDeaths = document.getElementById('lineChartDeaths');
+
+          lastdate_x = formatDate(endate);
+          firstdate_x = formatDate(startdate);
+
+          var data = $.ajax({
+          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonData = JSON.parse(data);
+
+         var diffTime = Math.abs(lastdate - firstdate);
+         var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+         dayscount = 0
+
+         rowsCases = new Array();
+         rowsDeaths = new Array();
+
+
+        $.each(jsonData, function(id, line) {
+            dayscount += 1;
+
+            rowsCases.push({"group": 0, "x": line['date'], "y": line['cases']});
+
+              if (Number(avg_values[0] > 0))
+              {
+                rowsDeaths.push({"group":0, "x": line['date'], "y": line['deaths'] });
+                rowsDeaths.push({"group":1, "x": line['date'], "y": line['deathstotal'] });
+                rowsDeaths.push({"group":2, "x": line['date'], "y": Number(avg_values[0]) });
+                rowsDeaths.push({"group":3, "x": line['date'], "y": Number(avg_values[1]) });
+              }
+              else
+              {
+                rowsDeaths.push({"group":0, "x": line['date'], "y": line['deaths'] })
+              }
+        });
+
+              var names = ['SquareShaded', 'Bargraph', 'Blank', 'CircleShaded'];
+                var groups = new vis.DataSet();
+                groups.add({
+                    id: 0,
+                    content: names[0],
+                    className: 'custom-style1',
+                    options: {
+                        drawPoints: {
+                            style: 'square' // square, circle
+                        },
+                        shaded: {
+                            orientation: 'bottom' // top, bottom
+                        }
+                    }});
+
+                groups.add({
+                    id: 1,
+                    content: names[1],
+                    className: 'custom-style2',
+                    options: {
+                        style:'bar',
+                        drawPoints: {style: 'circle',
+                            size: 10
+                        }
+                    }});
+
+                groups.add({
+                    id: 2,
+                    content: names[2],
+                    options: {
+                        yAxisOrientation: 'right', // right, left
+                        drawPoints: false
+                    }
+                });
+
+                groups.add({
+                    id: 3,
+                    content: names[3],
+                    className: 'custom-style3',
+                    options: {
+                        yAxisOrientation: 'right', // right, left
+                        drawPoints: {
+                            style: 'circle' // square, circle
+                        },
+                        shaded: {
+                            orientation: 'top' // top, bottom
+                        }
+                    }});
+
+          var dataset = new vis.DataSet(rowsCases);
+          var options = {
+          };
+          var graph2d = new vis.Graph2d(container, dataset, options);
+
+          var datasetDeaths = new vis.DataSet(rowsDeaths);
+          var graph2dDeaths = new vis.Graph2d(containerDeaths, datasetDeaths, options);
+
+      }
+
       function LoadPanelsFiltered()
       {
             if ($('#countries_dd').dropdown('get value') != null)
             {
                 avg_values = LoadCountryData($('#countries_dd').dropdown('get value'));
-                drawChartByCountries($('#countries_dd').dropdown('get value'));
-                drawChartCases($('#countries_dd').dropdown('get value'),avg_values);
-
+                var datesft = drawTimeline(1,$('#countries_dd').dropdown('get value'));
+                drawLineChart($('#countries_dd').dropdown('get value'),avg_values, datesft[0], datesft[1]);
              }
       }
 
