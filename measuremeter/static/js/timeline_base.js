@@ -260,6 +260,9 @@
 
       function drawLineChart(country, avg_values, startdate, endate)
       {
+            document.getElementById('lineChartCases').innerHTML = "";
+            document.getElementById('lineChartDeaths').innerHTML = "";
+
           var container = document.getElementById('lineChartCases');
           var containerDeaths = document.getElementById('lineChartDeaths');
 
@@ -339,6 +342,8 @@
 
         function drawLineChartperPop(countries, startdate, endate)
         {
+                    document.getElementById('lineChartCasesPerPop').innerHTML = "";
+
           var containergraph = document.getElementById('lineChartCasesPerPop');
 
           lastdate_x = formatDate(endate);
