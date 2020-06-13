@@ -5,7 +5,7 @@
             console.log(mode)
             var datesft = drawTimeline(mode,$('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
             console.log(datesft)
-            drawChartCasesTimeline($('#countries_dd').dropdown('get value'), datesft[0], datesft[1])
+            drawLineChartperPop($('#countries_dd').dropdown('get value'), datesft[0], datesft[1])
       }
 
       function switchPanels() {
