@@ -134,7 +134,7 @@
                          if (!groups_elements.includes(line["type"]["pk"]))
                          {
                            groups_elements.push(line["type"]["pk"]);
-                           groups_data.push({"id": line["type"]["pk"], "content": line['type']['name']});
+                           groups_data.push({"id": line["type"]["pk"], "content": line['type']['name'], subgroupOrder: 'subgroupOrder'});
                           }
                       }
               }
@@ -145,7 +145,7 @@
                          if (!groups_elements.includes(line["country"]["pk"]))
                          {
                            groups_elements.push(line["country"]["pk"]);
-                           groups_data.push({"id": line["country"]["pk"], "content": line['country']['name']});
+                           groups_data.push({"id": line["country"]["pk"], "content": line['country']['name'], "stackSubgroups": true,"subgroupOrder":"subgroup"});
                           }
                       }
               }
@@ -228,11 +228,11 @@
 
                if (mode == 1)
                {
-                items_data.push({"id": count, "content": country, "group": line['type']['pk'], "start": start_date, "end": end_date, 'className': class_type, "title": tooltip});
+                items_data.push({"id": count, "content": country, "group": line['type']['pk'], "start": start_date, "end": end_date, 'className': class_type, "title": tooltip, "subgroup": line['country']['pk']});
                }
                else
                {
-                items_data.push({"id": count, "content": type, "group": line['country']['pk'], "start": start_date, "end": end_date, 'className': class_type, "title": tooltip});
+                items_data.push({"id": count, "content": type, "group": line['country']['pk'], "start": start_date, "end": end_date, 'className': class_type, "title": tooltip, "subgroup": line['type']['pk']});
                }
 
               count += 1;
@@ -249,6 +249,8 @@
 
               // Configuration for the Timeline
               var options = {
+                stack: false,
+                stackSubgroups: true
               };
 
               // Create a Timeline
