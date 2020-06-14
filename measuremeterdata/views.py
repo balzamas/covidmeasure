@@ -50,7 +50,7 @@ def get_queryset(self):
         if start:
             measures.filter(start__lte=start)  # returned queryset filtered by ids
         if end:
-            measures.filter(end__gt=end)  # returned queryset filtered by ids
+            measures.filter(end__gte=end)  # returned queryset filtered by ids
         if levels:
             measures.filter(level__in=levels)  # returned queryset filtered by ids
 
