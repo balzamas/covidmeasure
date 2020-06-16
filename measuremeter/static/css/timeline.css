@@ -5,15 +5,16 @@
       font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
     }
 
-    .vis-item.green {
-      background-color: greenyellow;
-      border-color: green;
+    .vis-timeline {
+      font-size: 1.5em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
     }
 
     div.vis-tooltip {
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
       white-space: normal;
       width: 50em;
-      max-width: 500px; // just for test, adapt to your needs
+      max-width: 500px;
       word-wrap: break-word;
       padding: 5px;
     }
@@ -60,6 +61,17 @@
       font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
     }
 
+    .vis-item.vis-selected.white {
+       background-color: white;
+       border-style:solid;
+       border-width:5px;
+       border-color: black;
+       color: black;
+       font-size: 1.1em;
+       font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+       border-style: dotted;
+     }
+
     .vis-item.softred {
       background-color: #ebb5ab;
       border-color: #e5573a;
@@ -68,7 +80,20 @@
       color: black;
             font-size: 1.1em;
       font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
     }
+
+     .vis-item.vis-selected.softred {
+      background-color: #ebb5ab;
+      border-color: #e5573a;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
 
     .vis-item.softyellow {
       background-color: #f0e9aa;
@@ -76,22 +101,18 @@
       border-style:solid;
       border-width:5px;
       color: black;
+      font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+    .vis-item.vis-selected.softyellow {
+      background-color: #f0e9aa;
+      border-color: #f5da3c;
+      border-style:solid;
+      border-width:5px;
+      color: black;
             font-size: 1.1em;
       font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
-    }
-
-
-    .vis-item.magenta {
-      background-color: magenta;
-      border-color: purple;
-      color: white;
-    }
-
-    /* our custom classes overrule the styles for selected events,
-       so lets define a new style for the selected events */
-    .vis-item.vis-selected {
-      background-color: white;
-      border-color: black;
-      color: black;
-      box-shadow: 0 0 10px gray;
+            border-style: dotted;
     }

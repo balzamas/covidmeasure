@@ -161,7 +161,7 @@
               }
               else
               {
-                var start_date = firstdate;
+                var start_date = "2020-01-01";
                 var start_date_str = ""
               }
 
@@ -173,7 +173,7 @@
               }
               else
               {
-                var end_date = lastdate;
+                var end_date = addDays(lastdate,7);
                 type = type + "*";
                 country = country + "*";
                 var end_date_str = 'undefined'
@@ -203,11 +203,11 @@
               {
                 type += " " +  line['type']['tooltip_partial'];
                 country += " " +  line['type']['tooltip_partial'];
-                class_type = 'softred'
+                class_type = 'softyellow'
               }
               else
               {
-                class_type = 'softyellow';
+                class_type = 'softred';
                 if (line['level'] > 0)
                {
                  type += " " + line['type']['tooltip_nonpartial'];
@@ -250,7 +250,9 @@
               // Configuration for the Timeline
               var options = {
                 stack: false,
-                stackSubgroups: true
+                stackSubgroups: true,
+                start: firstdate,
+                end: lastdate,
               };
 
               // Create a Timeline
@@ -272,7 +274,7 @@
           firstdate_x = formatDate(startdate);
 
           var data = $.ajax({
-          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
+          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after=2020-01-01&date_before="+lastdate_x,
           dataType: "json",
           async: false
           }).responseText;
@@ -330,11 +332,16 @@
           var options = {
               defaultGroup: "Country ",
                drawPoints: false,
+               start: firstdate,
+               end: lastdate_x
           };
           var optionsDeath =
           {
              legend: {left:{position:"top-left"}},
               drawPoints: false,
+              start: firstdate,
+               end: lastdate_x
+
           }
           var graph2d = new vis.Graph2d(container, dataset, options);
 
@@ -354,7 +361,7 @@
           firstdate_x = formatDate(startdate);
 
           var data = $.ajax({
-          url: "/measuremeterdata/casesdeaths/?country="+countries+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
+          url: "/measuremeterdata/casesdeaths/?country="+countries+"&date_after=2020-01-01&date_before="+lastdate_x,
           dataType: "json",
           async: false
           }).responseText;
@@ -397,6 +404,9 @@
                 defaultGroup: "Country ",
                 drawPoints: false,
                 legend: {left:{position:"top-left"}},
+                start: firstdate,
+                end: lastdate
+
           };
           var graph2dline = new vis.Graph2d(containergraph, datasetgraph, groupsgraph, optionsgraph);
           graph2dline.setGroups(groupsgraph)
