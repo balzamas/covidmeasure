@@ -329,10 +329,12 @@
           var dataset = new vis.DataSet(rowsCases);
           var options = {
               defaultGroup: "Country ",
+               drawPoints: false,
           };
           var optionsDeath =
           {
              legend: {left:{position:"top-left"}},
+              drawPoints: false,
           }
           var graph2d = new vis.Graph2d(container, dataset, options);
 
@@ -393,7 +395,7 @@
           var datasetgraph = new vis.DataSet(countries_data);
           var optionsgraph = {
                 defaultGroup: "Country ",
-
+                drawPoints: false,
                 legend: {left:{position:"top-left"}},
           };
           var graph2dline = new vis.Graph2d(containergraph, datasetgraph, groupsgraph, optionsgraph);
