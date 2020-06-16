@@ -124,6 +124,8 @@
         var type_pk = -1;
         var class_type = 'white';
 
+        var class_count = true;
+
 
         $.each(jsonData, function(id, line) {
 
@@ -133,8 +135,18 @@
                       {
                          if (!groups_elements.includes(line["type"]["pk"]))
                          {
+                           if (class_count)
+                           {
+                                groupClass = "white";
+                                class_count = false;
+                           }
+                           else
+                           {
+                                groupClass = "gray"
+                                class_count = true;
+                           }
                            groups_elements.push(line["type"]["pk"]);
-                           groups_data.push({"id": line["type"]["pk"], "content": line['type']['name'], subgroupOrder: 'subgroupOrder'});
+                           groups_data.push({"id": line["type"]["pk"], "content": line['type']['name'], 'className': groupClass, subgroupOrder: 'subgroupOrder'});
                           }
                       }
               }
@@ -144,8 +156,19 @@
                       {
                          if (!groups_elements.includes(line["country"]["pk"]))
                          {
+                            if (class_count)
+                               {
+                                    groupClass = "white";
+                                    class_count = false;
+                               }
+                               else
+                               {
+                                    groupClass = "red"
+                                    class_count = true;
+                               }
+
                            groups_elements.push(line["country"]["pk"]);
-                           groups_data.push({"id": line["country"]["pk"], "content": line['country']['name'], "stackSubgroups": true,"subgroupOrder":"subgroup"});
+                           groups_data.push({"id": line["country"]["pk"], "content": line['country']['name'], 'className': groupClass, "stackSubgroups": true,"subgroupOrder":"subgroup"});
                           }
                       }
               }

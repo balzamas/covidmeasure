@@ -19,6 +19,26 @@
       padding: 5px;
     }
 
+        /* create a custom sized dot at the bottom of the red item */
+    .vis-group.gray {
+      background-color: #d5d5d5;
+    }
+
+            /* create a custom sized dot at the bottom of the red item */
+    .vis-label.gray {
+      background-color: #d5d5d5;
+    }
+
+            /* create a custom sized dot at the bottom of the red item */
+    .vis-group.white {
+      background-color: white;
+    }
+
+            /* create a custom sized dot at the bottom of the red item */
+    .vis-label.white {
+      background-color: white;
+    }
+
     /* create a custom sized dot at the bottom of the red item */
     .vis-item.red {
       background-color: red;
@@ -39,16 +59,6 @@
       border-width: 2px;
       font-size: 24pt;
       font-weight: bold;
-    }
-
-    .vis-item.orange {
-      background-color: gold;
-      border-color: orange;
-    }
-    .vis-item.vis-selected.orange {
-      /* custom colors for selected orange items */
-      background-color: orange;
-      border-color: orangered;
     }
 
     .vis-item.white {
