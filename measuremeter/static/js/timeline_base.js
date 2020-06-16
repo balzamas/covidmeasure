@@ -203,11 +203,11 @@
               {
                 type += " " +  line['type']['tooltip_partial'];
                 country += " " +  line['type']['tooltip_partial'];
-                class_type = 'green'
+                class_type = 'softred'
               }
               else
               {
-                class_type = 'orange';
+                class_type = 'softyellow';
                 if (line['level'] > 0)
                {
                  type += " " + line['type']['tooltip_nonpartial'];

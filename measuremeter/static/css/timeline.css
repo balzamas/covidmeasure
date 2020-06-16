@@ -52,9 +52,34 @@
 
     .vis-item.white {
       background-color: white;
+      border-style:solid;
+      border-width:5px;
       border-color: black;
       color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
     }
+
+    .vis-item.softred {
+      background-color: #ebb5ab;
+      border-color: #e5573a;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    }
+
+    .vis-item.softyellow {
+      background-color: #f0e9aa;
+      border-color: #f5da3c;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    }
+
 
     .vis-item.magenta {
       background-color: magenta;
