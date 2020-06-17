@@ -22,7 +22,7 @@ class MeasureTypeSerializer(serializers.ModelSerializer):
     category = MeasureCategorySerializer()
     class Meta:
         model = MeasureType
-        fields = ['pk', 'name', 'category', 'isactive', 'tooltip_nonpartial','tooltip_partial', 'comment']
+        fields = ['pk', 'name', 'category', 'isactive', 'tooltip_nonpartial','tooltip_partial', 'comment', 'icon']
 
 class MeasureSerializer(serializers.ModelSerializer):
     type = MeasureTypeSerializer()
