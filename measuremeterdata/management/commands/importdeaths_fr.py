@@ -24,7 +24,7 @@ class Command(BaseCommand):
         print(myfile.namelist())
 
         print("Read excel")
-        read_file = pd.read_excel(myfile.open('2020-05-22_deces_quotidiens_departement.xlsx'), sheet_name = "France")
+        read_file = pd.read_excel(myfile.open('2020-06-12_deces_quotidiens_departement.xlsx'), sheet_name = "France")
         print("Convert and write:")
         read_file.to_csv('/tmp/death_fr.csv', index=None, header=True)
 
