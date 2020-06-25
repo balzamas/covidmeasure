@@ -1,5 +1,19 @@
      var mode = 1;
 
+        function getRandom(arr, n) {
+            var result = new Array(n),
+                len = arr.length,
+                taken = new Array(len);
+            if (n > len)
+                throw new RangeError("getRandom: more elements taken than available");
+            while (n--) {
+                var x = Math.floor(Math.random() * len);
+                result[n] = arr[x in taken ? taken[x] : x];
+                taken[x] = --len in taken ? taken[len] : len;
+            }
+            return result;
+        }
+
       function LoadPanelsFiltered()
       {
             console.log(mode)
@@ -87,9 +101,14 @@
                 rnd_country2 = Math.floor(Math.random() * 43) + 1;
                 rnd_country3 = Math.floor(Math.random() * 43) + 1;
 
-                console.log(mode)
                 countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
-                var datesft = drawTimeline(mode, countries, $('#measuretypes_dd').dropdown('get value'));
+
+               measure_list = [1,26,8,11,16,2,21,28];
+               measure_list_filtered = getRandom(measure_list,5);
+
+               measuretypes=measure_list_filtered[0].toString()+","+measure_list_filtered[1].toString()+","+measure_list_filtered[2].toString()+","+measure_list_filtered[3].toString()+","+measure_list_filtered[4].toString();
+
+                var datesft = drawTimeline(mode, countries, measuretypes);
                  console.log(datesft)
                 drawLineChartperPop(countries, datesft[0], datesft[1]);
             }

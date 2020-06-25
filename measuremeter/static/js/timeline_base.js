@@ -124,6 +124,8 @@
         var type_pk = -1;
         var class_type = 'white';
 
+        var class_count = true;
+
 
         $.each(jsonData, function(id, line) {
 
@@ -133,8 +135,18 @@
                       {
                          if (!groups_elements.includes(line["type"]["pk"]))
                          {
+                           if (class_count)
+                           {
+                                groupClass = "white";
+                                class_count = false;
+                           }
+                           else
+                           {
+                                groupClass = "gray"
+                                class_count = true;
+                           }
                            groups_elements.push(line["type"]["pk"]);
-                           groups_data.push({"id": line["type"]["pk"], "content": line['type']['name'], subgroupOrder: 'subgroupOrder'});
+                           groups_data.push({"id": line["type"]["pk"], "content": '<i class="large '+ line["type"]["icon"] +'"></i><br>'+line['type']['name'], 'className': groupClass, subgroupOrder: 'subgroupOrder'});
                           }
                       }
               }
@@ -144,8 +156,19 @@
                       {
                          if (!groups_elements.includes(line["country"]["pk"]))
                          {
+                            if (class_count)
+                               {
+                                    groupClass = "white";
+                                    class_count = false;
+                               }
+                               else
+                               {
+                                    groupClass = "red"
+                                    class_count = true;
+                               }
+
                            groups_elements.push(line["country"]["pk"]);
-                           groups_data.push({"id": line["country"]["pk"], "content": line['country']['name'], "stackSubgroups": true,"subgroupOrder":"subgroup"});
+                           groups_data.push({"id": line["country"]["pk"], "content": '<i class="'+line["country"]["code"]+' flag"></i><br>'+line['country']['name'], 'className': groupClass, "stackSubgroups": true,"subgroupOrder":"subgroup"});
                           }
                       }
               }
@@ -161,7 +184,7 @@
               }
               else
               {
-                var start_date = firstdate;
+                var start_date = "2020-01-01";
                 var start_date_str = ""
               }
 
@@ -173,7 +196,7 @@
               }
               else
               {
-                var end_date = lastdate;
+                var end_date = addDays(lastdate,7);
                 type = type + "*";
                 country = country + "*";
                 var end_date_str = 'undefined'
@@ -203,11 +226,11 @@
               {
                 type += " " +  line['type']['tooltip_partial'];
                 country += " " +  line['type']['tooltip_partial'];
-                class_type = 'green'
+                class_type = 'softyellow'
               }
               else
               {
-                class_type = 'orange';
+                class_type = 'softred';
                 if (line['level'] > 0)
                {
                  type += " " + line['type']['tooltip_nonpartial'];
@@ -250,7 +273,9 @@
               // Configuration for the Timeline
               var options = {
                 stack: false,
-                stackSubgroups: true
+                stackSubgroups: true,
+                start: firstdate,
+                end: lastdate,
               };
 
               // Create a Timeline
@@ -272,7 +297,7 @@
           firstdate_x = formatDate(startdate);
 
           var data = $.ajax({
-          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
+          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after=2020-01-01&date_before="+lastdate_x,
           dataType: "json",
           async: false
           }).responseText;
@@ -329,16 +354,25 @@
           var dataset = new vis.DataSet(rowsCases);
           var options = {
               defaultGroup: "Country ",
+               drawPoints: false,
+               start: firstdate,
+               end: lastdate_x
           };
           var optionsDeath =
           {
-             legend: {left:{position:"top-left"}},
+              drawPoints: false,
+              start: firstdate,
+               end: lastdate_x
+
           }
           var graph2d = new vis.Graph2d(container, dataset, options);
 
           var datasetDeaths = new vis.DataSet(rowsDeaths);
           var graph2dDeaths = new vis.Graph2d(containerDeaths, datasetDeaths, groups, optionsDeath);
           graph2dDeaths.setGroups(groups)
+
+          populateExternalLegend(groups, "legenddeaths", graph2dDeaths)
+
 
       }
 
@@ -352,7 +386,7 @@
           firstdate_x = formatDate(startdate);
 
           var data = $.ajax({
-          url: "/measuremeterdata/casesdeaths/?country="+countries+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
+          url: "/measuremeterdata/casesdeaths/?country="+countries+"&date_after=2020-01-01&date_before="+lastdate_x,
           dataType: "json",
           async: false
           }).responseText;
@@ -393,13 +427,83 @@
           var datasetgraph = new vis.DataSet(countries_data);
           var optionsgraph = {
                 defaultGroup: "Country ",
+                drawPoints: false,
+                start: firstdate,
+                end: lastdate
 
-                legend: {left:{position:"top-left"}},
           };
           var graph2dline = new vis.Graph2d(containergraph, datasetgraph, groupsgraph, optionsgraph);
           graph2dline.setGroups(groupsgraph)
+
+          populateExternalLegend(groupsgraph, "legendperpop", graph2dline)
         }
 
+function populateExternalLegend(groups, legendelement, graphobj) {
+    var groupsData = groups.get();
+    var legendDiv = document.getElementById(legendelement);
+    legendDiv.innerHTML = "";
+
+    // get for all groups:
+    for (var i = 0; i < groupsData.length; i++) {
+      // create divs
+      var containerDiv = document.createElement("div");
+      var iconDiv = document.createElement("div");
+      var descriptionDiv = document.createElement("div");
+
+      // give divs classes and Ids where necessary
+      containerDiv.className = 'legend-element-container';
+      containerDiv.id = groupsData[i].id + "_legendContainer"
+      iconDiv.className = "icon-container";
+      descriptionDiv.className = "description-container";
+
+      // get the legend for this group.
+      var legend = graphobj.getLegend(groupsData[i].id,30,30);
+
+      // append class to icon. All styling classes from the vis-timeline-graph2d.min.css/vis-timeline-graph2d.min.css have been copied over into the head here to be able to style the
+      // icons with the same classes if they are using the default ones.
+      legend.icon.setAttributeNS(null, "class", "legend-icon");
+
+      // append the legend to the corresponding divs
+      iconDiv.appendChild(legend.icon);
+      descriptionDiv.innerHTML = legend.label;
+
+      // determine the order for left and right orientation
+      if (legend.orientation == 'left') {
+        descriptionDiv.style.textAlign = "left";
+        containerDiv.appendChild(iconDiv);
+        containerDiv.appendChild(descriptionDiv);
+      }
+      else {
+        descriptionDiv.style.textAlign = "right";
+        containerDiv.appendChild(descriptionDiv);
+        containerDiv.appendChild(iconDiv);
+      }
+
+      // append to the legend container div
+      legendDiv.appendChild(containerDiv);
+
+      // bind click event to this legend element.
+      containerDiv.onclick = toggleGraph.bind(this,groupsData[i].id, graphobj, groups);
+    }
+  }
+
+    /**
+   * This function switchs the visible option of the selected group on an off.
+   * @param groupId
+   */
+  function toggleGraph(groupId, graphobj, groups) {
+    // get the container that was clicked on.
+    var container = document.getElementById(groupId + "_legendContainer")
+    // if visible, hide
+    if (graphobj.isGroupVisible(groupId) == true) {
+      groups.update({id:groupId, visible:false});
+      container.className = container.className + " hidden";
+    }
+    else { // if invisible, show
+      groups.update({id:groupId, visible:true});
+      container.className = container.className.replace("hidden","");
+    }
+  }
 
       $(window).on('load', function() {
           //-----------------------------Load countries----------------------

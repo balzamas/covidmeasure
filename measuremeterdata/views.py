@@ -98,7 +98,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(Q(start__lte=start)|Q(start__isnull=True))
 
         if end != None:
-            queryset = queryset.filter(Q(end__gt=end)|Q(end__isnull=True))
+            queryset = queryset.filter(Q(end__gte=end)|Q(end__isnull=True))
 
         if levels != None and levels != '' and types != ',':
             level_params = []
