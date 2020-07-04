@@ -1,4 +1,4 @@
-from .models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths
+from .models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, CHCanton, CHMeasure, CHMeasureType
 from rest_framework import serializers
 
 
@@ -30,3 +30,21 @@ class MeasureSerializer(serializers.ModelSerializer):
     class Meta:
         model = Measure
         fields = ['country', 'type', 'level', 'start', 'end', 'sources', 'comment', 'isregional', 'created', 'updated']
+
+class CantonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CHCanton
+        fields = ['pk', 'name', 'code']
+
+
+class CHMeasureTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CHMeasureType
+        fields = ['pk', 'name', 'isactive', 'tooltip_level1','tooltip_level2','tooltip_level3','tooltip_level4', 'comment', 'icon']
+
+class CHMeasureSerializer(serializers.ModelSerializer):
+    type = CHMeasureTypeSerializer()
+    canton = CantonSerializer()
+    class Meta:
+        model = CHMeasure
+        fields = ['canton', 'type', 'level', 'start', 'end', 'sources', 'comment', 'isregional', 'created', 'updated']

@@ -1,0 +1,84 @@
+{% load static i18n %}
+{% load static %}
+{# Load the tag library #}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>CovidLaws // Coronavirus measures by canton - Canton profile</title>
+        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+
+    <script
+  type="text/javascript"
+  src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"
+></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+       <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/ch_timeline_base.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/canton.js' %}"></script>
+
+  </head>
+  <body bgcolor="black">
+
+
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+
+
+      <h1>CovidLaws // Canton profiles</h1>
+      <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
+      <div id="menu"></div>
+
+           <div class="ui accordion">
+            <div class="title active">
+              <i class="dropdown icon"></i>
+              <p><b>Current active measures</b><br>For federal rules, check <a href="/country/ch">Country Profile Switzerland</a></p>
+                 </div>
+             <div class="content active">
+                  <div id="current"></div>
+             </div>
+           </div>
+
+
+      <div id="bycanton">
+            <div class="ui accordion">
+            <div class="title active">
+              <i class="dropdown icon"></i>
+              <p><b>Timeline</b></p>
+                 </div>
+             <div class="content active">
+               <p>
+                * = end of measure undefined,
+                # = regional<br>
+               </p>
+               <div id="timeline"></div>
+             </div>
+           </div>
+      </div>
+
+      </div>
+      </div>
+
+
+
+  </body>
+</html>
+
+
+
+
+
