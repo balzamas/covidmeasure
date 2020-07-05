@@ -119,4 +119,13 @@
             $('#param').hide();
 
             LoadPanelsFiltered();
+
+            // CSSMap;
+            $("#map-switzerland").CSSMap({
+              "size": 850,
+              "mapStyle": "blue",
+              "tooltips": "floating-top-center",
+              "responsive": "auto"
+            });
+            // END OF THE CSSMap;
       });
