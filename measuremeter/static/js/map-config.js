@@ -150,8 +150,6 @@ function loadMapData(measuretype,filterdate) {
           var jsonMeasuresType = JSON.parse(dataMeasuresType);
 
             document.getElementById('chosen_options').innerHTML = jsonMeasuresType[0]['name'] + ' // ' + filterdate;
-            document.getElementById('legend').innerHTML = '<a class="ui red circular massive label">&nbsp;<font color="#000000">'+jsonMeasuresType[0]['tooltip_nonpartial']+'</div></font></a> <a class="ui yellow circular massive label">&nbsp;<font color="#000000">'+jsonMeasuresType[0]['tooltip_partial']+'</div></font></a>  <a class="ui white circular massive label"><font color="#000000">no regulation</font></a>'
-
 /*----------------------------------------------------------------------------------*/
 
           var data = $.ajax({
@@ -238,11 +236,11 @@ function loadMapData(measuretype,filterdate) {
             var commentstr = ''
             if (props.comment)
             {
-                commentstr = '<br>' + props.comment;
+                commentstr = '<p>' + props.comment + '</p>';
             }
         }
 		this._div.innerHTML = '' +  (props ?
-			'<b>' + props.name + '</b>' + datestr + commentstr
+			'<div align=left><b>' + props.name + '</b>' + datestr + commentstr+'</div>'
 			: 'Hover over a state');
 	};
 
