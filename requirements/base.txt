@@ -18,4 +18,5 @@ django-filter
 django-ckeditor
 pandas
 xlrd
+django_plotly_dash
 

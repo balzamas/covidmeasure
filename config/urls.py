@@ -19,6 +19,9 @@ urlpatterns = [
     path(
         "euromap/", TemplateView.as_view(template_name="pages/euromap.html"), name="EuroMap"
       ),
+     path(
+                      "dash/", TemplateView.as_view(template_name="pages/dash.html"), name="EuroMap"
+                  ),
     path('euromap/<str:measure_id>/', views.render_euromap, name='item'),
     path(
     "timeline/", TemplateView.as_view(template_name="pages/timeline.html"), name="Timeline"

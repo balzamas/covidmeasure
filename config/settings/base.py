@@ -71,6 +71,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_filters',
     'ckeditor',
+    'django_plotly_dash.apps.DjangoPlotlyDashConfig',
 ]
 
 LOCAL_APPS = [
@@ -271,4 +272,4 @@ SOCIALACCOUNT_ADAPTER = "measuremeter.users.adapters.SocialAccountAdapter"
 
 # Your stuff...
 # ------------------------------------------------------------------------------
-
+X_FRAME_OPTIONS = 'SAMEORIGIN'
