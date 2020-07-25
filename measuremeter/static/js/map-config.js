@@ -158,7 +158,7 @@ function loadMapData(measuretype,filterdate) {
           var jsonData = JSON.parse(data);
 
            jsonData.forEach(function (item, index) {
-                var id = statesData['features'].findIndex(x => x.properties.iso_a2 === item.country.code.toLowerCase());
+                var id = statesData['features'].findIndex(x => x.properties.iso_a2 === item.country.code.toUpperCase());
                 if (id > -1)
                 {
                     statesData.features[id].properties.level = item.level;
