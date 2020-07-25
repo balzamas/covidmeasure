@@ -334,6 +334,6 @@ var data
 
             LoadPanelsFiltered();
             map = L.map('map').setView([46.8, 8.4], 8);
-            LoadMap(map, 3);
+            LoadMap(3);
 
       });
