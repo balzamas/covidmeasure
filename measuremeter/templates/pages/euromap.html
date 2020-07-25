@@ -23,7 +23,6 @@
     <script src="{% static 'js/map-config.js'%}"></script>
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 
@@ -47,8 +46,11 @@
 
  </head>
 <body>
-<div style="margin-left: 30;margin-top: 30;margin-bottom: 110">
+<div style="margin-top: 30;margin-bottom: 110">
+    <div style="margin-left: 30">
+
       <h1>CovidLaws // Map Europe</h1>
+    </div>
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu"></div>
 
@@ -82,17 +84,15 @@
           <h2>  <div id="chosen_options"></div>  </h2>
       </div>
   <br><br>
-</div>
         <div align="center">
           <div id='map'  style="height: 80%; width: 100vw;"></div>
         </div>
-<div style="margin-left: 30;margin-top: 30;margin-bottom: 110">
 
           <div class="ui placeholder segment">
         <div class="ui three column stackable center aligned grid">
              <div class="middle aligned row">
 
-            <div class="column">
+            <div width="100%">
               <div class="ui vertical animated button" tabindex="0" id="btnMinusDays">
                 <div class="hidden content">-3</div>
                 <div class="visible content">
