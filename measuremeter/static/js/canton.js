@@ -108,8 +108,9 @@ var data
 
         // get color depending on population density value
         function getColor(d) {
-            return  d > 1   ? '#FE0000' :
-                    d > 0   ? '#FE0000' :
+            return  d > 2   ? '#FE0000' :
+                    d > 1   ? '#f86034' :
+                    d > 0   ? '#ef886a' :
                     d > -1   ? '#FED341' :
                               '#dfdcdc';
         }
@@ -154,7 +155,6 @@ var data
         var popup = L.popup();
 
         function onMapClick(e) {
-            console.log(e.sourceTarget.feature.properties.name);
             var datestr = ''
                 if (e.sourceTarget.feature.properties.start != e.sourceTarget.feature.properties.end)
                 {
@@ -334,6 +334,6 @@ var data
 
             LoadPanelsFiltered();
             map = L.map('map').setView([46.8, 8.4], 8);
-            LoadMap(1);
+            LoadMap(map, 3);
 
       });
