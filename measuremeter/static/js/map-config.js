@@ -39,9 +39,7 @@ function sleep(ms) {
 }
 
 $( document ).ready(function() {
-            console.log("setView")
             map = L.map('map').setView([52, 12], 4);
-            console.log("setView2")
 
           var dataMeasuresTypes = $.ajax({
           url: "/measuremeterdata/measuretypes/",
@@ -160,7 +158,7 @@ function loadMapData(measuretype,filterdate) {
           var jsonData = JSON.parse(data);
 
            jsonData.forEach(function (item, index) {
-                var id = statesData['features'].findIndex(x => x.properties.iso_a2 === item.country.code.toUpperCase());
+                var id = statesData['features'].findIndex(x => x.properties.iso_a2 === item.country.code.toLowerCase());
                 if (id > -1)
                 {
                     statesData.features[id].properties.level = item.level;
