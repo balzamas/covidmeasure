@@ -292,11 +292,31 @@ function loadMapData(measuretype,filterdate) {
 		map.fitBounds(e.target.getBounds());
 	}
 
+    var popup = L.popup();
+
+    function onMapClick(e) {
+        console.log(e.sourceTarget.feature.properties.name);
+        var datestr = ''
+            if (e.sourceTarget.feature.properties.start != e.sourceTarget.feature.properties.end)
+            {
+                datestr = '<br />' + e.sourceTarget.feature.properties.start + ' - ' + e.sourceTarget.feature.properties.end
+            }
+            var commentstr = ''
+            if (e.sourceTarget.feature.properties.comment)
+            {
+                commentstr = '<p>' + e.sourceTarget.feature.properties.comment + '</p>';
+            }
+        popup
+            .setLatLng(e.latlng)
+            .setContent('<div align=left><b>' + e.sourceTarget.feature.properties.name + '</b>' + datestr + commentstr+'</div>')
+            .openOn(map);
+    }
+
 	function onEachFeature(feature, layer) {
 		layer.on({
 			mouseover: highlightFeature,
 			mouseout: resetHighlight,
-			click: zoomToFeature
+			click: onMapClick
 		});
 	}
 
@@ -312,7 +332,7 @@ function loadMapData(measuretype,filterdate) {
     legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend');
-    labels = ['<strong>Level</strong>'],
+    labels = ['<strong>'+ jsonMeasuresType[0]['name'] +'</strong>'],
     categories = ['Unknown','None',jsonMeasuresType[0]['tooltip_partial'],jsonMeasuresType[0]['tooltip_nonpartial']];
 
     for (var i = 0; i < categories.length; i++) {

@@ -21,5 +21,4 @@ router.register(r'chcantons', views.CHCantonViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('api/', include('rest_framework.urls', namespace='rest_framework')),
-    path('django_plotly_dash/', include('django_plotly_dash.urls')),
 ]
