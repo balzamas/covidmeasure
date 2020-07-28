@@ -13,16 +13,19 @@ class Command(BaseCommand):
 
         country = Country.objects.get(pk=8)
         with open('/app/measuremeterdata/datasources/denmark.csv', newline='') as csvfile:
-            spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+            spamreader = csv.reader(csvfile, delimiter=';', quotechar='"')
 
             rowcount = 0
             savedate = datetime.date(2020,1,1)
             for row in spamreader:
                 rowcount += 1
+                print(rowcount)
                 if (rowcount == 5):
+                    print(row)
                     cellcount = 0
                     for cell in row:
                         cellcount += 1
+                        print(cellcount)
                         if (cellcount > 2):
                             try:
                                 cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
