@@ -128,7 +128,7 @@
 
                             if (line['level'] == 1)
                             {
-                                str_level =  '<i class="orange '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_partial"]+'"></i>'
+                                str_level =  '<i class="yellow '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_partial"]+'"></i>'
                             }
                             else if (line['level'] == 2)
                             {
