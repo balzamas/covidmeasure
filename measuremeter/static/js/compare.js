@@ -144,7 +144,7 @@
          return htmlLine;
      }
 
-     function LoadMeasure(countries, measures, startdate, endate)
+     function LoadMeasure(countries, measuretypes, startdate, endate)
      {
 
            if (countries == undefined)
@@ -156,10 +156,7 @@
 
                countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
              }
-           if (measuretypes == undefined)
-             {
-               measuretypes="13,28";
-             }
+
 
           var data = $.ajax({
           url: "/measuremeterdata/measures/?country="+countries+"&type="+measuretypes,
@@ -349,6 +346,8 @@
                 window.myLine.destroy();
                 var datefrom = document.getElementById("datefrom").value;
                 var dateto = document.getElementById("dateto").value;
+
+                console.log($('#measuretypes_dd').dropdown('get value'))
 
                 LoadData($('#countries_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'),datefrom,dateto);
     			window.myLine = new Chart(ctx, config);
