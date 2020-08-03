@@ -36,6 +36,9 @@ urlpatterns = [
                   path(
                       "compare/", TemplateView.as_view(template_name="pages/compare.html"), name="Compare"
                   ),
+path(
+                      "compare2/", TemplateView.as_view(template_name="pages/compare2.html"), name="Compare"
+                  ),
                   path(
                       "cantons/", TemplateView.as_view(template_name="pages/canton.html"), name="Canton"
                   ),

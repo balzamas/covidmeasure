@@ -1,0 +1,100 @@
+{% load static i18n %}
+{% load static %}
+{# Load the tag library #}
+
+<html>
+ <head>
+   <title>Compare countries</title>
+          <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/moment@2.24.0"></script>
+   <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
+
+
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+       <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/compare2.js' %}"></script>
+ </head>
+</html>
+<body>
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+      <h1>CovidLaws // Timeline</h1>
+      <div id="param" type="hidden" value={{ items }}>{{ items }}</div>
+
+      <div id="menu"></div>
+      <div align="center">
+                <div class="ui animated button" tabindex="0" id="btnCopyLink">
+          <div class="visible content"><i class="copy icon"></i></div>
+          <div class="hidden content">
+            Copy link<br>
+          </div>
+      </div>
+        <br><br>
+      <div class="ui placeholder segment">
+        <div class="ui two column stackable center aligned grid">
+          <div class="ui vertical divider"></div>
+          <div class="middle aligned row">
+            <div class="column">
+              <h2>Countries (empty=all)</h2>
+
+                <div class="ui multiple fluid search selection dropdown" id="countries_dd">
+                  <i class="large flag outline icon"></i>
+                  <input type="hidden" name="countries">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Countries</div>
+                  <div class="menu" id="countries_list">
+                </div>
+              </div>
+
+            </div>
+            <div class="column">
+             <h2>Measures (empty=all)</h2>
+                  <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
+                    <i class="large heartbeat icon"></i>
+                    <input type="hidden" name="measuretypes">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Measure types</div>
+                    <div class="menu">
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="ui divider"></div>
+          <div class="middle aligned row">
+            <div class="column">
+               From:  <input style="height:60px" type="date" id="datefrom" value="2020-06-01">
+               To:   <input style="height:60px" type="date" id="dateto" value="2020-07-01">
+
+
+            </div>
+            <div class="column">
+              <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
+                <div class="hidden content" >Load</div>
+                <div class="visible content">
+                  <i class="large arrow circle down icon"></i>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+      </div>
+      <br>
+
+      <canvas id="compareChart"></canvas>
+</div>
+</body>
