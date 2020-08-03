@@ -128,7 +128,7 @@
                             {
                                 str_level =  line["type"]["tooltip_partial"]
                             }
-                            else if (line['level'] = 1)
+                            else if (line['level'] = 2)
                             {
                                 str_level =  line["type"]["tooltip_nonpartial"]
                             }
