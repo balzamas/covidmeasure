@@ -123,14 +123,16 @@
 
      function FormatPopUp(line)
      {
-                            str_level = 'None'
-                            if (line['level'] = 1)
+        console.log(line['level'] )
+                            str_level = '<i class="green '+line["type"]["icon"] +'" data-tooltip="None"></i>'
+
+                            if (line['level'] == 1)
                             {
-                                str_level =  line["type"]["tooltip_partial"]
+                                str_level =  '<i class="orange '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_partial"]+'"></i>'
                             }
-                            else if (line['level'] = 2)
+                            else if (line['level'] == 2)
                             {
-                                str_level =  line["type"]["tooltip_nonpartial"]
+                                str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
                             }
 
                             endtime = "Undefined"
@@ -139,7 +141,7 @@
                                 endtime = line['end'];
                             }
 
-                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + '<br>'+line["type"]["name"] + '<br>' + str_level +'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ '<br>'+line["type"]["name"] +'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }
