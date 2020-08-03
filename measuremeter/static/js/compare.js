@@ -217,19 +217,20 @@
                             scaleID: "x-axis-0",
                             value: element.value,
                             borderColor: "black",
-                            borderWidth: 5,
+                            borderWidth: 2,
                             label: {
                                 backgroundColor: "red",
                                 content: element.label,
                                 rotation: 90,
-                                enabled: true
+                                enabled: true,
+                                fontSize: 20
                             },
 
                         onClick: function(e) {
                         // The annotation is is bound to the `this` variable
                             $("#dialog").html('<div style="margin-left: 10;margin-top: 10;margin-right: 10;margin-bottom: 10;">' + element.popup + '</div>');
                             $('#dialog').dialog({
-                              title: "Introduced measures",
+                              title: "Introduced measures " + element.value,
                               open: function (event, ui) {
                                     $('.ui-widget-overlay').bind('click', function () {
                                     $("#dialog").dialog('close');
@@ -292,15 +293,19 @@
 
             config = {
                 type: 'line',
+
                 data: {
                     labels: label_array,
                     datasets: dataset
                 },
                 options: {
+                    legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Reported new cases per day/per 1Mio inhabitants // Rolling average (From date past week).'
+                        text: 'Reported new cases per day/per 1Mio inhabitants // Rolling average (last 7 days).',
+                        fontSize: 25
+
                     },
                     tooltips: {
                         mode: 'index',
@@ -355,10 +360,17 @@
             real_enddate = new Date();
             real_startdate = addDays(real_enddate, -60)
 
+            console.log(real_enddate)
+            document.getElementById("datefrom").value = formatDate(real_startdate)
+            document.getElementById("dateto").value = formatDate(real_enddate)
+
 		    startdate = formatDate(real_startdate);
             enddate = formatDate(real_enddate);
 
-            LoadData("8,25,36", "13,2",startdate,enddate);
+            $('#countries_dd').dropdown('set selected', ['1','3','6'])
+            $('#measuretypes_dd').dropdown('set selected', ['8','26'])
+
+            LoadData("1,3,6", "8,26",startdate,enddate);
 			var ctx = document.getElementById('compareChart').getContext('2d');
 			window.myLine = new Chart(ctx, config);
 		};

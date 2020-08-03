@@ -8,7 +8,7 @@
                <div class="ui six item inverted huge menu">
                   <a class="item" href="/">Home</a>
                   <a class="item" href="/about/">Info/About</a>
-                  <a class="item" href="/timeline/">Compare countries</a>
+                  <a class="item" href="/compare/">Compare countries</a>
                   <a class="item" href="/country/">Country profiles</a>
                   <a class="item" href="/euromap/">Euro Map</a>
                   <a class="item" href="/cantons/">Switzerland</a>
