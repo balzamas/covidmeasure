@@ -41,6 +41,19 @@ class Command(BaseCommand):
             old_value = 0
             last_numbers = [0, 0, 0, 0, 0, 0, 0]
 
+            #Well...we overwrite everything with 0
+            end_date = date.today()
+            start_date = date.fromisoformat('2020-02-20')
+            day_count = (end_date - start_date).days + 1
+            for single_date in [d for d in (start_date + timedelta(n) for n in range(day_count)) if d <= end_date]:
+                try:
+                    cd_existing = CHCases.objects.get(canton=canton, date=single_date)
+                    cd_existing.cases = 0
+                    cd_existing.save()
+                except CHCases.DoesNotExist:
+                    cd = CHCases(canton=canton, cases=0, date=single_date)
+                    cd.save()
+
             # Should move to datasources directory
             for row in my_list:
 
@@ -74,6 +87,7 @@ class Command(BaseCommand):
             last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
             rec_cases = CHCases.objects.filter(canton=canton).order_by('date')
 
+            print(canton.name)
             for day in rec_cases:
                 last_numbers.append(day.cases)
                 last_numbers.pop(0)
@@ -82,5 +96,7 @@ class Command(BaseCommand):
                     tot += x
 
                 fourteen_avg = tot * 100000 / canton.population
+                print(day)
+                print(fourteen_avg)
                 day.cases_past14days = fourteen_avg
                 day.save()

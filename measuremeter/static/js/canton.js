@@ -238,6 +238,14 @@ var data
                             }
                             else if (line['level'] == 2)
                             {
+                                str_level =  '<i class="orange '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
+                            }
+                            else if (line['level'] == 3)
+                            {
+                                str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
+                            }
+                            else if (line['level'] == 4)
+                            {
                                 str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
                             }
 
@@ -247,7 +255,7 @@ var data
                                 endtime = line['end'];
                             }
 
-                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ '<br>'+line["type"]["name"] +'<br>Level: '+ line['level'] +'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ '<br>'+line["type"]["name"] +'<br>Level: '+ line['level'] +', End: '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }
@@ -317,7 +325,7 @@ var data
                                 content: element.label,
                                 rotation: 90,
                                 enabled: true,
-                                fontSize: 20
+                                fontSize: 14
                             },
 
                         onClick: function(e) {
@@ -551,7 +559,7 @@ var data
             $('#param').hide();
 
             real_enddate = new Date();
-            real_startdate = addDays(real_enddate, -60)
+            real_startdate = new Date(2020,5,20)
 
 		    startdate = formatDate(real_startdate);
             enddate = formatDate(real_enddate);
