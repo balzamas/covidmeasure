@@ -23,7 +23,10 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-annotation/0.5.7/chartjs-plugin-annotation.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
        <link href="{% static 'css/project.css' %}" rel="stylesheet">
        <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
@@ -64,34 +67,13 @@
 
 
 
-To check where you can travel to from Switzerland without a quarantine, see <a href="https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-und-wohin-nicht/" target="_blank">Passportparty.ch</a>.
-           <div class="ui accordion">
-            <div class="title active">
-              <i class="dropdown icon"></i>
-              <p id="grande"><b>Current active measures</b><br>For federal rules, check <a href="/country/ch">Country Profile Switzerland</a></p>
-                 </div>
-             <div class="content disabled">
-                  <div id="current"></div>
-             </div>
-           </div>
-
-
-      <div id="bycanton">
-            <div class="ui accordion">
-            <div class="title active">
-              <i class="dropdown icon"></i>
-              <p id="grande"><b>Timeline</b></p>
-                 </div>
-             <div class="content active">
-               <p id="grande">
-                * = end of measure undefined,
-                # = regional<br>
-               </p>
-               <div id="timeline"></div>
-             </div>
-           </div>
+  <p id="grande"><b>Incidence and measures</b></p>
+  Click on lines/cantons for details.
+      <canvas id="compareChart">
+      </canvas>
+        <div id="dialog" title="Basic dialog">
+        PopUp!
       </div>
-
 
 <br><br>
   <p id="grande"><b>Rules in Clubs</b></p>
@@ -104,6 +86,21 @@ To check where you can travel to from Switzerland without a quarantine, see <a h
           <div id='mapMasks'  style="height: 600px; width: 100%;"></div>
         </div>
       </div>
+   <br><br>
+<p id="grande"><b>Timeline</b></p>
+               <p id="grande">
+                * = end of measure undefined,
+                # = regional<br>
+               </p>
+                  <div id="timeline"></div>
+
+<br><br>
+To check where you can travel to from Switzerland without a quarantine, see <a href="https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-und-wohin-nicht/" target="_blank">Passportparty.ch</a>.
+
+              <p id="grande"><b>Current active measures</b><br>For federal rules, check <a href="/country/ch">Country Profile Switzerland</a></p>
+
+               <div id="current"></div>
+
 
       </div>
 <br><br>

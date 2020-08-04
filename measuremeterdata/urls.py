@@ -14,6 +14,7 @@ router.register(r'casesdeaths', views.CasesDeathsViewSet)
 router.register(r'chmeasures', views.CHMeasureViewSet)
 router.register(r'chmeasuretypes', views.CHMeasureTypeViewSet)
 router.register(r'chcantons', views.CHCantonViewSet)
+router.register(r'chcases', views.CHCasesViewSet)
 
 
 # Wire up our API using automatic URL routing.

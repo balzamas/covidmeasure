@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, CHCanton, CHMeasureType, CHMeasure
+from .models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, CHCanton, CHMeasureType, CHMeasure, CHCases
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer, CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer
+from .serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer, CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
@@ -26,6 +26,9 @@ class CountryFilter(filters.FilterSet):
     pk = NumberInFilter(field_name='pk', lookup_expr='in')
 
 class CasesDeathsFilter(filters.FilterSet):
+    date = filters.DateFromToRangeFilter(field_name='date')
+
+class CHCasesFilter(filters.FilterSet):
     date = filters.DateFromToRangeFilter(field_name='date')
 
 class MeasureFilter(filters.FilterSet):
@@ -156,6 +159,22 @@ class CasesDeathsViewSet(viewsets.ModelViewSet):
         return queryset  # return whole queryset
 
 
+class CHCasesViewSet(viewsets.ModelViewSet):
+    queryset = CHCases.objects
+    serializer_class = CHCasesSerializer
+
+    def get_queryset(self):
+        queryset = CHCases.objects
+        date_after = self.request.query_params.get('date_after')
+        date_before = self.request.query_params.get('date_before')
+
+        if date_after and date_before:
+            queryset = queryset.filter(date__range=[date_after, date_before]).order_by('canton','date')
+
+        print(queryset)
+
+        return queryset  # return whole queryset
+
 
 class CHMeasureTypeFilter(filters.FilterSet):
     pk = NumberInFilter(field_name='pk', lookup_expr='in')
@@ -183,31 +202,31 @@ class CHMeasureFilter(filters.FilterSet):
     level = filters.DateFilter(field_name='level')
 
 
-def get_queryset(self):
-        cantons = self.request.query_params.get('canton')
-        types = self.request.query_params.get('type')
-        start = self.request.query_params.get('start')
-        end = self.request.query_params.get('end')
-        levels = self.request.query_params.get('level')
-        measures = Measure.objects
-        if cantons:
-            measures.filter(canton__in=cantons)  # returned queryset filtered by ids
-        if type:
-            measures.filter(type__in=types)  # returned queryset filtered by ids
-        if start:
-            measures.filter(start__lte=start)  # returned queryset filtered by ids
-        if end:
-            measures.filter(end__gte=end)  # returned queryset filtered by ids
-        if levels:
-            measures.filter(level__in=levels)  # returned queryset filtered by ids
+    def get_queryset(self):
+            cantons = self.request.query_params.get('canton')
+            types = self.request.query_params.get('type')
+            start = self.request.query_params.get('start')
+            end = self.request.query_params.get('end')
+            levels = self.request.query_params.get('level')
+            measures = Measure.objects
+            if cantons:
+                measures.filter(canton__in=cantons)  # returned queryset filtered by ids
+            if type:
+                measures.filter(type__in=types)  # returned queryset filtered by ids
+            if start:
+                measures.filter(start__lte=start)  # returned queryset filtered by ids
+            if end:
+                measures.filter(end__gte=end)  # returned queryset filtered by ids
+            if levels:
+                measures.filter(level__in=levels)  # returned queryset filtered by ids
 
-        measures.order_by('canton__name', 'type__name')
+            measures.order_by('canton__name', 'type__name')
 
-        return measures  # return whole queryset
+            return measures  # return whole queryset
 
-        class Meta:
-            model = Measure
-            fields = ['canton', 'type', 'start', 'end', 'level']
+            class Meta:
+                model = Measure
+                fields = ['canton', 'type', 'start', 'end', 'level']
 
 class CHMeasureViewSet(viewsets.ModelViewSet):
     queryset = CHMeasure.objects.filter(type__isactive=True).order_by('canton__name','type__name')

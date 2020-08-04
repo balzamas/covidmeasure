@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django import forms
-from .models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHMeasureType, CHMeasure
+from .models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHMeasureType, CHMeasure, CHCases
 
 admin.site.register(Continent)
 admin.site.register(MeasureCategory)
 admin.site.register(CasesDeaths)
+admin.site.register(CHCases)
+
 
 class CountryAdmin(admin.ModelAdmin):
     ordering = ['name']

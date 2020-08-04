@@ -94,6 +94,7 @@ class CasesDeaths(MotherModel):
 class CHCanton(MotherModel):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=3,blank=True,null=True)
+    population = models.IntegerField(default=1)
     ordering = ['name']
 
     def __str__(self):
@@ -135,3 +136,15 @@ class CHMeasure(MotherModel):
 
     def __str__(self):
         return f"{self.canton} {self.type}"
+
+
+class CHCases(MotherModel):
+    canton = models.ForeignKey(CHCanton, on_delete=models.CASCADE)
+    date = models.DateField()
+    cases = models.IntegerField(default=0)
+    cases_past14days = models.DecimalField(default=0,max_digits=50, decimal_places=2)
+
+    ordering = ['canton__pk', 'date', 'cases']
+
+    def __str__(self):
+        return f"{self.canton} {self.date}"
