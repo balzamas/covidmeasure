@@ -123,7 +123,6 @@
 
      function FormatPopUp(line)
      {
-        console.log(line['level'] )
                             str_level = '<i class="green '+line["type"]["icon"] +'" data-tooltip="None"></i>'
 
                             if (line['level'] == 1)
@@ -141,7 +140,7 @@
                                 endtime = line['end'];
                             }
 
-                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ '<br>'+line["type"]["name"] +'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ '<br>'+line["type"]["name"] +'<br>'+line["type"]["tooltip_nonpartial"]+'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }
@@ -218,11 +217,11 @@
                             borderColor: "black",
                             borderWidth: 2,
                             label: {
-                                backgroundColor: "red",
+                                backgroundColor: "#5d5d5d",
                                 content: element.label,
-                                rotation: 90,
+                                rotation: 270,
                                 enabled: true,
-                                fontSize: 20
+                                fontSize: 22
                             },
 
                         onClick: function(e) {
@@ -349,7 +348,6 @@
                 var datefrom = document.getElementById("datefrom").value;
                 var dateto = document.getElementById("dateto").value;
 
-                console.log($('#measuretypes_dd').dropdown('get value'))
 
                 LoadData($('#countries_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'),datefrom,dateto);
     			window.myLine = new Chart(ctx, config);
@@ -361,7 +359,6 @@
             real_enddate = new Date();
             real_startdate = addDays(real_enddate, -60)
 
-            console.log(real_enddate)
             document.getElementById("datefrom").value = formatDate(real_startdate)
             document.getElementById("dateto").value = formatDate(real_enddate)
 

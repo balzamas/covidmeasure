@@ -220,7 +220,7 @@ class CHMeasureFilter(filters.FilterSet):
             if levels:
                 measures.filter(level__in=levels)  # returned queryset filtered by ids
 
-            measures.order_by('canton__name', 'type__name')
+            measures.order_by('canton__name', 'type__name', 'start')
 
             return measures  # return whole queryset
 
@@ -229,7 +229,7 @@ class CHMeasureFilter(filters.FilterSet):
                 fields = ['canton', 'type', 'start', 'end', 'level']
 
 class CHMeasureViewSet(viewsets.ModelViewSet):
-    queryset = CHMeasure.objects.filter(type__isactive=True).order_by('canton__name','type__name')
+    queryset = CHMeasure.objects.filter(type__isactive=True).order_by('canton__name','type__name', 'start')
     serializer_class = CHMeasureSerializer
 #    filter_backends = [DjangoFilterBackend]
 #    filter_class = MeasureFilter
@@ -273,5 +273,5 @@ class CHMeasureViewSet(viewsets.ModelViewSet):
                     level_params.append(x)
             queryset = queryset.filter(level__in=level_params)
 
-        queryset = queryset.filter(type__isactive=True).order_by('canton__name','type__name')
+        queryset = queryset.filter(type__isactive=True).order_by('canton__name','type__name', 'start')
         return queryset

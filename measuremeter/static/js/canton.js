@@ -9,13 +9,9 @@ var data
               var jsonData = JSON.parse(data);
 
                jsonData.forEach(function (item, index) {
-                    console.log(item.type.pk)
                     if (item.type.pk == measuretype)
                     {
-                        console.log(item.canton.code)
-
                         var id = statesData['features'].findIndex(x => x.id === item.canton.code.toUpperCase());
-                        console.log(id)
                         if (id > -1)
                         {
                             statesData.features[id].properties.level = item.level;
@@ -227,9 +223,30 @@ var data
             return result;
         }
 
-     function FormatPopUp(line)
+     function FormatPopUp(line, last_line)
      {
-        console.log(line['level'] )
+        var tendency = "&#11014;"
+
+        if (last_line)
+        {
+
+            if (last_line['canton']['pk'] == line['canton']['pk'] && last_line['type']['pk'] == line['type']['pk'])
+            {
+               if (last_line['level'] > line['level'])
+               {
+                tendency = "&#11015;"
+               }
+               else if (last_line['level'] == line['level'])
+               {
+                tendency = "&#10145;"
+               }
+               else if (last_line['level'] < line['level'])
+               {
+                tendency = "&#11014;"
+               }
+               }
+
+        }
                             str_level = '<i class="green '+line["type"]["icon"] +'" data-tooltip="None"></i>'
 
                             if (line['level'] == 1)
@@ -255,7 +272,7 @@ var data
                                 endtime = line['end'];
                             }
 
-                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ '<br>'+line["type"]["name"] +'<br>Level: '+ line['level'] +', End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ line['level'] +', End: '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }
@@ -273,6 +290,8 @@ var data
         annotations_prepare = new Array()
         annotations = new Array()
 
+        var last_line
+
         $.each(jsonData, function(id, line) {
             if (line['start'] != null)
             {
@@ -285,10 +304,10 @@ var data
                         }
                         else
                         {
-                           codes = annotations_prepare[i]["label"] + ", " + line["canton"]["code"]
+                           codes = annotations_prepare[i]["label"] + ", " + line["canton"]["code"] + ""
                         }
 
-                        popUp = annotations_prepare[i]["popup"] + "<br>" + FormatPopUp(line);
+                        popUp = annotations_prepare[i]["popup"] + "<br>" + FormatPopUp(line, last_line);
 
                         annotations_prepare[i] = { label: codes, value: line['start'], popup: popUp };
                         doesexist = true;
@@ -302,10 +321,13 @@ var data
                         {
                             value: line['start'],
                             label: line["canton"]["code"],
-                            popup: FormatPopUp(line)
+                            popup: FormatPopUp(line, last_line)
                         }
                     );
                 }
+                last_line = line;
+
+
             }
             });
 
@@ -321,11 +343,11 @@ var data
                             borderColor: "black",
                             borderWidth: 2,
                             label: {
-                                backgroundColor: "red",
+                                backgroundColor: "#5d5d5d",
                                 content: element.label,
-                                rotation: 90,
+                                rotation: 270,
                                 enabled: true,
-                                fontSize: 14
+                                fontSize: 22
                             },
 
                         onClick: function(e) {
