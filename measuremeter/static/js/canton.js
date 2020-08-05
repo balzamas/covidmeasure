@@ -347,7 +347,7 @@ var data
                                 content: element.label,
                                 rotation: 270,
                                 enabled: true,
-                                fontSize: 22
+                                fontSize: 19
                             },
 
                         onClick: function(e) {
