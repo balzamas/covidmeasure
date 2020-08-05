@@ -85,6 +85,7 @@ class CasesDeaths(MotherModel):
     deathstotal = models.IntegerField(default=0)
     cases_per_mio = models.DecimalField(default=0,max_digits=9, decimal_places=2)
     cases_per_mio_seven = models.DecimalField(default=0,max_digits=9, decimal_places=2)
+    cases_past14days = models.DecimalField(default=0,max_digits=50, decimal_places=2)
 
     ordering = ['country__pk', 'date', 'cases', 'deaths']
 

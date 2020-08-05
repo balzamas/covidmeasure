@@ -278,7 +278,7 @@
            }
             country_pk = line["country"]["pk"]
             country_name = line['country']['name']
-            dataset_data.push(line['cases_per_mio_seven'])
+            dataset_data.push(line['cases_past14days'])
             if (!date_isfilled)
             {
                 label_array.push(line['date'])
@@ -302,7 +302,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Reported new cases per day/per 1Mio inhabitants // Rolling average (last 7 days).',
+                        text: 'Incidence per 100k/past 14 days',
                         fontSize: 25
 
                     },

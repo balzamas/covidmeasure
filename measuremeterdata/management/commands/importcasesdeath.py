@@ -84,24 +84,24 @@ class Command(BaseCommand):
                         print("Error reading line:")
                         print(row)
 
-            #calc running avg
-            last_numbers = [0, 0, 0, 0, 0, 0, 0]
-            rec_deaths = CasesDeaths.objects.filter(country=country).order_by('date')
 
-            for day in rec_deaths:
-                last_numbers.append(day.cases_per_mio)
+            #calc running avg
+            last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+            rec_cases = CasesDeaths.objects.filter(country=country).order_by('date')
+
+            print(country.name)
+            for day in rec_cases:
+                last_numbers.append(day.cases)
                 last_numbers.pop(0)
                 tot = 0
-                print(day.date)
-                print(last_numbers)
                 for x in last_numbers:
                     tot += x
 
-                seven_avg = tot / 7
-                day.cases_per_mio_seven = seven_avg
+                fourteen_avg = tot * 100000 / country.population
+                print(day)
+                print(fourteen_avg)
+                day.cases_past14days = fourteen_avg
                 day.save()
-
-
 
 
 
