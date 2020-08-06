@@ -236,8 +236,8 @@
 						mode: 'horizontal',
 						scaleID: 'y-axis-0',
 						value: avg_values[0],
-						borderColor: 'black',
-						borderWidth: 5,
+						borderColor: 'blue',
+						borderWidth: 2,
 						label: {
 							backgroundColor: 'red',
 							content: avg_desc,
@@ -250,8 +250,8 @@
 						mode: 'horizontal',
 						scaleID: 'y-axis-0',
 						value: avg_values[1],
-						borderColor: 'black',
-						borderWidth: 5,
+						borderColor: 'blue',
+						borderWidth: 2,
 						label: {
 							backgroundColor: 'red',
 							content: avg_peak_desc,
