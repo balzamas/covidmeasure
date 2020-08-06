@@ -25,6 +25,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/chartjs-plugin-annotation.js' %}"></script>
+
 
        <link href="{% static 'css/project.css' %}" rel="stylesheet">
        <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
@@ -107,18 +110,19 @@
              </div>
            </div>
       </div>
-            <div id="cases"></div>
 
+  <br><br>
           <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
               <p id="grande"><b>Reported new cases</b></p>
             </div>
             <div class="content active">
-              <p class="transition visible"><div id="lineChartCases"></div><br></p>
-            </div>
+              <p class="transition visible"><canvas id="casesChart"></canvas></p>
+                       </div>
           </div>
 
+<br><br>
 
               <p id="grande"><b>Reported new deaths </b></p>
             <p id="grande">
@@ -132,14 +136,16 @@
 
                 <div id="lineChartDeaths"></div>
                 <p id="grande">
+  <canvas id="deathChart"></canvas>
                   <div id="source_death"></div>
-                  <div id="deaths_description">
+  <div id="deaths_description">
                     <p id="grande">Note: some countries provide daily total death numbers, others weekly/other formats. If not daily we calculated the per day value for the period.
                   <br><font color="red">Important</font>: the numbers for 2020 are in most cases incomplete! The closer the date, the larger the error margin! Please refer to the original source.
                       <br>Also keep in mind that in all countries, the outbreaks where regional - while some regions had significant more deaths, others had usual or lower death numbers.</p>
                   <p id="grande">As a comparison, you see the daily average in the past years and the daily average in the highest week in the past years. See explanation above the chart.</p>
                   </div>
                 </p>
+</div>
       </div>
       </div>
 
