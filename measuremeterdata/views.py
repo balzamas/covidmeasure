@@ -169,7 +169,7 @@ class CHCasesViewSet(viewsets.ModelViewSet):
         date_before = self.request.query_params.get('date_before')
 
         if date_after and date_before:
-            queryset = queryset.filter(date__range=[date_after, date_before]).order_by('canton','date')
+            queryset = queryset.filter(date__range=[date_after, date_before]).order_by('canton__code','date')
 
         print(queryset)
 
@@ -229,7 +229,7 @@ class CHMeasureFilter(filters.FilterSet):
                 fields = ['canton', 'type', 'start', 'end', 'level']
 
 class CHMeasureViewSet(viewsets.ModelViewSet):
-    queryset = CHMeasure.objects.filter(type__isactive=True).order_by('canton__name','type__name', 'start')
+    queryset = CHMeasure.objects.filter(type__isactive=True).order_by('canton__code','type__name', 'start')
     serializer_class = CHMeasureSerializer
 #    filter_backends = [DjangoFilterBackend]
 #    filter_class = MeasureFilter
@@ -273,5 +273,5 @@ class CHMeasureViewSet(viewsets.ModelViewSet):
                     level_params.append(x)
             queryset = queryset.filter(level__in=level_params)
 
-        queryset = queryset.filter(type__isactive=True).order_by('canton__name','type__name', 'start')
+        queryset = queryset.filter(type__isactive=True).order_by('canton__code','type__name', 'start')
         return queryset

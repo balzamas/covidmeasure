@@ -401,7 +401,7 @@ var data
               date_isfilled = true;
            }
             canton_pk = line["canton"]["pk"]
-            canton_name = line['canton']['name']
+            canton_name = line['canton']['code'].toUpperCase();
             dataset_data.push(line['cases_past14days'])
             if (!date_isfilled)
             {
