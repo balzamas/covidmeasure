@@ -152,7 +152,7 @@ class CasesDeathsViewSet(viewsets.ModelViewSet):
                 if (x != ''):
                     country_params.append(x)
             print(country_params)
-            queryset = queryset.filter(country__in=country_params, date__range=[date_after, date_before]).order_by('country','date')
+            queryset = queryset.filter(country__in=country_params, date__range=[date_after, date_before]).order_by('country__name','date')
 
         print(queryset)
 
