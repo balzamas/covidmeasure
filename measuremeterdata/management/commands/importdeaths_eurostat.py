@@ -87,3 +87,5 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=41)) #me
         getdata(Country.objects.get(pk=22)) #no
         getdata(Country.objects.get(pk=37)) #rs
+        getdata(Country.objects.get(pk=18)) #pl
+
