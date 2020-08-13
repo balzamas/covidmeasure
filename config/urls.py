@@ -27,14 +27,15 @@ urlpatterns = [
     "timeline/", TemplateView.as_view(template_name="pages/timeline.html"), name="Timeline"
                   ),
     path('timeline/<str:country_name>/', views.render_timeline, name='item'),
+    path("compare/", TemplateView.as_view(template_name="pages/compare.html"), name="Compare"
+                       ),
+    path("compare/<str:country_name>/", views.render_compare, name="item"
+                  ),
     path(
     "about/", TemplateView.as_view(template_name="pages/about.html"), name="About"
                   ),
     path(
     "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
-                  ),
-path(
-                      "compare/", TemplateView.as_view(template_name="pages/compare.html"), name="Compare"
                   ),
                   path(
                       "cantons/", TemplateView.as_view(template_name="pages/canton.html"), name="Canton"

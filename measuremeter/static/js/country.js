@@ -175,12 +175,18 @@
         color = '#ff0000'
         dataset_cases.push({"label": "Cases", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_cases})
 
-        color = '#ff0000'
+        color = '#ff6600'
         dataset_deaths.push({"label": "Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
         if (Number(avg_values[0] > 0))
         {
             color = '#0000ff'
             dataset_deaths.push({"label": "Total", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_total})
+            color = '#00ff00'
+            dataset_deaths.push({"label": avg_desc, fill: false, backgroundColor: color, borderColor: color, data: dataset_data_avg})
+            color = '#ff0000'
+            dataset_deaths.push({"label": avg_peak_desc, fill: false, backgroundColor: color, borderColor: color, data: dataset_data_peak})
+
+
         }
 
 
@@ -302,9 +308,9 @@
                             }
                         }
                     },
-                    annotation: {
-					 annotations: annotations
-				}
+               //     annotation: {
+				//	 annotations: annotations
+				//}
 
                  }
             }

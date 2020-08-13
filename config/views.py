@@ -12,3 +12,5 @@ def render_euromap(request, measure_id):
 def render_timeline(request, country_name):
     return render(request, 'pages/timeline.html', {'items': country_name })
 
+def render_compare(request, country_name):
+    return render(request, 'pages/compare.html', {'items': country_name })

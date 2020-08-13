@@ -20,56 +20,70 @@ def get_start_end_dates(year, week):
     dlt = timedelta(days=(week - 1) * 7)
     return d + dlt, d + dlt + timedelta(days=6)
 
+def getdata(country):
+    resp = urlopen(
+        'https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/demo_r_mwk_ts.tsv.gz')
+
+    import gzip
+    nr = 0
+    with gzip.open(resp, 'rt') as f:
+        file_content = f.read()
+
+        weeks = []
+
+        head = file_content.splitlines()[0]
+        for header_col in head.split('\t'):
+            if ("W" in header_col and header_col.split('W')[0] == '2020'):
+                weeks.append(get_start_end_dates(int(header_col.split('W')[0]), int(header_col.split('W')[1])))
+
+        week = 0;
+        for line in file_content.splitlines():
+            if (line.split('\t')[0].split(',')[0] == 'T'):
+                if (line.split('\t')[0].split(',')[2].lower() == country.code.lower()):
+                    columns = line.split('\t')
+                    for col in columns:
+                        if ("NR" not in col and ':' not in col and week < len(weeks)):
+                            value = int(col.replace('p', '').replace(' ', ''))
+                            avg = value / 7
+                            print(value)
+                            print(avg)
+
+                            savedate = weeks[week][0]
+
+                            for number in range(1, 8):
+                                try:
+                                    cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
+                                    print(cd_existing)
+                                    cd_existing.deathstotal = avg
+                                    cd_existing.save()
+                                except CasesDeaths.DoesNotExist:
+                                    cd = CasesDeaths(country=country, deathstotal=avg, date=savedate)
+                                    cd.save()
+
+                                savedate += timedelta(days=1)
+
+                        week += 1
+
 class Command(BaseCommand):
 
 
 
     def handle(self, *args, **options):
 
-        country = Country.objects.get(pk=25) #Eesti
-
-        resp = urlopen('https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/demo_r_mwk_ts.tsv.gz')
-
-        import gzip
-        nr = 0
-        with gzip.open(resp, 'rt') as f:
-            file_content = f.read()
-
-            weeks = []
-
-            head = file_content.splitlines()[0]
-            for header_col in head.split('\t'):
-                if ("W" in header_col and header_col.split('W')[0] == '2020'):
-                    weeks.append(get_start_end_dates(int(header_col.split('W')[0]),int(header_col.split('W')[1])))
-
-            week = 0;
-            for line in file_content.splitlines():
-                if (line.split('\t')[0].split(',')[0] == 'T'):
-                    if (line.split('\t')[0].split(',')[2].lower() == country.code.lower()):
-                        columns = line.split('\t')
-                        for col in columns:
-                            if ("NR" not in col and ':' not in col and week < len(weeks)):
-                                value = int(col.replace('p','').replace(' ',''))
-                                avg = value / 7
-                                print(value)
-                                print(avg)
-
-                                savedate = weeks[week][0]
-
-                                for number in range(1, 8):
-                                    try:
-                                        cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
-                                        print(cd_existing)
-                                        cd_existing.deathstotal = avg
-                                        cd_existing.save()
-                                    except CasesDeaths.DoesNotExist:
-                                        cd = CasesDeaths(country=country, deathstotal=avg, date=savedate)
-                                        cd.save()
-
-                                    savedate += timedelta(days=1)
-
-                            week += 1
-
-
-
-
+        getdata(Country.objects.get(pk=25)) #Eesti
+        getdata(Country.objects.get(pk=3)) #cz
+        getdata(Country.objects.get(pk=32)) #bg
+        getdata(Country.objects.get(pk=14)) #be
+        getdata(Country.objects.get(pk=7)) #uk
+        getdata(Country.objects.get(pk=12)) #sk
+        getdata(Country.objects.get(pk=31)) #pt
+        getdata(Country.objects.get(pk=36)) #hr
+        getdata(Country.objects.get(pk=29)) #hu
+        getdata(Country.objects.get(pk=33)) #it
+        getdata(Country.objects.get(pk=19)) #si
+        getdata(Country.objects.get(pk=16)) #lt
+        getdata(Country.objects.get(pk=26)) #lv
+        getdata(Country.objects.get(pk=17)) #lu
+        getdata(Country.objects.get(pk=41)) #me
+        getdata(Country.objects.get(pk=22)) #no
+        getdata(Country.objects.get(pk=37)) #rs

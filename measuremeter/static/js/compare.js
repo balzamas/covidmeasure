@@ -32,6 +32,11 @@
             return result;
         }
 
+          function copyToClipboard() {
+          var copyText = window.location.host + "/compare/" + $('#countries_dd').dropdown('get value') + "&" + $('#measuretypes_dd').dropdown('get value');
+          navigator.clipboard.writeText(copyText);
+        }
+
     function LoadCountries()
     {
                  //-----------------------------Load countries----------------------
@@ -94,36 +99,12 @@
               });
 
             $('#param').hide();
-
-            if ($('#param').text().length > 0)
-            {
-//                var datesft = drawTimeline(mode, $('#param').text(), $('#measuretypes_dd').dropdown('get value'));
-//                console.log(datesft)
-//                drawChartCasesTimeline($('#param').text(),datesft[0], datesft[1])
-
-            }
-            else
-            {
-                rnd_country = Math.floor(Math.random() * 43) + 1;
-                rnd_country2 = Math.floor(Math.random() * 43) + 1;
-                rnd_country3 = Math.floor(Math.random() * 43) + 1;
-
-                countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
-
-               measure_list = [1,26,8,11,16,2,21,28];
-               measure_list_filtered = getRandom(measure_list,5);
-
-               measuretypes=measure_list_filtered[0].toString()+","+measure_list_filtered[1].toString()+","+measure_list_filtered[2].toString()+","+measure_list_filtered[3].toString()+","+measure_list_filtered[4].toString();
-
-//                var datesft = drawTimeline(mode, countries, measuretypes);
-//                 console.log(datesft)
-//                drawLineChartperPop(countries, datesft[0], datesft[1]);
-            }
     }
 
      function FormatPopUp(line)
      {
                             str_level = '<i class="green '+line["type"]["icon"] +'" data-tooltip="None"></i>'
+                            status = "None"
 
                             if (line['level'] == 1)
                             {
@@ -143,7 +124,7 @@
                             }
 
 
-                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ '<br>'+line["type"]["name"] +'<br>'+status+'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ '<br>Level: '+line["type"]["name"] +'<br>Measure:'+status+'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }
@@ -368,12 +349,41 @@
 		    startdate = formatDate(real_startdate);
             enddate = formatDate(real_enddate);
 
-            $('#countries_dd').dropdown('set selected', ['1','3','6'])
-            $('#measuretypes_dd').dropdown('set selected', ['8','26'])
 
-            LoadData("1,3,6", "8,26",startdate,enddate);
+
+
+
+            if ($('#param').text().length > 0)
+            {
+                params = $('#param').text().split("&")
+
+
+
+                cntries = params[0].split(",")
+                msures = params[1].split(",")
+
+                $('#countries_dd').dropdown('set selected', cntries)
+                $('#measuretypes_dd').dropdown('set selected', msures)
+                LoadData(params[0], params[1],startdate,enddate);
+            }
+            else
+            {
+                $('#countries_dd').dropdown('set selected', ['1','3','6'])
+                $('#measuretypes_dd').dropdown('set selected', ['8','26'])
+                LoadData("1,3,6", "8,26",startdate,enddate);
+            }
+
+
+
+
+
+
 			var ctx = document.getElementById('compareChart').getContext('2d');
 			window.myLine = new Chart(ctx, config);
+
+			$("#btnCopyLink").click(async function(){
+                copyToClipboard();
+            });
 		};
 
 
