@@ -127,10 +127,12 @@
 
                             if (line['level'] == 1)
                             {
+                                status = line["type"]["tooltip_partial"]
                                 str_level =  '<i class="yellow '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_partial"]+'"></i>'
                             }
                             else if (line['level'] == 2)
                             {
+                                status = line["type"]["tooltip_nonpartial"]
                                 str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
                             }
 
@@ -140,7 +142,8 @@
                                 endtime = line['end'];
                             }
 
-                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ '<br>'+line["type"]["name"] +'<br>'+line["type"]["tooltip_nonpartial"]+'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
+
+                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ '<br>'+line["type"]["name"] +'<br>'+status+'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }
