@@ -57,7 +57,6 @@
 
   <p>Calculating the chance that one or more members of a group is/are infectious. Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.<br>
   Base number: Incidence of past 14 days per 100k population. CDC recommends 10 days.</p>
-  <p>Incidence numbers are not always correct yet as some cantons report late and I didn't pay attention to this while implementing the thing. </p>
   <p>Formula: 100 - (((1-(1/(100000/(cases_past14days*bias)))) ** groupsize) * 100)</p>
   <a href="https://github.com/balzamas/covidmeasure">GitHub</a> (Code from hell, quick and dirty, ignore master branch, for this page see chrisk*-files).<br>
   <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource Cases openZH</a>

@@ -39,22 +39,8 @@ class Command(BaseCommand):
             print(cantoncode)
 
             old_value = 0
-            last_numbers = [0, 0, 0, 0, 0, 0, 0]
 
-            #Well...we overwrite everything with 0
-            end_date = date.today()
-            start_date = date.fromisoformat('2020-02-20')
-            day_count = (end_date - start_date).days + 1
-            for single_date in [d for d in (start_date + timedelta(n) for n in range(day_count)) if d <= end_date]:
-                try:
-                    cd_existing = CHCases.objects.get(canton=canton, date=single_date)
-                    cd_existing.cases = 0
-                    cd_existing.save()
-                except CHCases.DoesNotExist:
-                    cd = CHCases(canton=canton, cases=0, date=single_date)
-                    cd.save()
-
-            # Should move to datasources directory
+            last_date = date.fromisoformat('2020-02-21')
             for row in my_list:
 
                 if row[2].lower() == cantoncode.lower():
@@ -80,8 +66,20 @@ class Command(BaseCommand):
                         except CHCases.DoesNotExist:
                             cd = CHCases(canton=canton, cases=cases_today, date=date_object)
                             cd.save()
+
+                        last_date = date_object.date()
                     except:
                         print("Wrong format")
+
+            #Well...we overwrite everything with 0
+            start_date = date.fromisoformat('2020-02-20')
+            day_count = (last_date - start_date).days + 1
+            for single_date in [d for d in (start_date + timedelta(n) for n in range(day_count)) if d <= last_date]:
+                try:
+                    cd_existing = CHCases.objects.get(canton=canton, date=single_date)
+                except CHCases.DoesNotExist:
+                    cd = CHCases(canton=canton, cases=0, date=single_date)
+                    cd.save()
 
             #calc running avg
             last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]

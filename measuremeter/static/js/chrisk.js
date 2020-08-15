@@ -11,8 +11,10 @@ var data
 
           statesData = $.extend( true, {}, statesDataOrig );
 
+          datefrom = addDays(datenow, -7)
+
           var data = $.ajax({
-          url: "/measuremeterdata/chcases/?date_after="+datenow.replace('-', '\-')+"&date_before="+datenow.replace('-', '\-'),
+          url: "/measuremeterdata/chcases/?date_after="+formatDate(datefrom).replace('-', '\-')+"&date_before="+datenow.replace('-', '\-'),
           dataType: "json",
           async: false
           }).responseText;
@@ -39,6 +41,7 @@ var data
                             value_risk = 100 - (((1-(1/(100000/(item.cases_past14days*bias)))) ** groupsize) * 100)
                             statesData.features[id].properties.level = value_risk
                             statesData.features[id].properties.comment = value_cases
+                            statesData.features[id].properties.date = item.date
                         }
 
                 });
@@ -150,7 +153,7 @@ var data
                 var commentstr = ''
                 if (e.sourceTarget.feature.properties.comment)
                 {
-                    commentstr = '<p>Incidence (14d/100k pop):' + e.sourceTarget.feature.properties.comment + '</p>';
+                    commentstr = '<p>Incidence (14d/100k pop):' + e.sourceTarget.feature.properties.comment + '<br>(' + e.sourceTarget.feature.properties.date +')</p>';
                 }
                 var levelstr = ''
                 if (e.sourceTarget.feature.properties.level)

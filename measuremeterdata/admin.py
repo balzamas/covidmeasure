@@ -5,7 +5,11 @@ from .models import Country, MeasureCategory, MeasureType, Measure, Continent, C
 admin.site.register(Continent)
 admin.site.register(MeasureCategory)
 admin.site.register(CasesDeaths)
-admin.site.register(CHCases)
+
+class CHCasesAdmin(admin.ModelAdmin):
+    list_display = ['canton', 'date', 'cases', 'cases_past14days']
+    search_fields = ['canton']
+admin.site.register(CHCases, CHCasesAdmin)
 
 
 class CountryAdmin(admin.ModelAdmin):
