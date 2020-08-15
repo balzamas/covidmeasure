@@ -11,24 +11,14 @@
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
     <!-- / Fathom -->
 
-    <script
-  type="text/javascript"
-  src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"
-></script>
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
 
     <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/chrisk.js' %}"></script>
@@ -50,44 +40,51 @@
 .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
 .legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
 
+</head>
+<body>
+  <p bgcolor="black">
 
-  </head>
-  <body bgcolor="black">
+  <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
 
-
-<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
-
-
-      <h1>CovidLaws // Switzerland // Risk map</h1>
-      <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
-      <div id="menu"></div>
+  <h1>CovidLaws // Switzerland // Risk map</h1>
+  <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
+  <div id="menu"></div>
 
 
-<h2>Demo demo demo demo</h2>
+  <h2>Demo demo demo demo</h2>
+  This is just a quick demo, I am NOT an epidemologist and I have no idea if this is scientific or not, just a random person who started this project during lockdown to keep me sane.
   <h3>Risk yesterday</h3>
-  Formula: 100 - (((1-(1/(100000/(cases_past14days*bias)))) ** groupsize) * 100)
-  <p id="grande"><b>Risk maps</b></p>
+
+  <p>Calculating the chance that one or more members of a group is/are infectious. Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.<br>
+  Base number: Incidence of past 14 days per 100k population. CDC recommends 10 days.</p>
+  <p>Numbers are always from yesterday, because I broke the calculation of the present day.</p>
+  <p>Formula: 100 - (((1-(1/(100000/(cases_past14days*bias)))) ** groupsize) * 100)</p>
+  <a href="https://github.com/balzamas/covidmeasure">GitHub</a> (Code from hell, quick and dirty, ignore master branch, for this page see chrisk*-files).<br>
+  <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource Cases openZH</a>
+  <br><br>
+  <p id="grande"><b>Risk map</b></p>
 
   <p>Group size:</p>
-<div class="ui input" >
-  <input type="number" id="groupsize" placeholder="Group size" value=500>
-</div>
-<br><br>
+  <div class="ui input" >
+    <input type="number" id="groupsize" placeholder="Group size" value=300>
+  </div>
+  <br><br>
   <p>Bias:</p>
   <div class="ui input" >
-  <input type="number" id="bias" placeholder="Bias" value=5>
-</div>
+    <input type="number" id="bias" placeholder="Bias" value=3>
+  </div>
+  Ascertainment bias: incidence is multiplied by this number.
   <br><br>
-              <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
-                <div class="hidden content" >Load</div>
-                <div class="visible content">
-                  <i class="large arrow circle down icon"></i>
-                </div>
-              </div>
-<br><br>
-        <div align="center">
-          <div id='mapRisk'  style="height: 600px; width: 100%;"></div>
-        </div>
+  <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
+    <div class="hidden content" >Load</div>
+    <div class="visible content">
+        <i class="large arrow circle down icon"></i>
+    </div>
+  </div>
+  <br><br>
+  <div align="center">
+    <div id='mapRisk'  style="height: 600px; width: 100%;"></div>
+  </div>
   </body>
 </html>
 
