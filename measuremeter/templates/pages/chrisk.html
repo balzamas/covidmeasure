@@ -63,8 +63,28 @@
       <div id="menu"></div>
 
 
-
+<h2>Demo demo demo demo</h2>
+  <h3>Risk yesterday</h3>
+  Formula: 100 - (((1-(1/(100000/(cases_past14days*bias)))) ** groupsize) * 100)
   <p id="grande"><b>Risk maps</b></p>
+
+  <p>Group size:</p>
+<div class="ui input" >
+  <input type="number" id="groupsize" placeholder="Group size" value=500>
+</div>
+<br><br>
+  <p>Bias:</p>
+  <div class="ui input" >
+  <input type="number" id="bias" placeholder="Bias" value=5>
+</div>
+  <br><br>
+              <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
+                <div class="hidden content" >Load</div>
+                <div class="visible content">
+                  <i class="large arrow circle down icon"></i>
+                </div>
+              </div>
+<br><br>
         <div align="center">
           <div id='mapRisk'  style="height: 600px; width: 100%;"></div>
         </div>
