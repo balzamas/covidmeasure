@@ -53,4 +53,4 @@ class CHCasesSerializer(serializers.ModelSerializer):
     canton = CantonSerializer()
     class Meta:
         model = CHCases
-        fields = ['pk', 'canton', 'date', 'cases', 'cases_past14days']
+        fields = ['pk', 'canton', 'date', 'cases', 'cases_past14days', 'cases_past10days', 'cases_past7days']

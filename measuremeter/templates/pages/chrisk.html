@@ -11,10 +11,13 @@
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
     <!-- / Fathom -->
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/menu.min.css"/>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -74,12 +77,24 @@
   </div>
   Ascertainment bias: incidence is multiplied by this number.
   <br><br>
+  Base number: cases per 100k population in the past...<br><br>
+  <select class="ui dropdown" id="days">
+  <option value="10">10 days</option>
+  <option value="7">7 days</option>
+  <option value="14">14 days</option>
+</select>
+
+
+
+  <br><br>
+
   <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
     <div class="hidden content" >Load</div>
     <div class="visible content">
         <i class="large arrow circle down icon"></i>
     </div>
   </div>
+  <br><br>
   <br><br>
   <div align="center">
     <div id='mapRisk'  style="height: 600px; width: 100%;"></div>

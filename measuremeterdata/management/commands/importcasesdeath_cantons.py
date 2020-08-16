@@ -90,11 +90,27 @@ class Command(BaseCommand):
                 last_numbers.append(day.cases)
                 last_numbers.pop(0)
                 tot = 0
+                ten_tot = 0
+                seven_tot = 0
+                daycount = 0
                 for x in last_numbers:
                     tot += x
+                    if (daycount == 10):
+                        ten_tot = tot
+
+                    if (daycount == 7):
+                        seven_tot = tot
+
+                    daycount += 1
 
                 fourteen_avg = tot * 100000 / canton.population
+                ten_avg = ten_tot * 100000 / canton.population
+                seven_avg = seven_tot * 100000 / canton.population
                 print(day)
                 print(fourteen_avg)
+                print(ten_avg)
+                print(seven_avg)
                 day.cases_past14days = fourteen_avg
+                day.cases_past10days = ten_avg
+                day.cases_past7days = seven_avg
                 day.save()

@@ -144,6 +144,8 @@ class CHCases(MotherModel):
     date = models.DateField()
     cases = models.IntegerField(default=0)
     cases_past14days = models.DecimalField(default=0,max_digits=50, decimal_places=2)
+    cases_past10days = models.DecimalField(default=0,max_digits=50, decimal_places=2)
+    cases_past7days = models.DecimalField(default=0,max_digits=50, decimal_places=2)
 
     ordering = ['canton__pk', 'date', 'cases']
 
