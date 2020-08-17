@@ -277,7 +277,7 @@ var data
          return htmlLine;
      }
 
-     function LoadMeasureGraph(startdate, endate)
+     function LoadMeasureGraph(startdate, enddate)
      {
 
           var data = $.ajax({
@@ -371,10 +371,13 @@ var data
         return annotations
      }
 
-	 function LoadDataGraph(startdate, endate)
+	 function LoadDataGraph(real_startdate, real_enddate)
       {
-          var data = $.ajax({
-          url: "/measuremeterdata/chcases/?date_after="+startdate.replace('-', '\-')+"&date_before="+endate.replace('-', '\-'),
+        startdate = formatDate(real_startdate);
+        enddate = formatDate(real_enddate);
+
+        var data = $.ajax({
+          url: "/measuremeterdata/chcases/?date_after="+startdate.replace('-', '\-')+"&date_before="+enddate.replace('-', '\-'),
           dataType: "json",
           async: false
           }).responseText;
@@ -389,7 +392,11 @@ var data
         var dataset_data = new Array()
         var label_array = new Array()
 
-        date_isfilled = false
+        for (var d = real_startdate; d <= real_enddate; d.setDate(d.getDate() + 1)) {
+            label_array.push(formatDate(new Date(d)));
+        }
+
+
 
         $.each(jsonData, function(id, line) {
 
@@ -398,21 +405,17 @@ var data
               color = '#'+(Math.random()*0xFFFFFF<<0).toString(16)
               dataset.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
               dataset_data = new Array()
-              date_isfilled = true;
            }
             canton_pk = line["canton"]["pk"]
             canton_name = line['canton']['code'].toUpperCase();
             dataset_data.push(line['cases_past14days'])
-            if (!date_isfilled)
-            {
-                label_array.push(line['date'])
-            }
+
         });
 
         color = '#'+(Math.random()*0xFFFFFF<<0).toString(16)
         dataset.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
 
-        annotations = LoadMeasureGraph(startdate, endate)
+        annotations = LoadMeasureGraph(startdate, enddate)
 
             config = {
                 type: 'line',
@@ -581,10 +584,7 @@ var data
             $('#param').hide();
 
             real_enddate = new Date();
-            real_startdate = new Date(2020,5,20)
-
-		    startdate = formatDate(real_startdate);
-            enddate = formatDate(real_enddate);
+            real_startdate = new Date(2020,7,10)
 
             LoadCantonData();
 
@@ -594,7 +594,7 @@ var data
             var mapMasks = L.map('mapMasks').setView([46.8, 8.4], 8);
             LoadMap(mapMasks, 2);
 
-            LoadDataGraph(startdate,enddate);
+            LoadDataGraph(real_startdate,real_enddate);
 			var ctx = document.getElementById('compareChart').getContext('2d');
 			window.myLine = new Chart(ctx, config);
 
