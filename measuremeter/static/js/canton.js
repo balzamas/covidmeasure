@@ -584,7 +584,7 @@ var data
             $('#param').hide();
 
             real_enddate = new Date();
-            real_startdate = new Date(2020,7,10)
+            real_startdate = new Date(2020,5,20)
 
             LoadCantonData();
 
