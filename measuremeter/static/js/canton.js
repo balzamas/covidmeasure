@@ -317,7 +317,7 @@ var data
                                 endtime = line['end'];
                             }
 
-                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ line['level'] +', End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ (line['level'] +1) +', End: '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }
