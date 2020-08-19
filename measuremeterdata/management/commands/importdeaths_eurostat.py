@@ -39,7 +39,10 @@ def getdata(country):
             if ("W" in header_col and header_col.split('W')[0] == '2020'):
                 weeks.append(get_start_end_dates(int(header_col.split('W')[0]), int(header_col.split('W')[1])))
 
-        week = 1;
+        print("-------------")
+        print(weeks)
+
+        week = -1;
         for line in file_content.splitlines():
             if (line.split('\t')[0].split(',')[0] == 'T'):
                 if (country.code.lower() == 'gb'):
@@ -50,7 +53,7 @@ def getdata(country):
                     columns = line.split('\t')
                     for col in columns:
                         if ("NR" not in col and ':' not in col and week < len(weeks)):
-                            value = int(col.replace('p', '').replace(' ', ''))
+                            value = int(col.replace('p', '').replace('e', '').replace(' ', ''))
                             avg = value / 7
                             print(value)
                             print(avg)
@@ -98,6 +101,7 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=18)) #pl
         getdata(Country.objects.get(pk=13)) #nl
         getdata(Country.objects.get(pk=8)) #dk
+        getdata(Country.objects.get(pk=20))  # es
         getdata(Country.objects.get(pk=34)) #fr
-        getdata(Country.objects.get(pk=20)) #es
+
 
