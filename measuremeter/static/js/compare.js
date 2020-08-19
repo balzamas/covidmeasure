@@ -263,6 +263,8 @@
             label_array.push(formatDate(new Date(d)));
         }
 
+        has_total_death = false;
+
         $.each(jsonData, function(id, line) {
 
            if (country_pk != line["country"]["pk"] && country_pk != -1)
@@ -270,17 +272,25 @@
               color = '#'+(Math.random()*0xFFFFFF<<0).toString(16)
               dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
               dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_data})
-              dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
+              if (has_total_death)
+              {
+                dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
+               }
               dataset_data = new Array()
               dataset_death_data = new Array()
               dataset_death_total_data = new Array()
+              has_total_death = false
            }
             country_pk = line["country"]["pk"]
             country_name = line['country']['name']
             country_code = line['country']['code']
             dataset_data.push(line['cases_past14days'])
             dataset_death_data.push(line['deaths_per100k'])
-            dataset_death_total_data.push(line['deaths_total_per100k'])
+            if (line['deaths_total_per100k'] > 0)
+            {
+                dataset_death_total_data.push(line['deaths_total_per100k'])
+                has_total_death = true
+            }
 
         });
 
