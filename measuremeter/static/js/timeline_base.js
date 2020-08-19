@@ -331,7 +331,7 @@
                            country_pk = line["country"]["pk"]
                           }
                       }
-            countries_data.push({"group":line['country']['name'], "x": line['date'], "y": line['cases_per_mio_seven'] })
+            countries_data.push({"group":line['country']['name'], "x": line['date'], "y": line['cases_past7days'] })
         });
 
           var datasetgraph = new vis.DataSet(countries_data);
