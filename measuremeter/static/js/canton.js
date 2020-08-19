@@ -362,7 +362,8 @@ var data
 
                 if (!doesexist)
                 {
-                    annotations_prepare.push(
+                    measure_count = 0
+                   annotations_prepare.push(
                         {
                             value: line['start'],
                             label: line["canton"]["code"],
@@ -397,7 +398,7 @@ var data
 
                         onClick: function(e) {
                         // The annotation is is bound to the `this` variable
-                            $("#dialog").html('<div style="margin-left: 10;margin-top: 10;margin-right: 10;margin-bottom: 10;">' + element.popup + '</div>');
+                            $("#dialog").html('<div style="margin-left: 10;margin-top: 10;margin-right: 10;margin-bottom: 10;max-height: 800">' + element.popup + '</div>');
                             $('#dialog').dialog({
                               title: "Introduced measures " + element.value,
                               open: function (event, ui) {

@@ -265,7 +265,7 @@ Colors.random = function() {
 
                         onClick: function(e) {
                         // The annotation is is bound to the `this` variable
-                            $("#dialog").html('<div style="margin-left: 10;margin-top: 10;margin-right: 10;margin-bottom: 10;">' + element.popup + '</div>');
+                            $("#dialog").html('<div style="margin-left: 10;margin-top: 10;margin-right: 10;margin-bottom: 10;max-height: 800;">' + element.popup + '</div>');
                             $('#dialog').dialog({
                               title: "Introduced measures " + element.value,
                               open: function (event, ui) {
