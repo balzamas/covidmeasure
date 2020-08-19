@@ -7,6 +7,10 @@ from datetime import timedelta
 import requests
 import pandas as pd
 
+def CalcCaesesPer100k(cases, population):
+    casespm = int(cases) *100000 / (int(population))
+    return casespm
+
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
@@ -44,9 +48,10 @@ class Command(BaseCommand):
                             cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
                             print(cd_existing)
                             cd_existing.deathstotal = int(float(row[6]))
+                            cd_existing.deaths_total_per100k = CalcCaesesPer100k(int(float(row[6])), country.population)
                             cd_existing.save()
                         except CasesDeaths.DoesNotExist:
-                            cd = CasesDeaths(country=country, deathstotal=int(float(row[6])), date=savedate)
+                            cd = CasesDeaths(country=country, deathstotal=int(float(row[6])), date=savedate, deaths_total_per100k = CalcCaesesPer100k(int(float(row[6])), country.population))
                             cd.save()
 
 

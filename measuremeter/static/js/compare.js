@@ -1,5 +1,6 @@
 
 		var config;
+		var config_death;
 
         function addDays(date, days) {
           var result = new Date(date);
@@ -129,7 +130,7 @@
          return htmlLine;
      }
 
-     function LoadMeasure(countries, measuretypes, startdate, endate)
+     function LoadMeasure(countries, measuretypes, startdate, enddate)
      {
 
            if (countries == undefined)
@@ -229,10 +230,13 @@
         return annotations
      }
 
-	 function LoadData(countries, measures, startdate, endate)
+	 function LoadData(countries, measures, real_startdate, real_enddate)
       {
+        startdate = formatDate(real_startdate);
+        enddate = formatDate(real_enddate);
+
           var data = $.ajax({
-          url: "/measuremeterdata/casesdeaths/?country="+countries+"&date_after="+startdate.replace('-', '\-')+"&date_before="+endate.replace('-', '\-'),
+          url: "/measuremeterdata/casesdeaths/?country="+countries+"&date_after="+startdate.replace('-', '\-')+"&date_before="+enddate.replace('-', '\-'),
           dataType: "json",
           async: false
           }).responseText;
@@ -246,9 +250,18 @@
 
         var dataset = new Array()
         var dataset_data = new Array()
+
+        var dataset_death = new Array()
+        var dataset_death_data = new Array()
+
+        var dataset_death_total = new Array()
+        var dataset_death_total_data = new Array()
+
         var label_array = new Array()
 
-        date_isfilled = false
+        for (var d = real_startdate; d <= real_enddate; d.setDate(d.getDate() + 1)) {
+            label_array.push(formatDate(new Date(d)));
+        }
 
         $.each(jsonData, function(id, line) {
 
@@ -256,22 +269,27 @@
            {
               color = '#'+(Math.random()*0xFFFFFF<<0).toString(16)
               dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
+              dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_data})
+              dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
               dataset_data = new Array()
-              date_isfilled = true;
+              dataset_death_data = new Array()
+              dataset_death_total_data = new Array()
            }
             country_pk = line["country"]["pk"]
             country_name = line['country']['name']
+            country_code = line['country']['code']
             dataset_data.push(line['cases_past14days'])
-            if (!date_isfilled)
-            {
-                label_array.push(line['date'])
-            }
+            dataset_death_data.push(line['deaths_per100k'])
+            dataset_death_total_data.push(line['deaths_total_per100k'])
+
         });
 
         color = '#'+(Math.random()*0xFFFFFF<<0).toString(16)
         dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
+        dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_data})
+        dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
 
-        annotations = LoadMeasure(countries, measures, startdate, endate)
+        annotations = LoadMeasure(countries, measures, startdate, enddate)
 
             config = {
                 type: 'line',
@@ -324,6 +342,50 @@
 
             };
 
+            config_death = {
+                type: 'line',
+
+                data: {
+                    labels: label_array,
+                    datasets: dataset_death
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Deaths per 100k',
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Deaths/100k Pop'
+                            }
+                        }
+                    },
+                },
+
+            };
+
 		};
 
 		window.onload = function() {
@@ -332,9 +394,16 @@
                 var datefrom = document.getElementById("datefrom").value;
                 var dateto = document.getElementById("dateto").value;
 
+                var parts =datefrom.split('-');
+                var datefrom_real = new Date(parts[0], parts[1] - 1, parts[2]);
 
-                LoadData($('#countries_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'),datefrom,dateto);
+                var parts2 =dateto.split('-');
+                var dateto_real = new Date(parts2[0], parts2[1] - 1, parts2[2]);
+
+
+                LoadData($('#countries_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'),datefrom_real,dateto_real);
     			window.myLine = new Chart(ctx, config);
+    			window.myLine = new Chart(ctx_death, config_death);
             });
 
 		    LoadMeasureTypes();
@@ -345,13 +414,6 @@
 
             document.getElementById("datefrom").value = formatDate(real_startdate)
             document.getElementById("dateto").value = formatDate(real_enddate)
-
-		    startdate = formatDate(real_startdate);
-            enddate = formatDate(real_enddate);
-
-
-
-
 
             if ($('#param').text().length > 0)
             {
@@ -364,13 +426,13 @@
 
                 $('#countries_dd').dropdown('set selected', cntries)
                 $('#measuretypes_dd').dropdown('set selected', msures)
-                LoadData(params[0], params[1],startdate,enddate);
+                LoadData(params[0], params[1],real_startdate,real_enddate);
             }
             else
             {
                 $('#countries_dd').dropdown('set selected', ['1','3','6'])
                 $('#measuretypes_dd').dropdown('set selected', ['8','26'])
-                LoadData("1,3,6", "8,26",startdate,enddate);
+                LoadData("1,3,6", "8,26",real_startdate,real_enddate);
             }
 
 
@@ -380,6 +442,9 @@
 
 			var ctx = document.getElementById('compareChart').getContext('2d');
 			window.myLine = new Chart(ctx, config);
+
+			var ctx_death = document.getElementById('compareChartDeaths').getContext('2d');
+			window.myLine = new Chart(ctx_death, config_death);
 
 			$("#btnCopyLink").click(async function(){
                 copyToClipboard();

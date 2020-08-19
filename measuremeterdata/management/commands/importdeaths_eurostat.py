@@ -10,6 +10,9 @@ from io import BytesIO
 import gzip
 from urllib.request import urlopen
 
+def CalcCaesesPer100k(cases, population):
+    casespm = int(cases) *100000 / (int(population))
+    return casespm
 
 def get_start_end_dates(year, week):
     d = datetime.datetime(year, 1, 1)
@@ -39,7 +42,11 @@ def getdata(country):
         week = 0;
         for line in file_content.splitlines():
             if (line.split('\t')[0].split(',')[0] == 'T'):
-                if (line.split('\t')[0].split(',')[2].lower() == country.code.lower()):
+                if (country.code.lower() == 'gb'):
+                    code ='uk'
+                else:
+                    code = country.code.lower()
+                if (line.split('\t')[0].split(',')[2].lower() == code):
                     columns = line.split('\t')
                     for col in columns:
                         if ("NR" not in col and ':' not in col and week < len(weeks)):
@@ -55,9 +62,10 @@ def getdata(country):
                                     cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
                                     print(cd_existing)
                                     cd_existing.deathstotal = avg
+                                    cd_existing.deaths_total_per100k = CalcCaesesPer100k(avg, country.population)
                                     cd_existing.save()
                                 except CasesDeaths.DoesNotExist:
-                                    cd = CasesDeaths(country=country, deathstotal=avg, date=savedate)
+                                    cd = CasesDeaths(country=country, deathstotal=avg, deaths_total_per100k=CalcCaesesPer100k(avg, country.population), date=savedate)
                                     cd.save()
 
                                 savedate += timedelta(days=1)
@@ -88,4 +96,8 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=22)) #no
         getdata(Country.objects.get(pk=37)) #rs
         getdata(Country.objects.get(pk=18)) #pl
+        getdata(Country.objects.get(pk=13)) #nl
+        getdata(Country.objects.get(pk=8)) #dk
+        getdata(Country.objects.get(pk=34)) #fr
+        getdata(Country.objects.get(pk=20)) #es
 

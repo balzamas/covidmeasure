@@ -10,6 +10,10 @@ from io import BytesIO
 from zipfile import ZipFile
 from urllib.request import urlopen
 
+def CalcCaesesPer100k(cases, population):
+    casespm = int(cases) *100000 / (int(population))
+    return casespm
+
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
@@ -53,9 +57,10 @@ class Command(BaseCommand):
                             cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
                             print(cd_existing)
                             cd_existing.deathstotal = deaths_today
+                            cd_existing.deaths_total_per100k = CalcCaesesPer100k(deaths_today, country.population)
                             cd_existing.save()
                         except CasesDeaths.DoesNotExist:
-                            cd = CasesDeaths(country=country, deathstotal=deaths_today, date=savedate)
+                            cd = CasesDeaths(country=country, deathstotal=deaths_today, date=savedate, deaths_total_per100k = CalcCaesesPer100k(deaths_today, country.population))
                             cd.save()
 
                         savedate += timedelta(days=1)
