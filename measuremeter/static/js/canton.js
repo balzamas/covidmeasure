@@ -634,6 +634,9 @@ var data
 
             LoadCantonData();
 
+            var mapSecondary = L.map('mapSecondary').setView([46.8, 8.4], 8);
+            LoadMap(mapSecondary, 6);
+
             var mapDisco = L.map('mapDisco').setView([46.8, 8.4], 8);
             LoadMap(mapDisco, 3);
 
