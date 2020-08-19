@@ -7,9 +7,6 @@ let Colors = ["#0000ff",
 "#ff0000",
 "#ffff00",
 "#008000",
-"#00ffff",
-"#ffc0cb",
-"#f0ffff",
 "#f5f5dc",
 "#000000",
 "#a52a2a",
@@ -34,7 +31,8 @@ let Colors = ["#0000ff",
 "#800000",
 "#000080",
 "#808000",
-"#800080",
+"#ffc0cb",
+"#f0ffff",
 "#800080",
 "#c0c0c0",
 "#00008b",
@@ -463,7 +461,12 @@ Colors.random = function() {
 
 		window.onload = function() {
 		    $("#load_data").click(function(){
-                window.myLine.destroy();
+                if(window.myLine && window.myLine !== null){
+                   window.myLine.destroy();
+                }
+                if(window.myLineDeath && window.myLineDeath !== null){
+                   window.myLineDeath.destroy();
+                }
                 var datefrom = document.getElementById("datefrom").value;
                 var dateto = document.getElementById("dateto").value;
 
@@ -476,7 +479,7 @@ Colors.random = function() {
 
                 LoadData($('#countries_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'),datefrom_real,dateto_real);
     			window.myLine = new Chart(ctx, config);
-    			window.myLine = new Chart(ctx_death, config_death);
+    			window.myLineDeath = new Chart(ctx_death, config_death);
             });
 
 		    LoadMeasureTypes();
@@ -517,7 +520,7 @@ Colors.random = function() {
 			window.myLine = new Chart(ctx, config);
 
 			var ctx_death = document.getElementById('compareChartDeaths').getContext('2d');
-			window.myLine = new Chart(ctx_death, config_death);
+			window.myLineDeath = new Chart(ctx_death, config_death);
 
 			$("#btnCopyLink").click(async function(){
                 copyToClipboard();

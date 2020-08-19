@@ -323,6 +323,13 @@
       {
             if ($('#countries_dd').dropdown('get value') != null)
             {
+                if(window.myLine && window.myLine !== null){
+                   window.myLine.destroy();
+                }
+                if(window.myLineDeath && window.myLineDeath !== null){
+                   window.myLineDeath.destroy();
+                }
+
                 avg_values = LoadCountryData($('#countries_dd').dropdown('get value'));
                 var datesft = drawTimeline(2,$('#countries_dd').dropdown('get value'));
                 drawLineChart($('#countries_dd').dropdown('get value'),avg_values, datesft[0], datesft[1]);
@@ -331,7 +338,7 @@
 			    window.myLine = new Chart(ctx, config_cases);
 
   			    var ctx = document.getElementById('deathChart').getContext('2d');
-			    window.myLine = new Chart(ctx, config_death);
+			    window.myLineDeath = new Chart(ctx, config_death);
              }
       }
 
