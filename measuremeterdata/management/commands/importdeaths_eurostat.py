@@ -39,7 +39,7 @@ def getdata(country):
             if ("W" in header_col and header_col.split('W')[0] == '2020'):
                 weeks.append(get_start_end_dates(int(header_col.split('W')[0]), int(header_col.split('W')[1])))
 
-        week = 0;
+        week = 1;
         for line in file_content.splitlines():
             if (line.split('\t')[0].split(',')[0] == 'T'):
                 if (country.code.lower() == 'gb'):
