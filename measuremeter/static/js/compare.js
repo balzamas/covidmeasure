@@ -2,6 +2,58 @@
 		var config;
 		var config_death;
 
+let Colors = ["#0000ff",
+"#00ffff",
+"#ff0000",
+"#ffff00",
+"#008000",
+"#00ffff",
+"#ffa500",
+"#ffc0cb",
+"#f0ffff",
+"#f5f5dc",
+"#000000",
+"#a52a2a",
+"#a9a9a9",
+"#bdb76b",
+"#8b008b",
+"#556b2f",
+"#ff8c00",
+"#9932cc",
+"#8b0000",
+"#e9967a",
+"#9400d3",
+"#ff00ff",
+"#ffd700",
+"#4b0082",
+"#f0e68c",
+"#add8e6",
+"#e0ffff",
+"#90ee90",
+"#d3d3d3",
+"#ffb6c1",
+"#ffffe0",
+"#00ff00",
+"#ff00ff",
+"#800000",
+"#000080",
+"#808000",
+"#800080",
+"#800080",
+"#c0c0c0",
+"#00008b",
+"#008b8b",
+"#006400"];
+
+Colors.random = function() {
+    var result;
+    var count = 0;
+    for (var prop in this.names)
+        if (Math.random() < 1/++count)
+           result = prop;
+    return result;
+};
+
         function addDays(date, days) {
           var result = new Date(date);
           result.setDate(result.getDate() + days);
@@ -247,6 +299,7 @@
         old_date = new Date(2020, 1, 1);
 
         country_pk = -1
+        turn = 0
 
         var dataset = new Array()
         var dataset_data = new Array()
@@ -269,7 +322,12 @@
 
            if (country_pk != line["country"]["pk"] && country_pk != -1)
            {
-              color = '#'+(Math.random()*0xFFFFFF<<0).toString(16)
+              color = Colors[turn];
+              turn += 1
+              if (turn==41)
+              {
+                turn = 0
+              }
               dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
               dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_data})
               if (has_total_death)
@@ -294,10 +352,13 @@
 
         });
 
-        color = '#'+(Math.random()*0xFFFFFF<<0).toString(16)
+        color = Colors[turn];
         dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
         dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_data})
-        dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
+        if (has_total_death)
+              {
+              dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
+              }
 
         annotations = LoadMeasure(countries, measures, startdate, enddate)
 
