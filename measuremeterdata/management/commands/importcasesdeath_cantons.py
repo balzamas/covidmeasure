@@ -95,18 +95,24 @@ class Command(BaseCommand):
                 daycount = 0
                 for x in last_numbers:
                     tot += x
-                    if (daycount == 10):
-                        ten_tot = tot
+                    if (daycount > 3):
+                        ten_tot += x
 
-                    if (daycount == 7):
-                        seven_tot = tot
+                    if (daycount > 6):
+                        seven_tot += x
 
                     daycount += 1
+
+                print(day)
+                print(last_numbers)
+                print(seven_tot)
+                print(ten_tot)
+                print(tot)
 
                 fourteen_avg = tot * 100000 / canton.population
                 ten_avg = ten_tot * 100000 / canton.population
                 seven_avg = seven_tot * 100000 / canton.population
-                print(day)
+
                 print(fourteen_avg)
                 print(ten_avg)
                 print(seven_avg)

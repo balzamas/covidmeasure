@@ -105,8 +105,8 @@ class Command(BaseCommand):
                 for x in last_numbers:
                     tot += x
 
-                    if (daycount == 7):
-                        seven_tot = tot
+                    if (daycount > 6):
+                        seven_tot += x
 
                     daycount += 1
 
