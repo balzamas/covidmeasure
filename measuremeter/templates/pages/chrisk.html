@@ -53,7 +53,7 @@
   <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
   <div id="menu"></div>
 
-  <p id="grande"><b>Risk calculator</b></p>
+  <p id="grande"><b>COVID-19 Event Risk Assessment</b></p>
 
   <h4>Calculating the chance that one or more members of a group is/are infected.</h4>
   <p>Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.<br>
@@ -62,13 +62,15 @@
     One large <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-67362031304-0/fulltext" target="_blank">seroprevalence study</a> was performed in Geneva in April. The results showed that for one case tested, there were 11.8 untestet.<br>
     This would mean a bias of 11.8 - but the test regime was different during these times and it's difficult to set the correct value.<br>
     Also a study in Ticino performed in May resulted roughly in a 1:10 ratio.<br>
-    As default, the value of two is set, which is on the lower end I assume.
+    As default, the value of two is set, which is on the lower end I assume.<br>
+    For certain categories of events (schools, nightclubs), it would be very useful to filter by age group,<br>
+    as the distribution of the virus varies greatly between the groups. This is not implemented yet.
   </p>
   <p>Formula used: 100 - (((1-(1/(100000/(cases*bias)))) ** groupsize) * 100)</p>
 
   <p class="red"><b>Attention:</b> be aware, don't missuse it! Don't use it for your personal risk assessment!
     <br> "Oh, the chance that someone is infected at this party is only 9,3%? Let's go and hug everybody!"<br>
-    Probabilities are tricky to understand - this tool is maybe more useful for decision makers (keyword "Superspreader in closed space").<br>
+    Probabilities are tricky to understand - this tool is maybe more useful for decision makers/event organizers (keyword "Superspreader in closed space").<br>
     Disclaimer: I am not an epidemologist. I'm just a random dude from the internet.<br>
     Credit for the concept goes to Gatech, I just adapted their concept for Switzerland.<br>
     So: keep your distance, wash your hands, wear a mask where it's sensible, enjoy life but don't be stupid.
