@@ -66,15 +66,74 @@
 
 
 
+  <div class="ui active dimmer" id="dimmer">
+    <div class="ui text loader">Loading</div>
+  </div>
+
 
 
   <p id="grande"><b>Incidence and measures</b></p>
-  Click on lines/cantons for details.
+        <div class="ui placeholder segment">
+        <div class="ui two column stackable center aligned grid">
+          <div class="ui vertical divider"></div>
+          <div class="middle aligned row">
+            <div class="column">
+              Filter measures by:
+              <p id="grande">Cantons (empty=all)</p>
+
+                <div class="ui multiple fluid search selection dropdown" id="cantons_dd">
+                  <i class="large flag outline icon"></i>
+                  <input type="hidden" name="cantons">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Cantons</div>
+                  <div class="menu" id="cantons_list">
+                </div>
+              </div>
+
+            </div>
+            <div class="column">
+              Filter measures by:
+             <p id="grande">Measure type (empty=all)</p>
+                  <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
+                    <i class="large heartbeat icon"></i>
+                    <input type="hidden" name="measuretypes">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Measure types</div>
+                    <div class="menu">
+                  </div>
+                </div>
+            </div>
+
+          </div>
+          <div class="ui divider"></div>
+          <div class="middle aligned row">
+                        <div class="column">
+              From:  <input style="height:60px" type="date" id="datefrom" value="2020-06-01">&nbsp;
+              To:   <input style="height:60px" type="date" id="dateto" value="2020-07-01">
+
+
+            </div>
+            <div class="column">
+              <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
+                <div class="hidden content" >Load</div>
+                <div class="visible content">
+                  <i class="large arrow circle down icon"></i>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+  <p id="grande">Click on lines/cantons for details.</p>
+
       <canvas id="compareChart">
       </canvas>
         <div id="dialog" title="Basic dialog">
       </div>
-  <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource</a>
+  <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a>
 
 <br><br>
     <p id="grande"><b>Rules in Intermediate/Vocational school</b></p>
@@ -91,7 +150,7 @@
         <div align="center">
           <div id='mapMasks'  style="height: 600px; width: 100%;"></div>
         </div>
-      </div>
+
    <br><br>
 <p id="grande"><b>Timeline</b></p>
                <p id="grande">

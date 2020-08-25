@@ -4,7 +4,6 @@ let Colors = ["#0000ff",
 "#ff0000",
 "#ffff00",
 "#008000",
-"#ffc0cb",
 "#000000",
 "#a52a2a",
 "#a9a9a9",
@@ -16,11 +15,9 @@ let Colors = ["#0000ff",
 "#ff00ff",
 "#ffd700",
 "#4b0082",
-"#f0e68c",
 "#add8e6",
 "#e0ffff",
 "#90ee90",
-"#d3d3d3",
 "#ffb6c1",
 "#ffffe0",
 "#00ff00",
@@ -39,6 +36,9 @@ let Colors = ["#0000ff",
 "#ff8c00",
 "#8b008b",
 "#9932cc",
+"#ffc0cb",
+"#f0e68c",
+"#d3d3d3",
 
 
 ];
@@ -319,12 +319,83 @@ var data
 
          return htmlLine;
      }
+    function LoadCantons()
+    {
+                 //-----------------------------Load countries----------------------
 
-     function LoadMeasureGraph(startdate, enddate)
+          var dataCountries = $.ajax({
+          url: "/measuremeterdata/chcantons/",
+          dataType: "json",
+          async: false
+          }).responseText;
+
+          var jsonCountries = JSON.parse(dataCountries);
+
+          countries = []
+          countries_html=''
+
+          $.each(jsonCountries, function(id, line) {
+               countries.push({
+                    name: '<font size="5em">'+line['name']+'</font>',
+                    value: line['pk']
+                  });
+          });
+
+          $('#cantons_dd')
+              .dropdown({
+                values:countries
+              })
+            ;
+    }
+
+    function LoadMeasureTypes()
+    {
+                  //-----------------------------Load MeasureTypes----------------------
+
+          var dataMeasuresTypes = $.ajax({
+          url: "/measuremeterdata/chmeasuretypes/",
+          dataType: "json",
+          async: false
+          }).responseText;
+
+          var jsonMeasuresTypes = JSON.parse(dataMeasuresTypes);
+
+          var optionsMeasuresTypes='';
+          //optionsMeasuresTypes += '<div class="form-check"><input type="checkbox" class="form-check-input" name="checkbox-all" id="checkbox-all" value="all" />';
+          //optionsMeasuresTypes += '<label class="form-check-label" for="checkbox-all">All</label></div>';
+
+
+          measuretypes = []
+
+          $.each(jsonMeasuresTypes, function(id, line) {
+                 measuretypes.push({
+                    name: '<font size="5em">'+line['name']+'</font>',
+                    value: line['pk']
+                  });
+          });
+
+          $('#measuretypes_dd')
+              .dropdown({
+                values:measuretypes
+              });
+
+            $('#param').hide();
+    }
+
+     function LoadMeasureGraph(startdate, enddate, gr_cantons, gr_measuretypes)
      {
+          if (gr_cantons == undefined)
+          {
+            gr_cantons = ""
+          }
+          if (gr_measuretypes == undefined)
+          {
+            gr_measuretypes = ""
+          }
 
+          console.log(gr_measuretypes)
           var data = $.ajax({
-          url: "/measuremeterdata/chmeasures/",
+          url: "/measuremeterdata/chmeasures/?canton="+gr_cantons+"&type="+gr_measuretypes,
           dataType: "json",
           async: false
           }).responseText;
@@ -415,7 +486,7 @@ var data
         return annotations
      }
 
-	 function LoadDataGraph(real_startdate, real_enddate)
+	 function LoadDataGraph(real_startdate, real_enddate, cantons, measures)
       {
         startdate = formatDate(real_startdate);
         enddate = formatDate(real_enddate);
@@ -453,14 +524,14 @@ var data
            }
             canton_pk = line["canton"]["pk"]
             canton_name = line['canton']['code'].toUpperCase();
-            dataset_data.push(line['cases_past14days'])
+            dataset_data.push(line['cases_past7days'])
 
         });
 
               color = Colors[turn];
         dataset.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
 
-        annotations = LoadMeasureGraph(startdate, enddate)
+        annotations = LoadMeasureGraph(startdate, enddate, cantons, measures)
 
             config = {
                 type: 'line',
@@ -474,7 +545,7 @@ var data
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Incidence per 100k/past 14 days',
+                        text: 'Incidence per 100k/past 7 days',
                         fontSize: 25
 
                     },
@@ -498,7 +569,7 @@ var data
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Incidence per 100k/past 14 days'
+                                labelString: 'Incidence per 100k/past 7 days'
                             }
                         }
                     },
@@ -512,7 +583,6 @@ var data
                 },
 
             };
-
 		};
 
 
@@ -621,6 +691,29 @@ var data
       }
 
       $(window).on('load', function() {
+      		    $("#load_data").click(function(){
+                if(window.myLine && window.myLine !== null){
+                   window.myLine.destroy();
+                }
+                if(window.myLineDeath && window.myLineDeath !== null){
+                   window.myLineDeath.destroy();
+                }
+                var datefrom = document.getElementById("datefrom").value;
+                var dateto = document.getElementById("dateto").value;
+
+                var parts =datefrom.split('-');
+                var datefrom_real = new Date(parts[0], parts[1] - 1, parts[2]);
+
+                var parts2 =dateto.split('-');
+                var dateto_real = new Date(parts2[0], parts2[1] - 1, parts2[2]);
+
+
+                LoadDataGraph(datefrom_real,dateto_real,$('#cantons_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'));
+    			window.myLine = new Chart(ctx, config);
+            });
+
+
+            $('#dimmer').dimmer('show');
 
             $('.ui.accordion')
                  .accordion()
@@ -629,7 +722,13 @@ var data
             $('#param').hide();
 
             real_enddate = new Date();
-            real_startdate = new Date(2020,5,20)
+            real_startdate = new Date(2020,6,14)
+
+            document.getElementById("datefrom").value = formatDate(real_startdate)
+            document.getElementById("dateto").value = formatDate(real_enddate)
+
+            LoadMeasureTypes();
+            LoadCantons()
 
             LoadCantonData();
 
@@ -642,9 +741,13 @@ var data
             var mapMasks = L.map('mapMasks').setView([46.8, 8.4], 8);
             LoadMap(mapMasks, 2);
 
+			drawTimeline(2);
+
+
             LoadDataGraph(real_startdate,real_enddate);
 			var ctx = document.getElementById('compareChart').getContext('2d');
 			window.myLine = new Chart(ctx, config);
 
-			drawTimeline(2);
+			$('#dimmer').dimmer('hide');
+
       });

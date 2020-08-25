@@ -189,7 +189,7 @@ class CHCantonViewSet(viewsets.ModelViewSet):
     filter_class = CHCantonFilter
 
 class CHMeasureTypeViewSet(viewsets.ModelViewSet):
-    queryset = CHMeasureType.objects.filter(isactive=True).order_by('category','name')
+    queryset = CHMeasureType.objects.filter(isactive=True).order_by('name')
     serializer_class = CHMeasureTypeSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = CHMeasureTypeFilter
