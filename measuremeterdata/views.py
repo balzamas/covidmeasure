@@ -167,6 +167,15 @@ class CHCasesViewSet(viewsets.ModelViewSet):
         queryset = CHCases.objects
         date_after = self.request.query_params.get('date_after')
         date_before = self.request.query_params.get('date_before')
+        cantons = self.request.query_params.get('canton', None)
+
+        if cantons and cantons != '':
+            print(cantons)
+            canton_params = []
+            for x in cantons.split(','):
+                if (x != ''):
+                    canton_params.append(x)
+            queryset = queryset.filter(canton__in=canton_params)
 
         if date_after and date_before:
             queryset = queryset.filter(date__range=[date_after, date_before]).order_by('canton__code','date')

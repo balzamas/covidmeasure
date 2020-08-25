@@ -488,11 +488,16 @@ var data
 
 	 function LoadDataGraph(real_startdate, real_enddate, cantons, measures)
       {
+
+        if (cantons == undefined)
+          {
+            cantons = ""
+          }
         startdate = formatDate(real_startdate);
         enddate = formatDate(real_enddate);
 
         var data = $.ajax({
-          url: "/measuremeterdata/chcases/?date_after="+startdate.replace('-', '\-')+"&date_before="+enddate.replace('-', '\-'),
+          url: "/measuremeterdata/chcases/?date_after="+startdate.replace('-', '\-')+"&date_before="+enddate.replace('-', '\-')+"&canton="+cantons,
           dataType: "json",
           async: false
           }).responseText;
