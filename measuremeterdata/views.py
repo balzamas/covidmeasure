@@ -168,6 +168,7 @@ class CHCasesViewSet(viewsets.ModelViewSet):
         date_after = self.request.query_params.get('date_after')
         date_before = self.request.query_params.get('date_before')
         cantons = self.request.query_params.get('canton', None)
+        level = self.request.query_params.get('level', None)
 
         if cantons and cantons != '':
             print(cantons)
@@ -176,6 +177,9 @@ class CHCasesViewSet(viewsets.ModelViewSet):
                 if (x != ''):
                     canton_params.append(x)
             queryset = queryset.filter(canton__in=canton_params)
+
+        if level and level != '':
+            queryset = queryset.filter(canton__level=level)
 
         if date_after and date_before:
             queryset = queryset.filter(date__range=[date_after, date_before]).order_by('canton__code','date')
@@ -192,7 +196,7 @@ class CHCantonFilter(filters.FilterSet):
     pk = NumberInFilter(field_name='pk', lookup_expr='in')
 
 class CHCantonViewSet(viewsets.ModelViewSet):
-    queryset = CHCanton.objects.all().order_by('name')
+    queryset = CHCanton.objects.filter(level=0).order_by('name')
     serializer_class = CantonSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = CHCantonFilter

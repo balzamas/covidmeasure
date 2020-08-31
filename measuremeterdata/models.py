@@ -96,10 +96,18 @@ class CasesDeaths(MotherModel):
         return f"{self.country} {self.date}"
 
 class CHCanton(MotherModel):
+    LEVEL_CHOICES=[
+        (0, 'Canton'),
+        (1, 'Disctrict'),
+        (2, 'Commune'),
+    ]
+
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=3,blank=True,null=True)
     population = models.IntegerField(default=1)
     swisstopo_id = models.IntegerField(default=1)
+    level = models.IntegerField(choices=LEVEL_CHOICES,default=0)
+
     ordering = ['name']
 
     def __str__(self):

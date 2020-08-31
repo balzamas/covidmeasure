@@ -41,6 +41,9 @@ urlpatterns = [
                       "cantons/", TemplateView.as_view(template_name="pages/canton.html"), name="Canton"
                   ),
                   path(
+                      "districts/", TemplateView.as_view(template_name="pages/district.html"), name="Canton"
+                  ),
+                  path(
                       "chrisk/", TemplateView.as_view(template_name="pages/chrisk.html"), name="CHrisk"
                   ),
                   path(

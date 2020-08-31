@@ -549,7 +549,7 @@ var data
         enddate = formatDate(real_enddate);
 
         var data = $.ajax({
-          url: "/measuremeterdata/chcases/?date_after="+startdate.replace('-', '\-')+"&date_before="+enddate.replace('-', '\-')+"&canton="+cantons,
+          url: "/measuremeterdata/chcases/?date_after="+startdate.replace('-', '\-')+"&date_before="+enddate.replace('-', '\-')+"&canton="+cantons+"&level=0",
           dataType: "json",
           async: false
           }).responseText;

@@ -34,7 +34,7 @@ class MeasureSerializer(serializers.ModelSerializer):
 class CantonSerializer(serializers.ModelSerializer):
     class Meta:
         model = CHCanton
-        fields = ['pk', 'name', 'code']
+        fields = ['pk', 'name', 'code', 'swisstopo_id', 'level']
 
 
 class CHMeasureTypeSerializer(serializers.ModelSerializer):

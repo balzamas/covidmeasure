@@ -34,7 +34,7 @@ class Command(BaseCommand):
         my_list = list(cr)
 
         print("Load data into django")
-        for canton in CHCanton.objects.all():
+        for canton in CHCanton.objects.filter(level=0):
             cantoncode = canton.code
             print(cantoncode)
 
