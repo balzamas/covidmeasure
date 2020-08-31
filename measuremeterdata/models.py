@@ -99,6 +99,7 @@ class CHCanton(MotherModel):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=3,blank=True,null=True)
     population = models.IntegerField(default=1)
+    swisstopo_id = models.IntegerField(default=1)
     ordering = ['name']
 
     def __str__(self):
