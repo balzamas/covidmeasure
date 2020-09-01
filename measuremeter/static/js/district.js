@@ -202,7 +202,7 @@ var data
         info.addTo(map);
 
 
-        function getColor(d) {
+  /*      function getColor(d) {
             return  d > 130   ? '#f50000' :
                     d > 100   ? '#f95555' :
                     d > 80   ? '#f58484' :
@@ -213,6 +213,21 @@ var data
                     d > 10   ? '#ffd413' :
                     d > 5   ? '#fbff13' :
                     d > 0   ? '#a9ff13' :
+                    '#aeaeae' ;
+
+        } */
+
+                function getColor(d) {
+            return  d > 120   ? '#060261' :
+                    d > 90   ? '#0b03a8' :
+                    d > 70   ? '#180df8' :
+                    d > 50   ? '#3127fa' :
+                    d > 30   ? '#483ff8' :
+                    d > 20   ? '#665ff3' :
+                    d > 15   ? '#847ef8' :
+                    d > 10   ? '#a09cfa' :
+                    d > 5   ? '#bab7ff' :
+                    d > 0   ? '#ffffff' :
                     '#aeaeae' ;
 
         }
@@ -294,8 +309,8 @@ var data
 
         var div = L.DomUtil.create('div', 'info legend');
         labels = ['<strong>Incidence</strong>'],
-        categories = ["<5","<10","<15","<20","<40","<60","<80","<100","<130",">130"];
-        categories_vals = [4,9,14,19,39,59,79,99,129,131];
+        categories = ["<5","<10","<15","<20","<30","<50","<70","<90","<120",">120"];
+        categories_vals = [4,9,14,19,29,49,69,89,119,121];
 
         for (var i = 0; i < categories.length; i++) {
 
