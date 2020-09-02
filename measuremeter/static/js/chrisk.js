@@ -150,7 +150,7 @@ var data
 
         info.update = function (props) {
             this._div.innerHTML = '' +  (props ?
-                '<div align=left><b>' + props.name + '</b><br>' + props.level.toFixed(1) + ' %</div>'
+                '<div align=left><b>' + props.NAME + '</b><br>' + props.level.toFixed(1) + ' %</div>'
                 : 'Hover over a state');
         };
 
@@ -225,7 +225,7 @@ var data
                 }
                 popup
                 .setLatLng(e.latlng)
-                .setContent('<div align=left><b>' + e.sourceTarget.feature.properties.name + '</b>' + levelstr + commentstr+'</div>')
+                .setContent('<div align=left><b>' + e.sourceTarget.feature.properties.NAME + '</b>' + levelstr + commentstr+'</div>')
                 .openOn(map);
         }
 
