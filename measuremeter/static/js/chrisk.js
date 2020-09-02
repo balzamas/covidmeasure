@@ -32,7 +32,8 @@ var data
         date_isfilled = false
 
                jsonData.forEach(function (item, index) {
-
+                    If (item.canton.level == 0)
+                    {
                         var id = statesData['features'].findIndex(x => x.id === item.canton.code.toUpperCase());
                         if (id > -1)
                         {
@@ -55,6 +56,7 @@ var data
                             statesData.features[id].properties.comment = value_cases
                             statesData.features[id].properties.date = item.date
                         }
+                    }
 
                 });
 
@@ -102,23 +104,19 @@ var data
 
         info.addTo(map);
 
-
-        // get color depending on population density value
-        function getColor(d) {
-            return  d > 90   ? '#f50000' :
-                    d > 80   ? '#f95555' :
-                    d > 70   ? '#f58484' :
-                    d > 60   ? '#fc874d' :
-                    d > 50   ? '#f1b496' :
-
-                    d > 40   ? '#ff7e12' :
-                    d > 30   ? '#ff9e12' :
-                    d > 20   ? '#ffd413' :
-                    d > 10   ? '#fbff13' :
-                    d > 0   ? '#a9ff13' :
+                function getColor(d) {
+            return  d > 90   ? '#060261' :
+                    d > 80   ? '#0b03a8' :
+                    d > 70   ? '#180df8' :
+                    d > 60   ? '#3127fa' :
+                    d > 50   ? '#483ff8' :
+                    d > 40   ? '#665ff3' :
+                    d > 30   ? '#847ef8' :
+                    d > 20   ? '#a09cfa' :
+                    d > 10   ? '#bab7ff' :
+                    d > 0   ? '#c1bfff' :
                     '#aeaeae' ;
 
-        }
 
         function style(feature) {
             return {
