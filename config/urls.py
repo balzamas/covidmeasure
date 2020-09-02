@@ -38,13 +38,20 @@ urlpatterns = [
     "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
                   ),
                   path(
-                      "cantons/", TemplateView.as_view(template_name="pages/canton.html"), name="Canton"
+                      "cantons/", TemplateView.as_view(template_name="pages/canton.html"), name="CH measures"
                   ),
                   path(
-                      "districts/", TemplateView.as_view(template_name="pages/district.html"), name="Canton"
+                      "districts/", TemplateView.as_view(template_name="pages/district.html"), name="CH districts"
                   ),
                   path(
-                      "chrisk/", TemplateView.as_view(template_name="pages/chrisk.html"), name="CHrisk"
+                      "ch/", TemplateView.as_view(template_name="pages/ch.html"), name="CH Main"
+                  ),
+                  path(
+                      "chmaps/", TemplateView.as_view(template_name="pages/chmaps.html"), name="CH Maps"
+                  ),
+
+                  path(
+                      "chrisk/", TemplateView.as_view(template_name="pages/chrisk.html"), name="CH Riskmap"
                   ),
                   path(
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"

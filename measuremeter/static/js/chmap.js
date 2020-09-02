@@ -1,8 +1,47 @@
 var config;
-var map
-var geojson
-var legend
-var info
+let Colors = ["#0000ff",
+"#00ffff",
+"#ff0000",
+"#ffff00",
+"#008000",
+"#000000",
+"#a52a2a",
+"#a9a9a9",
+"#8b0000",
+"#bdb76b",
+"#556b2f",
+"#e9967a",
+"#9400d3",
+"#ff00ff",
+"#ffd700",
+"#4b0082",
+"#add8e6",
+"#e0ffff",
+"#90ee90",
+"#ffb6c1",
+"#ffffe0",
+"#00ff00",
+"#ff00ff",
+"#800000",
+"#000080",
+"#808000",
+"#f0ffff",
+"#f5f5dc",
+"#800080",
+"#c0c0c0",
+"#00008b",
+"#008b8b",
+"#006400",
+"#ffa500",
+"#ff8c00",
+"#8b008b",
+"#9932cc",
+"#ffc0cb",
+"#f0e68c",
+"#d3d3d3",
+
+
+];
 var statesDataOrig = {"type":"FeatureCollection", "features": [
 {"type":"Feature","id":"GR","geometry":{"type":"Polygon","coordinates":[[[8.878214666740334,46.81421080128014],[8.827463938015972,46.7896424840291],[8.814135505466613,46.738598746534926],[8.677461278683056,46.6954947340929],[8.652193172086218,46.635861966851074],[8.677810190923609,46.621241288679045],[8.679878980718447,46.580460419438076],[8.844388058207286,46.564623321587874],[8.904838755084064,46.5853698351287],[8.906918933334644,46.613520921338896],[8.942626866798875,46.619766049344896],[8.963377962218102,46.60391130731354],[8.996528735387777,46.613001676824965],[9.035278376290066,46.6012922261098],[9.017814466676281,46.53330677327715],[9.055466269800519,46.47802431784097],[9.096269479989745,46.46163875282934],[9.104109339116128,46.41479712341324],[9.089457290655764,46.35043820592175],[9.05489189174453,46.29427789790195],[9.078948354471784,46.26152887115396],[9.090240177744944,46.21359938334774],[9.160574435589693,46.170824464178445],[9.195274872569072,46.17971933559383],[9.2033977985877,46.20963513365851],[9.2509017794931,46.24062452023254],[9.26003056243616,46.27971725980556],[9.286093503442359,46.29828225518259],[9.300878572746774,46.345386425421594],[9.278278460938955,46.370084985088646],[9.276577410635165,46.420765542448294],[9.248209582678319,46.44804485009585],[9.276217412511237,46.46072424158787],[9.282997896265272,46.49725035564658],[9.374585510294303,46.50519747608612],[9.390921480881515,46.474681166925095],[9.414356553150503,46.46847684365162],[9.435426724753826,46.499161739438534],[9.46394147202067,46.49836847054141],[9.455835465902004,46.420182269753795],[9.462304973651866,46.37760880112398],[9.4976572676713,46.3655609737703],[9.535247031397331,46.313352603579595],[9.58079735932497,46.29632137721246],[9.63624271285903,46.287348134304644],[9.670209100799458,46.29725722735296],[9.715779152695816,46.29415089382326],[9.72436776672709,46.34164907105279],[9.771166574643901,46.33695122202806],[9.908666294354814,46.38210821983329],[9.95412286232984,46.3805469690178],[9.997447926608446,46.34382259516337],[9.98217939283366,46.32417865128374],[9.997237436818695,46.286146348634006],[10.056849068431077,46.26705201830211],[10.045119347120838,46.23093093307151],[10.072165207419182,46.21836364271137],[10.147276042077833,46.231693028994066],[10.176265135367352,46.255824750049975],[10.163821645937144,46.28353664319432],[10.118684369995638,46.31508996617958],[10.109203141075383,46.35185431637515],[10.128730134523835,46.37823645753865],[10.16532807144811,46.391913906368806],[10.162470911804723,46.416619585781035],[10.132216981681614,46.432840895351006],[10.088383490413456,46.42255792392512],[10.044828784774012,46.44319177326323],[10.044666344356315,46.47927684381194],[10.062744086842917,46.546953850708135],[10.128964462923086,46.606358855261966],[10.225488548550631,46.630386359718116],[10.260250597684868,46.611696279558515],[10.247828573303389,46.57584010448294],[10.288845616754916,46.57158673515525],[10.297435155844475,46.55121968471698],[10.338200527617941,46.54447665721678],[10.365250205930751,46.55675276337279],[10.41530394686996,46.55213277892445],[10.454187479484116,46.53192447969762],[10.473684216409671,46.54477530105561],[10.489714920862903,46.616519941968626],[10.44483508444259,46.64063366300865],[10.401240976469085,46.63983902097768],[10.394704105905934,46.690467779846436],[10.419428700657587,46.715778092189325],[10.401460158479825,46.73420726066822],[10.43685872683713,46.75387514780162],[10.448904908236095,46.80201393749116],[10.47322475198457,46.84997944345061],[10.466095529709044,46.885556763753335],[10.489485866417887,46.94002846598047],[10.430973047371415,46.95727158826492],[10.428539300347932,46.976240500099806],[10.390706089598739,47.00181648542181],[10.356380340858497,46.99365556595069],[10.31073929660202,46.951492404933454],[10.318364928863808,46.92721801807878],[10.24305791013095,46.93292102766323],[10.228978295993072,46.89149230947411],[10.170070387662989,46.851896772627946],[10.124270745568092,46.84972153143536],[10.060911183755197,46.86205995571853],[10.027812972992933,46.89709537281575],[9.924107529797142,46.91953644837398],[9.879008063897068,46.93943026306075],[9.874582235310626,47.00765285417745],[9.832075515892646,47.01562497724898],[9.786226752497486,47.039794860015704],[9.719856848575267,47.044654976661555],[9.681125400736281,47.06352657301264],[9.608483880919103,47.06202253587865],[9.561065122469882,47.049885623426626],[9.540786999427842,47.066320264702945],[9.477051947194566,47.05306725321107],[9.546847900943058,46.97787390369472],[9.52021191511698,46.97165967774256],[9.479047285458988,46.921865600375575],[9.468082768722734,46.88738249530927],[9.275301951110619,46.90803611446717],[9.250116917779064,46.91757222647244],[9.20534595076483,46.88439479711423],[9.15737764047631,46.880689402992054],[9.110558872079721,46.85212297997642],[9.065906460769645,46.876506951002284],[9.010201211522896,46.81247217595482],[8.929249712631671,46.797778894770346],[8.878214666740334,46.81421080128014]]]},"properties":{"UUID":"{0B2364ED-49E0-4D53-A33C-C684DD530B57}","DATUM_AEND":"2018-11-22T00:00:00.000Z","DATUM_ERST":"2012-10-26T00:00:00.000Z","ERSTELL_J":2012,"ERSTELL_M":"10","REVISION_J":2020,"REVISION_M":"1","GRUND_AEND":"Verbessert","HERKUNFT":"AV","HERKUNFT_J":2019,"HERKUNFT_M":"1","OBJEKTART":"Kanton","REVISION_Q":"2019_Aufbau","ICC":"CH","KANTONSNUM":18,"SEE_FLAECH":null,"KANTONSFLA":710530,"KT_TEIL":"0","NAME":"Graubünden","EINWOHNERZ":198379}},
 {"type":"Feature","id":"BE","geometry":{"type":"Polygon","coordinates":[[[8.047977703351194,46.78841294372899],[7.985601575559063,46.77628682941895],[7.923411962868369,46.82131084525686],[7.878093055426405,46.838375326927334],[7.859612974502947,46.886605384152254],[7.883678211731542,46.90484856462104],[7.877944304806072,46.92869140362859],[7.916282406908089,46.935954003376054],[7.953458453395549,46.98257998118033],[7.950463911582912,47.00715860202783],[7.902847723705769,47.00757784308577],[7.86703399009122,47.05475054997639],[7.881486443262066,47.085833650641554],[7.869164767537329,47.113312977852374],[7.89112099188008,47.14206636845506],[7.839683853126113,47.23617183226495],[7.826124041632368,47.266929668543135],[7.7336689599822295,47.26047028016207],[7.689553497927991,47.291806560412425],[7.581085043486441,47.27770851791074],[7.596918847772041,47.246925507861654],[7.644932933932447,47.22679944238052],[7.67562071194844,47.192248371463556],[7.652252536239389,47.1588186523017],[7.587117503137248,47.14889018715324],[7.564441403449027,47.169701712342366],[7.510602858798088,47.126825447749574],[7.434953025835774,47.10184091191822],[7.40469662958448,47.119018902788],[7.440904946886504,47.151842757736546],[7.4980020934054785,47.1714356802401],[7.456701965559969,47.1901795245588],[7.392858482260791,47.167622744287435],[7.341352988939031,47.21892488388928],[7.421826250773623,47.24424866874447],[7.486303817539182,47.28562127803785],[7.533835283691459,47.2958968155602],[7.559316514018697,47.323728540110814],[7.497005646087401,47.30348076682043],[7.381327638198466,47.315390894172836],[7.31789992097508,47.29174218667754],[7.243506360960772,47.28658095094317],[7.169735616059735,47.295862246434474],[7.150112094187812,47.25521336798706],[7.097116756542651,47.238387755963466],[7.0625457307524435,47.24460887282897],[7.024339216918437,47.19705490003837],[6.986451601530124,47.17790604835003],[6.953040317996295,47.18869915226553],[6.884592403158759,47.151753490070845],[6.8623574118876585,47.16698034380228],[6.889672095101058,47.13247422061425],[6.867729220053528,47.08645747848825],[6.927461246970568,47.11049151082938],[6.990047312827494,47.1187454808222],[7.076574368126808,47.09760173742187],[7.0885526091074205,47.0610718567598],[7.034766253112217,47.032398177256496],[7.026442882981759,47.00714836076893],[7.041053630085246,46.98117202017628],[7.093198947016559,46.97745203580089],[7.156988214602544,46.98736207719677],[7.218358638875632,47.00760686958498],[7.2357832910807005,46.98808291024056],[7.215138776584289,46.968249951684555],[7.20872355139167,46.91045275153788],[7.354440140398818,46.88762878268971],[7.360184087872253,46.86441969537219],[7.324259288496778,46.84172076856694],[7.292209338145899,46.77464338261711],[7.310846563126839,46.719391203885245],[7.349513152299992,46.71390857110818],[7.377880896805649,46.69400395102705],[7.370214797761603,46.65686938692774],[7.322067795259769,46.65590573760667],[7.321659986048448,46.5931393499022],[7.282278727805786,46.58539063265887],[7.237992924451125,46.55506990118593],[7.24923019531008,46.51181356445094],[7.225056790148203,46.488154463739946],[7.23324464726944,46.4552017061844],[7.1937274272046645,46.43502138740422],[7.21077981283296,46.41753680727026],[7.1946274611847025,46.38018091035313],[7.223614409647338,46.34981871204256],[7.222426942246916,46.33051205720704],[7.2636402042631705,46.33989785244219],[7.263222963947729,46.35948909650049],[7.313472323023474,46.3644673291681],[7.355855102570036,46.35199490909405],[7.400339342038685,46.377714435815506],[7.455280283613783,46.384462254343035],[7.527919829708099,46.37587710237842],[7.556231892997654,46.39023775878479],[7.535296864599658,46.411173599377044],[7.6089812024990735,46.42657282667486],[7.627060600483609,46.44634658777733],[7.709510376310037,46.41515315039389],[7.845292488695514,46.4793776878368],[7.912152838107992,46.48785664394067],[7.973963079304252,46.52545033951679],[7.970824543127409,46.5461605436905],[8.017105050494996,46.56458718314986],[8.07683839579219,46.55682339436723],[8.192231595815615,46.524322744614054],[8.259126827035397,46.53067024977216],[8.337685401415412,46.562390780898816],[8.365757008018958,46.58374838640297],[8.380321579443411,46.63490709684173],[8.411360238601493,46.654219127311514],[8.39898756965228,46.676289056697044],[8.45338664667282,46.690026485149254],[8.449420231151207,46.76471392293344],[8.396316147589047,46.77280900935761],[8.37002309427186,46.78921842773075],[8.334772614381786,46.781891875812434],[8.284560537568163,46.75446309551791],[8.240135748489255,46.770904282614254],[8.16899201635605,46.766648867900734],[8.147997047988014,46.75613173716983],[8.091818267927668,46.785663572083706],[8.047977703351194,46.78841294372899]]]},"properties":{"UUID":"{DDD56CEF-0E61-4EED-85ED-F67A459C93ED}","DATUM_AEND":"2019-11-06T00:00:00.000Z","DATUM_ERST":"2012-10-26T00:00:00.000Z","ERSTELL_J":2012,"ERSTELL_M":"10","REVISION_J":2020,"REVISION_M":"1","GRUND_AEND":"Verbessert","HERKUNFT":"swisstopo","HERKUNFT_J":2019,"HERKUNFT_M":"6","OBJEKTART":"Kanton","REVISION_Q":"2019_Aufbau","ICC":"CH","KANTONSNUM":2,"SEE_FLAECH":11897,"KANTONSFLA":595951,"KT_TEIL":"1","NAME":"Bern","EINWOHNERZ":1034977}},
@@ -58,74 +97,44 @@ var statesDataOrig = {"type":"FeatureCollection", "features": [
 ]}
 var data
 
-    function LoadMap(map, datenow, groupsize, bias, days)
+    function LoadMap(map, measuretype)
     {
+              statesData = $.extend( true, {}, statesDataOrig );
 
-          statesData = $.extend( true, {}, statesDataOrig );
-
-          datefrom = addDays(datenow, -7)
-
-          var data = $.ajax({
-          url: "/measuremeterdata/chcases/?date_after="+formatDate(datefrom).replace('-', '\-')+"&date_before="+datenow.replace('-', '\-'),
-          dataType: "json",
-          async: false
-          }).responseText;
-          var jsonData = JSON.parse(data);
-
-        var row = new Array()
-        old_date = new Date(2020, 1, 1);
-
-        canton_pk = -1
-
-        var dataset = new Array()
-        var dataset_data = new Array()
-        var label_array = new Array()
-
-        date_isfilled = false
+              var jsonData = JSON.parse(data);
 
                jsonData.forEach(function (item, index) {
-                    if (item.canton.level == 0)
+                    if (item.type.pk == measuretype)
                     {
                         var id = statesData['features'].findIndex(x => x.id === item.canton.code.toUpperCase());
                         if (id > -1)
                         {
-                            if (days == 7)
-                            {
-                                value_cases = item.cases_past7days
-                            }
-                            else if (days == 10)
-                            {
-                                value_cases = item.cases_past10days
-                            }
-                            else if (days == 14)
-                            {
-                                value_cases = item.cases_past14days
-                            }
+                            statesData.features[id].properties.level = item.level;
+                            statesData.features[id].properties.comment = item.comment;
 
+                            if (item.start != null)
+                              {
+                                var start_date_str = item.start
+                              }
+                              else
+                              {
+                                var start_date_str = 'undefined'
+                              }
 
-                            value_risk = 100 - (((1-(1/(100000/(value_cases*bias)))) ** groupsize) * 100)
-                            statesData.features[id].properties.level = value_risk
-                            statesData.features[id].properties.comment = value_cases
-                            statesData.features[id].properties.date = item.date
+                              if (item.end != null)
+                              {
+                                var end_date_str = item.end
+                              }
+                              else
+                              {
+                                var end_date_str = 'undefined'
+                              }
+                              statesData.features[id].properties.start = start_date_str;
+                              statesData.features[id].properties.end = end_date_str;
+
                         }
                     }
-
                 });
-
-        if (geojson)
-        {
-            map.removeLayer(geojson)
-        }
-
-        if (legend)
-        {
-            map.removeControl(legend);
-         }
-
-        if (info)
-        {
-            map.removeControl(info)
-        }
 
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
             maxZoom: 18,
@@ -139,7 +148,7 @@ var data
 
 
         // control that shows state info on hover
-        info = L.control();
+        var info = L.control();
 
         info.onAdd = function (map) {
             this._div = L.DomUtil.create('div', 'info');
@@ -149,27 +158,35 @@ var data
 
 
         info.update = function (props) {
+            if (props)
+            {
+                var datestr = ''
+                if (props.start != props.end)
+                {
+                    datestr = '<br />' + props.start + ' - ' + props.end
+                }
+                var commentstr = ''
+                if (props.comment)
+                {
+                    commentstr = '<p>' + props.comment + '</p>';
+                }
+            }
             this._div.innerHTML = '' +  (props ?
-                '<div align=left><b>' + props.NAME + '</b><br>' + props.level.toFixed(1) + ' %</div>'
+                '<div align=left><b>' + props.NAME + '</b>' + datestr + commentstr+'</div>'
                 : 'Hover over a state');
         };
 
         info.addTo(map);
 
-                function getColor(d) {
-            return  d > 90   ? '#060261' :
-                    d > 80   ? '#0b03a8' :
-                    d > 70   ? '#180df8' :
-                    d > 60   ? '#3127fa' :
-                    d > 50   ? '#483ff8' :
-                    d > 40   ? '#665ff3' :
-                    d > 30   ? '#847ef8' :
-                    d > 20   ? '#a09cfa' :
-                    d > 10   ? '#bab7ff' :
-                    d > 0   ? '#c1bfff' :
-                    '#aeaeae' ;
-                    }
 
+        // get color depending on population density value
+        function getColor(d) {
+            return  d > 2   ? '#060261' :
+                    d > 1   ? '#3127fa' :
+                    d > 0   ? '#847ef8' :
+                    d > -1   ? '#bab7ff' :
+                              '#ffffff';
+        }
 
         function style(feature) {
             return {
@@ -208,24 +225,22 @@ var data
             map.fitBounds(e.target.getBounds());
         }
 
-
-
         var popup = L.popup();
 
         function onMapClick(e) {
+            var datestr = ''
+                if (e.sourceTarget.feature.properties.start != e.sourceTarget.feature.properties.end)
+                {
+                    datestr = '<br />' + e.sourceTarget.feature.properties.start + ' - ' + e.sourceTarget.feature.properties.end
+                }
                 var commentstr = ''
                 if (e.sourceTarget.feature.properties.comment)
                 {
-                    commentstr = '<p>Cases/100k pop past ' + days + "days:<br>" + e.sourceTarget.feature.properties.comment + '<br>(' + e.sourceTarget.feature.properties.date +')</p>';
+                    commentstr = '<p>' + e.sourceTarget.feature.properties.comment + '</p>';
                 }
-                var levelstr = ''
-                if (e.sourceTarget.feature.properties.level)
-                {
-                    levelstr = '<p>Risk: ' + e.sourceTarget.feature.properties.level.toFixed(1) + '%</p>';
-                }
-                popup
+            popup
                 .setLatLng(e.latlng)
-                .setContent('<div align=left><b>' + e.sourceTarget.feature.properties.NAME + '</b>' + levelstr + commentstr+'</div>')
+                .setContent('<div align=left><b>' + e.sourceTarget.feature.properties.NAME + '</b>' + datestr + commentstr+'</div>')
                 .openOn(map);
         }
 
@@ -237,10 +252,7 @@ var data
             });
         }
 
-
-
-
-        geojson = L.geoJson(statesData, {
+        var geojson = L.geoJson(statesData, {
             style: style,
             onEachFeature: onEachFeature
         }).addTo(map);
@@ -248,18 +260,18 @@ var data
         map.attributionControl.addAttribution('Source: <a href="http://covidlaws.net/">covidlaws.net</a>');
 
 
-        legend = L.control({position: 'bottomleft'});
+        var legend = L.control({position: 'bottomleft'});
         legend.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info legend');
-        labels = ['<strong>Risk</strong>'],
-        categories = ["<10%","<20%","<30%","<40%","<50%","<60%","<70%","<80%","<90%","<100%"];
+        labels = ['<strong>Level</strong>'],
+        categories = ["CH","+1","+2","+3","+4"];
 
         for (var i = 0; i < categories.length; i++) {
 
                 div.innerHTML +=
                 labels.push(
-                    '<i class="circle" style="background:' + getColor((i+1)*10-1) + '"></i> ' +
+                    '<i class="circle" style="background:' + getColor(i-1) + '"></i> ' +
                 (categories[i] ? categories[i] : '+'));
 
             }
@@ -275,8 +287,7 @@ var data
 
 
 
-
-      function addDays(date, days) {
+        function addDays(date, days) {
           var result = new Date(date);
           result.setDate(result.getDate() + days);
           return result;
@@ -307,33 +318,110 @@ var data
             return result;
         }
 
-      $(window).on('load', function() {
+     function FormatPopUp(line, last_line)
+     {
+        var tendency = "&#11014;"
+
+        if (last_line)
+        {
+
+            if (last_line['canton']['pk'] == line['canton']['pk'] && last_line['type']['pk'] == line['type']['pk'])
+            {
+               if (last_line['level'] > line['level'])
+               {
+                tendency = "&#11015;"
+               }
+               else if (last_line['level'] == line['level'])
+               {
+                tendency = "&#10145;"
+               }
+               else if (last_line['level'] < line['level'])
+               {
+                tendency = "&#11014;"
+               }
+               }
+
+        }
+                            str_level = '<i class="green '+line["type"]["icon"] +'" data-tooltip="None"></i>'
+
+                            if (line['level'] == 1)
+                            {
+                                str_level =  '<i class="yellow '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_partial"]+'"></i>'
+                            }
+                            else if (line['level'] == 2)
+                            {
+                                str_level =  '<i class="orange '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
+                            }
+                            else if (line['level'] == 3)
+                            {
+                                str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
+                            }
+                            else if (line['level'] == 4)
+                            {
+                                str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
+                            }
+
+                            endtime = "Undefined"
+                            if (line['end'] != null)
+                            {
+                                endtime = line['end'];
+                            }
+
+                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ (line['level'] +1) +', End: '+endtime+"<br>"+line["comment"]+"</p>";
+
+         return htmlLine;
+     }
 
 
+      function LoadCantonData()
+      {
+          var data = $.ajax({
+          url: "/measuremeterdata/chcantons/",
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonData = JSON.parse(data);
 
-		    $("#load_data").click(function(){
-                groupsize = $("#groupsize").val();
-                bias = $("#bias").val();
-                days = $("#days").val();
+          LoadMeasures();
+      }
 
-                var d = new Date();
-                today = formatDate(d);
-                LoadMap(mapRisk, today, groupsize, bias, days);
-            });
-
-            $('.ui.dropdown')
-              .dropdown();
-
-            $('#days_dd').dropdown('set selected', 7)
-
-            var mapRisk = L.map('mapRisk').setView([46.8, 8.4], 8);
-
-            groupsize = $("#groupsize").val();
-            bias = $("#bias").val();
-            days = $("#days").val();
-
+      function LoadMeasures()
+      {
             var d = new Date();
-            today = formatDate(addDays(d, -1));
-            LoadMap(mapRisk, today, groupsize, bias, days);
+            today = formatDate(d);
+
+
+          data = $.ajax({
+          url: "/measuremeterdata/chmeasures/?start="+today.replace('-', '\-')+"&end="+today.replace('-', '\-'),
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonData = JSON.parse(data);
+
+      }
+
+      $(window).on('load', function() {
+            $('#dimmer').dimmer('show');
+
+            $('.ui.accordion')
+                 .accordion()
+            ;
+
+            $('#param').hide();
+
+            LoadCantonData();
+
+            var mapSecondary = L.map('mapSecondary').setView([46.8, 8.4], 8);
+            LoadMap(mapSecondary, 6);
+
+            var mapDisco = L.map('mapDisco').setView([46.8, 8.4], 8);
+            LoadMap(mapDisco, 3);
+
+            var mapMasks = L.map('mapMasks').setView([46.8, 8.4], 8);
+            LoadMap(mapMasks, 2);
+
+
+
+			$('#dimmer').dimmer('hide');
 
       });

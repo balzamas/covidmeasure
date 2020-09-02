@@ -11,7 +11,7 @@
                   <a class="item" href="/compare/">Compare countries</a>
                   <a class="item" href="/country/">Country profiles</a>
                   <a class="item" href="/euromap/">Euro Map</a>
-                  <a class="item" href="/cantons/">Switzerland</a>
+                  <a class="item" href="/ch/">Switzerland</a>
                   </div>
                 </div> `
            }
