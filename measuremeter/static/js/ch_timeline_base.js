@@ -208,22 +208,25 @@
               }
               tooltip += line['comment'].toString()+'';
 
-              if (line['level'] == 1)
-              {
-                class_type = 'softred'
-              }
-              else
-              {
-                class_type = 'softred';
-                if (line['level'] > 0)
-               {
-               }
-              }
-
               if (line['level'] == 0)
               {
-                class_type='softyellow';
+                class_type='level1';
               }
+              else if (line['level'] == 1)
+              {
+                class_type = 'level2'
+              }
+              else if (line['level'] == 2)
+              {
+                class_type = 'level3'
+              }
+              else if (line['level'] == 3)
+              {
+                class_type = 'level4'
+              }
+
+
+
 
               var source = "Source: " + line['sources'].toString()
 

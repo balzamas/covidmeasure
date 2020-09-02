@@ -129,6 +129,93 @@
             border-style: dotted;
     }
 
+    .vis-item.level1 {
+      background-color: #bab7ff;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+      font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+    .vis-item.vis-selected.level1 {
+      background-color: #bab7ff;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
+    .vis-item.level2 {
+      background-color: #847ef8;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+      font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+    .vis-item.vis-selected.level2 {
+      background-color: #847ef8;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
+    .vis-item.level3 {
+      background-color: #3127fa;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: white;
+      font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+    .vis-item.vis-selected.level3 {
+      background-color: #3127fa;
+      border-color: #ffffff;
+      border-width:5px;
+      color: white;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
+    .vis-item.level4 {
+      background-color: #060261;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: white;
+      font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+    .vis-item.vis-selected.level4 {
+      background-color: #060261;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: white;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
     .vis-fill {
       fill-opacity:0.1;
       stroke: none;
