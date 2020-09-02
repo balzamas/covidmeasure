@@ -218,7 +218,7 @@ var data
                     d > 10   ? '#a09cfa' :
                     d > 5   ? '#bab7ff' :
                     d > 0   ? '#ffffff' :
-                    '#aeaeae' ;
+                    '#ffffff' ;
 
         }
 
