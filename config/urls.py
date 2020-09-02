@@ -49,7 +49,9 @@ urlpatterns = [
                   path(
                       "chmaps/", TemplateView.as_view(template_name="pages/chmaps.html"), name="CH Maps"
                   ),
-
+                  path(
+                      "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
+                  ),
                   path(
                       "chrisk/", TemplateView.as_view(template_name="pages/chrisk.html"), name="CH Riskmap"
                   ),

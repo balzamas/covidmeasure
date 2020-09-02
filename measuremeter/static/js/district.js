@@ -192,22 +192,7 @@ var data
         info.addTo(map);
 
 
-  /*      function getColor(d) {
-            return  d > 130   ? '#f50000' :
-                    d > 100   ? '#f95555' :
-                    d > 80   ? '#f58484' :
-                    d > 60   ? '#fc874d' :
-                    d > 40   ? '#f1b496' :
-                    d > 20   ? '#ff7e12' :
-                    d > 15   ? '#ff9e12' :
-                    d > 10   ? '#ffd413' :
-                    d > 5   ? '#fbff13' :
-                    d > 0   ? '#a9ff13' :
-                    '#aeaeae' ;
-
-        } */
-
-                function getColor(d) {
+        function getColor(d) {
             return  d > 120   ? '#060261' :
                     d > 90   ? '#0b03a8' :
                     d > 70   ? '#180df8' :
@@ -407,24 +392,9 @@ var data
          return htmlLine;
      }
 
-
-
-
       $(window).on('load', function() {
-
-            $('#dimmer').dimmer('show');
-
-            $('.ui.accordion')
-                 .accordion()
-            ;
-
-             $('#param').hide();
-
             real_enddate = new Date();
-            real_startdate = new Date(2020,6,14)
 
             var mapDistricts = L.map('mapDistricts').setView([46.8, 8.4], 8);
             LoadMap(mapDistricts, real_enddate);
-
-			$('#dimmer').dimmer('hide');
       });
