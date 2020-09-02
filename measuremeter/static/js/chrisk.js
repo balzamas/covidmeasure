@@ -168,6 +168,7 @@ var data
                     d > 10   ? '#bab7ff' :
                     d > 0   ? '#c1bfff' :
                     '#aeaeae' ;
+                    }
 
 
         function style(feature) {
@@ -271,7 +272,7 @@ var data
 
 
     }
-    }
+    
 
 
 
