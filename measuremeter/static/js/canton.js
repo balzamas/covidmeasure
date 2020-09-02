@@ -172,7 +172,7 @@ var data
                 }
             }
             this._div.innerHTML = '' +  (props ?
-                '<div align=left><b>' + props.name + '</b>' + datestr + commentstr+'</div>'
+                '<div align=left><b>' + props.NAME + '</b>' + datestr + commentstr+'</div>'
                 : 'Hover over a state');
         };
 
@@ -181,11 +181,11 @@ var data
 
         // get color depending on population density value
         function getColor(d) {
-            return  d > 2   ? '#FE0000' :
-                    d > 1   ? '#f86034' :
-                    d > 0   ? '#ef886a' :
-                    d > -1   ? '#FED341' :
-                              '#dfdcdc';
+            return  d > 2   ? '#060261' :
+                    d > 1   ? '#3127fa' :
+                    d > 0   ? '#847ef8' :
+                    d > -1   ? '#bab7ff' :
+                              '#ffffff';
         }
 
         function style(feature) {
@@ -240,7 +240,7 @@ var data
                 }
             popup
                 .setLatLng(e.latlng)
-                .setContent('<div align=left><b>' + e.sourceTarget.feature.properties.name + '</b>' + datestr + commentstr+'</div>')
+                .setContent('<div align=left><b>' + e.sourceTarget.feature.properties.NAME + '</b>' + datestr + commentstr+'</div>')
                 .openOn(map);
         }
 

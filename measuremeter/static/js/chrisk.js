@@ -84,7 +84,7 @@ var data
         date_isfilled = false
 
                jsonData.forEach(function (item, index) {
-                    If (item.canton.level == 0)
+                    if (item.canton.level == 0)
                     {
                         var id = statesData['features'].findIndex(x => x.id === item.canton.code.toUpperCase());
                         if (id > -1)
