@@ -71,6 +71,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_filters',
     'ckeditor',
+    'corsheaders'
 ]
 
 LOCAL_APPS = [
@@ -134,6 +135,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    'corsheaders.middleware.CorsMiddleware', 'django.middleware.security.SecurityMiddleware', 'django.contrib.sessions.middleware.SessionMiddleware',    'django.middleware.common.CommonMiddleware',
 ]
 
 # STATIC
@@ -272,3 +274,5 @@ SOCIALACCOUNT_ADAPTER = "measuremeter.users.adapters.SocialAccountAdapter"
 # Your stuff...
 # ------------------------------------------------------------------------------
 
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = ( 'http://www.dontsniff.co.uk', 'https://www.dontsniff.co.uk', 'http://dontsniff.co.uk', 'https://dontsniff.co.uk')
