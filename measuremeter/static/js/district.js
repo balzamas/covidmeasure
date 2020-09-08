@@ -169,7 +169,7 @@ var data
                             {
                                 statesData.features[id].properties.level = item.cases_past14days;
                                 statesData.features[id].properties.name = item.canton.name;
-                                statesData.features[id].properties.comment = item.cases_past14days + '<br>' + item.date;
+                                statesData.features[id].properties.comment = "<p>"+item.cases_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+"</p>";
                             }
                     }
                     else if (item.canton.level == 1)
@@ -180,7 +180,7 @@ var data
                             {
                                 statesData.features[id].properties.level = item.cases_past14days;
                                 statesData.features[id].properties.name = item.canton.name;
-                                statesData.features[id].properties.comment = item.cases_past14days+ '<br>' + item.date;
+                                statesData.features[id].properties.comment = "<p>"+item.cases_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+"</p>";
                             }
                     }
 
