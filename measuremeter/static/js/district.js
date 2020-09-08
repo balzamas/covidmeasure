@@ -222,7 +222,7 @@ var data
                 }
             }
             this._div.innerHTML = '' +  (props ?
-                '<div align=left><b>' + props.name + '</b>' + datestr + commentstr+'</div>'
+                '<div align=left><p><b>' + props.name + '</b></p>' + datestr + commentstr+'</div>'
                 : 'Hover over a state');
         };
 
@@ -296,7 +296,7 @@ var data
                 }
             popup
                 .setLatLng(e.latlng)
-                .setContent('<div align=left><b>' + e.sourceTarget.feature.properties.name + '</b>' + datestr + commentstr+'</div>')
+                .setContent('<div align=left><p><b>' + e.sourceTarget.feature.properties.name + '</b></p>' + datestr + commentstr+'</div>')
                 .openOn(map);
         }
 
