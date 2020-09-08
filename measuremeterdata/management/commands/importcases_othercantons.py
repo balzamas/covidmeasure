@@ -53,7 +53,7 @@ class Command(BaseCommand):
                     print(row)
                     weeks_row = row
 
-                if (count > 2):
+                if (count > 1):
                     cell_count = 0
                     beznum = -1
                     for cell in row:
