@@ -275,4 +275,4 @@ SOCIALACCOUNT_ADAPTER = "measuremeter.users.adapters.SocialAccountAdapter"
 # ------------------------------------------------------------------------------
 
 CORS_ORIGIN_ALLOW_ALL = False
-CORS_ORIGIN_WHITELIST = ( 'http://www.dontsniff.co.uk', 'https://www.dontsniff.co.uk', 'http://dontsniff.co.uk', 'https://dontsniff.co.uk')
+CORS_ORIGIN_WHITELIST = ( 'http://www.dontsniff.co.uk', 'https://www.dontsniff.co.uk', 'http://dontsniff.co.uk', 'https://dontsniff.co.uk', 'http://www.passportparty.ch', 'http://passportparty.ch', 'https://www.passportparty.ch', 'https://passportparty.ch')
