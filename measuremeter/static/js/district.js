@@ -146,7 +146,7 @@ var data
     {
               statesData = $.extend( true, {}, statesDataOrig );
 
-            datefrom = addDays(date, -9)
+            datefrom = addDays(date, -11)
             datefrom_toload = formatDate(datefrom);
              date_toload = formatDate(date);
 
