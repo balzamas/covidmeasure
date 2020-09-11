@@ -11,6 +11,11 @@ html {
 font-size: 30px;
 }
 
+    p {
+      font-size: 1.3em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    }
+
 .alert-debug {
   color: black;
   background-color: white;
