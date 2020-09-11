@@ -215,7 +215,7 @@ var data
                 }
                 popup
                 .setLatLng(e.latlng)
-                .setContent('<div align=left><b>' + e.sourceTarget.feature.properties.NAME + '</b>' + levelstr + commentstr+'</div>')
+                .setContent('<div align=left><p><b>' + e.sourceTarget.feature.properties.NAME + '</b>' + levelstr + commentstr+'</p></div>')
                 .openOn(map);
         }
 
