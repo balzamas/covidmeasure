@@ -29,66 +29,93 @@ def CalcCaesesPerMio(cases, population):
     casespm = int(cases) *1000000 / (int(population))
     return casespm
 
+def set_incidence(last_numbers, bezirk, date):
+    total = 0
+    for cases in last_numbers:
+        total += cases
+
+    ftdays = total / bezirk.population * 100000
+
+    try:
+        cd_existing = CHCases.objects.get(canton=bezirk, date=date)
+        cd_existing.cases_past14days = ftdays
+        cd_existing.save()
+    except CHCases.DoesNotExist:
+        cd = CHCases(canton=bezirk, cases_past14days=ftdays, date=date)
+        cd.save()
+    return 0
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
-      url = "https://www.sg.ch/tools/informationen-coronavirus/_jcr_content/Par/sgch_downloadlist/DownloadListPar/sgch_download.ocFile/COVID-19_LageberichtSG_FfS.xlsx"
+      url="https://www.sg.ch/ueber-den-kanton-st-gallen/statistik/covid-19/_jcr_content/Par/sgch_downloadlist/DownloadListPar/sgch_download.ocFile/KantonSG_C19-Faelle_download.csv"
 
-      myfile = requests.get(url)
+      with requests.Session() as s:
+        download = s.get(url)
+        decoded_content = download.content.decode('latin-1')
 
-      print("Read excel")
-      read_file = pd.read_excel(myfile.content, sheet_name="Übersicht")
-      print("Convert and write:")
-      read_file.to_csv('/tmp/cases_sg.csv', index=None, header=True)
+        cr = csv.reader(decoded_content.splitlines(), delimiter=';')
+        my_list = list(cr)
 
-      print("Load data into django")
-      # Should move to datasources directory
-      with open('/tmp/cases_sg.csv', newline='') as csvfile:
-          spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
+        last_numbers_sg = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
+        last_numbers_wil = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
+        last_numbers_rorschach = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
+        last_numbers_rheintal = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
+        last_numbers_werdenberg = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
+        last_numbers_sarganserland = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
+        last_numbers_seegaster = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
+        last_numbers_toggenburg = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
 
-          rowcount = 0
-          savedate = datetime.date(2020, 3, 1)
-          deaths_yesterday = 0
-          for row in spamreader:
-              if (rowcount > 3 and rowcount < 12):
-                if (rowcount == 4):
-                    #St. Gallen
-                    bezirk = CHCanton.objects.filter(swisstopo_id=1721)
-                if (rowcount == 5):
-                    #Rorschach
-                    bezirk = CHCanton.objects.filter(swisstopo_id=1722)
-                if (rowcount == 6):
-                    # Rheintal
-                    bezirk = CHCanton.objects.filter(swisstopo_id=1723)
-                if (rowcount == 7):
-                    # Werdenberg
-                    bezirk = CHCanton.objects.filter(swisstopo_id=1724)
-                if (rowcount == 8):
-                    # Sarganserland
-                    bezirk = CHCanton.objects.filter(swisstopo_id=1725)
-                if (rowcount == 9):
-                    # See-Gaster
-                    bezirk = CHCanton.objects.filter(swisstopo_id=1726)
-                if (rowcount == 10):
-                    # Toggenburg
-                    bezirk = CHCanton.objects.filter(swisstopo_id=1727)
-                if (rowcount == 11):
-                    # Wil
-                    bezirk = CHCanton.objects.filter(swisstopo_id=1728)
+        count = 0
+        for row in my_list:
+          if (count > 1):
+            date = date.fromisoformat(row[0])
+            # St. Gallen
+            bezirk = CHCanton.objects.get(swisstopo_id=1721)
+            last_numbers_sg.append(int(row[4]))
+            last_numbers_sg.pop(0)
+            set_incidence(last_numbers_sg, bezirk, date)
 
-                if (bezirk):
-                    print(row[1])
+            # Rorschach
+            bezirk = CHCanton.objects.get(swisstopo_id=1722)
+            last_numbers_rorschach.append(int(row[6]))
+            last_numbers_rorschach.pop(0)
+            set_incidence(last_numbers_rorschach, bezirk, date)
 
-                    ftdays = (int(row[2])) / bezirk[0].population * 100000
+            # Rheintal
+            bezirk = CHCanton.objects.get(swisstopo_id=1723)
+            last_numbers_rheintal.append(int(row[8]))
+            last_numbers_rheintal.pop(0)
+            set_incidence(last_numbers_rheintal, bezirk, date)
 
-                    try:
-                      cd_existing = CHCases.objects.get(canton=bezirk[0], date=date.today())
-                      cd_existing.cases_past14days = ftdays
-                      cd_existing.save()
-                    except CHCases.DoesNotExist:
-                      cd = CHCases(canton=bezirk[0], cases_past14days=ftdays, date=date.today())
-                      cd.save()
+            # Werdenberg
+            bezirk = CHCanton.objects.get(swisstopo_id=1724)
+            last_numbers_werdenberg.append(int(row[10]))
+            last_numbers_werdenberg.pop(0)
+            set_incidence(last_numbers_werdenberg, bezirk, date)
 
-              rowcount += 1
+            # Sarganserland
+            bezirk = CHCanton.objects.get(swisstopo_id=1725)
+            last_numbers_sarganserland.append(int(row[12]))
+            last_numbers_sarganserland.pop(0)
+            set_incidence(last_numbers_sarganserland, bezirk, date)
+
+            # See-Gaster
+            bezirk = CHCanton.objects.get(swisstopo_id=1726)
+            last_numbers_seegaster.append(int(row[14]))
+            last_numbers_seegaster.pop(0)
+            set_incidence(last_numbers_seegaster, bezirk, date)
+
+            # Toggenburg
+            bezirk = CHCanton.objects.get(swisstopo_id=1727)
+            last_numbers_toggenburg.append(int(row[16]))
+            last_numbers_toggenburg.pop(0)
+            set_incidence(last_numbers_toggenburg, bezirk, date)
+
+            # Wil
+            bezirk = CHCanton.objects.get(swisstopo_id=1728)
+            last_numbers_wil.append(int(row[18]))
+            last_numbers_wil.pop(0)
+            set_incidence(last_numbers_wil, bezirk, date)
 
 
