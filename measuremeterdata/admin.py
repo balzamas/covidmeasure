@@ -51,6 +51,7 @@ class MeasureAdmin(admin.ModelAdmin):
 admin.site.register(Measure, MeasureAdmin)
 
 class CantonAdmin(admin.ModelAdmin):
+    list_display = ['name', 'id']
     ordering = ['name']
     search_fields = ['name']
 admin.site.register(CHCanton, CantonAdmin)
