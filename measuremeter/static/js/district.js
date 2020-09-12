@@ -141,6 +141,13 @@ var statesDataOrig = {"type":"FeatureCollection", "features": [
 {"type":"Feature","geometry":{"type":"Polygon","coordinates":[[[7.135003087218532,47.08432599857839],[7.178006492918104,47.10288877292251],[7.222666515279161,47.13240861002901],[7.222095598232513,47.11836525591525],[7.200162448098224,47.08403833460107],[7.211023667914112,47.07682939593753],[7.225913019027292,47.08245520528581],[7.229806766676323,47.092091012507325],[7.252136614052179,47.09970186430479],[7.261395546232584,47.10784805677525],[7.27995514119783,47.1094334490211],[7.306318383261634,47.119653227793854],[7.323151323771428,47.114294008089765],[7.346412251437579,47.129930988903965],[7.3354580909949,47.14636830447515],[7.36214889898487,47.16066980664988],[7.383468106340291,47.16281528127298],[7.392858482260791,47.167622744287435],[7.384460112690361,47.181651606454956],[7.366404760774969,47.195804804151216],[7.355421993115667,47.19288370210213],[7.345762897496794,47.208565011323245],[7.339144541091714,47.20484406774173],[7.351301628102788,47.186687307273665],[7.3088028000054015,47.181955534524334],[7.255050959465146,47.16890926304306],[7.215119658696853,47.14841575443644],[7.200226857506676,47.14368113883224],[7.201442938338144,47.1350223202095],[7.185106427321934,47.126333042997494],[7.155714500687612,47.11963975952126],[7.138457376248875,47.10693945498375],[7.143467113746986,47.099452082152226],[7.135003087218532,47.08432599857839]]]},"properties":{"UUID":"{F45162DA-95A9-4B5E-820D-506EEA6E8865}","DATUM_AEND":"2015-12-08T00:00:00.000Z","DATUM_ERST":"2012-10-26T00:00:00.000Z","ERSTELL_J":2012,"ERSTELL_M":"10","REVISION_J":2020,"REVISION_M":"1","GRUND_AEND":"Verbessert","HERKUNFT":"AV","HERKUNFT_J":2015,"HERKUNFT_M":"12","OBJEKTART":"Bezirk","BEZIRKSNUM":242,"SEE_FLAECH":2,"REVISION_Q":"2019_Aufbau","BEZIRKSFLA":9759,"BEZIRK_TEI":"1","NAME":"Biel/Bienne","KANTONSNUM":2,"ICC":"CH","EINWOHNERZ":101313}},
 ]}
 var data
+var mapDistricts
+var geojson
+var legend
+var info
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
 
     function LoadMap(map, date)
     {
@@ -186,6 +193,21 @@ var data
 
                 });
 
+    if (geojson)
+    {
+        map.removeLayer(geojson)
+    }
+
+    if (legend)
+    {
+        map.removeControl(legend);
+     }
+
+    if (info)
+    {
+        map.removeControl(info)
+    }
+
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
             maxZoom: 18,
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
@@ -198,7 +220,7 @@ var data
 
 
         // control that shows state info on hover
-        var info = L.control();
+        info = L.control();
 
         info.onAdd = function (map) {
             this._div = L.DomUtil.create('div', 'info');
@@ -308,7 +330,7 @@ var data
             });
         }
 
-        var geojson = L.geoJson(statesData, {
+        geojson = L.geoJson(statesData, {
             style: style,
             onEachFeature: onEachFeature
         }).addTo(map);
@@ -316,7 +338,7 @@ var data
         map.attributionControl.addAttribution('Source: <a href="http://covidlaws.net/">covidlaws.net</a>');
 
 
-        var legend = L.control({position: 'bottomleft'});
+        legend = L.control({position: 'bottomleft'});
         legend.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info legend');
@@ -430,8 +452,23 @@ var data
      }
 
       $(window).on('load', function() {
+                $("#btnPlay").click(async function(){
+                date = new Date(2020,2,5);
+                enddate = new Date();
+
+                while (date < enddate)
+                {
+                         document.getElementById('dateview').innerHTML = formatDate(date);
+
+                        LoadMap(mapDistricts,date);
+                        await sleep(100);
+                        date = addDays(date, 7);
+                }
+          });
+
+
             real_enddate = new Date();
 
-            var mapDistricts = L.map('mapDistricts').setView([46.8, 8.4], 8);
+            mapDistricts = L.map('mapDistricts').setView([46.8, 8.4], 8);
             LoadMap(mapDistricts, real_enddate);
       });
