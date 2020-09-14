@@ -343,12 +343,13 @@ Colors.random = function() {
             country_name = line['country']['name']
             country_code = line['country']['code']
             dataset_data.push(line['cases_past14days'])
-            dataset_death_data.push(line['deaths_per100k'])
-            if (line['deaths_total_per100k'] > 0)
-            {
-                dataset_death_total_data.push(line['deaths_total_per100k'])
-                has_total_death = true
-            }
+            dataset_death_data.push(line['deaths_past14days'])
+            //if (line['deaths_total_per100k'] > 0)
+            //{
+            //    dataset_death_total_data.push(line['deaths_total_per100k'])
+            //    has_total_death = true
+            //}
+            //}
 
         });
 
@@ -425,7 +426,7 @@ Colors.random = function() {
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Deaths per 100k',
+                        text: 'Reported Covid-Deaths per 100k/past 14 days',
                         fontSize: 25
 
                     },

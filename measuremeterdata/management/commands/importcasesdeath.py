@@ -92,16 +92,21 @@ class Command(BaseCommand):
 
             #calc running avg
             last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+            last_numbers_death = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,]
+
             rec_cases = CasesDeaths.objects.filter(country=country).order_by('date')
 
             print(country.name)
             for day in rec_cases:
                 last_numbers.append(day.cases)
+                last_numbers_death.append(day.deaths)
                 last_numbers.pop(0)
+                last_numbers_death.pop(0)
                 tot = 0
+                tot_death = 0
                 seven_tot = 0
-                daycount = 0
 
+                daycount = 0
                 for x in last_numbers:
                     tot += x
 
@@ -110,11 +115,16 @@ class Command(BaseCommand):
 
                     daycount += 1
 
+                daycount = 0
+                for x in last_numbers_death:
+                    tot_death += x
+                    daycount += 1
+
                 fourteen_avg = tot * 100000 / country.population
+                fourteen_avg_death = tot_death * 100000 / country.population
                 seven_avg = seven_tot * 100000 / country.population
 
-                print(day)
-                print(fourteen_avg)
+                day.deaths_past14days = fourteen_avg_death
                 day.cases_past14days = fourteen_avg
                 day.cases_past7days = seven_avg
                 day.save()
