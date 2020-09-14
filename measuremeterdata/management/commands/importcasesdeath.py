@@ -115,10 +115,8 @@ class Command(BaseCommand):
 
                     daycount += 1
 
-                daycount = 0
                 for x in last_numbers_death:
                     tot_death += x
-                    daycount += 1
 
                 fourteen_avg = tot * 100000 / country.population
                 fourteen_avg_death = tot_death * 100000 / country.population
