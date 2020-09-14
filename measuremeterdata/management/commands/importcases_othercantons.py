@@ -71,13 +71,12 @@ class Command(BaseCommand):
                                 print(bezirk)
 
                                 if (bezirk):
-                                    ftdays = 0
-
                                     ftdays = (int(float(cell)) + last_7days) / bezirk[0].population * 100000
 
                                     sdays = int(float(cell)) / bezirk[0].population * 100000
 
                                     print(".....")
+                                    print(date)
                                     print(ftdays)
 
                                     try:

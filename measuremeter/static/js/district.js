@@ -452,8 +452,8 @@ var info
      }
 
       $(window).on('load', function() {
-                $("#btnPlay").click(async function(){
-                date = new Date(2020,2,5);
+                $("#btnPlayBegin").click(async function(){
+                date = new Date(2020,1,24);
                 enddate = new Date();
 
                 while (date < enddate)
@@ -465,7 +465,19 @@ var info
                         date = addDays(date, 7);
                 }
           });
+                $("#btnPlayJune").click(async function(){
+                date = new Date(2020,5,15);
+                enddate = new Date();
 
+                while (date < enddate)
+                {
+                         document.getElementById('dateview').innerHTML = formatDate(date);
+
+                        LoadMap(mapDistricts,date);
+                        await sleep(100);
+                        date = addDays(date, 7);
+                }
+          });
 
             real_enddate = new Date();
 
