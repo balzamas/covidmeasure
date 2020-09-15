@@ -1,5 +1,7 @@
      	var config_cases;
      	var config_death;
+     	var config_positivity;
+
      	var avg_desc;
      	var avg_peak_desc;
 
@@ -140,11 +142,13 @@
           var jsonData = JSON.parse(data);
 
         var dataset_cases = new Array()
+        var dataset_positivity = new Array()
         var dataset_deaths = new Array()
         var label_array = new Array()
 
         var dataset_data_cases = new Array()
         var dataset_data_deaths = new Array()
+        var dataset_data_positivity = new Array()
 
         var dataset_data_total = new Array()
         var dataset_data_avg = new Array()
@@ -158,6 +162,7 @@
             label_array.push(line['date'])
 
             dataset_data_cases.push(line['cases']);
+            dataset_data_positivity.push(line['positivity']);
 
               if (Number(avg_values[0] > -1))
               {
@@ -174,6 +179,7 @@
 
         color = '#ff0000'
         dataset_cases.push({"label": "Cases", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_cases})
+        dataset_positivity.push({"label": "Positive rate", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_positivity})
 
         color = '#ff6600'
         dataset_deaths.push({"label": "Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
@@ -227,6 +233,49 @@
                             scaleLabel: {
                                 display: true,
                                 labelString: 'Positive tests'
+                            }
+                        }
+                    },
+                    }
+                    }
+
+            config_positivity = {
+                type: 'line',
+
+                data: {
+                    labels: label_array,
+                    datasets: dataset_positivity
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Positive rate',
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Positive rate'
                             }
                         }
                     },
@@ -336,6 +385,9 @@
 
 			    var ctx = document.getElementById('casesChart').getContext('2d');
 			    window.myLine = new Chart(ctx, config_cases);
+
+			    var ctx = document.getElementById('positivityChart').getContext('2d');
+			    window.myLine = new Chart(ctx, config_positivity);
 
   			    var ctx = document.getElementById('deathChart').getContext('2d');
 			    window.myLineDeath = new Chart(ctx, config_death);

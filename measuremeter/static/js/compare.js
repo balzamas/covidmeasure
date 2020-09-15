@@ -1,6 +1,7 @@
 
 		var config;
 		var config_death;
+		var config_positivity;
 
 let Colors = ["#0000ff",
 "#00ffff",
@@ -307,6 +308,9 @@ Colors.random = function() {
         var dataset_death = new Array()
         var dataset_death_data = new Array()
 
+        var dataset_positivity = new Array()
+        var dataset_positivity_data = new Array()
+
         var dataset_death_total = new Array()
         var dataset_death_total_data = new Array()
 
@@ -334,15 +338,20 @@ Colors.random = function() {
               {
                 dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
                }
+              dataset_positivity.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, data: dataset_positivity_data})
+
               dataset_data = new Array()
               dataset_death_data = new Array()
               dataset_death_total_data = new Array()
+              dataset_positivity_data = new Array()
+
               has_total_death = false
            }
             country_pk = line["country"]["pk"]
             country_name = line['country']['name']
             country_code = line['country']['code']
             dataset_data.push(line['cases_past14days'])
+            dataset_positivity_data.push(line['positivity'])
             dataset_death_data.push(line['deaths_past14days'])
             //if (line['deaths_total_per100k'] > 0)
             //{
@@ -360,6 +369,7 @@ Colors.random = function() {
               {
               dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
               }
+        dataset_positivity.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, data: dataset_positivity_data})
 
         annotations = LoadMeasure(countries, measures, startdate, enddate)
 
@@ -458,6 +468,50 @@ Colors.random = function() {
 
             };
 
+            config_positivity = {
+                type: 'line',
+
+                data: {
+                    labels: label_array,
+                    datasets: dataset_positivity
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Positive rate (Tests)',
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Positive rate (Tests)'
+                            }
+                        }
+                    },
+                },
+
+            };
+
 		};
 
 		window.onload = function() {
@@ -468,6 +522,10 @@ Colors.random = function() {
                 if(window.myLineDeath && window.myLineDeath !== null){
                    window.myLineDeath.destroy();
                 }
+                if(window.myLinePositivity && window.myLinePositivity !== null){
+                   window.myLinePositivity.destroy();
+                }
+
                 var datefrom = document.getElementById("datefrom").value;
                 var dateto = document.getElementById("dateto").value;
 
@@ -481,6 +539,8 @@ Colors.random = function() {
                 LoadData($('#countries_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'),datefrom_real,dateto_real);
     			window.myLine = new Chart(ctx, config);
     			window.myLineDeath = new Chart(ctx_death, config_death);
+    			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
+
             });
 
 		    LoadMeasureTypes();
@@ -522,6 +582,9 @@ Colors.random = function() {
 
 			var ctx_death = document.getElementById('compareChartDeaths').getContext('2d');
 			window.myLineDeath = new Chart(ctx_death, config_death);
+
+			var ctx_positivity = document.getElementById('compareChartPositivity').getContext('2d');
+			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
 
 			$("#btnCopyLink").click(async function(){
                 copyToClipboard();
