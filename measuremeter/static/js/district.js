@@ -489,7 +489,7 @@ var info
                          document.getElementById('dateview').innerHTML = formatDate(date);
 
                         LoadMap(mapDistricts,date);
-                        await sleep(100);
+                        await sleep(30);
                         date = addDays(date, 7);
                 }
           });
@@ -502,7 +502,7 @@ var info
                          document.getElementById('dateview').innerHTML = formatDate(date);
 
                         LoadMap(mapDistricts,date);
-                        await sleep(100);
+                        await sleep(30);
                         date = addDays(date, 7);
                 }
           });
