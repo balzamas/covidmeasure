@@ -173,6 +173,33 @@ var mapDistricts
 var geojson
 var legend
 var info
+function applyCountryBorder(map, countryname) {
+  jQuery
+    .ajax({
+      type: "GET",
+      dataType: "json",
+      url:
+        "https://nominatim.openstreetmap.org/search?country=" +
+        countryname.trim() +
+        "&polygon_geojson=1&format=json"
+    })
+    .then(function(data) {
+      /*const latLngs = L.GeoJSON.coordsToLatLngs(data[0].geojson.coordinates,2)
+      L.polyline(latLngs, {
+        color: "green",
+        weight: 14,
+        opacity: 1
+      }).addTo(map);*/
+
+      L.geoJSON(data[0].geojson, {
+        color: "cyan",
+        weight: 8,
+        opacity: 1,
+        fillOpacity: 0.0
+      }).addTo(map);
+    });
+}
+
     function sleep(ms) {
       return new Promise(resolve => setTimeout(resolve, ms));
     }
@@ -486,10 +513,9 @@ var info
 
                 while (date < enddate)
                 {
-                         document.getElementById('dateview').innerHTML = formatDate(date);
-
                         LoadMap(mapDistricts,date);
-                        await sleep(30);
+                        document.getElementById('dateview').innerHTML = formatDate(date);
+                        await sleep(10);
                         date = addDays(date, 7);
                 }
           });
@@ -499,10 +525,9 @@ var info
 
                 while (date < enddate)
                 {
-                         document.getElementById('dateview').innerHTML = formatDate(date);
-
                         LoadMap(mapDistricts,date);
-                        await sleep(30);
+                        await sleep(10);
+                        document.getElementById('dateview').innerHTML = formatDate(date);
                         date = addDays(date, 7);
                 }
           });
@@ -510,5 +535,6 @@ var info
             real_enddate = new Date();
 
             mapDistricts = L.map('mapDistricts').setView([46.8, 8.4], 8);
+            applyCountryBorder(mapDistricts, "Switzerland");
             LoadMap(mapDistricts, real_enddate);
       });
