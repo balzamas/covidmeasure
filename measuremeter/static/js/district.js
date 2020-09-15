@@ -535,6 +535,6 @@ function applyCountryBorder(map, countryname) {
             real_enddate = new Date();
 
             mapDistricts = L.map('mapDistricts').setView([46.8, 8.4], 8);
-            applyCountryBorder(mapDistricts, "Switzerland");
+            //applyCountryBorder(mapDistricts, "Switzerland");
             LoadMap(mapDistricts, real_enddate);
       });
