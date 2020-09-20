@@ -508,6 +508,25 @@ Colors.random = function() {
                             }
                         }
                     },
+                    annotation:{
+                        annotations:
+                        [                        {
+						type: 'line',
+						mode: 'horizontal',
+						scaleID: 'y-axis-0',
+						value: 5,
+						borderColor: 'red',
+						borderWidth: 2,
+						label: {
+							backgroundColor: 'red',
+							content: "5%",
+							fontSize: 19,
+							enabled: true
+					    	},
+						}]
+
+					}
+
                 },
 
             };
