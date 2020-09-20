@@ -15,6 +15,7 @@ urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
     path('ranking/', views.ranking, name='ranking'),
     path('ranking14/', views.ranking14, name='ranking14'),
+    path('ranking14all/', views.ranking14_all, name='ranking14_all'),
 
                   path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"

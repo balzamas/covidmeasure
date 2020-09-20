@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>CovidLaws // Coronavirus measures by canton - Canton rankings</title>
+    <title>CovidLaws // Canton rankings</title>
         <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Fathom - beautiful, simple website analytics -->
@@ -56,8 +56,11 @@ table.center {
       <div id="menu"></div>
 
   <table>
-    <h1>Swiss Covid Ranking</h1>
+    <h1>Swiss Covid Ranking 7 days</h1>
     Don't take this too serious. It's the internet.
+    <br><br>
+    <a href="/ranking">Ranking 7 days</a>//<a href="/ranking14">Ranking 14 days</a>//<a href="/ranking14all">Ranking 14 days Cantons & Districts (slow...)</a>
+    <br>
     <tr><td>Canton</td><td>Score</td><td>Prevalence<br>7d/100k</td><td>Tendency</td><td>Last update</td></tr>
     {% for hans in cantons %}
 
@@ -83,6 +86,8 @@ table.center {
   </table>
   <br>
   Formula = 0 - Cases past 7 days per 100k pop - (Tendency /10)
+  <br><br>
+  Source: <a href="https://opendata.swiss/de/dataset/covid_19-fallzahlen-kanton-zuerich" target="_blank">OpenData ZH</a><br>
 
 
 

@@ -20,8 +20,8 @@ def render_compare(request, country_name):
 
 def ranking(request):
 
-#    cantons = CHCanton.objects.filter(level=0)
-    cantons = CHCanton.objects.all()
+    cantons = CHCanton.objects.filter(level=0)
+#    cantons = CHCanton.objects.all()
     canton_vals = []
 
     for canton in cantons:
@@ -54,9 +54,7 @@ def ranking(request):
     }
     return HttpResponse(template.render(context, request))
 
-def ranking14(request):
-
-    cantons = CHCanton.objects.all()
+def ranking14_calc(cantons):
     canton_vals = []
 
     for canton in cantons:
@@ -81,7 +79,25 @@ def ranking14(request):
                         "tendency": int(tendency)}
         canton_vals.append(canton_toadd)
 
-    scores = sorted(canton_vals, key=lambda i: i['score'],reverse=True)
+    return sorted(canton_vals, key=lambda i: i['score'],reverse=True)
+
+def ranking14(request):
+
+    cantons = CHCanton.objects.filter(level=0)
+
+    scores = ranking14_calc(cantons)
+
+    template = loader.get_template('pages/ranking14.html')
+    context = {
+        'cantons': scores,
+    }
+    return HttpResponse(template.render(context, request))
+
+
+def ranking14_all(request):
+    cantons = CHCanton.objects.all()
+
+    scores = ranking14_calc(cantons)
 
     template = loader.get_template('pages/ranking14.html')
     context = {
