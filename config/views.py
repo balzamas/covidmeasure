@@ -73,7 +73,7 @@ def ranking14_calc(cantons):
         else:
             tendency = ((cases[0].cases_past14days * 100 / 1) - 100)
 
-        score = 0 - cases[0].cases_past14days - (tendency / 10)
+        score = 0 - cases[0].cases_past14days - (tendency / 5)
 
         canton_toadd = {"name": canton.name, "score": int(score), "date": last_date, "cur_prev": last_prev,
                         "tendency": int(tendency)}
