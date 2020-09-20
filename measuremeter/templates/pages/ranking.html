@@ -1,0 +1,97 @@
+{% load static i18n %}
+{% load static %}
+{# Load the tag library #}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>CovidLaws // Coronavirus measures by canton - Canton profiles</title>
+        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+
+	<style>
+table, th, td {
+  padding: 10px;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+	</style>
+
+	<style>#map { width: 800px; height: 700px; }
+.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+
+
+  </head>
+  <body bgcolor="black">
+
+
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+
+
+      <h1>CovidLaws // Switzerland // Ranking</h1>
+      <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
+      <div id="menu"></div>
+
+  <table>
+    <h1>Swiss Covid Ranking</h1>
+    Don't take this too serious. It's the internet.
+    <tr><td>Canton</td><td>Score</td><td>Prevalence<br>7d/100k</td><td>Tendency</td><td>Last update</td></tr>
+    {% for hans in cantons %}
+
+    <tr>
+
+      <td>
+        <b>{{ hans.name }}</b>
+      </td>
+      <td>
+        <b>{{ hans.score }}</b>
+      </td>
+      <td>
+        {{ hans.cur_prev }}
+      </td>
+      <td>
+        {{ hans.tendency }}
+      </td>
+      <td>
+        {{ hans.date }}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+  Formula = 0 - Cases past 7 days per 100k pop - (Tendency /10)
+
+
+
+      </div>
+<br><br>
+  </body>
+</html>
+
+
+
+
+
