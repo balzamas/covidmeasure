@@ -59,18 +59,24 @@ table.center {
     <h1>Swiss Covid Ranking 14 days</h1>
     Don't take this too serious. It's the internet.
     <br><br>
-    <a href="/ranking">Ranking 7 days</a>//<a href="/ranking14">Ranking 14 days</a>//<a href="/ranking14all">Ranking 14 days Cantons & Districts (slow...)</a>
+    <a href="/ranking">Ranking 7 days</a>//<a href="/ranking14">Ranking 14 days</a>//<a href="/ranking14all">Ranking 14 days Cantons & Districts</a>
     <br>
-    <tr><td>Canton<br>Disctrict</td><td>Score</td><td>Prevalence<br>14d/100k</td><td>Tendency</td><td>Last update</td></tr>
+    <tr><td>Rank</td><td>Shift</td><td>Canton<br>Disctrict</td><td>Score</td><td>Prevalence<br>14d/100k</td><td>Tendency</td><td>Last update</td></tr>
     {% for hans in cantons %}
 
     <tr>
-
+      <td>
+        {{ hans.rank }}
+      </td>
+      <td>
+        <i class="{{ hans.rank_icon }} icon"></i>
+        {{ hans.rank_diff }}
+      </td>
       <td>
         <b>{{ hans.name }}</b>
       </td>
       <td>
-        <b>{{ hans.score }}</b>
+        <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>
       </td>
       <td>
         {{ hans.cur_prev }}
