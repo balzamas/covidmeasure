@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>CovidLaws // Coronavirus measures by canton - Canton rankings</title>
+    <title>CovidLaws // Coronavirus measures by canton - Canton and district ranking</title>
         <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Fathom - beautiful, simple website analytics -->
@@ -58,7 +58,7 @@ table.center {
   <table>
     <h1>Swiss Covid Ranking</h1>
     Don't take this too serious. It's the internet.
-    <tr><td>Canton</td><td>Score</td><td>Prevalence<br>7d/100k</td><td>Tendency</td><td>Last update</td></tr>
+    <tr><td>Canton<br>Disctrict</td><td>Score</td><td>Prevalence<br>14d/100k</td><td>Tendency</td><td>Last update</td></tr>
     {% for hans in cantons %}
 
     <tr>
@@ -82,7 +82,7 @@ table.center {
     {% endfor %}
   </table>
   <br>
-  Formula = 0 - Cases past 7 days per 100k pop - (Tendency /10)
+  Formula = 0 - Cases past 14 days per 100k pop - (Tendency % (=compared to 14 days ago) /10)
 
 
 
