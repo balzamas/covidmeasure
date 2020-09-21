@@ -49,8 +49,8 @@ def ranking(request):
             tendency_7daysbefore = ((case_7days_before.cases_past7days * 100 / 1) - 100)
 
 
-        score = 0 - cases[0].cases_past7days - (tendency / 10)
-        score_7days_before = 0 - case_7days_before.cases_past7days - (tendency_7daysbefore / 10)
+        score = 0 - cases[0].cases_past7days - (tendency / 5)
+        score_7days_before = 0 - case_7days_before.cases_past7days - (tendency_7daysbefore / 5)
 
         if (score > score_7days_before):
             arrow = "arrow circle up green"
@@ -119,7 +119,7 @@ def ranking14_calc(cantons):
             tendency_14daysbefore = ((case_14days_before.cases_past14days * 100 / 1) - 100)
 
         score = 0 - cases[0].cases_past14days - (tendency / 5)
-        score_14days_before = 0 - case_14days_before.cases_past14days - (tendency_14daysbefore / 10)
+        score_14days_before = 0 - case_14days_before.cases_past14days - (tendency_14daysbefore / 5)
 
         if (score > score_14days_before):
             arrow = "arrow circle up green"
