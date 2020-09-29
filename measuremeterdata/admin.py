@@ -9,6 +9,7 @@ admin.site.register(CasesDeaths)
 class CHCasesAdmin(admin.ModelAdmin):
     list_display = ['canton', 'date', 'cases', 'cases_past14days']
     search_fields = ['canton']
+    list_filter = ('canton','date')
 admin.site.register(CHCases, CHCasesAdmin)
 
 
@@ -19,7 +20,6 @@ admin.site.register(Country, CountryAdmin)
 
 
 class MeasureTypeAdmin(admin.ModelAdmin):
-    # a list of displayed columns name.
     list_display = ['name', 'category', 'isactive', 'comment']
     ordering = ['category', 'name']
     search_fields = ['name']
