@@ -7,77 +7,71 @@ import requests
 import pandas as pd
 from datetime import date, timedelta
 
+
+
+#Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863
+
+def get_start_end_dates(year, week):
+    d = datetime.datetime(year, 1, 1)
+    if (d.weekday() <= 3):
+        d = d - timedelta(d.weekday())
+    else:
+        d = d + timedelta(7 - d.weekday())
+    dlt = timedelta(days=(week - 1) * 7)
+    return d + dlt + timedelta(days=6)
+
+def daterange(start_date, end_date):
+    for n in range(int ((end_date - start_date).days)):
+        yield start_date + timedelta(n)
+
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
-      url = 'https://raw.githubusercontent.com/rozierguillaume/covid-19/master/data/france/taux-incidence-dep-quot.csv'
+      url = 'https://raw.githubusercontent.com/openZH/covid_19/master/fallzahlen_bezirke/fallzahlen_kanton_FR_bezirk.csv'
 
       with requests.Session() as s:
         download = s.get(url)
 
         decoded_content = download.content.decode('utf-8')
 
-        cr = csv.reader(decoded_content.splitlines(), delimiter=';')
+        cr = csv.reader(decoded_content.splitlines(), delimiter=',')
         my_list = list(cr)
 
         print("Load data into django")
 
         count = 0
         old_bezirk = -1
-        last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
+        last_7days = -1
 
         for row in my_list:
             if (count > 1):
-                    if (row[0] == "01" or row[0] == "25" or row[0] == "90" or row[0] == "68" or row[0] == "39" or row[0] == "74") and row[4] == "0":
-                        print(row)
+                date = get_start_end_dates(int(row[5]), int(row[4]))
 
-                        bezirk = CHCanton.objects.filter(swisstopo_id="F"+row[0])
+                bezirk = CHCanton.objects.filter(swisstopo_id=int(row[0]))
 
-                        if (bezirk):
-                            if (old_bezirk != row[0]):
-                                print("reset")
-                                last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
+                if (bezirk):
+                    ftdays = 0
 
-                            cases_td = int(row[3])
+                    print(".....")
+                    print(row[8])
 
-                            last_numbers.append(cases_td)
-                            last_numbers.pop(0)
+                    if (old_bezirk == int(row[0])):
+                        ftdays = (int(row[8]) + last_7days) / bezirk[0].population * 100000
 
-                            tot = 0
-                            seven_tot = 0
-
-                            daycount = 0
-                            for x in last_numbers:
-                                tot += x
-
-                                if (daycount > 6):
-                                    seven_tot += x
-
-                                daycount += 1
+                    sdays = int(row[8]) / bezirk[0].population * 100000
 
 
-                            fourteen_avg = tot * 100000 / bezirk[0].population
-                            seven_avg = seven_tot * 100000 / bezirk[0].population
+                    try:
+                        cd_existing = CHCases.objects.get(canton=bezirk[0], date=date)
+                        cd_existing.cases_past7days = sdays
+                        cd_existing.cases_past14days = ftdays
+                        cd_existing.save()
+                    except CHCases.DoesNotExist:
+                        cd = CHCases(canton=bezirk[0], cases_past7days=sdays, cases_past14days=ftdays, date=date)
+                        cd.save()
 
-                            date_tosave = date.fromisoformat(row[1])
-
-                            print(bezirk[0])
-                            print(cases_td)
-                            print(row[1])
-                            print(f"Average:{fourteen_avg}")
-
-                            try:
-                                cd_existing = CHCases.objects.get(canton=bezirk[0], date=date_tosave)
-                                cd_existing.cases = cases_td
-                                cd_existing.cases_past7days = seven_avg
-                                cd_existing.cases_past14days = fourteen_avg
-                                cd_existing.date = date_tosave
-                                cd_existing.save()
-                            except CHCases.DoesNotExist:
-                                cd = CHCases(canton=bezirk[0], cases_past7days=seven_avg, cases_past14days=fourteen_avg, cases=cases_td, date=date_tosave)
-                                cd.save()
-
-                        old_bezirk = row[0]
+                    old_bezirk = int(row[0])
+                    last_7days = int(row[8])
 
             count += 1
 
