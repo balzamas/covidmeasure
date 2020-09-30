@@ -312,7 +312,8 @@ function applyCountryBorder(map, countryname) {
 
 
         function getColor(d) {
-            return  d > 120   ? '#060261' :
+            return  d > 150   ? '#000000' :
+                    d > 120   ? '#060261' :
                     d > 90   ? '#0b03a8' :
                     d > 70   ? '#180df8' :
                     d > 50   ? '#3127fa' :
@@ -403,8 +404,8 @@ function applyCountryBorder(map, countryname) {
 
         var div = L.DomUtil.create('div', 'info legend');
         labels = ['<strong>Incidence</strong>'],
-        categories = ["<5","<10","<15","<20","<30","<50","<70","<90","<120",">120"];
-        categories_vals = [4,9,14,19,29,49,69,89,119,121];
+        categories = ["<5","<10","<15","<20","<30","<50","<70","<90","<120","<150",">150"];
+        categories_vals = [4,9,14,19,29,49,69,89,119,121,151];
 
         for (var i = 0; i < categories.length; i++) {
 
