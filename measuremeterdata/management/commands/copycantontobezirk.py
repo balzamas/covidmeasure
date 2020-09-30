@@ -78,7 +78,7 @@ class Command(BaseCommand):
 
 
         #FR
-        start_fr = get_start_date(2020,31)
+        start_fr = get_start_date(2020,33)
         for cases in CHCases.objects.filter(canton=47).order_by('date'):
             if (cases.date < start_fr):
                 saveit(81, cases.cases_past14days, cases.date)

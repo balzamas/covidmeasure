@@ -7,7 +7,7 @@ admin.site.register(MeasureCategory)
 admin.site.register(CasesDeaths)
 
 class CHCasesAdmin(admin.ModelAdmin):
-    list_display = ['canton', 'date', 'cases', 'cases_past14days']
+    list_display = ['canton', 'date', 'cases', 'cases_past14days', 'cases_past7days']
     search_fields = ['canton']
     list_filter = ('canton','date')
 admin.site.register(CHCases, CHCasesAdmin)

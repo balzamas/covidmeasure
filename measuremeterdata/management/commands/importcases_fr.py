@@ -40,38 +40,36 @@ class Command(BaseCommand):
         print("Load data into django")
 
         count = 0
-        old_bezirk = -1
-        last_7days = -1
 
         for row in my_list:
-            if (count > 1):
+            if (count > 0):
                 date = get_start_end_dates(int(row[5]), int(row[4]))
 
                 bezirk = CHCanton.objects.filter(swisstopo_id=int(row[0]))
 
                 if (bezirk):
-                    ftdays = 0
-
-                    print(".....")
-                    print(row[8])
-
-                    if (old_bezirk == int(row[0])):
-                        ftdays = (int(row[8]) + last_7days) / bezirk[0].population * 100000
+                    ftdays = None
 
                     sdays = int(row[8]) / bezirk[0].population * 100000
 
+                    sdays_ago =  CHCases.objects.get(canton=bezirk[0], date=(date - timedelta(days=7)))
+                    print(sdays_ago.date)
+                    print(sdays_ago.cases_past7days)
+                    if (sdays_ago.cases_past7days):
+                        ftdays = sdays + float(sdays_ago.cases_past7days)
 
                     try:
                         cd_existing = CHCases.objects.get(canton=bezirk[0], date=date)
                         cd_existing.cases_past7days = sdays
-                        cd_existing.cases_past14days = ftdays
+                        if (ftdays):
+                            cd_existing.cases_past14days = ftdays
                         cd_existing.save()
                     except CHCases.DoesNotExist:
-                        cd = CHCases(canton=bezirk[0], cases_past7days=sdays, cases_past14days=ftdays, date=date)
+                        if (ftdays):
+                            cd = CHCases(canton=bezirk[0], cases_past7days=sdays, cases_past14days=ftdays, date=date)
+                        else:
+                            cd = CHCases(canton=bezirk[0], cases_past7days=sdays, date=date)
                         cd.save()
-
-                    old_bezirk = int(row[0])
-                    last_7days = int(row[8])
 
             count += 1
 

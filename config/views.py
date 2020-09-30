@@ -98,15 +98,20 @@ def ranking14_calc(cantons):
     for canton in cantons:
         date_tocheck = date.today()
 
+        print(canton)
+
         cases = CHCases.objects.filter(canton=canton, date__range=[date_tocheck - timedelta(days=10), date_tocheck]).order_by("-date")
+        print("got the cases")
 
         last_date = cases[0].date
         last_prev = cases[0].cases_past14days
         past_date_tocheck = last_date - timedelta(days=14)
         past_past_date_tocheck = past_date_tocheck - timedelta(days=14)
 
+        print("check the past")
         case_14days_before = CHCases.objects.get(canton=canton, date=past_date_tocheck)
         case_14days_before_before = CHCases.objects.get(canton=canton, date=past_past_date_tocheck)
+        print("checked")
 
         if (case_14days_before.cases_past14days > 0):
             tendency = ((cases[0].cases_past14days * 100 / case_14days_before.cases_past14days) - 100)
@@ -132,6 +137,8 @@ def ranking14_calc(cantons):
                         "date": last_date, "cur_prev": last_prev,
                         "tendency": int(tendency), "icon": arrow}
         canton_vals.append(canton_toadd)
+
+    print("finished getting cases")
 
     scores = sorted(canton_vals, key=lambda i: i['score_before'],reverse=True)
     rank = 1
@@ -171,6 +178,7 @@ def ranking14_all(request):
     cantons = CHCanton.objects.all()
 
     scores = ranking14_calc(cantons)
+    print(scores)
 
     template = loader.get_template('pages/ranking14.html')
     context = {
