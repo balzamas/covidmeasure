@@ -1,3 +1,4 @@
+var current_date = new Date();
 var config;
 let Colors = ["#0000ff",
 "#00ffff",
@@ -512,7 +513,32 @@ function applyCountryBorder(map, countryname) {
          return htmlLine;
      }
 
+      function MoveFocus(value)
+      {
+                    date = addDays(current_date, value);
+                    LoadMap(mapDistricts,date);
+                    document.getElementById('dateview').innerHTML = formatDate(date);
+                    current_date = date;
+      }
+
       $(window).on('load', function() {
+                $("#btnPlusDay").click(async function(){
+                    MoveFocus(1)
+                });
+
+                $("#btnMinusDay").click(async function(){
+                    MoveFocus(-1)
+                });
+                $("#btnPlusWeek").click(async function(){
+                    MoveFocus(7)
+
+                });
+
+                $("#btnMinusWeek").click(async function(){
+                    MoveFocus(-7)
+                });
+
+
                 $("#btnPlayBegin").click(async function(){
                 date = new Date(2020,1,24);
                 enddate = new Date();

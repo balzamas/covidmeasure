@@ -72,10 +72,6 @@ class MeasureViewSet(viewsets.ModelViewSet):
 #    filter_class = MeasureFilter
 
     def get_queryset(self):
-        """
-        This view should return a list of all the purchases for
-        the user as determined by the username portion of the URL.
-        """
         queryset = Measure.objects
         countries = self.request.query_params.get('country', None)
         types = self.request.query_params.get('type', None)
@@ -168,6 +164,7 @@ class CHCasesViewSet(viewsets.ModelViewSet):
         date_after = self.request.query_params.get('date_after')
         date_before = self.request.query_params.get('date_before')
         cantons = self.request.query_params.get('canton', None)
+        number = self.request.query_params.get('nr', None)
         level = self.request.query_params.get('level', None)
 
         if cantons and cantons != '':
@@ -177,6 +174,14 @@ class CHCasesViewSet(viewsets.ModelViewSet):
                 if (x != ''):
                     canton_params.append(x)
             queryset = queryset.filter(canton__in=canton_params)
+
+        if number and number != '':
+            number_params = []
+            for x in number.split(','):
+                if (x != ''):
+                    number_params.append(x)
+            queryset = queryset.filter(canton__swisstopo_id__in=number_params)
+
 
         if level and level != '':
             queryset = queryset.filter(canton__level=level)
@@ -248,10 +253,6 @@ class CHMeasureViewSet(viewsets.ModelViewSet):
 #    filter_class = MeasureFilter
 
     def get_queryset(self):
-        """
-        This view should return a list of all the purchases for
-        the user as determined by the username portion of the URL.
-        """
         queryset = CHMeasure.objects
         cantons = self.request.query_params.get('canton', None)
         types = self.request.query_params.get('type', None)
