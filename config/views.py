@@ -30,7 +30,7 @@ def ranking(request):
         cases = CHCases.objects.filter(canton=canton, date__range=[date_tocheck - timedelta(days=10), date_tocheck]).order_by("-date")
 
         last_date = cases[0].date
-        last_prev = cases[0].cases_past7days
+        last_prev = cases[0].incidence_past7days
         past_date_tocheck = last_date - timedelta(days=7)
         past_past_date_tocheck = past_date_tocheck - timedelta(days=7)
 
@@ -38,19 +38,19 @@ def ranking(request):
         case_7days_before_before = CHCases.objects.get(canton=canton, date=past_past_date_tocheck)
 
 
-        if (case_7days_before.cases_past7days > 0):
-            tendency = ((cases[0].cases_past7days * 100 / case_7days_before.cases_past7days) - 100)
+        if (case_7days_before.incidence_past7days > 0):
+            tendency = ((cases[0].incidence_past7days * 100 / case_7days_before.incidence_past7days) - 100)
         else:
-            tendency = ((cases[0].cases_past7days * 100 / 1) - 100)
+            tendency = ((cases[0].incidence_past7days * 100 / 1) - 100)
 
-        if (case_7days_before_before.cases_past7days > 0):
-            tendency_7daysbefore = ((case_7days_before.cases_past7days * 100 / case_7days_before_before.cases_past7days) - 100)
+        if (case_7days_before_before.incidence_past7days > 0):
+            tendency_7daysbefore = ((case_7days_before.incidence_past7days * 100 / case_7days_before_before.incidence_past7days) - 100)
         else:
-            tendency_7daysbefore = ((case_7days_before.cases_past7days * 100 / 1) - 100)
+            tendency_7daysbefore = ((case_7days_before.incidence_past7days * 100 / 1) - 100)
 
 
-        score = 0 - cases[0].cases_past7days - (tendency / 5)
-        score_7days_before = 0 - case_7days_before.cases_past7days - (tendency_7daysbefore / 5)
+        score = 0 - cases[0].incidence_past7days - (tendency / 5)
+        score_7days_before = 0 - case_7days_before.incidence_past7days - (tendency_7daysbefore / 5)
 
         if (score > score_7days_before):
             arrow = "arrow circle up green"
@@ -62,7 +62,7 @@ def ranking(request):
         canton_toadd = {"name": canton.name, "score": int(score), "score_before": int(score_7days_before),
                         "date": last_date,
                         "cur_prev": last_prev, "tendency": int(tendency),
-                        "cur_prev7": case_7days_before.cases_past7days, "tendency7": int(tendency_7daysbefore), "icon": arrow}
+                        "cur_prev7": case_7days_before.incidence_past7days, "tendency7": int(tendency_7daysbefore), "icon": arrow}
 
         canton_vals.append(canton_toadd)
 
@@ -104,7 +104,7 @@ def ranking14_calc(cantons):
         print("got the cases")
 
         last_date = cases[0].date
-        last_prev = cases[0].cases_past14days
+        last_prev = cases[0].incidence_past14days
         past_date_tocheck = last_date - timedelta(days=14)
         past_past_date_tocheck = past_date_tocheck - timedelta(days=14)
 
@@ -113,18 +113,18 @@ def ranking14_calc(cantons):
         case_14days_before_before = CHCases.objects.get(canton=canton, date=past_past_date_tocheck)
         print("checked")
 
-        if (case_14days_before.cases_past14days > 0):
-            tendency = ((cases[0].cases_past14days * 100 / case_14days_before.cases_past14days) - 100)
+        if (case_14days_before.incidence_past14days > 0):
+            tendency = ((cases[0].incidence_past14days * 100 / case_14days_before.incidence_past14days) - 100)
         else:
-            tendency = ((cases[0].cases_past14days * 100 / 1) - 100)
+            tendency = ((cases[0].incidence_past14days * 100 / 1) - 100)
 
-        if (case_14days_before_before.cases_past14days > 0):
-            tendency_14daysbefore = ((case_14days_before.cases_past14days * 100 / case_14days_before_before.cases_past14days) - 100)
+        if (case_14days_before_before.incidence_past14days > 0):
+            tendency_14daysbefore = ((case_14days_before.incidence_past14days * 100 / case_14days_before_before.incidence_past14days) - 100)
         else:
-            tendency_14daysbefore = ((case_14days_before.cases_past14days * 100 / 1) - 100)
+            tendency_14daysbefore = ((case_14days_before.incidence_past14days * 100 / 1) - 100)
 
-        score = 0 - cases[0].cases_past14days - (tendency / 5)
-        score_14days_before = 0 - case_14days_before.cases_past14days - (tendency_14daysbefore / 5)
+        score = 0 - cases[0].incidence_past14days - (tendency / 5)
+        score_14days_before = 0 - case_14days_before.incidence_past14days - (tendency_14daysbefore / 5)
 
         if (score > score_14days_before):
             arrow = "arrow circle up green"

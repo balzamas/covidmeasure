@@ -336,7 +336,7 @@ var data
            }
             canton_pk = line["canton"]["pk"]
             canton_name = line['canton']['code'].toUpperCase();
-            dataset_data.push(line['cases_past7days'])
+            dataset_data.push(line['incidence_past7days'])
 
         });
 

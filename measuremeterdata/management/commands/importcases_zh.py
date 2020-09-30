@@ -63,11 +63,11 @@ class Command(BaseCommand):
 
                     try:
                         cd_existing = CHCases.objects.get(canton=bezirk[0], date=date)
-                        cd_existing.cases_past7days = sdays
-                        cd_existing.cases_past14days = ftdays
+                        cd_existing.incidence_past7days = sdays
+                        cd_existing.incidence_past14days = ftdays
                         cd_existing.save()
                     except CHCases.DoesNotExist:
-                        cd = CHCases(canton=bezirk[0], cases_past7days=sdays, cases_past14days=ftdays, date=date)
+                        cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, date=date)
                         cd.save()
 
                     old_bezirk = int(row[0])

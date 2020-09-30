@@ -81,15 +81,15 @@ var data
                         {
                             if (days == 7)
                             {
-                                value_cases = item.cases_past7days
+                                value_cases = item.incidence_past7days
                             }
                             else if (days == 10)
                             {
-                                value_cases = item.cases_past10days
+                                value_cases = item.incidence_past10days
                             }
                             else if (days == 14)
                             {
-                                value_cases = item.cases_past14days
+                                value_cases = item.incidence_past14days
                             }
 
 

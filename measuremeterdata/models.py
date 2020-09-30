@@ -158,9 +158,9 @@ class CHCases(MotherModel):
     canton = models.ForeignKey(CHCanton, on_delete=models.CASCADE)
     date = models.DateField()
     cases = models.IntegerField(null=True,blank=True)
-    cases_past14days = models.DecimalField(max_digits=50, decimal_places=2,null=True,blank=True)
-    cases_past10days = models.DecimalField(max_digits=50, decimal_places=2,null=True,blank=True)
-    cases_past7days = models.DecimalField(max_digits=50, decimal_places=2,null=True,blank=True)
+    incidence_past14days = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    incidence_past10days = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    incidence_past7days = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
 
     ordering = ['canton__pk', 'date', 'cases']
 

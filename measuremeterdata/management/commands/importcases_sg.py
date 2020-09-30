@@ -39,10 +39,10 @@ def set_incidence(last_numbers, bezirk, date):
 
     try:
         cd_existing = CHCases.objects.get(canton=bezirk, date=date)
-        cd_existing.cases_past14days = ftdays
+        cd_existing.incidence_past14days = ftdays
         cd_existing.save()
     except CHCases.DoesNotExist:
-        cd = CHCases(canton=bezirk, cases_past14days=ftdays, date=date)
+        cd = CHCases(canton=bezirk, incidence_past14days=ftdays, date=date)
         cd.save()
     return 0
 

@@ -116,7 +116,7 @@ class Command(BaseCommand):
                 print(fourteen_avg)
                 print(ten_avg)
                 print(seven_avg)
-                day.cases_past14days = fourteen_avg
-                day.cases_past10days = ten_avg
-                day.cases_past7days = seven_avg
+                day.incidence_past14days = fourteen_avg
+                day.incidence_past10days = ten_avg
+                day.incidence_past7days = seven_avg
                 day.save()

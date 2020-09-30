@@ -231,9 +231,9 @@ function applyCountryBorder(map, countryname) {
                         id = statesData['features'].findIndex(x => x.id === item.canton.code.toUpperCase());
                         if (id > -1)
                             {
-                                statesData.features[id].properties.level = item.cases_past14days;
+                                statesData.features[id].properties.level = item.incidence_past14days;
                                 statesData.features[id].properties.name = item.canton.name;
-                                statesData.features[id].properties.comment = "<p>"+item.cases_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+"</p>";
+                                statesData.features[id].properties.comment = "<p>"+item.incidence_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+"</p>";
                             }
                     }
                     else if (item.canton.level == 1)
@@ -242,9 +242,9 @@ function applyCountryBorder(map, countryname) {
                         id = statesData['features'].findIndex(x => x.properties["BEZIRKSNUM"] === item.canton.swisstopo_id);
                         if (id > -1)
                             {
-                                statesData.features[id].properties.level = item.cases_past14days;
+                                statesData.features[id].properties.level = item.incidence_past14days;
                                 statesData.features[id].properties.name = item.canton.name;
-                                statesData.features[id].properties.comment = "<p>"+item.cases_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+"</p>";
+                                statesData.features[id].properties.comment = "<p>"+item.incidence_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+"</p>";
                             }
                     }
 
