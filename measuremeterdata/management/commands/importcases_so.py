@@ -28,18 +28,25 @@ def set_incidence(last_numbers, bezirk, date):
     if (last_numbers[0] != None):
         print(f"No Nones, write {date}")
         total = 0
+        total7 = 0
+        count = 0
         for cases in last_numbers:
             total += cases
+            if (count > 6):
+                total7 += cases
+            count += 1
 
         ftdays = total / bezirk.population * 100000
+        sdays = total7 / bezirk.population * 100000
         print(ftdays)
 
         try:
             cd_existing = CHCases.objects.get(canton=bezirk, date=date)
             cd_existing.incidence_past14days = ftdays
+            cd_existing.incidence_past7days = sdays
             cd_existing.save()
         except CHCases.DoesNotExist:
-            cd = CHCases(canton=bezirk, incidence_past14days=ftdays, date=date)
+            cd = CHCases(canton=bezirk, incidence_past14days=ftdays, incidence_past7days=sdays, date=date)
             cd.save()
         return 0
 

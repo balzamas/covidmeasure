@@ -84,6 +84,7 @@ class Command(BaseCommand):
                                         cd_existing.incidence_past7days = sdays
                                         cd_existing.incidence_past14days = ftdays
                                         cd_existing.save()
+                                        print("Saved")
                                     except CHCases.DoesNotExist:
                                         cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, date=date)
                                         cd.save()

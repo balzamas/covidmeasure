@@ -242,9 +242,12 @@ function applyCountryBorder(map, countryname) {
                         id = statesData['features'].findIndex(x => x.properties["BEZIRKSNUM"] === item.canton.swisstopo_id);
                         if (id > -1)
                             {
-                                statesData.features[id].properties.level = item.incidence_past14days;
-                                statesData.features[id].properties.name = item.canton.name;
-                                statesData.features[id].properties.comment = "<p>"+item.incidence_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+"</p>";
+                                if (item.incidence_past14days != null)
+                                {
+                                    statesData.features[id].properties.level = item.incidence_past14days;
+                                    statesData.features[id].properties.name = item.canton.name;
+                                    statesData.features[id].properties.comment = "<p>"+item.incidence_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+"</p>";
+                                }
                             }
                     }
 

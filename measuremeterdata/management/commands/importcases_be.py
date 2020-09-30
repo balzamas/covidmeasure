@@ -5,6 +5,8 @@ import re
 from bs4 import BeautifulSoup
 import measuremeterdata.scrape_common as sc
 from django.core.management.base import BaseCommand, CommandError
+from measuremeterdata.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHCases
+from datetime import date, timedelta
 
 district_names = {
     241: "Jura bernois",
@@ -32,7 +34,7 @@ district_population = {
     250: 47387,
 }
 
-gemeinden = {
+communes = {
 "Innertkirchen":250,
 "Guttannen":250,
 "Grindelwald":250,
@@ -421,12 +423,12 @@ class Command(BaseCommand):
         table = soup.find(string=re.compile(r'Corona-Erkrankungen im Kanton Bern')).find_next('table')
 
         for tr in table.tbody.find_all('tr'):
-            date = tr.find_all('td')[0].find_all('strong')[0].string
-            if not date:
+            date_be = tr.find_all('td')[0].find_all('strong')[0].string
+            if not date_be:
                 #There are some annoying elements in the date field like <br>
-                date = str(tr.find_all('td')[0].find_all('strong')[0]).split(">")[1].split("<")[0]
+                date_be = str(tr.find_all('td')[0].find_all('strong')[0]).split(">")[1].split("<")[0]
 
-            hans = str(tr.find_all('td')[2])
+            line = str(tr.find_all('td')[2])
 
             disctricts = {
                 241: 0,
@@ -443,22 +445,22 @@ class Command(BaseCommand):
 
             value_total = 0
 
-            for gemeinde in hans.split("<br/>"):
-                if "</td>" in gemeinde:
-                    gemeinde = gemeinde.split('</td>')[0]
-                if ">" in gemeinde:
-                    gemeinde = gemeinde.split('>')[1]
-                if "<" in gemeinde:
-                    gemeinde = gemeinde.split('<')[0]
-                if len(gemeinde.split(' ')) > 1:
+            for commune in line.split("<br/>"):
+                if "</td>" in commune:
+                    commune = commune.split('</td>')[0]
+                if ">" in commune:
+                    commune = commune.split('>')[1]
+                if "<" in commune:
+                    commune = commune.split('<')[0]
+                if len(commune.split(' ')) > 1:
 
                     try:
-                        value = int(gemeinde.split(' ')[0])
+                        value = int(commune.split(' ')[0])
                         value_total += value
-                        name = gemeinde.split(' ')[1]
+                        name = commune.split(' ')[1]
 
-                        if name in gemeinden:
-                            bezirknum = gemeinden[name]
+                        if name in communes:
+                            bezirknum = communes[name]
                             disctricts[bezirknum] += value
                         else:
                             print(f"Value:{value}")
@@ -469,5 +471,67 @@ class Command(BaseCommand):
                         print("A weird line")
 
             for district in disctricts:
-                print(f"{district};{date};{district_names[district]};{district_population[district]};{disctricts[district]}")
+                print(f"{district};{date_be};{district_names[district]};{district_population[district]};{disctricts[district]}")
+
+                year = date_be.split(".")[2]
+                if len(year) == 2:
+                    year = f"20{year}"
+
+                date_iso = f'{year}-{date_be.split(".")[1]}-{date_be.split(".")[0]}'
+                date_tosave = date.fromisoformat(date_iso)
+
+                bezirk = CHCanton.objects.get(swisstopo_id=district)
+
+                incidence7days = None
+                incidence14days = None
+                cases7days = disctricts[district]
+                has_a_none=False
+
+                for x in range(1, 7):
+                    print(x)
+                    try:
+                        print("......")
+                        print(date_tosave-timedelta(days=x))
+                        past = CHCases.objects.get(canton=bezirk, date=date_tosave-timedelta(days=x))
+                        print (past.cases)
+                        if past.cases is not None:
+                            cases7days += past.cases
+                        else:
+                            print("Error1")
+                            has_a_none = True
+                    except:
+                        print("Error")
+                        has_a_none = True
+
+                if not has_a_none:
+                    incidence7days = cases7days * 100000 / bezirk.population
+
+                    try:
+                        past7 = CHCases.objects.get(canton=bezirk, date=date_tosave-timedelta(days=7))
+                        if (past7.incidence_past7days):
+                            incidence14days = incidence7days + past7.incidence_past7days
+                    except:
+                        print("Well....")
+
+                print(cases7days)
+                print(incidence7days)
+                print(has_a_none)
+
+                try:
+                    cd_existing = CHCases.objects.get(canton=bezirk, date=date_tosave)
+                    cd_existing.cases = disctricts[district]
+                    if (incidence7days):
+                        cd_existing.incidence_past7days = incidence7days
+                    if (incidence14days):
+                        cd_existing.incidence_past7days = incidence14days
+                    cd_existing.save()
+                except CHCases.DoesNotExist:
+                    cd = CHCases(canton=bezirk, cases=disctricts[district], date=date_tosave)
+                    if (incidence7days):
+                        cd.incidence_past7days = incidence7days
+                    if (incidence14days):
+                        cd.incidence_past7days = incidence14days
+                    cd.save()
+
+
 
