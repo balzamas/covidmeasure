@@ -20,3 +20,4 @@ pandas
 xlrd
 django-cors-headers
 bs4
+matplotlib

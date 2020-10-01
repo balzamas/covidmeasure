@@ -4,7 +4,11 @@ from .models import Country, MeasureCategory, MeasureType, Measure, Continent, C
 
 admin.site.register(Continent)
 admin.site.register(MeasureCategory)
-admin.site.register(CasesDeaths)
+
+class CasesDeathsAdmin(admin.ModelAdmin):
+    list_display = ['country', 'date', 'cases_past14days', 'cases_past7days', 'deaths_past14days']
+    list_filter = ('country','date')
+admin.site.register(CasesDeaths, CasesDeathsAdmin)
 
 class CHCasesAdmin(admin.ModelAdmin):
     list_display = ['canton', 'date', 'cases', 'incidence_past14days', 'incidence_past7days']

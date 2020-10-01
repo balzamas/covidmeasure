@@ -13,6 +13,7 @@ router.register(r'measures', MeasureViewSet)
 
 urlpatterns = [
     path("", views.international, name="home"),
+    path('ranking_countries/', views.ranking_countries, name='ranking_countries'),
     path('ranking/', views.ranking, name='ranking'),
     path('ranking14/', views.ranking14, name='ranking14'),
     path('ranking14all/', views.ranking14_all, name='ranking14_all'),
