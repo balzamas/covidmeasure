@@ -329,12 +329,12 @@ function applyCountryBorder(map, countryname) {
         }
 
         function getColor(d) {
-            return  d > 160   ? '#ff8916' :
-                    d > 140   ? '#ff9c39' :
-                    d > 120   ? '#ffb56c' :
-                    d > 100   ? '#fed1a4' :
-                    d > 80   ? '#ffdcb8' :
-                    d > 60   ? '#ffebd7' :
+            return  d > 160   ? '#ff2a2a' :
+                    d > 140   ? '#ff6b6b' :
+                    d > 120   ? '#ff8916' :
+                    d > 100   ? '#ff9c39' :
+                    d > 80   ? '#ffb56c' :
+                    d > 60   ? '#fed1a4' :
                     d > 40   ? '#7aa6fe' :
                     d > 20   ? '#9cbdff' :
                     d > 5   ? '#abc7ff' :
