@@ -330,8 +330,8 @@ function applyCountryBorder(map, countryname) {
 
         function getColor(d) {
             return  d > 160   ? '#ff0000' :
-                    d > 140   ? '#ff2a2a' :
-                    d > 120   ? '#ff6b6b' :
+                    d > 140   ? '#fb5f5f' :
+                    d > 120   ? '#fb8c8c' :
                     d > 100   ? '#ff8916' :
                     d > 80   ? '#ffb56c' :
                     d > 60   ? '#fed1a4' :
