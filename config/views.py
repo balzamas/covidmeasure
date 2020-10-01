@@ -103,13 +103,14 @@ def ranking14_calc(cantons):
         cases = CHCases.objects.filter(canton=canton, date__range=[date_tocheck - timedelta(days=10), date_tocheck]).order_by("-date")
         print("got the cases")
 
-        last_date = cases[0].date
-        last_prev = cases[0].incidence_past14days
-        past_date_tocheck = last_date - timedelta(days=14)
-        past_past_date_tocheck = past_date_tocheck - timedelta(days=14)
-
-        print("check the past")
         try:
+            last_date = cases[0].date
+            last_prev = cases[0].incidence_past14days
+            past_date_tocheck = last_date - timedelta(days=14)
+            past_past_date_tocheck = past_date_tocheck - timedelta(days=14)
+
+            print("check the past")
+
             case_14days_before = CHCases.objects.get(canton=canton, date=past_date_tocheck)
             case_14days_before_before = CHCases.objects.get(canton=canton, date=past_past_date_tocheck)
             print("checked")
@@ -139,19 +140,18 @@ def ranking14_calc(cantons):
             score_14days_before = -999
 
 
+        if (score > -999):
+            if (score > score_14days_before):
+                arrow = "arrow circle up green"
+            elif (score == score_14days_before):
+                arrow = "arrow circle left orange"
+            else:
+                arrow = "arrow circle down red"
 
-
-        if (score > score_14days_before):
-            arrow = "arrow circle up green"
-        elif (score == score_14days_before):
-            arrow = "arrow circle left orange"
-        else:
-            arrow = "arrow circle down red"
-
-        canton_toadd = {"name": canton.name, "score": int(score),"score_before": int(score_14days_before),
-                        "date": last_date, "cur_prev": last_prev,
-                        "tendency": int(tendency), "icon": arrow}
-        canton_vals.append(canton_toadd)
+            canton_toadd = {"name": canton.name, "score": int(score),"score_before": int(score_14days_before),
+                            "date": last_date, "cur_prev": last_prev,
+                            "tendency": int(tendency), "icon": arrow}
+            canton_vals.append(canton_toadd)
 
     print("finished getting cases")
 
