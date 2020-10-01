@@ -123,8 +123,8 @@ class Command(BaseCommand):
                 seven_avg = seven_tot * 100000 / country.population
 
                 day.deaths_past14days = fourteen_avg_death
-                day.incidence_past14days = fourteen_avg
-                day.incidence_past7days = seven_avg
+                day.cases_past14days = fourteen_avg
+                day.cases_past7days = seven_avg
                 day.save()
 
 
