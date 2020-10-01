@@ -523,14 +523,14 @@ class Command(BaseCommand):
                     if (incidence7days):
                         cd_existing.incidence_past7days = incidence7days
                     if (incidence14days):
-                        cd_existing.incidence_past7days = incidence14days
+                        cd_existing.incidence_past14days = incidence14days
                     cd_existing.save()
                 except CHCases.DoesNotExist:
                     cd = CHCases(canton=bezirk, cases=disctricts[district], date=date_tosave)
                     if (incidence7days):
                         cd.incidence_past7days = incidence7days
                     if (incidence14days):
-                        cd.incidence_past7days = incidence14days
+                        cd.incidence_past14days = incidence14days
                     cd.save()
 
 
