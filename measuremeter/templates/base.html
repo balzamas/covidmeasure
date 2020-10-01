@@ -143,7 +143,11 @@
 
   </div>
 </div>
-
+  <br>
+    <b>Last changes (Countries)</b><br>
+    {% for x in measures%}
+       {{x}}, {{x.created}}<br>
+    {% endfor %}
 
     </div>
   </body>

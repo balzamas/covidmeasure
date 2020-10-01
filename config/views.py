@@ -1,4 +1,4 @@
-from measuremeterdata.models import Measure, Country, MeasureType, MeasureCategory, CHCases, CHCanton
+from measuremeterdata.models import Measure, Country, MeasureType, MeasureCategory, CHCases, CHCanton, CHMeasure
 from django.shortcuts import get_object_or_404, render
 from datetime import date, timedelta
 from django.template import loader
@@ -109,22 +109,37 @@ def ranking14_calc(cantons):
         past_past_date_tocheck = past_date_tocheck - timedelta(days=14)
 
         print("check the past")
-        case_14days_before = CHCases.objects.get(canton=canton, date=past_date_tocheck)
-        case_14days_before_before = CHCases.objects.get(canton=canton, date=past_past_date_tocheck)
-        print("checked")
+        try:
+            case_14days_before = CHCases.objects.get(canton=canton, date=past_date_tocheck)
+            case_14days_before_before = CHCases.objects.get(canton=canton, date=past_past_date_tocheck)
+            print("checked")
 
-        if (case_14days_before.incidence_past14days > 0):
-            tendency = ((cases[0].incidence_past14days * 100 / case_14days_before.incidence_past14days) - 100)
-        else:
-            tendency = ((cases[0].incidence_past14days * 100 / 1) - 100)
+            if (case_14days_before.incidence_past14days is not None):
+                if (case_14days_before.incidence_past14days > 0):
+                    tendency = ((cases[0].incidence_past14days * 100 / case_14days_before.incidence_past14days) - 100)
+                else:
+                    tendency = ((cases[0].incidence_past14days * 100 / 1) - 100)
+            else:
+                tendency = 0
 
-        if (case_14days_before_before.incidence_past14days > 0):
-            tendency_14daysbefore = ((case_14days_before.incidence_past14days * 100 / case_14days_before_before.incidence_past14days) - 100)
-        else:
-            tendency_14daysbefore = ((case_14days_before.incidence_past14days * 100 / 1) - 100)
+            if (case_14days_before_before.incidence_past14days is not None):
+                if (case_14days_before_before.incidence_past14days > 0):
+                    tendency_14daysbefore = ((case_14days_before.incidence_past14days * 100 / case_14days_before_before.incidence_past14days) - 100)
+                else:
+                    tendency_14daysbefore = ((case_14days_before.incidence_past14days * 100 / 1) - 100)
+            else:
+                tendency_14daysbefore = 0
 
-        score = 0 - cases[0].incidence_past14days - (tendency / 5)
-        score_14days_before = 0 - case_14days_before.incidence_past14days - (tendency_14daysbefore / 5)
+            score_14days_before = 0 - case_14days_before.incidence_past14days - (tendency_14daysbefore / 5)
+            score = 0 - cases[0].incidence_past14days - (tendency / 5)
+        except:
+            tendency = 0
+            tendency_14daysbefore = 0
+            score = -999
+            score_14days_before = -999
+
+
+
 
         if (score > score_14days_before):
             arrow = "arrow circle up green"
@@ -160,6 +175,24 @@ def ranking14_calc(cantons):
             score["rank_icon"] = "arrow circle down red"
 
     return scores
+
+def ch(request):
+    measures = CHMeasure.objects.all().order_by('-created')[:10]
+
+    template = loader.get_template('pages/ch.html')
+    context = {
+        'measures': measures,
+    }
+    return HttpResponse(template.render(context, request))
+
+def international(request):
+    measures = Measure.objects.all().order_by('-created')[:10]
+
+    template = loader.get_template('pages/home.html')
+    context = {
+        'measures': measures,
+    }
+    return HttpResponse(template.render(context, request))
 
 def ranking14(request):
 
