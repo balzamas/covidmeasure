@@ -47,5 +47,5 @@ class Command(BaseCommand):
 
 
 
-            plt.savefig(f'measuremeter/static/images/graphs_world/{country.code}.png', dpi=100)
+            plt.savefig(f'/app/measuremeter/static/images/graphs_world/{country.code}.png', dpi=100)
             plt.close()
