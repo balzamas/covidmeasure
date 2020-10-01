@@ -471,67 +471,60 @@ class Command(BaseCommand):
                         print("A weird line")
 
             for district in disctricts:
-                print(f"{district};{date_be};{district_names[district]};{district_population[district]};{disctricts[district]}")
+                if (district == 242):
+                    print(f"{district};{date_be};{district_names[district]};{district_population[district]};{disctricts[district]}")
 
-                year = date_be.split(".")[2]
-                if len(year) == 2:
-                    year = f"20{year}"
+                    year = date_be.split(".")[2]
+                    if len(year) == 2:
+                        year = f"20{year}"
 
-                date_iso = f'{year}-{date_be.split(".")[1]}-{date_be.split(".")[0]}'
-                date_tosave = date.fromisoformat(date_iso)
+                    date_iso = f'{year}-{date_be.split(".")[1]}-{date_be.split(".")[0]}'
+                    date_tosave = date.fromisoformat(date_iso)
 
-                bezirk = CHCanton.objects.get(swisstopo_id=district)
+                    bezirk = CHCanton.objects.get(swisstopo_id=district)
 
-                incidence7days = None
-                incidence14days = None
-                cases7days = disctricts[district]
-                has_a_none=False
+                    incidence7days = None
+                    incidence14days = None
+                    cases7days = disctricts[district]
+                    has_a_none=False
 
-                for x in range(1, 7):
-                    print(x)
-                    try:
-                        print("......")
-                        print(date_tosave-timedelta(days=x))
-                        past = CHCases.objects.get(canton=bezirk, date=date_tosave-timedelta(days=x))
-                        print (past.cases)
-                        if past.cases is not None:
-                            cases7days += past.cases
-                        else:
-                            print("Error1")
+                    for x in range(1, 7):
+                        print(x)
+                        try:
+                            past = CHCases.objects.get(canton=bezirk, date=date_tosave-timedelta(days=x))
+                            if past.cases is not None:
+                                cases7days += past.cases
+                            else:
+                                has_a_none = True
+                        except:
                             has_a_none = True
-                    except:
-                        print("Error")
-                        has_a_none = True
 
-                if not has_a_none:
-                    incidence7days = cases7days * 100000 / bezirk.population
+                    if not has_a_none:
+                        incidence7days = cases7days * 100000 / bezirk.population
+
+                        try:
+                            past7 = CHCases.objects.get(canton=bezirk, date=date_tosave-timedelta(days=7))
+
+                            if (past7.incidence_past7days):
+                                incidence14days = incidence7days + float(past7.incidence_past7days)
+                        except:
+                            print("Well....")
 
                     try:
-                        past7 = CHCases.objects.get(canton=bezirk, date=date_tosave-timedelta(days=7))
-                        if (past7.incidence_past7days):
-                            incidence14days = incidence7days + past7.incidence_past7days
-                    except:
-                        print("Well....")
-
-                print(cases7days)
-                print(incidence7days)
-                print(has_a_none)
-
-                try:
-                    cd_existing = CHCases.objects.get(canton=bezirk, date=date_tosave)
-                    cd_existing.cases = disctricts[district]
-                    if (incidence7days):
-                        cd_existing.incidence_past7days = incidence7days
-                    if (incidence14days):
-                        cd_existing.incidence_past14days = incidence14days
-                    cd_existing.save()
-                except CHCases.DoesNotExist:
-                    cd = CHCases(canton=bezirk, cases=disctricts[district], date=date_tosave)
-                    if (incidence7days):
-                        cd.incidence_past7days = incidence7days
-                    if (incidence14days):
-                        cd.incidence_past14days = incidence14days
-                    cd.save()
+                        cd_existing = CHCases.objects.get(canton=bezirk, date=date_tosave)
+                        cd_existing.cases = disctricts[district]
+                        if (incidence7days):
+                            cd_existing.incidence_past7days = incidence7days
+                        if (incidence14days):
+                            cd_existing.incidence_past14days = incidence14days
+                        cd_existing.save()
+                    except CHCases.DoesNotExist:
+                        cd = CHCases(canton=bezirk, cases=disctricts[district], date=date_tosave)
+                        if (incidence7days):
+                            cd.incidence_past7days = incidence7days
+                        if (incidence14days):
+                            cd.incidence_past14days = incidence14days
+                        cd.save()
 
 
 
