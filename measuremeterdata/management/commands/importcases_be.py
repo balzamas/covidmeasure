@@ -471,7 +471,6 @@ class Command(BaseCommand):
                         print("A weird line")
 
             for district in disctricts:
-                if (district == 242):
                     print(f"{district};{date_be};{district_names[district]};{district_population[district]};{disctricts[district]}")
 
                     year = date_be.split(".")[2]
