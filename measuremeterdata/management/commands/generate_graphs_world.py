@@ -2,9 +2,12 @@ from pylab import figure, axes, pie, title, show
 from django.core.management.base import BaseCommand, CommandError
 from matplotlib import pyplot as plt
 from measuremeterdata.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHCases
+import os
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+        if not os.path.exists('measuremeter/static/images/graphs_world/'):
+            os.makedirs('measuremeter/static/images/graphs_world/')
         for country in Country.objects.all():
             print(country)
             print(".....")
@@ -13,7 +16,6 @@ class Command(BaseCommand):
             dates = []
 
             for day in CasesDeaths.objects.filter(country=country).order_by('-date')[:31]:
-                print(day.cases_past14days)
                 if (day.cases_past14days is not None):
                     cases.append(int(day.cases_past14days))
                     dates.append(day.date)

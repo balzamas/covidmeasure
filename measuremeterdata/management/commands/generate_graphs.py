@@ -2,9 +2,14 @@ from pylab import figure, axes, pie, title, show
 from django.core.management.base import BaseCommand, CommandError
 from matplotlib import pyplot as plt
 from measuremeterdata.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHCases
+import os
+
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+        if not os.path.exists('measuremeter/static/images/graphs_ch/'):
+            os.makedirs('measuremeter/static/images/graphs_ch/')
+
         for canton in CHCanton.objects.filter(level=0):
             print(canton)
 
