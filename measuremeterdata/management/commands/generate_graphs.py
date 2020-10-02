@@ -11,8 +11,13 @@ class Command(BaseCommand):
 
         print(path)
 
-        if not os.path.exists('measuremeter/static/images/graphs_ch/'):
-            os.makedirs('measuremeter/static/images/graphs_ch/')
+        f = open("demofile2.txt", "a")
+        f.write("Now the file has more content!")
+        f.close()
+
+        if not os.path.exists('/app/measuremeter/static/images/graphs_ch/'):
+            print("create dir")
+            os.makedirs('/app/measuremeter/static/images/graphs_ch/')
 
         for canton in CHCanton.objects.filter(level=0):
             print(canton)
@@ -51,5 +56,5 @@ class Command(BaseCommand):
 
 
 
-            plt.savefig(f'measuremeter/static/images/graphs_ch/{canton.code}.png', dpi=100)
+            plt.savefig(f'/app/measuremeter/static/images/graphs_ch/{canton.code}.png', dpi=100)
             plt.close()
