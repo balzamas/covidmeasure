@@ -20,40 +20,72 @@ def render_compare(request, country_name):
 
 def ranking_countries(request):
 
-    countries = Country.objects.all()
+    countries = Country.objects.filter(continent=1)
 #    cantons = CHCanton.objects.all()
     country_vals = []
 
     for country in countries:
         date_tocheck = date.today()
 
-        cases = CasesDeaths.objects.filter(country=country, date__range=[date_tocheck - timedelta(days=10), date_tocheck]).order_by("-date")
+        print(country)
+
+        cases = CasesDeaths.objects.filter(country=country, date__range=[date_tocheck - timedelta(days=28), date_tocheck]).order_by("-date")
 
         last_date = cases[0].date
         last_prev7 = cases[0].cases_past7days
         last_prev14 = cases[0].cases_past14days
-        past_date_tocheck = last_date - timedelta(days=7)
-        past_past_date_tocheck = past_date_tocheck - timedelta(days=7)
+        last_deaths14 = cases[0].deaths_past14days
+        last_positivity = None
+        last_positivity_date = None
+        positivity_last7 = 0.0
+        positivity_last7_count = 0
+        positivity_before7 = 0.0
+        positivity_before7_count = 0
+        pos_count = 0
+        for case in cases:
+            if (case.positivity != None and last_positivity == None):
+                last_positivity = case.positivity
+                last_positivity_date = case.date
 
-        case_7days_before = CasesDeaths.objects.get(country=country, date=past_date_tocheck)
-        case_7days_before_before = CasesDeaths.objects.get(country=country, date=past_past_date_tocheck)
+            if (case.positivity != None):
+                if (pos_count < 7):
+                    positivity_last7 += float(case.positivity)
+                    positivity_last7_count += 1
+                else:
+                    positivity_before7 += float(case.positivity)
+                    positivity_before7_count += 1
+                pos_count += 1
 
 
-        if (case_7days_before.cases_past7days > 0):
-            tendency = ((cases[0].cases_past7days * 100 / case_7days_before.cases_past7days) - 100)
+
+        past_date_tocheck = last_date - timedelta(days=14)
+        past_past_date_tocheck = past_date_tocheck - timedelta(days=14)
+
+        case_14days_7daysago = CasesDeaths.objects.get(country=country, date=last_date - timedelta(days=7))
+        case_14days_14daysago = CasesDeaths.objects.get(country=country, date=past_date_tocheck)
+        case_14days_21daysago = CasesDeaths.objects.get(country=country, date=last_date - timedelta(days=21))
+
+        if (case_14days_14daysago.cases_past14days > 0):
+            tendency = ((cases[0].cases_past14days * 100 / case_14days_14daysago.cases_past14days) - 100)
         else:
-            tendency = ((cases[0].cases_past7days * 100 / 1) - 100)
+            tendency = ((cases[0].cases_past14days * 100 / 1) - 100)
 
-        if (case_7days_before_before.cases_past7days > 0):
-            tendency_7daysbefore = ((case_7days_before.cases_past7days * 100 / case_7days_before_before.cases_past7days) - 100)
+        if (case_14days_21daysago.cases_past7days > 0):
+            tendency_7daysbefore = ((case_14days_7daysago.cases_past14days * 100 / case_14days_21daysago.cases_past14days) - 100)
         else:
-            tendency_7daysbefore = ((case_7days_before.cases_past7days * 100 / 1) - 100)
+            tendency_7daysbefore = ((case_14days_7daysago.cases_past14days * 100 / 1) - 100)
 
+        if (last_positivity == None):
+            positivity_last7 = 5
+            positivity_last7_count = 1
+            positivity_before7 = 5
+            positivity_before7_count = 1
 
-        #score = 0 - cases[0].incidence_past7days - (tendency / 5)
-        score = cases[0].cases_past7days + cases[0].cases_past14days
-        #score_7days_before = 0 - case_7days_before.incidence_past7days - (tendency_7daysbefore / 5)
-        score_7days_before = case_7days_before.cases_past7days + case_7days_before.cases_past14days
+        print(str(float(cases[0].cases_past14days)) +"//" + str(float(cases[0].cases_past7days)) +"//" + str(float((tendency / 5))) +"//" +  str(float((cases[0].deaths_past14days * 100))) +"//" + str(float((positivity_last7 / positivity_last7_count *10))))
+        print(str(float(case_14days_14daysago.cases_past14days)) +"//" + str(float(case_14days_14daysago.cases_past7days)) +"//" + str(float((tendency_7daysbefore / 5))) +"//" + str(float((case_14days_14daysago.deaths_past14days * 100))) +"//" + str(float((positivity_before7 / positivity_before7_count * 10))))
+
+        score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + float((tendency / 5)) +  float((cases[0].deaths_past14days * 100)) + float((positivity_last7 / positivity_last7_count *50))
+        score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + float((tendency_7daysbefore / 5)) + float((case_14days_7daysago.deaths_past14days * 100)) + float((positivity_before7 / positivity_before7_count * 50))
 
         if (score > score_7days_before):
             arrow = "arrow circle up green"
@@ -65,17 +97,18 @@ def ranking_countries(request):
         canton_toadd = {"name": country.name, "score": int(score), "score_before": int(score_7days_before),
                         "date": last_date, "code": country.code,
                         "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": int(tendency),
-                        "cur_prev7": case_7days_before.cases_past7days, "tendency7": int(tendency_7daysbefore), "icon": arrow}
+                        "cur_prev7": case_14days_14daysago.cases_past7days, "tendency7": int(tendency_7daysbefore),
+                        "positivity": last_positivity, "positivity_date":last_positivity_date, "deaths": last_deaths14, "icon": arrow}
 
         country_vals.append(canton_toadd)
 
-    scores = sorted(country_vals, key=lambda i: i['score_before'],reverse=True)
+    scores = sorted(country_vals, key=lambda i: i['score_before'],reverse=False)
     rank = 1
     for score in scores:
         score["rank_old"] = rank
         rank += 1
 
-    scores = sorted(scores, key=lambda i: i['score'],reverse=True)
+    scores = sorted(scores, key=lambda i: i['score'],reverse=False)
     rank = 1
     for score in scores:
         score["rank"] = rank
@@ -91,7 +124,7 @@ def ranking_countries(request):
 
     template = loader.get_template('pages/ranking_country.html')
     context = {
-        'cantons': scores,
+        'countries': scores,
     }
     return HttpResponse(template.render(context, request))
 
@@ -127,10 +160,8 @@ def ranking(request):
             tendency_7daysbefore = ((case_7days_before.incidence_past7days * 100 / 1) - 100)
 
 
-        #score = 0 - cases[0].incidence_past7days - (tendency / 5)
-        score = cases[0].incidence_past7days + cases[0].incidence_past14days
-        #score_7days_before = 0 - case_7days_before.incidence_past7days - (tendency_7daysbefore / 5)
-        score_7days_before = case_7days_before.incidence_past7days + case_7days_before.incidence_past14days
+        score = 0 - cases[0].incidence_past7days - (tendency / 5)
+        score_7days_before = 0 - case_7days_before.incidence_past7days - (tendency_7daysbefore / 5)
 
         if (score > score_7days_before):
             arrow = "arrow circle up green"

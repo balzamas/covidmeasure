@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>CovidLaws // Countries rankings</title>
+    <title>CovidLaws // Canton rankings</title>
         <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Fathom - beautiful, simple website analytics -->
@@ -27,6 +27,8 @@
 	<style>
 table, th, td {
   padding: 10px;
+  font-size: 30;
+
 }
 table.center {
   margin-left: auto;
@@ -37,6 +39,21 @@ table.center {
 			height: 100%;
 			margin: 0;
 		}
+
+		    .container {
+      position: relative;
+      text-align: center;
+      color: white;
+      }
+      /* Centered text */
+      .centered {
+        position: absolute;
+        color: black;
+        font-size: 30;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
 	</style>
 
 	<style>#map { width: 800px; height: 700px; }
@@ -51,7 +68,7 @@ table.center {
 <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
 
 
-      <h1>CovidLaws // Countries // Ranking</h1>
+      <h1>CovidLaws // Cantons // Ranking</h1>
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu"></div>
 
@@ -61,7 +78,7 @@ table.center {
     <br><br>
     <a href="/ranking">Ranking 7 days</a>//<a href="/ranking14">Ranking 14 days</a>//<a href="/ranking14all">Ranking 14 days Cantons & Districts</a>
     <br>
-    <tr><td>Rank</td><td>Shift</td><td>Canton</td><td>Score</td><td>Prevalence<br>7d/100k</td><td>Prevalence<br>14d/100k</td><td>Tendency</td><td>Last update</td><td>Prevalence<br>7d/100k<br>Past 2 months</td></tr>
+    <tr><td>Rank</td><td>Shift</td><td>Canton</td><td>Score</td><td align="center">Prevalence 7d/100k<br>Graph: last 2 months</td><td>Tendency</td><td>Last update</td></tr>
     {% for hans in cantons %}
 
     <tr>
@@ -80,11 +97,11 @@ table.center {
       <td>
         <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>
       </td>
-      <td>
-        {{ hans.cur_prev }}
-      </td>
-      <td>
-        {{ hans.cur_prev14 }}
+     <td>
+        <div class="container">
+          <img src=/static/images/graphs_ch/{{ hans.code  }}_7.png>
+          <div class="centered">{{ hans.cur_prev }}</div>
+        </div>
       </td>
       <td>
         {{ hans.tendency }}
@@ -92,10 +109,7 @@ table.center {
       <td>
         {{ hans.date }}
       </td>
-      <td>
 
-        <img src=/static/images/graphs_world/{{ hans.code  }}.png>
-      </td>
     </tr>
     {% endfor %}
   </table>
