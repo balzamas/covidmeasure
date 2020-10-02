@@ -6,6 +6,10 @@ import os
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+        path = os.getcwd()
+
+        print(path)
+        
         if not os.path.exists('measuremeter/static/images/graphs_world/'):
             os.makedirs('measuremeter/static/images/graphs_world/')
         for country in Country.objects.all():
@@ -47,5 +51,5 @@ class Command(BaseCommand):
 
 
 
-            plt.savefig(f'/app/measuremeter/static/images/graphs_world/{country.code}.png', dpi=100)
+            plt.savefig(f'measuremeter/static/images/graphs_world/{country.code}.png', dpi=100)
             plt.close()
