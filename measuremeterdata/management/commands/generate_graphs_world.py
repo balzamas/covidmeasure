@@ -9,7 +9,7 @@ class Command(BaseCommand):
         path = os.getcwd()
 
         print(path)
-        
+
         if not os.path.exists('measuremeter/static/images/graphs_world/'):
             os.makedirs('measuremeter/static/images/graphs_world/')
         for country in Country.objects.all():
