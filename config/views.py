@@ -88,11 +88,11 @@ def ranking_countries(request):
         score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + float((tendency_7daysbefore / 5)) + float((case_14days_7daysago.deaths_past14days * 100)) + float((positivity_before7 / positivity_before7_count * 50))
 
         if (score > score_7days_before):
-            arrow = "arrow circle up green"
+            arrow = "arrow circle up red"
         elif (score == score_7days_before):
             arrow = "arrow circle left orange"
         else:
-            arrow = "arrow circle down red"
+            arrow = "arrow circle down green"
 
         canton_toadd = {"name": country.name, "score": int(score), "score_before": int(score_7days_before),
                         "date": last_date, "code": country.code,
