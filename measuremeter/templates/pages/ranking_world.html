@@ -92,6 +92,17 @@ table.center {
     {% for hans in countries %}
 
     <tr>
+      {% if hans.continent == 1 %}
+        <td bgcolor="#00c1ff">
+      {% elif hans.continent == 2 %}
+        <td bgcolor="#ff9b00">
+      {% elif hans.continent == 3 %}
+        <td bgcolor="#03d840">
+      {% elif hans.continent == 4 %}
+        <td bgcolor="#ffff00">
+      {% endif %}
+        &nbsp;
+      </td>
 
       <td>
         <b>{{ hans.rank }}</b>

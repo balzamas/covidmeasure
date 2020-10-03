@@ -103,7 +103,7 @@ def calc_ranking_countries(countries):
                         "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": int(tendency),
                         "cur_prev7": case_14days_14daysago.cases_past7days, "tendency7": int(tendency_7daysbefore),
                         "positivity": last_positivity, "positivity_date":last_positivity_date, "deaths": last_deaths14,
-                        "has_measures": country.has_measures, "icon": arrow}
+                        "has_measures": country.has_measures, "continent": country.continent.pk, "icon": arrow}
 
         country_vals.append(canton_toadd)
 
