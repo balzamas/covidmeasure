@@ -82,6 +82,7 @@ table.center {
     <p>Rank and Score are compared to 7 days ago. The lower the better.</p>
     <p>Graphs show development in the last 2 months.</p>
     <p>It's very critical to compare data between countries, as they use different counting methods, different testing rules etc. etc.<br>
+      Also, this pandemic is regional, there is a huge size difference between the countries.<br>
     Nonetheless I decided to create a ranking system because I realized that I didn't notice when the situation was changing in other countries.<br>
     So with the help of this list I hope it's easier to see what's currently going on in Europe.</p>
 
@@ -134,8 +135,42 @@ table.center {
   </table>
 
 <br><br>
-      <p>Score: [Cases per 100k/past 14 days] + [Cases per 100k/past 7 days] + [Deaths per 100k/past 14 days * 100] + [Average positive rate past 7 days * 50] + [Tendency (Cases per 100k past 14 days compare to 14 days ago in %) / 5]<br>
-      If no positive rate is available, the average of 5% is used.</p>
+   <table>
+    <tr>
+      <td>
+  <b>Score</b><br>
+  Following numbers are summed up to calculate the score:      </td>
+    </tr>
+    <tr>
+      <td>
+        [Cases per 100k/past 14 days]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [Cases per 100k/past 7 days]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [Deaths per 100k/past 14 days * 100]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [Average positive rate past 7 days * 50]
+      </td>
+      <td>
+        If no positive rate is available, the average of 5% is used.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [Tendency (Cases per 100k past 14 days compare to 14 days ago in %) / 5]
+      </td>
+    </tr>
+
+  </table>
 
       <p>Why this formula? Nothing scientific, I just tried to make a balanced score, taking into account the number of cases, trend in cases, death rates and if there are enough tests performed (by using positive rate).<br>
       Feel free to contact my if you have a suggestion: d.berger@dontsniff.co.uk</p>
