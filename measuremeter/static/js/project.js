@@ -9,7 +9,7 @@
                   <a class="item" href="/">Home</a>
                   <a class="item" href="/about/">Info/About</a>
                   <a class="item" href="/compare/">Compare Countries</a>
-                  <a class="item" href="/ranking_countries/">Ranking</a>
+                  <a class="item" href="/ranking_europe/">Ranking</a>
                   <a class="item" href="/country/">Country Profiles</a>
                   <a class="item" href="/euromap/">Map</a>
                   <a class="item" href="/ch/">Switzerland</a>

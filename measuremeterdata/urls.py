@@ -6,7 +6,7 @@ router = routers.DefaultRouter()
 router.register(r'measures', views.MeasureViewSet)
 
 router.register(r'measuresbymeasure', views.MeasureByMeasureViewSet)
-router.register(r'countries', views.CountryViewSet)
+router.register(r'countries', views.CountryWithMeasuresViewSet)
 router.register(r'measuretypes', views.MeasureTypeViewSet)
 router.register(r'measurecatgories', views.MeasureCategoryViewSet)
 router.register(r'casesdeaths', views.CasesDeathsViewSet)

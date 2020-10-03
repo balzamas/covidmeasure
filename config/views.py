@@ -18,10 +18,8 @@ def render_timeline(request, country_name):
 def render_compare(request, country_name):
     return render(request, 'pages/compare.html', {'items': country_name })
 
-def ranking_countries(request):
 
-    countries = Country.objects.filter(continent=1)
-#    cantons = CHCanton.objects.all()
+def calc_ranking_countries(countries):
     country_vals = []
 
     for country in countries:
@@ -29,7 +27,7 @@ def ranking_countries(request):
 
         print(country)
 
-        cases = CasesDeaths.objects.filter(country=country, date__range=[date_tocheck - timedelta(days=28), date_tocheck]).order_by("-date")
+        cases = CasesDeaths.objects.filter(country=country, date__range=[date_tocheck - timedelta(days=60), date_tocheck]).order_by("-date")
 
         last_date = cases[0].date
         last_prev7 = cases[0].cases_past7days
@@ -70,10 +68,16 @@ def ranking_countries(request):
         else:
             tendency = ((cases[0].cases_past14days * 100 / 1) - 100)
 
-        if (case_14days_21daysago.cases_past7days > 0):
+        if (case_14days_21daysago.cases_past14days > 0):
             tendency_7daysbefore = ((case_14days_7daysago.cases_past14days * 100 / case_14days_21daysago.cases_past14days) - 100)
         else:
             tendency_7daysbefore = ((case_14days_7daysago.cases_past14days * 100 / 1) - 100)
+
+        print(positivity_last7)
+        print(positivity_last7_count)
+        print(positivity_before7)
+        print(positivity_before7_count)
+
 
         if (last_positivity == None):
             positivity_last7 = 5
@@ -98,7 +102,8 @@ def ranking_countries(request):
                         "date": last_date, "code": country.code,
                         "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": int(tendency),
                         "cur_prev7": case_14days_14daysago.cases_past7days, "tendency7": int(tendency_7daysbefore),
-                        "positivity": last_positivity, "positivity_date":last_positivity_date, "deaths": last_deaths14, "icon": arrow}
+                        "positivity": last_positivity, "positivity_date":last_positivity_date, "deaths": last_deaths14,
+                        "has_measures": country.has_measures, "icon": arrow}
 
         country_vals.append(canton_toadd)
 
@@ -122,10 +127,26 @@ def ranking_countries(request):
             score["rank_icon"] = "arrow circle down red"
 
 
-    template = loader.get_template('pages/ranking_country.html')
     context = {
         'countries': scores,
     }
+    return context
+
+def ranking_world(request):
+    countries = Country.objects.all()
+    context = calc_ranking_countries(countries)
+
+    template = loader.get_template('pages/ranking_world.html')
+    return HttpResponse(template.render(context, request))
+
+
+
+def ranking_europe(request):
+
+    countries = Country.objects.filter(continent=1)
+    context = calc_ranking_countries(countries)
+
+    template = loader.get_template('pages/ranking_europe.html')
     return HttpResponse(template.render(context, request))
 
 def ranking(request):

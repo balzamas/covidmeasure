@@ -5,7 +5,7 @@ from rest_framework import serializers
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
-        fields = ['pk', 'name', 'code', 'iso_code', 'link_dashboard', 'link_worldometer','link_gov', 'comment',  'continent', 'average_death_per_day','average_death_per_day_peak', 'avg_desc', 'avg_peak_desc', 'source_death', 'population']
+        fields = ['pk', 'name', 'code', 'iso_code', 'link_dashboard', 'link_worldometer','link_gov', 'comment',  'continent', 'average_death_per_day','average_death_per_day_peak', 'avg_desc', 'avg_peak_desc', 'source_death', 'population', 'has_measures']
 
 class CasesDeathsSerializer(serializers.ModelSerializer):
     country = CountrySerializer()

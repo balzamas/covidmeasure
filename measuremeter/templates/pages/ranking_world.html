@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>CovidLaws // Europe rankings</title>
+    <title>CovidLaws // World rankings</title>
         <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Fathom - beautiful, simple website analytics -->
@@ -76,7 +76,7 @@ table.center {
       <div id="menu"></div>
 
   <table>
-    <h1>Europe Covid Ranking</h1>
+    <h1>World Covid Ranking</h1>
     Don't take this too serious. It's the internet.
     <br><br>
     <p>Rank and Score are compared to 7 days ago. The lower the better.</p>
@@ -84,6 +84,8 @@ table.center {
     <p>It's very critical to compare data between countries, as they use different counting methods, different testing rules etc. etc.<br>
     Nonetheless I decided to create a ranking system because I realized that I didn't notice when the situation was changing in other countries.<br>
     So with the help of this list I hope it's easier to see what's currently going on in Europe.</p>
+    <p>Countries: All European and some selected from all over the world (in general where positive rate is available).</p>
+    <p><a href="/ranking_europe">Ranking Europe</a> // <a href="/ranking_world">Ranking World</a></p>
     <br>
     <tr><td></td><td>Trend</td><td>Country</td><td>Score</td><td>Pos. Tests per 100k<br>Last 14 days</td><td>Deaths per 100k<br>Last 14 days</td><td>Positive rate<br>@ Date</td></tr>
     {% for hans in countries %}
@@ -99,7 +101,9 @@ table.center {
       </td>
       <td>
         <b>{{ hans.name }}</b>
-        <a href="/country/{{hans.code}}"><i class="info circle icon"></i></a>
+        {% if hans.has_measures == True %}
+          <a href="/country/{{hans.code}}"><i class="info circle icon"></i></a>
+        {% endif %}
       </td>
       <td>
         <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>

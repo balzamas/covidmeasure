@@ -31,6 +31,8 @@ class Country(MotherModel):
     avg_peak_desc = models.CharField(max_length=500,blank=True,null=True)
     source_death = models.CharField(max_length=500,blank=True,null=True)
     population = models.IntegerField(default=1)
+    has_measures = models.BooleanField(default= True)
+
     ordering = ['name']
 
     def __str__(self):
