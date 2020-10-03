@@ -408,6 +408,13 @@ communes = {
 "Plateau":241,
 "Péry-La":241,
 "Safern":242,
+"Buchholter-":247,
+"Wohlen":246,
+"Büren":243,
+"Muri":246,
+"St.":248,
+
+
 
 }
 
