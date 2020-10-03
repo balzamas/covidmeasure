@@ -396,6 +396,7 @@ communes = {
 "Sonceboz-": 241,
 "Oster-":246,
 "Frauen-kappelen":246,
+"Frauen-":246,
 "Kleinst-":241,
 "Urtenen-":246,
 "Rüdtligen-":245,
@@ -412,7 +413,9 @@ communes = {
 "Wohlen":246,
 "Büren":243,
 "Muri":246,
+"Muri-Gümligen":246,
 "St.":248,
+"St-Imier":241,
 
 
 
