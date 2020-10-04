@@ -78,6 +78,8 @@ table.center {
     <br><br>
     <a href="/ranking">Ranking 7 days</a>//<a href="/ranking14">Ranking 14 days</a>//<a href="/ranking14all">Ranking 14 days Cantons & Districts</a>
     <br>
+    <p>Graphs show development in the last 2 months.</p>
+
     <tr><td>Rank</td><td>Shift</td><td>Canton</td><td>Score</td><td align="center">Prevalence 7d/100k<br>Graph: last 2 months</td><td>Tendency</td><td>Last update</td></tr>
     {% for hans in cantons %}
 
@@ -114,10 +116,10 @@ table.center {
     {% endfor %}
   </table>
   <br>
-  Formula = 0 - Cases past 7 days per 100k pop - (Tendency /5)<br>
-  Why this Formula? I don't know. Combine current cases with development smh. For a true ranking we would need positivity rate, ICU occupancy etc. etc.
+    Formula = 0 - Cases past 14 days per 100k pop - (Tendency % (=compared to 14 days ago) /5)<br>
+  Why this Formula? Combine current cases with development smh. For a true ranking we would need positivity rate, ICU occupancy etc. etc.
   <br><br>
-  Source: <a href="https://opendata.swiss/de/dataset/covid_19-fallzahlen-kanton-zuerich" target="_blank">OpenData ZH</a><br>
+  Source: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a><br>
 
 
 

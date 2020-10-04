@@ -281,7 +281,7 @@ def ranking14_calc(cantons):
 
             canton_toadd = {"name": canton.name, "score": int(score),"score_before": int(score_14days_before),
                             "date": last_date, "cur_prev": last_prev,
-                            "tendency": int(tendency), "icon": arrow}
+                            "tendency": int(tendency), "icon": arrow, "level": canton.level, "code": canton.code, "id": canton.swisstopo_id}
             canton_vals.append(canton_toadd)
 
     print("finished getting cases")
