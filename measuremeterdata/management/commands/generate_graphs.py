@@ -52,5 +52,5 @@ class Command(BaseCommand):
                 cases14.append(int(day.incidence_past14days))
                 dates.append(day.date)
 
-            write_graph(canton, dates, cases14, "14", 250)
-            write_graph(canton, dates, cases7, "7", 130)
+            write_graph(canton, dates, cases14, "14", None)
+            write_graph(canton, dates, cases7, "7", None)
