@@ -105,15 +105,18 @@ table.center {
         <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>
       </td>
       <td>
-
-        <div class="container">
-          {% if hans.level == 0 %}
-            <img src=/static/images/graphs_ch/{{ hans.code  }}_14.png>
-          {% else %}
-            <img src=/static/images/graphs_ch/{{ hans.id  }}_14.png>
-          {% endif %}
-          <div class="centered">{{ hans.cur_prev }}</div>
-        </div>
+        {% if "(BE)" in hans.name or "(FR)" in hans.name %}
+          <div align="center">{{ hans.cur_prev }}</div>
+        {% else %}
+          <div class="container">
+            {% if hans.level == 0 %}
+              <img src=/static/images/graphs_ch/{{ hans.code  }}_14.png>
+            {% else %}
+              <img src=/static/images/graphs_ch/{{ hans.id  }}_14.png>
+            {% endif %}
+            <div class="centered">{{ hans.cur_prev }}</div>
+          </div>
+        {% endif %}
       </td>
       <td>
         {{ hans.tendency }}

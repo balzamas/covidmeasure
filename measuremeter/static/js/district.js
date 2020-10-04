@@ -234,7 +234,8 @@ function applyCountryBorder(map, countryname) {
                             {
                                 statesData.features[id].properties.level = item.incidence_past14days;
                                 statesData.features[id].properties.name = item.canton.name;
-                                statesData.features[id].properties.comment = "<p>"+item.incidence_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+"</p>";
+                                statesData.features[id].properties.comment = "<div align='center'><p>"+item.incidence_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+'</div><br><img src="/static/images/graphs_ch/'+ item.canton.code +'_14.png"></p>';
+                                statesData.features[id].properties.code = item.canton.code + "_14"
                             }
                     }
                     else if (item.canton.level == 1)
@@ -247,7 +248,15 @@ function applyCountryBorder(map, countryname) {
                                 {
                                     statesData.features[id].properties.level = item.incidence_past14days;
                                     statesData.features[id].properties.name = item.canton.name;
-                                    statesData.features[id].properties.comment = "<p>"+item.incidence_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+"</p>";
+                                    if (item.canton.name.includes("(BE)") || item.canton.name.includes("(FR)"))
+                                    {
+                                        statesData.features[id].properties.comment = "<div align='center'><p>"+item.incidence_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+'</div></p>';
+                                    }
+                                    else
+                                    {
+                                        statesData.features[id].properties.comment = "<div align='center'><p>"+item.incidence_past14days +'</p><p>Population:<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>Last update:<br>' + item.date+'</div><br><img src="/static/images/graphs_ch/'+ item.canton.swisstopo_id +'_14.png"></p>';
+                                    }
+                                    statesData.features[id].properties.code = item.canton.swisstopo_id + "_14"
                                 }
                             }
                     }
@@ -305,7 +314,7 @@ function applyCountryBorder(map, countryname) {
                 }
             }
             this._div.innerHTML = '' +  (props ?
-                '<div align=left><p><b>' + props.name + '</b></p>' + datestr + commentstr+'</div>'
+                '<div align=center><p><b>' + props.name + '</b></p>' + datestr + commentstr+'</div>'
                 : 'Hover over a state');
         };
 
