@@ -80,11 +80,13 @@ table.center {
     <br>
     <p>Graphs show development in the last 2 months.</p>
 
-    <tr><td>Rank</td><td>Shift</td><td>Canton</td><td>Score</td><td align="center">Prevalence 7d/100k<br>Graph: last 2 months</td><td>Tendency</td><td>Last update</td></tr>
+    <tr><td></td><td>Rank</td><td>Shift</td><td>Canton</td><td>Score</td><td align="center">Prevalence 7d/100k<br>Graph: last 2 months</td><td>Tendency</td><td>Last update</td></tr>
     {% for hans in cantons %}
 
     <tr>
-
+      <td>
+        <img src=/static/images/flags_ch/{{ hans.code  }}_circle.png>
+      </td>
       <td>
         {{ hans.rank }}
       </td>
