@@ -315,7 +315,7 @@ function applyCountryBorder(map, countryname) {
             }
             this._div.innerHTML = '' +  (props ?
                 '<div align=center><p><b>' + props.name + '</b></p>' + datestr + commentstr+'</div>'
-                : 'Hover over a state');
+                : gettext('Hover over a state'));
         };
 
         info.addTo(map);
