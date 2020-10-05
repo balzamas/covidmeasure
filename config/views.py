@@ -193,7 +193,8 @@ def ranking7_calc(cantons):
         canton_toadd = {"name": canton.name, "score": int(score), "score_before": int(score_7days_before),
                         "date": last_date, "code": canton.code,
                         "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": int(tendency),
-                        "cur_prev7": case_7days_before.incidence_past7days, "tendency7": int(tendency_7daysbefore), "icon": arrow}
+                        "cur_prev7": case_7days_before.incidence_past7days, "tendency7": int(tendency_7daysbefore),
+                        "level": canton.level, "icon": arrow}
 
         canton_vals.append(canton_toadd)
 
