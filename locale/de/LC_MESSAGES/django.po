@@ -296,10 +296,10 @@ msgstr "Fälle pro 100k Einw./verg. 14 Tage (Inzidenz)"
 
 #: measuremeter/templates/pages/district.html:56
 msgid ""
-"Including neighbouring districts from Italy, France (data since May 13), "
+"Including neighbouring districts from Italy, Germany, France (data since May 13), "
 "Austria (data since March 25)"
 msgstr ""
-"Inklusive benachbarte Bezirke von Italien, Frankreich (Daten seit 13. Mai), "
+"Inklusive benachbarte Bezirke von Italien, Deutschland, Frankreich (Daten seit 13. Mai), "
 "Österreich (Daten seit 25. März)"
 
 #: measuremeter/templates/pages/district.html:62
