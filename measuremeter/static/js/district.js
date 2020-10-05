@@ -404,7 +404,7 @@ function applyCountryBorder(map, countryname) {
                 }
             popup
                 .setLatLng(e.latlng)
-                .setContent('<div align=left><p><b>' + e.sourceTarget.feature.properties.name + '</b></p>' + datestr + commentstr+'</div>')
+                .setContent('<div align=center><p><b>' + e.sourceTarget.feature.properties.name + '</b></p>' + datestr + commentstr+'</div>')
                 .openOn(map);
         }
 
