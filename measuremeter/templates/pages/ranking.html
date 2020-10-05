@@ -76,7 +76,7 @@ table.center {
     <h1>Swiss Covid Ranking 7 days</h1>
     Don't take this too serious. It's the internet.
     <br><br>
-    <a href="/ranking">Ranking 7 days</a>//<a href="/ranking14">Ranking 14 days</a>//<a href="/ranking14all">Ranking 14 days Cantons & Districts</a>
+    <a href="/ranking7">Ranking 7 days</a>//<a href="/ranking14">Ranking 14 days</a>//<a href="/ranking14all">Ranking 14 days Cantons & Districts</a>
     <br>
     <p>Graphs show development in the past 2 months.</p>
 
@@ -103,7 +103,11 @@ table.center {
       </td>
      <td>
         <div class="container">
-          <img src=/static/images/graphs_ch/{{ hans.code  }}_7.png>
+            {% if hans.level == 0 %}
+              <img src=/static/images/graphs_ch/{{ hans.code  }}_14.png>
+            {% else %}
+              <img src=/static/images/graphs_ch/{{ hans.id  }}_14.png>
+            {% endif %}
           <div class="centered">{{ hans.cur_prev }}</div>
         </div>
       </td>

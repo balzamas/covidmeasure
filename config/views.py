@@ -148,10 +148,10 @@ def ranking_europe(request):
     template = loader.get_template('pages/ranking_europe.html')
     return HttpResponse(template.render(context, request))
 
-def ranking(request):
 
-    cantons = CHCanton.objects.filter(level=0)
-#    cantons = CHCanton.objects.all()
+
+
+def ranking7_calc(cantons):
     canton_vals = []
 
     for canton in cantons:
@@ -215,13 +215,11 @@ def ranking(request):
             score["rank_icon"] = "arrow circle left orange"
         else:
             score["rank_icon"] = "arrow circle down red"
-
-
-    template = loader.get_template('pages/ranking.html')
     context = {
-        'cantons': scores,
+          'cantons': scores,
     }
-    return HttpResponse(template.render(context, request))
+    return context
+
 
 def ranking14_calc(cantons):
     canton_vals = []
@@ -348,4 +346,22 @@ def ranking14_all(request):
     context = {
         'cantons': scores,
     }
+    return HttpResponse(template.render(context, request))
+
+def ranking7(request):
+
+    cantons = CHCanton.objects.filter(level=0)
+#    cantons = CHCanton.objects.all()
+    context = ranking7_calc(cantons)
+    template = loader.get_template('pages/ranking.html')
+
+    return HttpResponse(template.render(context, request))
+
+def ranking7_all(request):
+
+    cantons = CHCanton.objects.all()
+#    cantons = CHCanton.objects.all()
+    context = ranking7_calc(cantons)
+    template = loader.get_template('pages/ranking.html')
+
     return HttpResponse(template.render(context, request))
