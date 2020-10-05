@@ -7,9 +7,17 @@ from django.views.generic import TemplateView
 from rest_framework import routers
 from measuremeterdata.views import MeasureViewSet
 from . import views
+from django.conf.urls.i18n import i18n_patterns
+from django.views.i18n import JavaScriptCatalog
+from django.conf.urls import url
 
 router = routers.DefaultRouter()
 router.register(r'measures', MeasureViewSet)
+
+js_info_dict = {
+    'domain': 'djangojs',
+    'packages': ('measuremeter',),  # my app name
+}
 
 urlpatterns = [
     path("", views.international, name="home"),
@@ -47,9 +55,7 @@ urlpatterns = [
                   path(
                       "cantons/", TemplateView.as_view(template_name="pages/canton.html"), name="CH measures"
                   ),
-                  path(
-                      "districts/", TemplateView.as_view(template_name="pages/district.html"), name="CH districts"
-                  ),
+
                   path(
                       "ch/", views.ch, name="CH Main"
                   ),
@@ -73,10 +79,19 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     path('measuremeterdata/', include('measuremeterdata.urls')),
-
-
+    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+urlpatterns += i18n_patterns(
+    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+
+                             )
+
+urlpatterns += i18n_patterns(
+    path(
+        "districts/", TemplateView.as_view(template_name="pages/district.html"), name="CH districts"
+    ),
+)
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
