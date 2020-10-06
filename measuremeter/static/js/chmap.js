@@ -108,7 +108,7 @@ var data
                               }
                               else
                               {
-                                var start_date_str = 'undefined'
+                                var start_date_str = gettext('undefined')
                               }
 
                               if (item.end != null)
@@ -117,7 +117,7 @@ var data
                               }
                               else
                               {
-                                var end_date_str = 'undefined'
+                                var end_date_str = gettext('undefined')
                               }
                               statesData.features[id].properties.start = start_date_str;
                               statesData.features[id].properties.end = end_date_str;
@@ -163,7 +163,7 @@ var data
             }
             this._div.innerHTML = '' +  (props ?
                 '<div align=left><b>' + props.NAME + '</b>' + datestr + commentstr+'</div>'
-                : 'Hover over a state');
+                : gettext('Hover over a state'));
         };
 
         info.addTo(map);
@@ -357,7 +357,7 @@ var data
                                 endtime = line['end'];
                             }
 
-                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ (line['level'] +1) +', End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>' + gettext('Level') +': '+ (line['level'] +1) +', ' + gettext('End') + ': '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }
