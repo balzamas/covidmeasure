@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404, render
 from datetime import date, timedelta
 from django.template import loader
 from django.http import HttpResponse
+from django.db.models import F, Func
 
 def render_country(request, country_name):
     item = get_object_or_404(Country, code=country_name)
@@ -168,12 +169,28 @@ def calc_ranking_countries(countries):
         else:
             arrow = "arrow circle down green"
 
+        peak_cases_ds = CasesDeaths.objects.filter(country=country).order_by("-cases_past14days")
+        peak_cases = peak_cases_ds[0].cases_past14days
+        peak_cases_date = peak_cases_ds[0].date
+
+        peak_deaths_ds = CasesDeaths.objects.filter(country=country).order_by("-deaths_past14days")
+        peak_deaths = peak_deaths_ds[0].deaths_past14days
+        peak_deaths_date = peak_deaths_ds[0].date
+
+        positivity_ds = CasesDeaths.objects.filter(country=country).order_by(F('positivity').desc(nulls_last=True))
+        peak_positivity = positivity_ds[0].positivity
+        peak_positivity_date = positivity_ds[0].date
+
         canton_toadd = {"name": country.name, "score": int(score), "score_before": int(score_7days_before),
                         "date": last_date, "code": country.code,
                         "cur_prev14": last_prev14, "tendency": int(tendency),
                         "cur_prev7": case_14days_14daysago.cases_past7days, "tendency7": int(tendency_7daysbefore),
                         "positivity": last_positivity, "positivity_date":last_positivity_date, "deaths": last_deaths14,
-                        "has_measures": country.has_measures, "continent": country.continent.pk, "icon": arrow}
+                        "has_measures": country.has_measures, "continent": country.continent.pk, "icon": arrow,
+                        "peak_cases": peak_cases, "peak_cases_date": peak_cases_date,
+                        "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
+                        "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date
+                        }
 
         country_vals.append(canton_toadd)
 

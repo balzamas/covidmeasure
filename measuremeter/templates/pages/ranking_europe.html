@@ -38,6 +38,11 @@ table.center {
 			height: 100%;
 			margin: 0;
 		}
+		.peak {
+		      text-align: center;
+        font-size: 10;
+
+		}
 
     .container {
       position: relative;
@@ -114,12 +119,16 @@ table.center {
           <img src=/static/images/graphs_world/{{ hans.code  }}_cases.png>
           <div class="centered">{{ hans.cur_prev14 }}</div>
         </div>
+        <div class="peak">All time peak: {{ hans.peak_cases }}<br>
+        {{ hans.peak_cases_date }}</div>
       </td>
       <td>
         <div class="container">
         <img src=/static/images/graphs_world/{{ hans.code  }}_deaths.png>
           <div class="centered">{{ hans.deaths }}</div>
         </div>
+        <div class="peak">All time peak: {{ hans.peak_deaths }}<br>
+        {{ hans.peak_deaths_date }}</div>
        </td>
       <td>
         {% if hans.positivity != None %}
@@ -128,6 +137,9 @@ table.center {
             <div class="centered">{{ hans.positivity|floatformat:1 }}%</div>
             <div class="bottomed">{{ hans.positivity_date }}</div>
           </div>
+        <div class="peak">All time peak: {{ hans.peak_positivity|floatformat:1 }}<br>
+        {{ hans.peak_positivity_date }}</div>
+
         {% endif %}
       </td>
     </tr>
