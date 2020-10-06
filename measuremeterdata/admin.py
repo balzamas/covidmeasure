@@ -1,9 +1,14 @@
 from django.contrib import admin
 from django import forms
-from .models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHMeasureType, CHMeasure, CHCases
+from .models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHMeasureType, CHMeasure, CHCases, BELCases, BELProvince, BELAgeGroups
 
 admin.site.register(Continent)
 admin.site.register(MeasureCategory)
+admin.site.register(BELProvince)
+admin.site.register(BELAgeGroups)
+admin.site.register(BELCases)
+
+
 
 class CasesDeathsAdmin(admin.ModelAdmin):
     list_display = ['country', 'date', 'cases_past14days', 'cases_past7days', 'deaths_past14days']

@@ -69,6 +69,9 @@ urlpatterns = [
                       "chrisk/", TemplateView.as_view(template_name="pages/chrisk.html"), name="CH Riskmap"
                   ),
                   path(
+                      "belrisk/", views.belgium_risk, name="Bel Riskmap"
+                  ),
+                  path(
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
                   ),
     path('country/<str:country_name>/',views.render_country, name='item'),
