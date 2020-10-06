@@ -23,10 +23,6 @@ urlpatterns = [
     path("", views.international, name="home"),
     path('ranking_europe/', views.ranking_europe, name='ranking_europe'),
     path('ranking_world/', views.ranking_world, name='ranking_world'),
-    path('ranking7/', views.ranking7, name='ranking7'),
-    path('ranking7all/', views.ranking7_all, name='ranking7_all'),
-    path('ranking14/', views.ranking14, name='ranking14'),
-    path('ranking14all/', views.ranking14_all, name='ranking14_all'),
 
                   path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
@@ -94,6 +90,10 @@ urlpatterns += i18n_patterns(
     path(
         "districts/", TemplateView.as_view(template_name="pages/district.html"), name="CH districts"
     ),
+    path('ranking7/', views.ranking7, name='ranking7'),
+    path('ranking7all/', views.ranking7_all, name='ranking7_all'),
+    path('ranking14/', views.ranking14, name='ranking14'),
+    path('ranking14all/', views.ranking14_all, name='ranking14_all'),
 )
 
 if settings.DEBUG:

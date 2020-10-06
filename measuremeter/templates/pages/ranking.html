@@ -1,10 +1,8 @@
 {% load static i18n %}
-{% load static %}
-{# Load the tag library #}
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>{% trans 'CovidLaws // Canton rankings'}</title>
+    <title>{% trans 'CovidLaws // Canton rankings'%}</title>
         <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Fathom - beautiful, simple website analytics -->
@@ -68,25 +66,25 @@ table.center {
 <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
 
 
-      <h1>{% trans 'CovidLaws // Cantons // Ranking'}</h1>
+      <h1>{% trans 'CovidLaws // Cantons // Ranking'%}</h1>
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu"></div>
 
   <table>
-    <h1>{% trans 'Swiss Covid Ranking 7 days'}</h1>
-    {% trans 'Don't take this too serious. It's the internet.'}
+    <h1>{% trans 'Swiss Covid Ranking 7 days' %}</h1>
+    {% trans "Don't take this too serious. It's the internet."%}
     <br><br>
-    <a href="/ranking7">{% trans 'Ranking 7 days'}</a>//<a href="/ranking14">{% trans 'Ranking 14 days'}</a>//<a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'}</a>
+    <a href="/ranking7">{% trans 'Ranking 7 days'%}</a>//<a href="/ranking14">{% trans 'Ranking 14 days'%}</a>//<a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a>
     <br>
-    <p>{% trans 'Graphs show development in the past 2 months.'}</p>
+    <p>{% trans 'Graphs show development in the past 2 months.'%}</p>
 
-    <tr><td></td><td>{% trans 'Rank'}</td>
-      <td>{% trans 'Shift'}</td>
-      <td>{% trans 'Canton'}</td>
-      <td>{% trans 'Score'}</td>
-      <td align="center">{% trans 'Prevalence 7d/100k<br>Graph: past 2 months'}</td>
-      <td>{% trans 'Tendency'}</td>
-      <td>{% trans 'Last update'}</td></tr>
+    <tr><td></td><td>{% trans 'Rank'%}</td>
+      <td>{% trans 'Shift'%}</td>
+      <td>{% trans 'Canton'%}</td>
+      <td>{% trans 'Score'%}</td>
+      <td align="center">{% trans 'Prevalence 7d/100k<br>Graph: past 2 months'%}</td>
+      <td>{% trans 'Tendency'%}</td>
+      <td>{% trans 'Last update'%}</td></tr>
     {% for hans in cantons %}
 
     <tr>
@@ -128,10 +126,10 @@ table.center {
     {% endfor %}
   </table>
   <br>
-    {% trans 'Formula = 0 - Cases past 14 days per 100k pop - (Tendency % (=compared to 14 days ago) /5)'}<br>
-  {% trans 'Why this Formula? Combine current cases with development smh. For a true ranking we would need positivity rate, ICU occupancy etc. etc.'}
+    {% trans 'Formula = 0 - Cases past 14 days per 100k pop - (Tendency % (=compared to 14 days ago) /5)'%}<br>
+  {% trans 'Why this Formula? Combine current cases with development smh. For a true ranking we would need positivity rate, ICU occupancy etc. etc.'%}
   <br><br>
-  {% trans 'Source: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'}<br>
+  {% trans 'Source: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
 
 
 
