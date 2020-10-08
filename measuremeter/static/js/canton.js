@@ -534,7 +534,7 @@ var data
             $('#param').hide();
 
             real_enddate = new Date();
-            real_startdate = new Date(2020,6,14)
+            real_startdate = new Date(2020,7,8)
 
             document.getElementById("datefrom").value = formatDate(real_startdate)
             document.getElementById("dateto").value = formatDate(real_enddate)
