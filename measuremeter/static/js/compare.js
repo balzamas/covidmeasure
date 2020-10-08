@@ -586,8 +586,10 @@ Colors.random = function() {
             }
             else
             {
-                $('#countries_dd').dropdown('set selected', ['1','3','6'])
-                $('#measuretypes_dd').dropdown('set selected', ['8','26'])
+
+            covidlaws.net/compare/6,3,1,35,14,13&8,2
+                $('#countries_dd').dropdown('set selected', ['1','3','6','13','14','35'])
+                $('#measuretypes_dd').dropdown('set selected', ['8','2'])
                 LoadData("1,3,6", "8,26",real_startdate,real_enddate);
             }
 
