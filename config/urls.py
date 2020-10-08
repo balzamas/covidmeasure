@@ -48,22 +48,11 @@ urlpatterns = [
     path(
     "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
                   ),
-                  path(
-                      "cantons/", TemplateView.as_view(template_name="pages/canton.html"), name="CH measures"
-                  ),
 
-                  path(
-                      "ch/", views.ch, name="CH Main"
-                  ),
-                  path(
-                      "chmaps/", TemplateView.as_view(template_name="pages/chmaps.html"), name="CH Maps"
-                  ),
                   path(
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
                   ),
-                  path(
-                      "chrisk/", TemplateView.as_view(template_name="pages/chrisk.html"), name="CH Riskmap"
-                  ),
+
                   path(
                       "belrisk/", views.belgium_risk, name="Bel Riskmap"
                   ),
@@ -94,6 +83,18 @@ urlpatterns += i18n_patterns(
     path('ranking7all/', views.ranking7_all, name='ranking7_all'),
     path('ranking14/', views.ranking14, name='ranking14'),
     path('ranking14all/', views.ranking14_all, name='ranking14_all'),
+    path(
+        "cantons/", TemplateView.as_view(template_name="pages/canton.html"), name="CH measures"
+    ),
+    path(
+        "ch/", views.ch, name="CH Main"
+    ),
+    path(
+        "chmaps/", TemplateView.as_view(template_name="pages/chmaps.html"), name="CH Maps"
+    ),
+    path(
+        "chrisk/", TemplateView.as_view(template_name="pages/chrisk.html"), name="CH Riskmap"
+    ),
 )
 
 if settings.DEBUG:
