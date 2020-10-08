@@ -18,7 +18,7 @@
            }
 
            if ( $( "#menu_ch" ).length ) {
-               document.getElementById('menu').innerHTML = `
+               document.getElementById('menu_ch').innerHTML = `
                <div style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10">
                <div class="ui seven item inverted huge menu">
                   <a class="item" href="/">Home</a>
