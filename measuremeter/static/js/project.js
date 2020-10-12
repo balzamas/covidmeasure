@@ -22,12 +22,12 @@
                <div style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10">
                <div class="ui seven item inverted huge menu">
                   <a class="item" href="/">Home</a>
-                  <a class="item" href="/cantons/">Measures</a>
-                  <a class="item" href="/chrisk/">Risk calc.</a>
-                  <a class="item" href="/chmaps/">Map measures</a>
-                  <a class="item" href="/districts/">Map cases<br>Districts & Cantons</a>
-                  <a class="item" href="/ranking14/">Ranking</a>
-                  <a class="item" href="/">Europe</a>
+                  <a class="item" href="/cantons/">${gettext("Measures")}</a>
+                  <a class="item" href="/chrisk/">${gettext("Risk calc.")}</a>
+                  <a class="item" href="/chmaps/">${gettext("Map measures")}</a>
+                  <a class="item" href="/districts/">${gettext("Map cases<br>Districts & Cantons")}</a>
+                  <a class="item" href="/ranking14/">${gettext("Ranking")}</a>
+                  <a class="item" href="/">${gettext("Europe") }</a>
                   </div>
                 </div> `
            }

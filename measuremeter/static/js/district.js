@@ -543,7 +543,7 @@ function applyCountryBorder(map, countryname) {
                                 str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
                             }
 
-                            endtime = "Undefined"
+                            endtime = gettext('Undefined')
                             if (line['end'] != null)
                             {
                                 endtime = line['end'];

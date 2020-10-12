@@ -163,7 +163,7 @@ var data
             }
             this._div.innerHTML = '' +  (props ?
                 '<div align=left><b>' + props.NAME + '</b>' + datestr + commentstr+'</div>'
-                : 'Hover over a state');
+                : gettext('Hover over a state'));
         };
 
         info.addTo(map);
@@ -351,7 +351,7 @@ var data
                                 str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
                             }
 
-                            endtime = "Undefined"
+                            endtime = gettext('Undefined')
                             if (line['end'] != null)
                             {
                                 endtime = line['end'];
