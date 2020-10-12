@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-12 22:28+0200\n"
+"POT-Creation-Date: 2020-10-12 22:57+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,28 +18,28 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: measuremeter/static/js/chmap.js:166 measuremeter/static/js/district.js:332
+#: measuremeter/static/js/chmap.js:166 measuremeter/static/js/district.js:331
 msgid "Hover over a state"
 msgstr "Für Details:<br>Klick auf Gebiet"
 
-#: measuremeter/static/js/chmap.js:354 measuremeter/static/js/district.js:546
+#: measuremeter/static/js/chmap.js:354 measuremeter/static/js/district.js:545
 msgid "Undefined"
 msgstr "Undef."
 
-#: measuremeter/static/js/district.js:251
-#: measuremeter/static/js/district.js:267
-#: measuremeter/static/js/district.js:271
+#: measuremeter/static/js/district.js:250
+#: measuremeter/static/js/district.js:266
+#: measuremeter/static/js/district.js:270
 msgid "Population"
 msgstr "Bevölkerung"
 
-#: measuremeter/static/js/district.js:251
-#: measuremeter/static/js/district.js:267
-#: measuremeter/static/js/district.js:271
+#: measuremeter/static/js/district.js:250
+#: measuremeter/static/js/district.js:266
+#: measuremeter/static/js/district.js:270
 msgid "Last update"
 msgstr "Letztes update"
 
-#: measuremeter/static/js/district.js:251
-#: measuremeter/static/js/district.js:271
+#: measuremeter/static/js/district.js:250
+#: measuremeter/static/js/district.js:270
 msgid "Development past 2 months."
 msgstr "Entwicklung letzte 2 Monate"
 
