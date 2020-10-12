@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-12 21:58+0200\n"
+"POT-Creation-Date: 2020-10-12 22:09+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -346,12 +346,10 @@ msgid ""
 "To check where you can travel to from Switzerland without a quarantine, see "
 "<a href=\"https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-"
 "und-wohin-nicht/\" target=\"_blank\">Passportparty.ch</a>"
-msgstr
-""
-"Eine Übersicht wohin man von der Schweiz aus noch reisen kann gibt es auf "
-"<a href=\"https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-"
-"und-wohin-nicht/\" target=\"_blank\">Passportparty.ch</a>"
-
+msgstr ""
+"Eine Übersicht wohin man von der Schweiz aus noch reisen kann gibt es auf <a "
+"href=\"https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-und-"
+"wohin-nicht/\" target=\"_blank\">Passportparty.ch</a>"
 
 #: measuremeter/templates/pages/district.html:5
 msgid "CovidLaws // Incidence by canton/district"
@@ -379,77 +377,83 @@ msgstr ""
 "Hinweis: die Zahlen in den Bezirken/Kantonen werden zu verschiedenen Zeiten "
 "nachgetragen. Für Details siehe unten."
 
-#: measuremeter/templates/pages/district.html:63
+#: measuremeter/templates/pages/district.html:58
+msgid "Note: Graph with development of past 2 months is generated every night."
+msgstr ""
+"Hinweis: Die Grafik mit der Entwicklung der letzten 2 Monaten wird jede "
+"Nacht neu generiert. Sie kann daher um einige Tage abweichen."
+
+#: measuremeter/templates/pages/district.html:64
 msgid "Switch date"
 msgstr "Datum wechseln"
 
-#: measuremeter/templates/pages/district.html:65
+#: measuremeter/templates/pages/district.html:66
 msgid "- 1 week"
 msgstr "- 1 Woche"
 
-#: measuremeter/templates/pages/district.html:72
+#: measuremeter/templates/pages/district.html:73
 msgid "- 1 day"
 msgstr "- 1 Tag"
 
-#: measuremeter/templates/pages/district.html:79
+#: measuremeter/templates/pages/district.html:80
 msgid "+ 1 day"
 msgstr "+ 1 Tag"
 
-#: measuremeter/templates/pages/district.html:86
+#: measuremeter/templates/pages/district.html:87
 msgid "+ 1 week"
 msgstr "+ 1 Woche"
 
-#: measuremeter/templates/pages/district.html:92
+#: measuremeter/templates/pages/district.html:93
 msgid "Timelapse"
 msgstr "Zeitraffer"
 
-#: measuremeter/templates/pages/district.html:93
+#: measuremeter/templates/pages/district.html:94
 msgid "Push button to play."
 msgstr "Knopf drücken zum abspielen."
 
-#: measuremeter/templates/pages/district.html:95
+#: measuremeter/templates/pages/district.html:96
 msgid "since June 15"
 msgstr "seit 15. Juni"
 
-#: measuremeter/templates/pages/district.html:97
+#: measuremeter/templates/pages/district.html:98
 msgid "June"
 msgstr "Juni"
 
-#: measuremeter/templates/pages/district.html:103
+#: measuremeter/templates/pages/district.html:104
 msgid "since Feb 24"
 msgstr "seit 24. Februar"
 
-#: measuremeter/templates/pages/district.html:113
+#: measuremeter/templates/pages/district.html:114
 msgid "Sources"
 msgstr "Quellen"
 
-#: measuremeter/templates/pages/district.html:115
+#: measuremeter/templates/pages/district.html:116
 msgid "Cantons (daily to weekly)"
 msgstr "Kantone (täglich bis wöchentlich)"
 
-#: measuremeter/templates/pages/district.html:116
+#: measuremeter/templates/pages/district.html:117
 msgid "Sources districts:"
 msgstr "Quellen Bezirke"
 
-#: measuremeter/templates/pages/district.html:117
-#: measuremeter/templates/pages/district.html:119
+#: measuremeter/templates/pages/district.html:118
+#: measuremeter/templates/pages/district.html:120
 msgid "monday"
 msgstr "Montag"
 
-#: measuremeter/templates/pages/district.html:118
+#: measuremeter/templates/pages/district.html:119
 msgid "daily/workdays"
 msgstr "täglich"
 
-#: measuremeter/templates/pages/district.html:120
 #: measuremeter/templates/pages/district.html:121
+#: measuremeter/templates/pages/district.html:122
 msgid "daily"
 msgstr "täglich"
 
-#: measuremeter/templates/pages/district.html:122
+#: measuremeter/templates/pages/district.html:123
 msgid "wednesday"
 msgstr "Mittwoch"
 
-#: measuremeter/templates/pages/district.html:123
+#: measuremeter/templates/pages/district.html:124
 msgid "friday"
 msgstr ""
 
