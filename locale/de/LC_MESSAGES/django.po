@@ -492,7 +492,7 @@ msgstr "Rangliste 14 Tage Kantone und Bezirke"
 #: measuremeter/templates/pages/ranking.html:79
 #: measuremeter/templates/pages/ranking14.html:87
 msgid "Graphs show development in the past 2 months."
-msgstr "Grafiken zeigen die Entwicklung in den letzten 2 Montaten."
+msgstr "Grafiken zeigen die Entwicklung in den letzten 2 Monaten."
 
 #: measuremeter/templates/pages/ranking.html:81
 #: measuremeter/templates/pages/ranking14.html:89
