@@ -29,16 +29,16 @@ class Command(BaseCommand):
         start_be = get_start_date(2020,41)
         for cases in CHCases.objects.filter(canton=41).order_by('date'):
             if (cases.date < start_be):
-                saveit(1901, cases.incidence_past14days, cases.date)
-                saveit(1902, cases.incidence_past14days, cases.date)
-                saveit(1903, cases.incidence_past14days, cases.date)
-                saveit(1904, cases.incidence_past14days, cases.date)
-                saveit(1905, cases.incidence_past14days, cases.date)
-                saveit(1906, cases.incidence_past14days, cases.date)
-                saveit(1907, cases.incidence_past14days, cases.date)
-                saveit(1908, cases.incidence_past14days, cases.date)
-                saveit(1909, cases.incidence_past14days, cases.date)
-                saveit(1910, cases.incidence_past14days, cases.date)
-                saveit(1911, cases.incidence_past14days, cases.date)
+                saveit(157, cases.incidence_past14days, cases.date)
+                saveit(158, cases.incidence_past14days, cases.date)
+                saveit(159, cases.incidence_past14days, cases.date)
+                saveit(160, cases.incidence_past14days, cases.date)
+                saveit(161, cases.incidence_past14days, cases.date)
+                saveit(162, cases.incidence_past14days, cases.date)
+                saveit(163, cases.incidence_past14days, cases.date)
+                saveit(164, cases.incidence_past14days, cases.date)
+                saveit(165, cases.incidence_past14days, cases.date)
+                saveit(166, cases.incidence_past14days, cases.date)
+                saveit(167, cases.incidence_past14days, cases.date)
 
 
