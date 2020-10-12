@@ -586,9 +586,10 @@ Colors.random = function() {
             }
             else
             {
-                $('#countries_dd').dropdown('set selected', ['1','3','6'])
-                $('#measuretypes_dd').dropdown('set selected', ['8','26'])
-                LoadData("1,3,6", "8,26",real_startdate,real_enddate);
+
+                $('#countries_dd').dropdown('set selected', ['1','3','6','13','14','35'])
+                $('#measuretypes_dd').dropdown('set selected', ['8','2'])
+                LoadData("1,3,6,13,14,35", "8,2",real_startdate,real_enddate);
             }
 
 
