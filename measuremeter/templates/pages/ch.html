@@ -24,7 +24,7 @@
 <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
 
 
-      <h1>CovidLaws - Coronavirus measures by country</h1>
+      <h1>{% trans 'CovidLaws - Coronavirus measures and data Switzerland'%}</h1>
       <div id="menu_ch"></div>
       <div id="title_bar"></div>
 
@@ -37,9 +37,9 @@
 
     </a>
     <div class="content" >
-      <a class="header" href="/cantons">Measures Switzerland</a>
+      <a class="header" href="/cantons">{% trans 'Measures Switzerland'%}</a>
       <div class="description">
-        Comparison dashboard
+        {% trans 'Comparison dashboard'%}
       </div>
     </div>
 
@@ -54,9 +54,9 @@
 
     </a>
     <div class="content" >
-      <a class="header" href="/chrisk">Risk calculator</a>
+      <a class="header" href="/chrisk">{% trans 'Risk calculator'%}</a>
       <div class="description">
-        Switzerland
+        {% trans 'Switzerland'%}
       </div>
     </div>
 
@@ -71,9 +71,9 @@
 
     </a>
     <div class="content" >
-      <a class="header" href="/districts">Incidence map</a>
+      <a class="header" href="/districts">{% trans 'Incidence map'%}</a>
       <div class="description">
-        Switzerland
+        {% trans 'Switzerland'%}
       </div>
     </div>
 
@@ -88,9 +88,9 @@
 
     </a>
     <div class="content" >
-      <a class="header" href="/chmaps">Measures maps</a>
+      <a class="header" href="/chmaps">{% trans 'Measures maps'%}</a>
       <div class="description">
-        Switzerland
+        {% trans 'Switzerland'%}
       </div>
     </div>
 
@@ -104,9 +104,9 @@
 
     </a>
     <div class="content" >
-      <a class="header" href="/ranking7">Rankings</a>
+      <a class="header" href="/ranking7">{% trans 'Rankings'%}</a>
       <div class="description">
-        Switzerland
+        {% trans 'Switzerland'%}
       </div>
     </div>
 
@@ -114,7 +114,7 @@
   </div>
 </div>
   <br>
-    <b>Last changes</b><br>
+    <b>{% trans 'Last changes'%}</b><br>
     {% for x in measures%}
        {{x}}, {{x.created}}<br>
     {% endfor %}
