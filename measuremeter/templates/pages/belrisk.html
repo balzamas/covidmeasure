@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>CovidLaws // Corona/Covid Risk map Switzerland</title>
+    <title>CovidLaws // Corona/Covid Risk map Belgium</title>
         <meta name="description" content="Risiko Karte für die Schweiz - wahrscheinlichkeit Covid Corona infizierte Person, Carte risque suisse covid corona gruppen groupe">
        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Fathom - beautiful, simple website analytics -->
@@ -41,19 +41,34 @@
   <script>
           $(window).on('load', function() {
 
+          age_groups = []
+          age_groups.push({name:"0-9",value:"0_9"})
+          age_groups.push({name:"10-19",value:"10_19"})
+          age_groups.push({name:"20-29",value:"20_29"})
+          age_groups.push({name:"30-39",value:"30_39"})
+          age_groups.push({name:"40-49",value:"40_49"})
+          age_groups.push({name:"50-59",value:"50_59"})
+          age_groups.push({name:"60-69",value:"60_69"})
+          age_groups.push({name:"70-79",value:"70_79"})
+          age_groups.push({name:"80-89",value:"80_89"})
+          age_groups.push({name:"90plus",value:"90plus"})
 
+          $('#age_groups_dd')
+              .dropdown({
+                values:age_groups
+              })
+            ;
 
 		    $("#load_data").click(function(){
-		          {% for hans in cantons %}
-                      console.log({{ hans.name }});
-                    {% endfor %}
                 groupsize = $("#groupsize").val();
                 bias = $("#bias").val();
                 days = $("#days").val();
 
                 var d = new Date();
                 today = formatDate(d);
-                LoadMap(mapRisk, today, groupsize, bias, days, '{{provinces}}', '{{age_dist}}');
+
+                age_groups = $('#age_groups_dd').dropdown('get value')
+                LoadMap(mapRisk, today, groupsize, bias, days, '{{provinces}}', '{{age_dist}}', age_groups);
             });
 
             $('.ui.dropdown')
@@ -61,7 +76,7 @@
 
             $('#days_dd').dropdown('set selected', 7)
 
-            var mapRisk = L.map('mapRisk').setView([46.8, 8.4], 8);
+            var mapRisk = L.map('mapRisk').setView([50.5, 4.4], 8);
 
             groupsize = $("#groupsize").val();
             bias = $("#bias").val();
@@ -84,13 +99,10 @@
 
   <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
 
-  <h1>CovidLaws // Switzerland // Risk map</h1>
+  <h1>CovidLaws // Belgium // Risk map</h1>
   <div id="menu"></div>
 
   <p id="grande"><b>COVID-19 Event Risk Assessment</b></p>
-      {% for hans in provinces %}
-          {{ hans.name }}
-    {% endfor %}
 
 
   <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
@@ -98,13 +110,8 @@
   <h4>Calculating the chance that one or more members of a group is/are infected.</h4>
   <p>Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.<br>
   Base number: Positive tests in the past X days per 100k population. CDC recommends to use past 10 days.<br>
-    As there is no recent serology data about Switzerland, it's hard to estimate how many people are infected, but untested.<br>
-    One large <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-67362031304-0/fulltext" target="_blank">seroprevalence study</a> was performed in Geneva in April. The results showed that for one case tested, there were 11.8 untestet.<br>
-    This would mean a bias of 11.8 - but the test regime was different during these times and it's difficult to set the correct value.<br>
-    Also a study in Ticino performed in May resulted roughly in a 1:10 ratio.<br>
-    As default, the value of three is set, which is on the lower end I assume - but I am just a programmer.<br>
-    For certain categories of events (schools, nightclubs), it would be very useful to filter by age group,<br>
-    as the distribution of the virus varies greatly between the groups. This is not implemented yet.
+    Bias: As default, the value of two is set.<br>
+    For the age group ratio, the values of all Belgium is taken and calculated down to province size.
   </p>
   <p>Formula used: 100 - (((1-(1/(100000/(cases*bias)))) ** groupsize) * 100)</p>
 
@@ -116,8 +123,6 @@
     So: keep your distance, wash your hands, wear a mask where it's sensible, enjoy life but don't be stupid.
 
   </p>
-  <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource Cases: opendata ZH</a>
-
   <br><br>
 
   <table>
@@ -147,23 +152,35 @@
     <td valign="top">
         <h3>Bias:</h3>
         <div class="ui input" >
-          <input type="number" id="bias" placeholder="Bias" value=3>
+          <input type="number" id="bias" placeholder="Bias" value=2>
         </div>
         <br>Ascertainment bias: incidence is multiplied by this number.
 
 
     </td>
     <td valign="bottom">
+                    <h3>Age groups (empty=all)</h3>
+
+                <div class="ui multiple fluid search selection dropdown" id="age_groups_dd">
+                  <input type="hidden" name="agegroups">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Age groups</div>
+                  <div class="menu" id="age_groups_list">
+                </div>
+              </div>
+
+
+
+    </td>
+</tr>
+</table>
+    <br><br>
       <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
       <div class="hidden content" >Load</div>
       <div class="visible content">
         <i class="large arrow circle down icon"></i>
       </div>
       </div>
-    </td>
-</tr>
-</table>
-
   <br><br>
 
   <div align="center">

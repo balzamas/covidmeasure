@@ -172,6 +172,7 @@ class CHCases(MotherModel):
 class BELProvince(MotherModel):
     name = models.CharField(max_length=200)
     name_source = models.CharField(max_length=200,blank=True,null=True)
+    hasc = models.CharField(max_length=5,blank=True,null=True)
     population = models.IntegerField(default=1)
 
     ordering = ['name']
@@ -200,6 +201,7 @@ class BELCases(MotherModel):
     cases70_79 = models.IntegerField(default=0)
     cases80_89 = models.IntegerField(default=0)
     cases90plus = models.IntegerField(default=0)
+
     ordering = ['province__pk', 'date', 'cases']
 
     def __str__(self):

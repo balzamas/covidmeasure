@@ -31,9 +31,9 @@ def belgium_risk(request):
         cases = BELCases.objects.filter(province=province, date__gte=date_border).order_by("-date")
 
 
-        case_7 = {"0_9":0,"10_19":0,"20_29":0,"30_39":0,"40_49":0,"50_59":0,"60_69":0,"70_79":0,"80_89":0,"90plus":0}
-        case_10 = {"0_9":0,"10_19":0,"20_29":0,"30_39":0,"40_49":0,"50_59":0,"60_69":0,"70_79":0,"80_89":0,"90plus":0}
-        case_14 = {"0_9":0,"10_19":0,"20_29":0,"30_39":0,"40_49":0,"50_59":0,"60_69":0,"70_79":0,"80_89":0,"90plus":0}
+        case_7 = {"0_9":0,"10_19":0,"20_29":0,"30_39":0,"40_49":0,"50_59":0,"60_69":0,"70_79":0,"80_89":0,"90plus":0,"Total":0}
+        case_10 = {"0_9":0,"10_19":0,"20_29":0,"30_39":0,"40_49":0,"50_59":0,"60_69":0,"70_79":0,"80_89":0,"90plus":0,"Total":0}
+        case_14 = {"0_9":0,"10_19":0,"20_29":0,"30_39":0,"40_49":0,"50_59":0,"60_69":0,"70_79":0,"80_89":0,"90plus":0,"Total":0}
         count = 0
         for case in cases:
             print(".....")
@@ -49,6 +49,7 @@ def belgium_risk(request):
                 case_7["70_79"] += case.cases70_79
                 case_7["80_89"] += case.cases80_89
                 case_7["90plus"] += case.cases90plus
+                case_7["Total"] += (case.cases0_9 + case.cases10_19 + case.cases20_29 + case.cases30_39 + case.cases40_49 + case.cases50_59 + case.cases60_69 + case.cases70_79 + case.cases80_89 + case.cases90plus)
             if (count < 10):
                 case_10["0_9"] += case.cases0_9
                 case_10["10_19"] += case.cases10_19
@@ -60,6 +61,7 @@ def belgium_risk(request):
                 case_10["70_79"] += case.cases70_79
                 case_10["80_89"] += case.cases80_89
                 case_10["90plus"] += case.cases90plus
+                case_10["Total"] += (case.cases0_9 + case.cases10_19 + case.cases20_29 + case.cases30_39 + case.cases40_49 + case.cases50_59 + case.cases60_69 + case.cases70_79 + case.cases80_89 + case.cases90plus)
             if (count < 14):
                 case_14["0_9"] += case.cases0_9
                 case_14["10_19"] += case.cases10_19
@@ -71,10 +73,13 @@ def belgium_risk(request):
                 case_14["70_79"] += case.cases70_79
                 case_14["80_89"] += case.cases80_89
                 case_14["90plus"] += case.cases90plus
+                case_14["Total"] += (case.cases0_9 + case.cases10_19 + case.cases20_29 + case.cases30_39 + case.cases40_49 + case.cases50_59 + case.cases60_69 + case.cases70_79 + case.cases80_89 + case.cases90plus)
+
             count += 1
 
         province_toadd = {"name": province.name,
                           "population": province.population,
+                          "hasc": province.hasc,
                           "cases7": case_7,
                           "cases10": case_10,
                           "cases14": case_14,
@@ -82,11 +87,20 @@ def belgium_risk(request):
 
         provinces_vals.append(province_toadd)
 
-        age_dist = BELAgeGroups.objects.all()
+    age_dist = BELAgeGroups.objects.all()
+
+    age_groups_vals = {}
+    total = 0
+    for ag in age_dist:
+        age_groups_vals[ag.name.replace("-", "_")]=ag.population
+        total += ag.population
+
+    age_groups_vals["Total"] =total
+
 
     context = {
         'provinces': provinces_vals,
-        "age_dist": age_dist
+        "age_dist": age_groups_vals
     }
     template = loader.get_template('pages/belrisk.html')
     return HttpResponse(template.render(context, request))
