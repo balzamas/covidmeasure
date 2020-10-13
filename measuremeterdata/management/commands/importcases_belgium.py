@@ -13,6 +13,8 @@ class Command(BaseCommand):
 
       url_toload = 'https://epistat.sciensano.be/Data/COVID19BE_CASES_AGESEX.json'
 
+      for x in BELCases.objects.all().iterator(): x.delete()
+
       with urllib.request.urlopen(url_toload) as url:
           data = json.loads(url.read().decode())
           count = 0
@@ -32,25 +34,25 @@ class Command(BaseCommand):
                             cd = BELCases(province=province[0], date=date_tosave)
 
                         if (row["AGEGROUP"] == "0-9"):
-                            cd.cases0_9 = int(row["CASES"])
+                            cd.cases0_9 += int(row["CASES"])
                         elif (row["AGEGROUP"] == "10-19"):
-                            cd.cases10_19 = int(row["CASES"])
+                            cd.cases10_19 += int(row["CASES"])
                         elif (row["AGEGROUP"] == "20-29"):
-                            cd.cases20_29 = int(row["CASES"])
+                            cd.cases20_29 += int(row["CASES"])
                         elif (row["AGEGROUP"] == "30-39"):
-                            cd.cases30_39 = int(row["CASES"])
+                            cd.cases30_39 += int(row["CASES"])
                         elif (row["AGEGROUP"] == "40-49"):
-                            cd.cases40_49 = int(row["CASES"])
+                            cd.cases40_49 += int(row["CASES"])
                         elif (row["AGEGROUP"] == "50-59"):
-                            cd.cases50_59 = int(row["CASES"])
+                            cd.cases50_59 += int(row["CASES"])
                         elif (row["AGEGROUP"] == "60-69"):
-                            cd.cases60_69 = int(row["CASES"])
+                            cd.cases60_69 += int(row["CASES"])
                         elif (row["AGEGROUP"] == "70-79"):
-                            cd.cases70_79 = int(row["CASES"])
+                            cd.cases70_79 += int(row["CASES"])
                         elif (row["AGEGROUP"] == "80-89"):
-                            cd.cases80_89 = int(row["CASES"])
+                            cd.cases80_89 += int(row["CASES"])
                         elif (row["AGEGROUP"] == "90+"):
-                            cd.cases90plus = int(row["CASES"])
+                            cd.cases90plus += int(row["CASES"])
 
                         cd.save()
                         print(province)
