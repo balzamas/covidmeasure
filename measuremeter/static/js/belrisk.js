@@ -21,7 +21,6 @@ var data
     function LoadMap(map, datenow, groupsize, bias, days, provinces, age_dist, age_groups)
     {
 
-           console.log(age_groups)
            if (age_groups == undefined)
            {
                age_groups_array = undefined
@@ -36,7 +35,6 @@ var data
            var provinces_obj = JSON.parse(provinces_clean);
            var age_dist_obj = JSON.parse(age_dist_clean);
 
-           console.log(age_dist_obj)
 
            statesData = $.extend( true, {}, statesDataOrig );
 
@@ -47,7 +45,6 @@ var data
                         {
                             value_cases = 0
                             pop_agegroups = 0
-                            console.log(age_groups)
                             if (days == 7)
                             {
                                 if (age_groups == undefined)
@@ -73,9 +70,6 @@ var data
                                 else
                                 {
                                     for (i = 0; i < age_groups_array.length; i++) {
-                                        console.log(age_groups_array[i])
-                                        console.log(item.cases10["Total"])
-                                        console.log(item.cases10[age_groups_array[i]])
                                         value_cases += item.cases10[age_groups_array[i]];
                                         pop_agegroups += age_dist_obj[age_groups_array[i]]
                                     }
@@ -115,7 +109,6 @@ var data
                             value_risk = 100 - (((1-(1/(100000/(incidence*bias)))) ** groupsize) * 100)
                             statesData.features[id].properties.level = value_risk
                             statesData.features[id].properties.comment = incidence
-                            statesData.features[id].properties.date = item.date
                         }
 
            });
@@ -173,7 +166,7 @@ var data
 
         info.update = function (props) {
             this._div.innerHTML = '' +  (props ?
-                '<div align=left><b>' + props.NAME_1 + '</b><br>' + props.level.toFixed(1) + ' %</div>'
+                '<div align=left><b>' + props.NAME_1 + '</b><br>Risk: ' + props.level.toFixed(1) + ' %<br>Incidence: ' + props.comment.toFixed(1) + '</div>'
                 : 'Hover over a state');
         };
 
@@ -239,7 +232,7 @@ var data
                 var commentstr = ''
                 if (e.sourceTarget.feature.properties.comment)
                 {
-                    commentstr = '<p>Cases/100k pop past ' + days + "days:<br>" + e.sourceTarget.feature.properties.comment + '<br>(' + e.sourceTarget.feature.properties.date +')</p>';
+                    commentstr = '<p>Cases/100k pop past ' + days + "days:<br>" + e.sourceTarget.feature.properties.comment.toFixed(1) + '</p>';
                 }
                 var levelstr = ''
                 if (e.sourceTarget.feature.properties.level)
@@ -248,7 +241,7 @@ var data
                 }
                 popup
                 .setLatLng(e.latlng)
-                .setContent('<div align=left><p><b>' + e.sourceTarget.feature.properties.NAME + '</b>' + levelstr + commentstr+'</p></div>')
+                .setContent('<div align=left><p><b>' + e.sourceTarget.feature.properties.NAME_1 + '</b>' + levelstr + commentstr+'</p></div>')
                 .openOn(map);
         }
 
