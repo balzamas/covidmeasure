@@ -6,8 +6,11 @@ admin.site.register(Continent)
 admin.site.register(MeasureCategory)
 admin.site.register(BELProvince)
 admin.site.register(BELAgeGroups)
-admin.site.register(BELCases)
 
+class BELCasesAdmin(admin.ModelAdmin):
+    list_display = ['province', 'date']
+    list_filter = ('province','date')
+admin.site.register(BELCases, BELCasesAdmin)
 
 
 class CasesDeathsAdmin(admin.ModelAdmin):

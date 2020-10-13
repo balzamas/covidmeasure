@@ -20,8 +20,8 @@ var data
 
     function LoadMap(map, datenow, groupsize, bias, days, provinces, age_dist, age_groups)
     {
-
-           if (age_groups == undefined)
+           console.log(age_groups)
+           if (age_groups == "")
            {
                age_groups_array = undefined
 
@@ -47,7 +47,7 @@ var data
                             pop_agegroups = 0
                             if (days == 7)
                             {
-                                if (age_groups == undefined)
+                                if (age_groups == "")
                                 {
                                     value_cases = item.cases7["Total"]
                                     pop_agegroups = age_dist_obj["Total"]

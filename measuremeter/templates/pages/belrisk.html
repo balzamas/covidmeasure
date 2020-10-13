@@ -84,7 +84,9 @@
 
             var d = new Date();
             today = formatDate(addDays(d, -1));
-            LoadMap(mapRisk, today, groupsize, bias, days, '{{provinces}}', '{{age_dist}}');
+            age_groups = $('#age_groups_dd').dropdown('get value')
+
+            LoadMap(mapRisk, today, groupsize, bias, days, '{{provinces}}', '{{age_dist}}', age_groups);
 
       });
   </script>
