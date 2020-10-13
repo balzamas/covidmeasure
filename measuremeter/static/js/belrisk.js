@@ -62,7 +62,7 @@ var data
                             }
                             else if (days == 10)
                             {
-                                if (age_groups == undefined)
+                                if (age_groups == "")
                                 {
                                     value_cases = item.cases10["Total"]
                                     pop_agegroups = age_dist_obj["Total"]
@@ -77,7 +77,7 @@ var data
                             }
                             else if (days == 14)
                             {
-                                if (age_groups == undefined)
+                                if (age_groups == "")
                                 {
                                     value_cases = item.cases14["Total"]
                                     pop_agegroups = age_dist_obj["Total"]
