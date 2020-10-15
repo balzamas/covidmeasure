@@ -179,7 +179,7 @@
 
         color = '#ff0000'
         dataset_cases.push({"label": "Cases", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_cases})
-        dataset_positivity.push({"label": "Positive rate", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_positivity})
+        dataset_positivity.push({"label": "Positive rate, past 7 days", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_positivity})
 
         color = '#ff6600'
         dataset_deaths.push({"label": "Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
@@ -251,7 +251,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Positive rate',
+                        text: 'Positive rate, past 7 days',
                         fontSize: 25
 
                     },
@@ -275,7 +275,7 @@
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Positive rate'
+                                labelString: 'Positive rate, past 7 days'
                             }
                         }
                     },

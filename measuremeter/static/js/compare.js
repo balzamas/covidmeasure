@@ -480,7 +480,7 @@ Colors.random = function() {
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Positive rate (Tests)',
+                        text: 'Positive rate (Tests), past 7 days',
                         fontSize: 25
 
                     },
@@ -504,7 +504,7 @@ Colors.random = function() {
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Positive rate (Tests)'
+                                labelString: 'Positive rate (Tests), past 7 days'
                             }
                         }
                     },
