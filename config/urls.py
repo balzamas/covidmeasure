@@ -6,7 +6,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework import routers
 from measuremeterdata.views import MeasureViewSet
-from . import views
+from . import views, view_deaths
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
 from django.conf.urls import url
@@ -45,7 +45,9 @@ urlpatterns = [
     path(
     "about/", TemplateView.as_view(template_name="pages/about.html"), name="About"
                   ),
-    path(
+     path('deaths/', view_deaths.country_deaths, name='deaths'),
+
+                  path(
     "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
                   ),
 
