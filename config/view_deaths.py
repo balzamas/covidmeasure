@@ -17,7 +17,7 @@ def get_globalvalues(country_id):
 
 def country_deaths(request):
 
-    countries = Country.objects.exclude(average_death_per_day=0)
+    countries = Country.objects.exclude(average_death_per_day=0).order_by("name")
 
     countries_values = []
 
