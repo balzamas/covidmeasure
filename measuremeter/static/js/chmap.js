@@ -410,7 +410,8 @@ var data
             var mapMasks = L.map('mapMasks').setView([46.8, 8.4], 8);
             LoadMap(mapMasks, 2);
 
-
+            var mapRestaurants = L.map('mapRestaurants').setView([46.8, 8.4], 8);
+            LoadMap(mapRestaurants, 4);
 
 			$('#dimmer').dimmer('hide');
 
