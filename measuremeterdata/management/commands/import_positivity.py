@@ -44,7 +44,9 @@ class Command(BaseCommand):
                     print(date_tosave)
                     print(Decimal(row[23]) * 100)
 
-
-                    cd_existing = CasesDeaths.objects.get(country=country, date=date_tosave)
-                    cd_existing.positivity = Decimal(row[23]) * 100
-                    cd_existing.save()
+                    try:
+                        cd_existing = CasesDeaths.objects.get(country=country, date=date_tosave)
+                        cd_existing.positivity = Decimal(row[23]) * 100
+                        cd_existing.save()
+                    except:
+                        print("Day record does not exist yet")
