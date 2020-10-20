@@ -43,32 +43,33 @@ class Command(BaseCommand):
 
         for row in my_list:
             if (count > 0):
-                date = get_start_end_dates(int(row[5]), int(row[4]))
-                bezirk = CHCanton.objects.filter(swisstopo_id=int(row[0]))
+                if row[5] != '' and row[4] != '':
+                    date = get_start_end_dates(int(row[5]), int(row[4]))
+                    bezirk = CHCanton.objects.filter(swisstopo_id=int(row[0]))
 
-                print(f"{date} - {bezirk}")
+                    print(f"{date} - {bezirk}")
 
-                if (bezirk):
-                    ftdays = None
+                    if (bezirk):
+                        ftdays = None
 
-                    sdays = int(row[8]) / bezirk[0].population * 100000
+                        sdays = int(row[8]) / bezirk[0].population * 100000
 
-                    sdays_ago =  CHCases.objects.get(canton=bezirk[0], date=(date - timedelta(days=7)))
-                    if (sdays_ago.incidence_past7days):
-                        ftdays = sdays + float(sdays_ago.incidence_past7days)
+                        sdays_ago =  CHCases.objects.get(canton=bezirk[0], date=(date - timedelta(days=7)))
+                        if (sdays_ago.incidence_past7days):
+                            ftdays = sdays + float(sdays_ago.incidence_past7days)
 
-                    try:
-                        cd_existing = CHCases.objects.get(canton=bezirk[0], date=date)
-                        cd_existing.incidence_past7days = sdays
-                        if (ftdays):
-                            cd_existing.incidence_past14days = ftdays
-                        cd_existing.save()
-                    except CHCases.DoesNotExist:
-                        if (ftdays):
-                            cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, date=date)
-                        else:
-                            cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, date=date)
-                        cd.save()
+                        try:
+                            cd_existing = CHCases.objects.get(canton=bezirk[0], date=date)
+                            cd_existing.incidence_past7days = sdays
+                            if (ftdays):
+                                cd_existing.incidence_past14days = ftdays
+                            cd_existing.save()
+                        except CHCases.DoesNotExist:
+                            if (ftdays):
+                                cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, date=date)
+                            else:
+                                cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, date=date)
+                            cd.save()
 
             count += 1
 
