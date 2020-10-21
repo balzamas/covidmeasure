@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-15 11:37+0200\n"
+"POT-Creation-Date: 2020-10-21 14:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -329,23 +329,31 @@ msgstr "CovidLaws // Corona Massnahmen Kantone"
 msgid "CovidLaws // Switzerland // Measures maps"
 msgstr "CovidLaws // Schweiz // Karten Massnahmen"
 
-#: measuremeter/templates/pages/chmaps.html:57
+#: measuremeter/templates/pages/chmaps.html:54
+msgid ""
+"Please note, I am in my holidays, update for cantonal measures is currently "
+"very slow."
+msgstr ""
+"Ich bin momentan in den Ferien, Massnahmen der Kantone werden mit grosser "
+"Verzögerung nachgetragen."
+
+#: measuremeter/templates/pages/chmaps.html:59
 msgid "Masks in public"
 msgstr "Maskenpflicht"
 
-#: measuremeter/templates/pages/chmaps.html:63
+#: measuremeter/templates/pages/chmaps.html:65
 msgid "Rules in Clubs"
 msgstr "Regeln in Klubs"
 
-#: measuremeter/templates/pages/chmaps.html:68
+#: measuremeter/templates/pages/chmaps.html:70
 msgid "Rules in Restaurants"
 msgstr "Regeln in Restaurants"
 
-#: measuremeter/templates/pages/chmaps.html:73
+#: measuremeter/templates/pages/chmaps.html:75
 msgid "Rules in Intermediate/Vocational school"
 msgstr "Regeln in Mittel-/Berufsschulen"
 
-#: measuremeter/templates/pages/chmaps.html:82
+#: measuremeter/templates/pages/chmaps.html:84
 msgid ""
 "To check where you can travel to from Switzerland without a quarantine, see "
 "<a href=\"https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-"
@@ -427,48 +435,70 @@ msgstr "Juni"
 msgid "since Feb 24"
 msgstr "seit 24. Februar"
 
+#: measuremeter/templates/pages/district.html:114
+msgid "Further information Switzerland"
+msgstr ""
+
 #: measuremeter/templates/pages/district.html:115
+msgid "The ultimate Switzerland data page for Corona related stats:"
+msgstr "Die ultimative Daten-Seite zu Corona in der Schweiz:"
+
+#: measuremeter/templates/pages/district.html:116
+msgid "Excellent visualization of cantonal case/hospitalization/death data:"
+msgstr "Gute Visualisierung der kantonalen Fall/Hospitalisations-Daten:"
+
+#: measuremeter/templates/pages/district.html:117
+msgid "Wonderful maps from and to where travel is still possible:"
+msgstr "Schöne Karten mit der Frage: von wo und wohin sind reisen noch möglich?"
+
+#: measuremeter/templates/pages/district.html:118
+msgid "Monitoring of current ICU capacities in Switzerland:"
+msgstr "Monitoring der aktuellen Kapazitäten an Notfallbetten in der Schweiz"
+
+#: measuremeter/templates/pages/district.html:123
 msgid "Sources"
 msgstr "Quellen"
 
-#: measuremeter/templates/pages/district.html:117
+#: measuremeter/templates/pages/district.html:125
 msgid "Cantons (daily to weekly)"
 msgstr "Kantone (täglich bis wöchentlich)"
 
-#: measuremeter/templates/pages/district.html:118
+#: measuremeter/templates/pages/district.html:126
 msgid "Sources districts:"
 msgstr "Quellen Bezirke"
 
-#: measuremeter/templates/pages/district.html:119
-#: measuremeter/templates/pages/district.html:121
+#: measuremeter/templates/pages/district.html:127
+#: measuremeter/templates/pages/district.html:129
+#: measuremeter/templates/pages/district.html:134
 msgid "monday"
 msgstr "Montag"
 
-#: measuremeter/templates/pages/district.html:120
+#: measuremeter/templates/pages/district.html:128
 msgid "daily/workdays"
 msgstr "täglich"
 
-#: measuremeter/templates/pages/district.html:121
-#: measuremeter/templates/pages/district.html:122
-#: measuremeter/templates/pages/district.html:124
-#: measuremeter/templates/pages/district.html:125
+#: measuremeter/templates/pages/district.html:129
+#: measuremeter/templates/pages/district.html:130
+#: measuremeter/templates/pages/district.html:132
+#: measuremeter/templates/pages/district.html:133
+#: measuremeter/templates/pages/district.html:134
 msgid "since Week"
 msgstr "seit Woche"
 
-#: measuremeter/templates/pages/district.html:122
-#: measuremeter/templates/pages/district.html:123
+#: measuremeter/templates/pages/district.html:130
+#: measuremeter/templates/pages/district.html:131
 msgid "daily"
 msgstr "täglich"
 
-#: measuremeter/templates/pages/district.html:124
+#: measuremeter/templates/pages/district.html:132
 msgid "wednesday"
 msgstr "Mittwoch"
 
-#: measuremeter/templates/pages/district.html:125
+#: measuremeter/templates/pages/district.html:133
 msgid "friday"
 msgstr "Freitag"
 
-#: measuremeter/templates/pages/district.html:127
+#: measuremeter/templates/pages/district.html:136
 msgid "When district data is missing, the values of the canton are used."
 msgstr "Bei fehlenden Bezirksdaten werden die Zahlen des Kantons verwendet."
 
