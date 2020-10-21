@@ -347,7 +347,10 @@ function applyCountryBorder(map, countryname) {
 
 
         function getColor_blue(d) {
-            return  d > 150   ? '#000000' :
+            return  d > 500 ? '#1a000d' :
+                    d > 350 ? '#33001a' :
+                    d > 250 ? '#660033' :
+                    d > 150   ? '#000000' :
                     d > 120   ? '#060261' :
                     d > 90   ? '#0b03a8' :
                     d > 70   ? '#180df8' :
@@ -363,7 +366,10 @@ function applyCountryBorder(map, countryname) {
         }
 
         function getColor(d) {
-            return  d > 160   ? '#ff0000' :
+            return  d > 500 ? '#1a000d' :
+                    d > 350 ? '#33001a' :
+                    d > 250 ? '#660033' :
+                    d > 160   ? '#ff0000' :
                     d > 140   ? '#fb5f5f' :
                     d > 120   ? '#fb8c8c' :
                     d > 100   ? '#ff8916' :
@@ -456,9 +462,8 @@ function applyCountryBorder(map, countryname) {
         labels = ['<strong>Incidence</strong>'],
     //    categories = ["<5","<10","<15","<20","<30","<50","<70","<90","<120","<150",">150"];
     //    categories_vals = [4,9,14,19,29,49,69,89,119,121,151];
-        categories = ["<5","<20","<40","<60","<80","<100","<120","<140","<160",">160"];
-        categories_vals = [4,19,39,59,79,99,119,139,159,161];
-
+        categories = ["<5","<20","<40","<60","<80","<100","<120","<140","<160","<250","<350","<500"">500"];
+        categories_vals = [4,19,39,59,79,99,119,139,159,161,251,351,500];
 
         for (var i = 0; i < categories.length; i++) {
 
