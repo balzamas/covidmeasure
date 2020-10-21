@@ -449,7 +449,7 @@ msgstr "Gute Visualisierung der kantonalen Fall/Hospitalisations-Daten:"
 
 #: measuremeter/templates/pages/district.html:117
 msgid "Wonderful maps from and to where travel is still possible:"
-msgstr "Schöne Karten mit der Frage: von wo und wohin sind reisen noch möglich?"
+msgstr "Schöne Karten mit der Frage: von wo und wohin sind Reisen noch möglich?"
 
 #: measuremeter/templates/pages/district.html:118
 msgid "Monitoring of current ICU capacities in Switzerland:"
