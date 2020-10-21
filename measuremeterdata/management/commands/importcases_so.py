@@ -32,7 +32,7 @@ def set_incidence(last_numbers, bezirk, date):
         count = 0
         for cases in last_numbers:
             total += cases
-            if (count > 6):
+            if (count > 4):
                 total7 += cases
             count += 1
 
@@ -66,16 +66,16 @@ class Command(BaseCommand):
 
             #This is maybe the worst code I've every written but I am hungry
 
-          last_numbers_gaeu = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, ]
-          last_numbers_thal = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, ]
-          last_numbers_bucheggberg = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, ]
-          last_numbers_dorneck = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, ]
-          last_numbers_goesgen = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, ]
-          last_numbers_wasseramt = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, ]
-          last_numbers_lebern = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, ]
-          last_numbers_olten = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, ]
-          last_numbers_solothurn = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, ]
-          last_numbers_thierstein = [None, None, None, None, None, None, None, None, None, None, None, None, None, None, ]
+          last_numbers_gaeu = [None, None, None, None, None, None, None, None, None, None ]
+          last_numbers_thal = [None, None, None, None, None, None, None, None, None, None ]
+          last_numbers_bucheggberg = [None, None, None, None, None, None, None, None, None, None ]
+          last_numbers_dorneck = [None, None, None, None, None, None, None, None, None, None ]
+          last_numbers_goesgen = [None, None, None, None, None, None, None, None, None, None ]
+          last_numbers_wasseramt = [None, None, None, None, None, None, None, None, None, None ]
+          last_numbers_lebern = [None, None, None, None, None, None, None, None, None, None ]
+          last_numbers_olten = [None, None, None, None, None, None, None, None, None, None ]
+          last_numbers_solothurn = [None, None, None, None, None, None, None, None, None, None ]
+          last_numbers_thierstein = [None, None, None, None, None, None, None, None, None, None ]
 
           count = 0
           for row in my_list:
