@@ -27,9 +27,13 @@ class Command(BaseCommand):
 
                         last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
 
-                        for day in row['properties']["deltaDisease"]:
+                        disease_lastday = 0
 
-                            val_today = row['properties']["deltaDisease"][day]
+                        for day in row['properties']["disease"]:
+
+                            val_today_tot = row['properties']["disease"][day]
+                            val_today = val_today_tot - disease_lastday
+                            disease_lastday = val_today_tot
 
 
                             last_numbers.append(val_today)
