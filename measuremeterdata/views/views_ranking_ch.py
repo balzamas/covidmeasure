@@ -122,12 +122,12 @@ def ranking14_calc(cantons):
         except:
             tendency = 0
             tendency_14daysbefore = 0
-            score = -9999
-            score_14days_before = -9999
+            score = -99999
+            score_14days_before = -99999
 
         print(score)
 
-        if (score > -9999):
+        if (score > -99999):
             if (score > score_14days_before):
                 arrow = "arrow circle up green"
             elif (score == score_14days_before):
