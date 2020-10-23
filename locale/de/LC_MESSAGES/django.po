@@ -1,0 +1,637 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-10-21 14:35+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: measuremeter/static/translations/translate_districts.txt:1
+msgid "Population"
+msgstr "Bevölkerung"
+
+#: measuremeter/templates/account/account_inactive.html:5
+#: measuremeter/templates/account/account_inactive.html:8
+msgid "Account Inactive"
+msgstr ""
+
+#: measuremeter/templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr ""
+
+#: measuremeter/templates/account/email.html:7
+msgid "Account"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:10
+msgid "E-mail Addresses"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:13
+msgid "The following e-mail addresses are associated with your account:"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:27
+msgid "Verified"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:29
+msgid "Unverified"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:31
+msgid "Primary"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:37
+msgid "Make Primary"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:38
+msgid "Re-send Verification"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:39
+msgid "Remove"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:46
+msgid "Warning:"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:46
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+
+#: measuremeter/templates/account/email.html:51
+msgid "Add E-mail Address"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:56
+msgid "Add E-mail"
+msgstr ""
+
+#: measuremeter/templates/account/email.html:66
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr ""
+
+#: measuremeter/templates/account/email_confirm.html:6
+#: measuremeter/templates/account/email_confirm.html:10
+msgid "Confirm E-mail Address"
+msgstr ""
+
+#: measuremeter/templates/account/email_confirm.html:16
+#, python-format
+msgid ""
+"Please confirm that <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s."
+msgstr ""
+
+#: measuremeter/templates/account/email_confirm.html:20
+msgid "Confirm"
+msgstr ""
+
+#: measuremeter/templates/account/email_confirm.html:27
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please <a href="
+"\"%(email_url)s\">issue a new e-mail confirmation request</a>."
+msgstr ""
+
+#: measuremeter/templates/account/login.html:7
+#: measuremeter/templates/account/login.html:11
+#: measuremeter/templates/account/login.html:44
+#: measuremeter/templates/base_old.html:68
+msgid "Sign In"
+msgstr ""
+
+#: measuremeter/templates/account/login.html:16
+#, python-format
+msgid ""
+"Please sign in with one\n"
+"of your existing third party accounts. Or, <a href=\"%(signup_url)s\">sign "
+"up</a>\n"
+"for a %(site_name)s account and sign in below:"
+msgstr ""
+
+#: measuremeter/templates/account/login.html:26
+msgid "or"
+msgstr ""
+
+#: measuremeter/templates/account/login.html:33
+#, python-format
+msgid ""
+"If you have not created an account yet, then please\n"
+"<a href=\"%(signup_url)s\">sign up</a> first."
+msgstr ""
+
+#: measuremeter/templates/account/login.html:43
+msgid "Forgot Password?"
+msgstr ""
+
+#: measuremeter/templates/account/logout.html:5
+#: measuremeter/templates/account/logout.html:8
+#: measuremeter/templates/account/logout.html:17
+#: measuremeter/templates/base_old.html:59
+msgid "Sign Out"
+msgstr ""
+
+#: measuremeter/templates/account/logout.html:10
+msgid "Are you sure you want to sign out?"
+msgstr ""
+
+#: measuremeter/templates/account/password_change.html:6
+#: measuremeter/templates/account/password_change.html:9
+#: measuremeter/templates/account/password_change.html:14
+#: measuremeter/templates/account/password_reset_from_key.html:5
+#: measuremeter/templates/account/password_reset_from_key.html:8
+#: measuremeter/templates/account/password_reset_from_key_done.html:4
+#: measuremeter/templates/account/password_reset_from_key_done.html:7
+msgid "Change Password"
+msgstr ""
+
+#: measuremeter/templates/account/password_reset.html:7
+#: measuremeter/templates/account/password_reset.html:11
+#: measuremeter/templates/account/password_reset_done.html:6
+#: measuremeter/templates/account/password_reset_done.html:9
+msgid "Password Reset"
+msgstr ""
+
+#: measuremeter/templates/account/password_reset.html:16
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+
+#: measuremeter/templates/account/password_reset.html:21
+msgid "Reset My Password"
+msgstr ""
+
+#: measuremeter/templates/account/password_reset.html:24
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+
+#: measuremeter/templates/account/password_reset_done.html:15
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: measuremeter/templates/account/password_reset_from_key.html:8
+msgid "Bad Token"
+msgstr ""
+
+#: measuremeter/templates/account/password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a <a href=\"%(passwd_reset_url)s\">new password reset</"
+"a>."
+msgstr ""
+
+#: measuremeter/templates/account/password_reset_from_key.html:18
+msgid "change password"
+msgstr ""
+
+#: measuremeter/templates/account/password_reset_from_key.html:21
+#: measuremeter/templates/account/password_reset_from_key_done.html:8
+msgid "Your password is now changed."
+msgstr ""
+
+#: measuremeter/templates/account/password_set.html:6
+#: measuremeter/templates/account/password_set.html:9
+#: measuremeter/templates/account/password_set.html:14
+msgid "Set Password"
+msgstr ""
+
+#: measuremeter/templates/account/signup.html:6
+msgid "Signup"
+msgstr ""
+
+#: measuremeter/templates/account/signup.html:9
+#: measuremeter/templates/account/signup.html:19
+#: measuremeter/templates/base_old.html:64
+msgid "Sign Up"
+msgstr ""
+
+#: measuremeter/templates/account/signup.html:11
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: measuremeter/templates/account/signup_closed.html:5
+#: measuremeter/templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr ""
+
+#: measuremeter/templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr ""
+
+#: measuremeter/templates/account/verification_sent.html:5
+#: measuremeter/templates/account/verification_sent.html:8
+#: measuremeter/templates/account/verified_email_required.html:5
+#: measuremeter/templates/account/verified_email_required.html:8
+msgid "Verify Your E-mail Address"
+msgstr ""
+
+#: measuremeter/templates/account/verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: measuremeter/templates/account/verified_email_required.html:12
+msgid ""
+"This part of the site requires us to verify that\n"
+"you are who you claim to be. For this purpose, we require that you\n"
+"verify ownership of your e-mail address. "
+msgstr ""
+
+#: measuremeter/templates/account/verified_email_required.html:16
+msgid ""
+"We have sent an e-mail to you for\n"
+"verification. Please click on the link inside this e-mail. Please\n"
+"contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: measuremeter/templates/account/verified_email_required.html:20
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>."
+msgstr ""
+
+#: measuremeter/templates/base_old.html:55
+msgid "My Profile"
+msgstr "TEST"
+
+#: measuremeter/templates/pages/ch.html:28
+msgid "CovidLaws - Coronavirus measures and data Switzerland"
+msgstr "CovidLaws // Corona-Massnahmen und Daten Schweiz"
+
+#: measuremeter/templates/pages/ch.html:41
+msgid "Measures Switzerland"
+msgstr "Massnahmen Schweiz"
+
+#: measuremeter/templates/pages/ch.html:43
+msgid "Comparison dashboard"
+msgstr "Massnahmen Dashboard"
+
+#: measuremeter/templates/pages/ch.html:58
+msgid "Risk calculator"
+msgstr "Risikoberechner"
+
+#: measuremeter/templates/pages/ch.html:60
+#: measuremeter/templates/pages/ch.html:77
+#: measuremeter/templates/pages/ch.html:94
+#: measuremeter/templates/pages/ch.html:110
+msgid "Switzerland"
+msgstr "Schweiz"
+
+#: measuremeter/templates/pages/ch.html:75
+msgid "Incidence map"
+msgstr "Karte Fälle pro Einw."
+
+#: measuremeter/templates/pages/ch.html:92
+msgid "Measures maps"
+msgstr "Karten Massnahmen"
+
+#: measuremeter/templates/pages/ch.html:108
+msgid "Rankings"
+msgstr "Ranglisten"
+
+#: measuremeter/templates/pages/ch.html:118
+msgid "Last changes"
+msgstr "Letzte updates"
+
+#: measuremeter/templates/pages/chmaps.html:6
+msgid "CovidLaws // Coronavirus measures by canton - Maps"
+msgstr "CovidLaws // Corona Massnahmen Kantone"
+
+#: measuremeter/templates/pages/chmaps.html:51
+msgid "CovidLaws // Switzerland // Measures maps"
+msgstr "CovidLaws // Schweiz // Karten Massnahmen"
+
+#: measuremeter/templates/pages/chmaps.html:54
+msgid ""
+"Please note, I am in my holidays, update for cantonal measures is currently "
+"very slow."
+msgstr ""
+"Ich bin momentan in den Ferien, Massnahmen der Kantone werden mit grosser "
+"Verzögerung nachgetragen."
+
+#: measuremeter/templates/pages/chmaps.html:59
+msgid "Masks in public"
+msgstr "Maskenpflicht"
+
+#: measuremeter/templates/pages/chmaps.html:65
+msgid "Rules in Clubs"
+msgstr "Regeln in Klubs"
+
+#: measuremeter/templates/pages/chmaps.html:70
+msgid "Rules in Restaurants"
+msgstr "Regeln in Restaurants"
+
+#: measuremeter/templates/pages/chmaps.html:75
+msgid "Rules in Intermediate/Vocational school"
+msgstr "Regeln in Mittel-/Berufsschulen"
+
+#: measuremeter/templates/pages/chmaps.html:84
+msgid ""
+"To check where you can travel to from Switzerland without a quarantine, see "
+"<a href=\"https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-"
+"und-wohin-nicht/\" target=\"_blank\">Passportparty.ch</a>"
+msgstr ""
+"Eine Übersicht wohin man von der Schweiz aus noch reisen kann gibt es auf <a "
+"href=\"https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-und-"
+"wohin-nicht/\" target=\"_blank\">Passportparty.ch</a>"
+
+#: measuremeter/templates/pages/district.html:5
+msgid "CovidLaws // Incidence by canton/district"
+msgstr "CovidLaws // Inzidenz je Kanton/Bezirk"
+
+#: measuremeter/templates/pages/district.html:52
+msgid "CovidLaws // Switzerland //  Districts"
+msgstr "CovidLaws // Schweiz // Bezirke"
+
+#: measuremeter/templates/pages/district.html:56
+msgid "Incidence per 100k/past 14 days"
+msgstr "Fälle pro 100k Einw./verg. 14 Tage (Inzidenz)"
+
+#: measuremeter/templates/pages/district.html:57
+msgid ""
+"Including neighbouring districts from Italy, Germany, France (data since May "
+"13), Austria (data since March 25)"
+msgstr ""
+"Inklusive benachbarte Bezirke von Italien, Deutschland, Frankreich (Daten "
+"seit 13. Mai), Österreich (Daten seit 25. März)"
+
+#: measuremeter/templates/pages/district.html:58
+msgid "Note: numbers are updated at different dates, see below for details."
+msgstr ""
+"Hinweis: die Zahlen in den Bezirken/Kantonen werden zu verschiedenen Zeiten "
+"nachgetragen. Für Details siehe unten."
+
+#: measuremeter/templates/pages/district.html:59
+msgid "Note: Graph with development of past 2 months is generated every night."
+msgstr ""
+"Hinweis: Die Grafik mit der Entwicklung der letzten 2 Monaten wird jede "
+"Nacht neu generiert. Sie kann daher um einige Tage abweichen."
+
+#: measuremeter/templates/pages/district.html:65
+msgid "Switch date"
+msgstr "Datum wechseln"
+
+#: measuremeter/templates/pages/district.html:67
+msgid "- 1 week"
+msgstr "- 1 Woche"
+
+#: measuremeter/templates/pages/district.html:74
+msgid "- 1 day"
+msgstr "- 1 Tag"
+
+#: measuremeter/templates/pages/district.html:81
+msgid "+ 1 day"
+msgstr "+ 1 Tag"
+
+#: measuremeter/templates/pages/district.html:88
+msgid "+ 1 week"
+msgstr "+ 1 Woche"
+
+#: measuremeter/templates/pages/district.html:94
+msgid "Timelapse"
+msgstr "Zeitraffer"
+
+#: measuremeter/templates/pages/district.html:95
+msgid "Push button to play."
+msgstr "Knopf drücken zum abspielen."
+
+#: measuremeter/templates/pages/district.html:97
+msgid "since June 15"
+msgstr "seit 15. Juni"
+
+#: measuremeter/templates/pages/district.html:99
+msgid "June"
+msgstr "Juni"
+
+#: measuremeter/templates/pages/district.html:105
+msgid "since Feb 24"
+msgstr "seit 24. Februar"
+
+#: measuremeter/templates/pages/district.html:114
+msgid "Further information Switzerland"
+msgstr ""
+
+#: measuremeter/templates/pages/district.html:115
+msgid "The ultimate Switzerland data page for Corona related stats:"
+msgstr "Die ultimative Daten-Seite zu Corona in der Schweiz:"
+
+#: measuremeter/templates/pages/district.html:116
+msgid "Excellent visualization of cantonal case/hospitalization/death data:"
+msgstr "Gute Visualisierung der kantonalen Fall/Hospitalisations-Daten:"
+
+#: measuremeter/templates/pages/district.html:117
+msgid "Wonderful maps from and to where travel is still possible:"
+msgstr "Schöne Karten mit der Frage: von wo und wohin sind Reisen noch möglich?"
+
+#: measuremeter/templates/pages/district.html:118
+msgid "Monitoring of current ICU capacities in Switzerland:"
+msgstr "Monitoring der aktuellen Kapazitäten an Notfallbetten in der Schweiz"
+
+#: measuremeter/templates/pages/district.html:123
+msgid "Sources"
+msgstr "Quellen"
+
+#: measuremeter/templates/pages/district.html:125
+msgid "Cantons (daily to weekly)"
+msgstr "Kantone (täglich bis wöchentlich)"
+
+#: measuremeter/templates/pages/district.html:126
+msgid "Sources districts:"
+msgstr "Quellen Bezirke"
+
+#: measuremeter/templates/pages/district.html:127
+#: measuremeter/templates/pages/district.html:129
+#: measuremeter/templates/pages/district.html:134
+msgid "monday"
+msgstr "Montag"
+
+#: measuremeter/templates/pages/district.html:128
+msgid "daily/workdays"
+msgstr "täglich"
+
+#: measuremeter/templates/pages/district.html:129
+#: measuremeter/templates/pages/district.html:130
+#: measuremeter/templates/pages/district.html:132
+#: measuremeter/templates/pages/district.html:133
+#: measuremeter/templates/pages/district.html:134
+msgid "since Week"
+msgstr "seit Woche"
+
+#: measuremeter/templates/pages/district.html:130
+#: measuremeter/templates/pages/district.html:131
+msgid "daily"
+msgstr "täglich"
+
+#: measuremeter/templates/pages/district.html:132
+msgid "wednesday"
+msgstr "Mittwoch"
+
+#: measuremeter/templates/pages/district.html:133
+msgid "friday"
+msgstr "Freitag"
+
+#: measuremeter/templates/pages/district.html:136
+msgid "When district data is missing, the values of the canton are used."
+msgstr "Bei fehlenden Bezirksdaten werden die Zahlen des Kantons verwendet."
+
+#: measuremeter/templates/pages/ranking.html:5
+msgid "CovidLaws // Canton rankings"
+msgstr "Covidlaws // Rangliste Kantone"
+
+#: measuremeter/templates/pages/ranking.html:70
+msgid "CovidLaws // Cantons // Ranking"
+msgstr "CovidLaws // Kantone // Rangliste"
+
+#: measuremeter/templates/pages/ranking.html:75
+msgid "Swiss Covid Ranking 7 days"
+msgstr "Schweizer Covid Rangliste 7 Tage"
+
+#: measuremeter/templates/pages/ranking.html:76
+#: measuremeter/templates/pages/ranking14.html:84
+msgid "Don't take this too serious. It's the internet."
+msgstr "Nicht zu ernst nehmen - it's the internet."
+
+#: measuremeter/templates/pages/ranking.html:78
+#: measuremeter/templates/pages/ranking14.html:86
+msgid "Ranking 7 days"
+msgstr "Rangliste 7 Tage"
+
+#: measuremeter/templates/pages/ranking.html:78
+#: measuremeter/templates/pages/ranking14.html:86
+msgid "Ranking 14 days"
+msgstr "Rangliste 14 Tage"
+
+#: measuremeter/templates/pages/ranking.html:78
+#: measuremeter/templates/pages/ranking14.html:86
+msgid "Ranking 14 days Cantons & Districts"
+msgstr "Rangliste 14 Tage Kantone und Bezirke"
+
+#: measuremeter/templates/pages/ranking.html:79
+#: measuremeter/templates/pages/ranking14.html:87
+msgid "Graphs show development in the past 2 months."
+msgstr "Grafiken zeigen die Entwicklung in den letzten 2 Monaten."
+
+#: measuremeter/templates/pages/ranking.html:81
+#: measuremeter/templates/pages/ranking14.html:89
+msgid "Rank"
+msgstr "Rang"
+
+#: measuremeter/templates/pages/ranking.html:82
+#: measuremeter/templates/pages/ranking14.html:90
+msgid "Shift"
+msgstr "Veränd."
+
+#: measuremeter/templates/pages/ranking.html:83
+#: measuremeter/templates/pages/ranking14.html:91
+msgid "Canton"
+msgstr "Kanton"
+
+#: measuremeter/templates/pages/ranking.html:84
+#: measuremeter/templates/pages/ranking14.html:92
+msgid "Score"
+msgstr "Punkte"
+
+#: measuremeter/templates/pages/ranking.html:85
+msgid "Prevalence 7d/100k<br>Graph: past 2 months"
+msgstr "Fälle 7 Tage/100k Einw.<br>Grafik: letzte 2 Monate"
+
+#: measuremeter/templates/pages/ranking.html:86
+#: measuremeter/templates/pages/ranking14.html:94
+msgid "Tendency"
+msgstr "Tendenz Punkte"
+
+#: measuremeter/templates/pages/ranking.html:87
+#: measuremeter/templates/pages/ranking14.html:95
+msgid "Last update"
+msgstr "Letztes update"
+
+#: measuremeter/templates/pages/ranking.html:129
+#: measuremeter/templates/pages/ranking14.html:140
+#, python-format
+msgid ""
+"Formula = 0 - Cases past 14 days per 100k pop - (Tendency %% (=compared to "
+"14 days ago) /5)"
+msgstr ""
+"Formel = 0 - Fälle letzte 14 Tage pro 100k Einwohner - (Veränderung %% "
+"(=verglichen zu vor 14 Tagen) /5)"
+
+#: measuremeter/templates/pages/ranking.html:130
+#: measuremeter/templates/pages/ranking14.html:141
+msgid ""
+"Why this Formula? Combine current cases with development smh. For a true "
+"ranking we would need positivity rate, ICU occupancy etc. etc."
+msgstr ""
+"Warum diese Formel? Kombination aktuelle Fallzahlen mit der Veränderung. Für "
+"eine richtige Rangliste würden mehr Angaben benötigt, wie etwa "
+"Positivitätsrate, Notaufnahme-Belegung etc. etc."
+
+#: measuremeter/templates/pages/ranking.html:132
+#: measuremeter/templates/pages/ranking14.html:143
+msgid ""
+"Source: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
+"\">OpenData ZH</a> and others, see <a href=\"/districts\">here for more "
+"information.</a>"
+msgstr ""
+"Quelle: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
+"\">OpenData ZH</a> und andere, siehe <a href=\"/districts\">hier für mehr "
+"Informationen.</a>"
+
+#: measuremeter/templates/pages/ranking14.html:6
+msgid "CovidLaws // Canton and district ranking"
+msgstr "CovidLaws // Kanton und Bezirk Rangliste"
+
+#: measuremeter/templates/pages/ranking14.html:78
+msgid "CovidLaws // Switzerland // Ranking"
+msgstr "CovidLaws // Schweiz // Rangliste"
+
+#: measuremeter/templates/pages/ranking14.html:83
+msgid "Swiss Covid Ranking 14 days"
+msgstr "Schweizer Covid Rangliste 14 Tage"
+
+#: measuremeter/templates/pages/ranking14.html:93
+msgid "Prevalence 14d/100k<br>Graph: past 2 months"
+msgstr "Fälle 14 Tage/100k Einw.<br>Grafik: letzten 2 Monate"
+
+#: measuremeter/users/apps.py:7
+msgid "Users"
+msgstr ""
+
+#: measuremeter/users/forms.py:16
+msgid "This username has already been taken."
+msgstr ""
+
+#: measuremeter/users/models.py:11
+msgid "Name of User"
+msgstr ""
+
+#: measuremeter/users/views.py:34
+msgid "Infos successfully updated"
+msgstr ""

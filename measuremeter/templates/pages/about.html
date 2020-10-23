@@ -7,11 +7,8 @@
        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
 
 
-   <link href="{% static 'css/project.css' %}" rel="stylesheet">
-   <script
-			  src="https://code.jquery.com/jquery-3.5.1.min.js"
-			  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-			  crossorigin="anonymous"></script>
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
     <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
     <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
@@ -19,12 +16,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+      <link href="{% static 'css/project.css' %}" rel="stylesheet">
 
-       <style>
-      body {
-        background-color: #d5d5d5;
-      }
-    </style>
  </head>
  <body>
  <div style="margin-left: 30;margin-top: 30;margin-bottom: 30;margin-right: 30;">
@@ -32,27 +25,48 @@
    <div id="menu"></div>
    <div id="title_bar"></div>
    <h3>Disclaimer</h3>
-   <font size="4rem">
-   <p>We give our best to keep the data updated, but it is a very difficult task. For current rules in a country, please check their official sites.<br>
-     Also avoid making simple comparisons - just implementing or abolish a measure is not the single reason to influence the number of infections.</p>
-     <p>An example for a scientific research is <a href="https://www.medrxiv.org/content/medrxiv/early/2020/04/24/2020.04.16.20062141.full.pdf" target="_blank">The estimated impact of non-pharmaceutical interventions ondocumented cases of COVID-19: A cross-country analysis</a>, a study from Switzerland.</p>
-     <p>Always look at the bigger picture. But it this site might be helpful as a starter to dig into a research.</p>
-     <p>And if you see a mistake - please let us know! We need you, as a local or why every you know what you know (we love sources!)!</p>
-      <p>Explanation how to categorize full/partial and categories in general - <a href="https://github.com/balzamas/covidmeasure/blob/master/Documents/README.md">Linke</a></p>
-   </font>
-<h3>Sources measures</h3>
-   <font size="4rem">
+   <p id="grande">Disclaimer: With the reopenings it became nearly impossible to track the countries, as most switched to local measures.<br>Most of the country measures are not up-to-date.</p>
+   <p id="grande">With the regionalization, I now focus more on Switzerland, and keep the measures there always up to date.</p>
+   <p id="grande">Data like cases, deaths and positive rate are updated automatically and still valid.</p>
+   <p id="grande">For current rules in a country, please check their official sites.<br>
+     Avoid making simple comparisons - just implementing or abolish a measure is not the single reason to influence the number of infections.</p>
+     <p id="grande">An example for a scientific research is <a href="https://www.medrxiv.org/content/medrxiv/early/2020/04/24/2020.04.16.20062141.full.pdf" target="_blank">The estimated impact of non-pharmaceutical interventions ondocumented cases of COVID-19: A cross-country analysis</a>, a study from Switzerland.</p>
+     <p id="grande">Always look at the bigger picture. But it this site might be helpful as a starter to dig into a research.</p>
+     <p id="grande">And if you see a mistake - please let me know! We need you, as a local or why every you know what you know (we love sources!)!</p>
+      <p id="grande">Explanation how to categorize full/partial and categories in general - <a href="https://github.com/balzamas/covidmeasure/blob/master/Documents/README.md">Link</a></p>
+<h3>Who am I</h3>
+   <p id="grande">
+   I am a random dude on the internet, without any professional expertise in medicine or statistics. <br>
+   I just needed a project during the lockdown to keep me sane, as all my hobbies were forbidden in that time.<br>
+   Because I love data, statistics and politics I started this site. I was confused by the different claims <br>
+   what each country does as a reaction to Covid-19, so I wanted to have this information in one place.<br>
+   I make changes because I feel I need it presented in another way - simply because I want. Or I want to try a new technology.
+   </p>
 
-<p>Blavatnik school of government -  Coronavirus government response tracker - <a href="https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker">Link</a></p>
-<p>acaps.org -  Covid-19 Government Measures Dataset - <a href="https://www.acaps.org/covid19-government-measures-dataset">Link</a></p>
-<p>Wikipedia - Covid-19 by country - <a href="https://en.wikipedia.org/wiki/COVID-19_pandemic_by_country_and_territory">Link</a></p>
- <p>International SOS - Travel restrictions, Flight operations - <a href="https://pandemic.internationalsos.com/2019-ncov/ncov-travel-restrictions-flight-operations-and-screening">Link</a></p>
-     <p>Official governmet/health ministry sites (see country profiles)</p>
- <p>...various newspapers/sources</p>
+<h3>Give me the data</h3>
+      <p id="grande">
+        You can find all the Endpoints <a href="/measuremeterdata/">here</a>.<br>
+        Of course it's not documented.<br>
+        But here for the cases in Swiss cnatons and districts:<br>
+        Example:<br>
+        http://covidlaws.net/measuremeterdata/chcases/?date_after=2020-09-19&date_before=2020-09-30&nr=1723,1724<br>
+        date_after = date from (DON'T ask why it's called like this)<br>
+        date_before = date to<br>
+        nr = <a href="https://www.bfs.admin.ch/bfs/de/home/grundlagen/agvch.assetdetail.11467406.html" target="_blank">BFS-Nr</a> for district, <a href="https://de.wikipedia.org/wiki/Kanton_(Schweiz)" target="_blank">Canton-Nr</a> for Cantons.
+        <br><br>Contact me if you want to access the other data like measures (both Switzerland and international), it's all there in the Endpoints.
+      </p>
+   <h3>Sources measures</h3>
+
+<p id="grande">Blavatnik school of government -  Coronavirus government response tracker - <a href="https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker">Link</a></p>
+<p id="grande">acaps.org -  Covid-19 Government Measures Dataset - <a href="https://www.acaps.org/covid19-government-measures-dataset">Link</a></p>
+<p id="grande">Wikipedia - Covid-19 by country - <a href="https://en.wikipedia.org/wiki/COVID-19_pandemic_by_country_and_territory">Link</a></p>
+ <p id="grande">International SOS - Travel restrictions, Flight operations - <a href="https://pandemic.internationalsos.com/2019-ncov/ncov-travel-restrictions-flight-operations-and-screening">Link</a></p>
+   <p id="grande">The Corona Diaries - Site with reports and analysis about Corona responses<a href="https://the-corona-diaries.com/">Link</a></p>
+     <p id="grande">Official governmet/health ministry sites (see country profiles)</p>
+ <p id="grande">...various newspapers/sources</p>
 
    <h3>Source cases/deaths</h3>
-   <p>EU Open Data Portal - <a href="https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863">Link</a></p>
-   </font>
+   <p id="grande">J. Hopkins University - <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">Link</a></p>
  </div>
  </body>
 </html>

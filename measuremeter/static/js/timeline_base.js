@@ -1,6 +1,3 @@
-      google.charts.load("current", {packages:["timeline"]});
-      google.charts.load('current', {'packages':['corechart']});
-
       var ColorClosed = ["#90d192", '#91e3e0', '#eba9e3', '#b4b9ed', '#e6c4a1', '#e6a1a4', '#a8e6d6'];
       var ColorPartial = ["#b7e8b9", '#bce6e4', '#f2d3ee', '#cfd1e8', '#ebd9c7', '#e6bec0', '#c7ebe2'];
 
@@ -19,7 +16,7 @@
             //Get first and last date
             firstdate = new Date(2020, 5, 1);
             lastdate = new Date();
-            lastdate = addDays(lastdate, 10)
+            lastdate = addDays(lastdate, 7)
 
             $.each(jsonData, function(id, line) {
               if (line['start'] != null)
@@ -39,7 +36,12 @@
                 firstdate = start_datefl;
               }
 
-              if (end_datefl > lastdate)
+              if (start_datefl >= lastdate)
+              {
+                lastdate = addDays(start_datefl,7);
+              }
+
+              if (end_datefl >= lastdate)
               {
                 lastdate = end_datefl;
               }
@@ -85,91 +87,24 @@
             return date;
         }
 
-      function drawChartCases(country, avg_values) {
-          lastdate_x = formatDate(lastdate);
-          firstdate_x = formatDate(firstdate);
+        function drawTimeline(mode, countries, measuretypes) {
+            document.getElementById('timeline').innerHTML = "";
+            var container = document.getElementById('timeline');
 
-          var data = $.ajax({
-          url: "/measuremeterdata/casesdeaths/?country="+country+"&date_after="+firstdate_x+"&date_before="+lastdate_x,
-          dataType: "json",
-          async: false
-          }).responseText;
-          var jsonData = JSON.parse(data);
+           if (countries == undefined)
+             {
+               //Startup: set random country
+               rnd_country = Math.floor(Math.random() * 43) + 1;
+               rnd_country2 = Math.floor(Math.random() * 43) + 1;
+               rnd_country3 = Math.floor(Math.random() * 43) + 1;
 
-        var cases = new google.visualization.LineChart(document.getElementById('datachartCases'));
-        var deaths = new google.visualization.LineChart(document.getElementById('datachartDeaths'));
+               countries=rnd_country.toString()+","+rnd_country2.toString()+","+rnd_country3.toString();
+             }
+           if (measuretypes == undefined)
+             {
+               measuretypes="";
+             }
 
-        var dataTableCases = new google.visualization.DataTable();
-        var dataTableDeaths = new google.visualization.DataTable();
-        var rowsCases = new Array();
-        var rowsDeaths = new Array();
-
-        var diffTime = Math.abs(lastdate - firstdate);
-        var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        dayscount = 0
-
-        $.each(jsonData, function(id, line) {
-            dayscount += 1;
-            rowsCases.push([line['date'], line['cases']]);
-              if (Number(avg_values[0] > 0))
-              {
-                rowsDeaths.push([line['date'], line['deaths'], line['deathstotal'], Number(avg_values[0]), Number(avg_values[1])]);
-              }
-              else
-              {
-                rowsDeaths.push([line['date'], line['deaths']]);
-              }
-        });
-
-        var percent = dayscount * 100 / diffDays;
-
-          dataTableCases.addColumn('string', 'Year');
-          dataTableCases.addColumn('number', 'cases');
-
-          dataTableDeaths.addColumn('string', 'Date');
-          dataTableDeaths.addColumn('number', 'Deaths Corona');
-
-          if (Number(avg_values[0] > 0))
-          {
-            dataTableDeaths.addColumn('number', 'Deaths Total');
-            dataTableDeaths.addColumn('number', 'Deaths Average.');
-            dataTableDeaths.addColumn('number', 'Deaths Peak');
-          }
-
-          //  alert(rows);
-          dataTableCases.addRows(rowsCases);
-          dataTableDeaths.addRows(rowsDeaths);
-
-        var options = {
-              legend: { position: 'bottom' },
-             chartArea:{left:60,top:20,width:percent+'%'},
-             fontSize: 13,
-             series: {
-                2: { lineDashStyle: [4, 4] },
-                3: { lineDashStyle: [4, 4] },
-            }
-
-           };
-
-        cases.draw(dataTableCases, options);
-        deaths.draw(dataTableDeaths, options);
-
-
-      }
-
-
-
-      function drawChartByCountries(countries, measuretypes) {
-         if (countries == undefined)
-         {
-          //Startup: set random country
-          rnd_country = Math.floor(Math.random() * 43) + 1;  // returns a random integer from 1 to 10
-           countries=rnd_country.toString();
-         }
-         if (measuretypes == undefined)
-         {
-           measuretypes="";
-         }
           var data = $.ajax({
           url: "/measuremeterdata/measures/?country="+countries+"&type="+measuretypes,
           dataType: "json",
@@ -177,232 +112,310 @@
           }).responseText;
           var jsonData = JSON.parse(data);
 
-        var containerCountry = document.getElementById('datachartCountry');
-        var chartCountry = new google.visualization.Timeline(containerCountry);
-        var dataTableCountry = new google.visualization.DataTable();
-
-        dataTableCountry.addColumn({ type: 'string', id: 'Country' });
-        dataTableCountry.addColumn({ type: 'string', id: 'Measure' });
-        dataTableCountry.addColumn({ type: 'string', role:'tooltip'});
-        dataTableCountry.addColumn({ type: 'string', role: 'style' });
-        dataTableCountry.addColumn({ type: 'date', id: 'Start' });
-        dataTableCountry.addColumn({ type: 'date', id: 'End' });
-
         var startend_dates=getStartEndDate(jsonData);
         firstdate = startend_dates[0];
         lastdate = startend_dates[1];
 
+        groups_data = new Array();
+        items_data = new Array();
+        groups_elements = new Array();
+
+        var count = 0;
+        var type_pk = -1;
+        var class_type = 'white';
+
+        var class_count = true;
+
+
         $.each(jsonData, function(id, line) {
 
+              if (mode == 1)
+              {
+                  if (type_pk != line["type"]["pk"])
+                      {
+                         if (!groups_elements.includes(line["type"]["pk"]))
+                         {
+                           if (class_count)
+                           {
+                                groupClass = "white";
+                                class_count = false;
+                           }
+                           else
+                           {
+                                groupClass = "gray"
+                                class_count = true;
+                           }
+                           groups_elements.push(line["type"]["pk"]);
+                           groups_data.push({"id": line["type"]["pk"], "content": '<i class="large '+ line["type"]["icon"] +'"></i><br>'+line['type']['name'], 'className': groupClass, subgroupOrder: 'subgroupOrder'});
+                          }
+                      }
+              }
+              else
+              {
+                  if (type_pk != line["country"]["pk"])
+                      {
+                         if (!groups_elements.includes(line["country"]["pk"]))
+                         {
+                            if (class_count)
+                               {
+                                    groupClass = "white";
+                                    class_count = false;
+                               }
+                               else
+                               {
+                                    groupClass = "red"
+                                    class_count = true;
+                               }
 
-          var type = line['type']['name'].toString();
+                           groups_elements.push(line["country"]["pk"]);
+                           groups_data.push({"id": line["country"]["pk"], "content": '<i class="'+line["country"]["code"]+' flag"></i><br>'+line['country']['name'], 'className': groupClass, "stackSubgroups": true,"subgroupOrder":"subgroup"});
+                          }
+                      }
+              }
 
-          if (line['start'] != null)
-          {
-            var start_str = line['start'].split("-")
-            var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
-            var start_date_str = line['start'];
-          }
-          else
-          {
-            var start_date = firstdate;
-            var start_date_str = ""
-          }
+              var type = line['type']['name'].toString();
+              var country = line['country']['name'].toString();
 
-          if (line['end'] != null)
-          {
-            var end_str = line['end'].split("-")
-            var end_date = new Date(end_str[0], end_str[1]-1, end_str[2])
-            var end_date_str = line['end']
-          }
-          else
-          {
-            var end_date = lastdate;
-            type = type + "*";
-            var end_date_str = 'undefined'
-          }
+              if (line['start'] != null)
+              {
+                var start_str = line['start'].split("-")
+                var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
+                var start_date_str = line['start'];
+              }
+              else
+              {
+                var start_date = "2020-01-01";
+                var start_date_str = ""
+              }
 
-          if (line['isregional'] == true)
-          {
-            type = type + "#";
-          }
+              if (line['end'] != null)
+              {
+                var end_str = line['end'].split("-")
+                var end_date = new Date(end_str[0], end_str[1]-1, end_str[2])
+                var end_date_str = line['end']
+              }
+              else
+              {
+                var end_date = addDays(lastdate,7);
+                type = type + "*";
+                country = country + "*";
+                var end_date_str = 'undefined'
+              }
 
-          //Set up tooltip
-          days = convertMiliseconds(end_date - start_date,'d')+1;
-          var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
-          tooltip += "<p><b>"+type+"</b></p>";
+              if (line['isregional'] == true)
+              {
+                type = type + "#";
+                country = country + "#";
+              }
 
-          if (line['end'] != null || line['start'] != null)
-          {
-            tooltip += "<p>"+ start_date_str + " - " + end_date_str
-            if (line['end'] != null && line['start'] != null)
-            {
-               tooltip += " // Duration: " + days + " days</p>"
-            }
-          }
-          tooltip += "<hr>";
-          tooltip += line['comment'].toString();
-          tooltip += '</div>';
+              //Set up tooltip
+              days = convertMiliseconds(end_date - start_date,'d')+1;
+              var tooltip = "<p><b>"+type+"</b></p>";
 
-          if (line['level'] == 1)
-          {
-            type += " " +  line['type']['tooltip_partial'];
-            color = ColorPartial[line['type']['category']['pk']];
-          }
-          else
-          {
-            color = ColorClosed[line['type']['category']['pk']];
-            if (line['level'] > 0)
-           {
-             type += " " + line['type']['tooltip_nonpartial'];
-           }
-          }
+              if (line['end'] != null || line['start'] != null)
+              {
+                tooltip += "<p>"+ start_date_str + " - " + end_date_str
+                if (line['end'] != null && line['start'] != null)
+                {
+                   tooltip += " <br>Duration: " + days + " days</p>"
+                }
+              }
+              tooltip += line['comment'].toString()+'';
 
-          if (line['level'] == 0)
-          {
-            type += " (none)";
-            color='#FFFFFF';
-          }
+              if (line['level'] == 1)
+              {
+                type += " " +  line['type']['tooltip_partial'];
+                country += " " +  line['type']['tooltip_partial'];
+                class_type = 'softyellow'
+              }
+              else
+              {
+                class_type = 'softred';
+                if (line['level'] > 0)
+               {
+                 type += " " + line['type']['tooltip_nonpartial'];
+                 country += " " + line['type']['tooltip_nonpartial'];
+               }
+              }
 
-          var source = "Source: " + line['sources'].toString()
+              if (line['level'] == 0)
+              {
+                type += " (none)";
+                country += " (none)";
+                class_type='white';
+              }
 
-          dataTableCountry.addRows([[line['country']['name'].toString(),type,tooltip,color, start_date,end_date]])
-        });
-
-        var options = {
-            timeline: { avoidOverlappingGridLines: true},
-            height:550
-          };
-
-        chartCountry.draw(dataTableCountry, options);
-      }
+              var source = "Source: " + line['sources'].toString()
 
 
-      function drawChartByMeasures(countries, measuretypes) {
 
-         if (countries == undefined)
-         {
-          //Startup: set random country
-          rnd_country = Math.floor(Math.random() * 43) + 1;  // returns a random integer from 1 to 10
-           countries=rnd_country.toString();
-         }
-         if (measuretypes == undefined)
-         {
-           measuretypes="";
-         }
-          var dataMeasure = $.ajax({
-          url: "/measuremeterdata/measuresbymeasure/?country="+countries+"&type="+measuretypes,
+               if (mode == 1)
+               {
+                items_data.push({"id": count, "content": country, "group": line['type']['pk'], "start": start_date, "end": end_date, 'className': class_type, "title": tooltip, "subgroup": line['country']['pk']});
+               }
+               else
+               {
+                items_data.push({"id": count, "content": type, "group": line['country']['pk'], "start": start_date, "end": end_date, 'className': class_type, "title": tooltip, "subgroup": line['type']['pk']});
+               }
+
+              count += 1;
+
+             //  {id: 1, group: 0, content: 'item 1', start: '2013-04-20', title: 'aaaaa<br>bbbbbb'},
+
+              //dataTableCountry.addRows([[line['country']['name'].toString(),type,tooltip,color, start_date,end_date]])
+            });
+
+              var groups = new vis.DataSet(groups_data);
+
+              // Create a DataSet (allows two way data-binding)
+              var items = new vis.DataSet(items_data);
+
+              // Configuration for the Timeline
+              var options = {
+                stack: false,
+                stackSubgroups: true,
+                start: firstdate,
+                end: lastdate,
+              };
+
+              // Create a Timeline
+              var timeline = new vis.Timeline(container, items, groups, options);
+                timeline.setOptions(options);
+                timeline.setGroups(groups);
+            return [firstdate, lastdate];
+        }
+
+
+        function drawLineChartperPop(countries, startdate, endate)
+        {
+                    document.getElementById('lineChartCasesPerPop').innerHTML = "";
+
+          var containergraph = document.getElementById('lineChartCasesPerPop');
+
+          lastdate_x = formatDate(endate);
+          firstdate_x = formatDate(startdate);
+
+          var data = $.ajax({
+          url: "/measuremeterdata/casesdeaths/?country="+countries+"&date_after=2020-01-01&date_before="+lastdate_x,
           dataType: "json",
           async: false
           }).responseText;
-          var jsonDataMeasure = JSON.parse(dataMeasure);
+          var jsonData = JSON.parse(data);
 
-        var containerMeasure = document.getElementById('datachartMeasure');
-        var chartMeasure = new google.visualization.Timeline(containerMeasure);
-        var dataTableMeasure = new google.visualization.DataTable();
+         var diffTime = Math.abs(lastdate - firstdate);
+         var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+         dayscount = 0
 
-        dataTableMeasure.addColumn({ type: 'string', id: 'Country' });
-        dataTableMeasure.addColumn({ type: 'string', id: 'Measure' });
-        dataTableMeasure.addColumn({ type: 'string', role:'tooltip'});
-        dataTableMeasure.addColumn({ type: 'string', role: 'style' });
-        dataTableMeasure.addColumn({ type: 'date', id: 'Start' });
-        dataTableMeasure.addColumn({ type: 'date', id: 'End' });
+         rowsCases = new Array();
 
-        var startend_dates=getStartEndDate(jsonDataMeasure)
-        firstdate = startend_dates[0]
-        lastdate = startend_dates[1]
+        var diffTime = Math.abs(lastdate - firstdate);
+        var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        dayscount = 0
+        ctry_count = countries.split(',').length;
+        var row = new Array()
+        old_date = new Date(2020, 1, 1);
 
+        country_pk = -1
+        country_elements = new Array()
+        countries_data = new Array()
+        countries_groups = new Array()
+        var groupsgraph = new vis.DataSet();
 
-        $.each(jsonDataMeasure, function(id, line) {
-          var type = line['type']['name'].toString();
-          country = line['country']['name'].toString();
+        $.each(jsonData, function(id, line) {
+                  if (country_pk != line["country"]["pk"])
+                      {
+                         if (!country_elements.includes(line["country"]["pk"]))
+                         {
+                           country_elements.push(line["country"]["pk"]);
+                           groupsgraph.add({"id": line['country']['name'], "content": line['country']['name']});
+                           country_pk = line["country"]["pk"]
+                          }
+                      }
+            countries_data.push({"group":line['country']['name'], "x": line['date'], "y": line['cases_past7days'] })
+        });
 
-          if (line['start'] != null)
-          {
-            var start_str = line['start'].split("-")
-            var start_date = new Date(start_str[0], start_str[1]-1, start_str[2])
-            var start_date_str = line['start'];
-          }
-          else
-          {
-            var start_date = firstdate;
-            var start_date_str = ""
-          }
+          var datasetgraph = new vis.DataSet(countries_data);
+          var optionsgraph = {
+                defaultGroup: "Country ",
+                drawPoints: false,
+                start: firstdate,
+                end: lastdate
 
-
-          if (line['end'] != null)
-          {
-            var end_str = line['end'].split("-")
-            var end_date = new Date(end_str[0], end_str[1]-1, end_str[2])
-            var end_date_str = line['end']
-          }
-          else
-          {
-            var end_date = lastdate;
-            country = country + "*";
-            var end_date_str = 'undefined'
-          }
-
-           if (line['isregional'] == true)
-          {
-            country = country + "#";
-          }
-
-          if (line['level'] == 1)
-          {
-             country += " " +  line['type']['tooltip_partial'];
-             color = ColorPartial[line['type']['category']['pk']];
-          }
-          else
-          {
-              if (line['level'] != 0)
-             {
-                country += " " + line['type']['tooltip_nonpartial'];
-             }
-            color = ColorClosed[line['type']['category']['pk']];
-          }
-
-
-
-          if (line['level'] == 0)
-          {
-            country += " (none)";
-            color='#FFFFFF';
-          }
-
-          //Set up tooltip
-          days = convertMiliseconds(end_date - start_date,'d')+1;
-
-          var tooltip = '<div style="margin-left: 5;margin-top: 5;margin-bottom: 5;margin-right: 5;width: 300">'
-          tooltip += "<p><b>"+type+"</b></p>";
-
-          if (line['end'] != null || line['start'] != null)
-          {
-            tooltip += "<p>"+ start_date_str + " - " + end_date_str;
-            if (line['end'] != null && line['start'] != null)
-            {
-               tooltip += " // Duration: " + days + " days</p>"
-            }
-          }
-          tooltip += "<hr>";
-          tooltip += line['comment'].toString();
-          tooltip += '</div>';
-
-          var source = "Source: " + line['sources'].toString()
-
-          dataTableMeasure.addRows([[type,country,tooltip,color,start_date,end_date]]);
-
-
-});
-          var options = {
-            timeline: { avoidOverlappingGridLines: true}
           };
+          var graph2dline = new vis.Graph2d(containergraph, datasetgraph, groupsgraph, optionsgraph);
+          graph2dline.setGroups(groupsgraph)
 
-        chartMeasure.draw(dataTableMeasure, options);
+          populateExternalLegend(groupsgraph, "legendperpop", graph2dline)
+        }
 
+function populateExternalLegend(groups, legendelement, graphobj) {
+    var groupsData = groups.get();
+    var legendDiv = document.getElementById(legendelement);
+    legendDiv.innerHTML = "";
+
+    // get for all groups:
+    for (var i = 0; i < groupsData.length; i++) {
+      // create divs
+      var containerDiv = document.createElement("div");
+      var iconDiv = document.createElement("div");
+      var descriptionDiv = document.createElement("div");
+
+      // give divs classes and Ids where necessary
+      containerDiv.className = 'legend-element-container';
+      containerDiv.id = groupsData[i].id + "_legendContainer"
+      iconDiv.className = "icon-container";
+      descriptionDiv.className = "description-container";
+
+      // get the legend for this group.
+      var legend = graphobj.getLegend(groupsData[i].id,30,30);
+
+      // append class to icon. All styling classes from the vis-timeline-graph2d.min.css/vis-timeline-graph2d.min.css have been copied over into the head here to be able to style the
+      // icons with the same classes if they are using the default ones.
+      legend.icon.setAttributeNS(null, "class", "legend-icon");
+
+      // append the legend to the corresponding divs
+      iconDiv.appendChild(legend.icon);
+      descriptionDiv.innerHTML = legend.label;
+
+      // determine the order for left and right orientation
+      if (legend.orientation == 'left') {
+        descriptionDiv.style.textAlign = "left";
+        containerDiv.appendChild(iconDiv);
+        containerDiv.appendChild(descriptionDiv);
+      }
+      else {
+        descriptionDiv.style.textAlign = "right";
+        containerDiv.appendChild(descriptionDiv);
+        containerDiv.appendChild(iconDiv);
       }
 
-      $( document ).ready(function() {
+      // append to the legend container div
+      legendDiv.appendChild(containerDiv);
+
+      // bind click event to this legend element.
+      containerDiv.onclick = toggleGraph.bind(this,groupsData[i].id, graphobj, groups);
+    }
+  }
+
+    /**
+   * This function switchs the visible option of the selected group on an off.
+   * @param groupId
+   */
+  function toggleGraph(groupId, graphobj, groups) {
+    // get the container that was clicked on.
+    var container = document.getElementById(groupId + "_legendContainer")
+    // if visible, hide
+    if (graphobj.isGroupVisible(groupId) == true) {
+      groups.update({id:groupId, visible:false});
+      container.className = container.className + " hidden";
+    }
+    else { // if invisible, show
+      groups.update({id:groupId, visible:true});
+      container.className = container.className.replace("hidden","");
+    }
+  }
+
+      $(window).on('load', function() {
           //-----------------------------Load countries----------------------
 
           var dataCountries = $.ajax({
@@ -418,7 +431,7 @@
 
           $.each(jsonCountries, function(id, line) {
                countries.push({
-                    name: '<i class="'+line['code'] +' flag"/>'+line['name'],
+                    name: '<font size="5em"><i class="'+line['code'] +' flag"/>'+line['name']+'</font>',
                     value: line['pk']
                   });
           });

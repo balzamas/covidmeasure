@@ -1,7 +1,7 @@
-###How to categorize the data
+### How to categorize the data
 
 
-####Dates
+#### Dates
 Start day: when the measure was introduced.
 End day: The date when the measure was replaced by another one or when it was lifted.
 
@@ -11,18 +11,18 @@ Measure 1 Start date: March 12, End date March 15.
 
 Measure 2 Start date: March 15, End date none 
 
-####Partial
+#### Partial
 When partial is NOT set, the measure is in full force. General rule: it's closed/in force, maybe with exceptions.
 Usually this does not need a comment.
 
 When partial is set, it's open, but with limitations/restrictions. Comment what are the limitations. 
 If introduced gradually, document it in the same record (e.g. "From March 10: 10 people allowed, from March 21: 5 people allowed.")
 
-####None
+#### None
 When a measure was never active or it was revoked, you can set a record to None. It's shown as a white bar in the chart.
 Please do this when a measure never was in place, so visitors see if this topic was already researched by us.
 
-#####For example
+##### For example
 Restaurant without partial set: 
 
 All restaurants have to be closed.
@@ -33,120 +33,120 @@ Example 1: All restaurants are open again but with restrictions like maximum peo
 
 Example 2: Only restaurants to a certain size can be open, only outside areas are allowed, strict hygiene concept. 
 
-###Measure types
+### Measure types
 
-####Primary schools
+#### Primary schools
 Grade 1 to 9
 
-#####Partial
+##### Partial
 Schools are open with restrictions like class size, reduced hours.
 
-#####Full
+##### Full
 All schools are closed.
 
-####Secondary/Vocational/High schools, Universities
+#### Secondary/Vocational/High schools, Universities
 
-#####Partial
+##### Partial
 Schools are open with restrictions like class size, reduced hours.
 
-#####Full
+##### Full
 Schools are closed for teaching, maybe exceptions to attend final exams in small groups.
 
-####Secondary/Vocational/High schools, Universities
+#### Secondary/Vocational/High schools, Universities
 
-#####Partial
+##### Partial
 Schools are open with restrictions like class size, reduced hours.
 
-#####Full
+##### Full
 Schools are closed for teaching, maybe exceptions to attend final exams in small groups.
 
-####Face cover/mask
+#### Face cover/mask
 
-#####Partial
-Has to be worn in certain areas/buildings. 
+##### Partial
+Has to be worn in public transport. 
 
-#####Full
-In general: Has to be worn all the time when leaving the house (small exceptions possible)
+##### Full
+Has to be worn in oub. transport, shops or stricter.
 
-####Gathering restrictions
+#### Gathering restrictions
 Usually together with a minimal distancing rule.
 
-#####Partial
+##### Partial
 Maximum of people who are allowed to meed if larger then 10.
 
-#####Full
+##### Full
 No gatherings with more then 10 people allowed.
 
-####Lock in/curfew
+#### Lock in/curfew
 
-#####Partial
+##### Partial
 Curfew for certain times.
 Leaving the house only permitted for essential tasks.
 Movement restricted to certain radius/same settlement.
 Checks by police/authorities.
 
-#####Full
+##### Full
 Same as partial, but always an authorization is needed (paper/digital).
 Can also be a self declaration.
 
-####Tracing app
+#### Tracing app
 
-#####Partial
+##### Partial
 Only anonymized key stored in central system (e.g. DP-3T).
 
-#####Full
+##### Full
 Personal data stored on central system (e.g. phone number, GPS data). 
 
-####Non-essential shops/services
+#### Non-essential shops/services
 Essential shops can slightly differ from country to country, but in general groceries, pharmacies.
 Measures counts as none when all types of shops and services reopen, even when they have some restrictions about people per sqm or similar.  
 
-#####Partial
+##### Partial
 Some categories of shops are allowed to open, other not.
 
-#####Full
+##### Full
 All non-essentail shops are closed.
 
-####Restaurants/Bar
+#### Restaurants/Bar
 
-#####Partial
+##### Partial
 Restrictions to count as partial: maximum people per table, restricted opening hours, only outside areas allowed, only seats allowed.
 
-#####Full
+##### Full
 Take-Away/Delivery still allowed.
 
-####Border
+#### Border
 Land, Air and Sea borders
 
-#####Partial
+##### Partial
 Border are open for certain nationals, closed for others.
 Land border to some countries open, closed to others.
 
-#####Full
+##### Full
 All borders are closed for all nationals, except for residents/nationals, other exceptions possible (e.g. workers, funerals). 
 
-####Quarantine after return
+#### Quarantine after return
 Obligatory quarantine, in self isolation or at government place.
 
-#####Partial
+##### Partial
 Quarantine mandatory for some nationals/destinations.
 
-#####Full
+##### Full
 All incoming have to go into quarantine (exceptions for workers etc. possible)
 
-####International flights
+#### International flights
 
-#####Partial
+##### Partial
 Flights to/from certain destinations not allowed.
 
-#####Full
+##### Full
 All flights stopped (except charter for special missions)
 
-####Cinemas/Theater, Clubs/concert, Museums/Libraries/Zoos
-Set to none when allowed to be open and only restricted by general social distancing measures/gathering restrictions.
+#### Cinemas/Theater, Nightclubs, Museums/Libraries/Zoos
+Set to none when allowed to be open and only restricted by general social distancing measures/people per sqm.
 
-#####Partial
+##### Partial
 Some subcategories allowed, others not
 
-#####Full
+##### Full
 Closed

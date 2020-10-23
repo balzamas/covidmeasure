@@ -1,0 +1,215 @@
+{% load static i18n %}
+{% load static %}
+{# Load the tag library #}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>CovidLaws // World rankings</title>
+        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+
+	<style>
+table, th, td {
+  padding: 10px;
+  font-size: 30;
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.peak {
+		      text-align: center;
+        font-size: 10;
+
+		}
+    .container {
+      position: relative;
+      text-align: center;
+      color: white;
+      }
+      /* Centered text */
+      .centered {
+        position: absolute;
+        color: black;
+        font-size: 30;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+            .bottomed {
+        position: absolute;
+        color: black;
+        font-size: 10;
+        bottom: 1px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+  </style>
+
+
+  </head>
+  <body bgcolor="black">
+
+
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+
+
+      <h1>CovidLaws // Europe // Ranking</h1>
+      <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
+      <div id="menu"></div>
+
+  <table>
+    <h1>World Covid Ranking</h1>
+    Don't take this too serious. It's the internet.
+    <br><br>
+    <p>Rank and Score are compared to 7 days ago. The lower the better.</p>
+    <p>Graphs show development in the past 2 months.</p>
+    <p>It's very critical to compare data between countries, as they use different counting methods, different testing rules etc. etc.<br>
+      Also, this pandemic is regional, there is a huge size difference between the countries.<br>
+    Nonetheless I decided to create a ranking system because I realized that I didn't notice when the situation was changing in other countries.<br>
+    So with the help of this list I hope it's easier to see what's currently going on in Europe.</p>
+    <p>Countries: All European and some selected from all over the world (in general where positive rate is available).</p>
+    <p><a href="/ranking_europe">Ranking Europe</a> // <a href="/ranking_world">Ranking World</a></p>
+    <br>
+    <tr><td></td><td></td><td>Trend</td><td>Country</td><td>Score</td><td>Pos. Tests per 100k<br>Last 14 days</td><td>Deaths per 100k<br>Last 14 days</td><td>Positive rate<br>@ Date</td></tr>
+    {% for hans in countries %}
+
+    <tr>
+      {% if hans.continent == 1 %}
+        <td bgcolor="#00c1ff">
+      {% elif hans.continent == 2 %}
+        <td bgcolor="#ff9b00">
+      {% elif hans.continent == 3 %}
+        <td bgcolor="#03d840">
+      {% elif hans.continent == 4 %}
+        <td bgcolor="#ffff00">
+      {% endif %}
+        &nbsp;
+      </td>
+
+      <td>
+        <b>{{ hans.rank }}</b>
+      </td>
+      <td>
+        <i class="{{ hans.rank_icon }} icon"></i>
+        {{ hans.rank_diff }}
+      </td>
+      <td>
+        <b>{{ hans.name }}</b>
+        {% if hans.has_measures == True %}
+          <a href="/country/{{hans.code}}"><i class="info circle icon"></i></a>
+        {% endif %}
+      </td>
+      <td>
+        <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>
+      </td>
+      <td>
+
+        <div class="container">
+          <img src=/static/images/graphs_world/{{ hans.code  }}_cases.png>
+          <div class="centered">{{ hans.cur_prev14 }}</div>
+        </div>
+        <div class="peak">All time peak: {{ hans.peak_cases }}<br>
+        {{ hans.peak_cases_date }}</div>
+      </td>
+      <td>
+        <div class="container">
+        <img src=/static/images/graphs_world/{{ hans.code  }}_deaths.png>
+          <div class="centered">{{ hans.deaths }}</div>
+        </div>
+        <div class="peak">All time peak: {{ hans.peak_deaths }}<br>
+        {{ hans.peak_deaths_date }}</div>
+       </td>
+      <td>
+        {% if hans.positivity != None %}
+          <div class="container">
+            <img src=/static/images/graphs_world/{{ hans.code  }}_positivity.png>
+            <div class="centered">{{ hans.positivity|floatformat:1 }}%</div>
+            <div class="bottomed">{{ hans.positivity_date }}</div>
+          </div>
+          <div class="peak">All time peak: {{ hans.peak_positivity|floatformat:1 }}<br>
+          {{ hans.peak_positivity_date }}</div>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </table>
+
+<br><br>
+
+  <table>
+    <tr>
+      <td>
+  <b>Score</b><br>
+  Following numbers are summed up to calculate the score:      </td>
+    </tr>
+    <tr>
+      <td>
+        [Cases per 100k/past 14 days]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [Cases per 100k/past 7 days]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [Deaths per 100k/past 14 days * 100]
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [Average positive rate past 7 days * 50]
+      </td>
+      <td>
+        If no positive rate is available, the average of 5% is used.
+      </td>
+    </tr>
+    <tr>
+      <td>
+        [Tendency (Cases per 100k past 14 days compare to 14 days ago in %) / 5]
+      </td>
+    </tr>
+
+  </table>
+
+      <p>Why this formula? Nothing scientific, I just tried to make a balanced score, taking into account the number of cases, trend in cases, death rates and if there are enough tests performed (by using positive rate).<br>
+      Feel free to contact my if you have a suggestion: d.berger@dontsniff.co.uk</p>
+
+      <p>
+      <b>Sources</b><br>
+         Cases/Deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+        Positive rate: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a>
+      </p>
+      </div>
+
+
+  </body>
+</html>
+
+
+
+
+

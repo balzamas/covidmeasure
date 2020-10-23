@@ -1,0 +1,162 @@
+{% load static i18n %}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>{% trans 'CovidLaws // Incidence by canton/district' %}</title>
+        <meta name="description" content="Corona Covid Inzidenz je Kanton oder Bezirk, Schweiz, Suisse. ">
+        <script src="{% url 'javascript-catalog' %}"></script>
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/district.js' %}"></script>
+
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 600px;
+			height: 400px;
+
+      .map_center{
+      text-align:center;
+      }
+		}
+	</style>
+
+	<style>#map { width: 800px; height: 700px; }
+.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+
+
+  </head>
+  <body bgcolor="black">
+
+
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+
+
+      <h1>{% trans 'CovidLaws // Switzerland //  Districts' %}</h1>
+      <div id="menu_ch"></div>
+
+
+  <p id="grande"><b>{% trans 'Incidence per 100k/past 14 days' %}</b></p>
+      {% trans 'Including neighbouring districts from Italy, Germany, France (data since May 13), Austria (data since March 25)'%}<br><br>
+      {% trans 'Note: numbers are updated at different dates, see below for details.'%}<br><br>
+      {% trans 'Note: Graph with development of past 2 months is generated every night.'%}<br><br>
+
+        <div align="center">
+          <div id='mapDistricts'  style="height: 600px; width: 100%;"></div>
+        </div>
+          <h2>  <div id="dateview"></div>  </h2>
+            <h3>{% trans 'Switch date' %}</h3>
+              <div class="ui vertical animated button" tabindex="0" id="btnMinusWeek">
+                <div class="hidden content">{% trans '- 1 week' %}</div>
+                <div class="visible content">
+                  <i class="angle double left icon huge"></i>
+                </div>
+              </div>
+
+                <div class="ui vertical animated button" tabindex="0" id="btnMinusDay">
+                <div class="hidden content">{% trans '- 1 day' %}</div>
+                <div class="visible content">
+                  <i class="angle left icon huge"></i>
+                </div>
+              </div>
+
+                <div class="ui vertical animated button" tabindex="0" id="btnPlusDay">
+                <div class="hidden content">{% trans '+ 1 day' %}</div>
+                <div class="visible content">
+                  <i class="angle right icon huge"></i>
+                </div>
+              </div>
+
+                <div class="ui vertical animated button" tabindex="0" id="btnPlusWeek">
+                <div class="hidden content">{% trans '+ 1 week' %}</div>
+                <div class="visible content">
+                  <i class="angle double right icon huge"></i>
+                </div>
+              </div>
+
+           <h3>{% trans 'Timelapse' %}</h3>
+  <p>{% trans 'Push button to play.' %}</p>
+              <div class="ui vertical animated button" tabindex="0" id="btnPlayJune">
+                <div class="hidden content">{% trans 'since June 15' %}</div>
+                <div class="visible content">
+                   {% trans 'June' %}
+                  <i class="play icon huge"></i>
+                </div>
+              </div>
+
+              <div class="ui vertical animated button" tabindex="0" id="btnPlayBegin">
+                <div class="hidden content">{% trans 'since Feb 24' %}</div>
+                <div class="visible content">
+                  Feb
+                  <i class="play icon huge"></i>
+                </div>
+              </div>
+
+
+  <p>
+  <h3>{% trans 'Further information Switzerland' %}</h3>
+  {% trans 'The ultimate Switzerland data page for Corona related stats:' %} <a href="https://www.corona-data.ch">corona-data.ch</a><br>
+  {% trans 'Excellent visualization of cantonal case/hospitalization/death data:' %} <a href="https://rsalzer.github.io/COVID_19_CH/">rsalzer.github.io</a><br>
+  {% trans 'Wonderful maps from and to where travel is still possible:' %} <a href="https://passportparty.ch/2020/09/20/wohin-man-derzeit-reisen-darf-und-wohin-nicht-corona-schweiz/">passportparty.ch</a><br>
+  {% trans 'Monitoring of current ICU capacities in Switzerland:' %} <a href="https://icumonitoring.ch">icumonitoring.ch</a><br>
+
+  </p>
+
+  <p>
+  <h3>{% trans 'Sources' %}</h3>
+
+  {% trans 'Cantons (daily to weekly)' %}: <a href="https://opendata.swiss/de/dataset/covid_19-fallzahlen-kanton-zuerich" target="_blank">OpenData ZH</a><br>
+  {% trans 'Sources districts:' %}<br>
+  ZH ({% trans 'monday' %}): <a href="https://github.com/openZH/covid_19/blob/master/fallzahlen_bezirke/fallzahlen_kanton_ZH_bezirk.csv" target="_blank">OpenData ZH</a> // <a href="https://rsalzer.github.io/COVID_19_KT_ZH/" target="_blank">Details Zurich</a> by <a href="https://twitter.com/rob_salzer" target="_blank">@rob_salzer</a><br>
+  SG ({% trans 'daily/workdays' %}): <a href="https://www.sg.ch/tools/informationen-coronavirus.html" target="_blank">Kanton St. Gallen</a><br>
+  FR ({% trans 'monday' %}, {% trans 'since Week' %} 32): <a href="https://raw.githubusercontent.com/openZH/covid_19/master/fallzahlen_bezirke/fallzahlen_kanton_FR_bezirk.csv" target="_blank">OpenData ZH/Kanton Freiburg</a><br>
+  BE ({% trans 'daily' %}, {% trans 'since Week' %} 33): <a href="https://www.be.ch/corona" target="_blank">Kanton Bern</a> // <a href="https://be.corona-data.ch" target="_blank">Details Bern</a> by <a href="https://twitter.com/skepteis" target="_blank">@skepteis</a> <br>
+  GR ({% trans 'daily' %}): <a href="https://github.com/openZH/covid_19/blob/master/fallzahlen_bezirke/fallzahlen_kanton_GR_bezirk.csv" target="_blank">OpenData ZH/Kanton Graubünden</a> <br>
+  VS ({% trans 'wednesday' %}, {% trans 'since Week' %} 32 ): <a href="https://www.vs.ch/de/web/coronavirus/statistiques" target="_blank">Kanton Wallis</a><br>
+  AG ({% trans 'friday' %}, {% trans 'since Week' %} 41): <a href="https://www.ag.ch/de/themen_1/coronavirus_2/lagebulletins/lagebulletins_1.jsp" target="_blank">Kanton Aargau</a><br>
+  SO ({% trans 'monday' %}, {% trans 'since Week' %} 38): <a href="https://corona.so.ch/bevoelkerung/daten/fallzahlen-nach-gemeinden/" target="_blank">Kanton Solothurn</a><br>
+  Excel-File FR, BE, VS, AG: <a href="https://github.com/balzamas/covidmeasure/blob/develop/measuremeterdata/datasources/cases_bezirke.xlsx" target="_blank">Download</a><br>
+  {% trans 'When district data is missing, the values of the canton are used.' %}
+  <br><br>
+  <b>France</b><br>
+    <a href="https://covidtracker.fr/covidtracker-france/" target="_blank">Covid Tracker France</a><br>
+    Thanks to <a href="https://twitter.com/GuillaumeRozier" target="_blank">@GuillaumeRozier</a> - <a href="https://github.com/rozierguillaume/covid-19" target="_blank">GitHub</a>
+    <br>
+  <b>Austria</b><br>
+  <a href="https://vis.csh.ac.at/corona-ampel/" target="_blank">CSH Corona Warnampel </a><br>
+  Thanks to Johannes Sorger and Team from CSH Vienna and data.gv.at for the data.<br>
+  <b>Italy</b><br>
+  <a href="https://github.com/pcm-dpc/COVID-19">Source</a><br>
+  Thanks to Presidenza del Consiglio dei Ministri - Dipartimento della Protezione Civile.<br>
+  <b>Germany</b><br>
+  <a href="https://github.com/entorb/COVID-19-Coronavirus-German-Regions">Source</a><br>
+  Thanks to <a href="https://twitter.com/entorb">@entorb</a> for the data repo, that was a long search until I found GER data in a (for me) useful form.<br>
+  His page with the incidence map for Germany and a lot more can be found <a href="https://entorb.net/COVID-19-coronavirus/maps-de-districts.html">here</a>.
+  </p>
+  <p>
+  Thanks to <a href="https://twitter.com/daniel_passport" target="_blank">@daniel_passport</a> for the help and inspiration!
+  </p>
+  </body>
+</html>
+
+
+
+
+

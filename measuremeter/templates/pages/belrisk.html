@@ -1,0 +1,198 @@
+{% load static i18n %}
+{% load static %}
+{# Load the tag library #}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>CovidLaws // Corona/Covid Risk map Belgium</title>
+        <meta name="description" content="Risiko Karte für die Schweiz - wahrscheinlichkeit Covid Corona infizierte Person, Carte risque suisse covid corona gruppen groupe">
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/menu.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
+    <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/belrisk.js' %}"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 600px;
+			height: 400px;
+		}
+	</style>
+  <script>
+          $(window).on('load', function() {
+
+          age_groups = []
+          age_groups.push({name:"0-9",value:"0_9"})
+          age_groups.push({name:"10-19",value:"10_19"})
+          age_groups.push({name:"20-29",value:"20_29"})
+          age_groups.push({name:"30-39",value:"30_39"})
+          age_groups.push({name:"40-49",value:"40_49"})
+          age_groups.push({name:"50-59",value:"50_59"})
+          age_groups.push({name:"60-69",value:"60_69"})
+          age_groups.push({name:"70-79",value:"70_79"})
+          age_groups.push({name:"80-89",value:"80_89"})
+          age_groups.push({name:"90plus",value:"90plus"})
+
+          $('#age_groups_dd')
+              .dropdown({
+                values:age_groups
+              })
+            ;
+
+		    $("#load_data").click(function(){
+                groupsize = $("#groupsize").val();
+                bias = $("#bias").val();
+                days = $("#days").val();
+
+                var d = new Date();
+                today = formatDate(d);
+
+                age_groups = $('#age_groups_dd').dropdown('get value')
+                LoadMap(mapRisk, today, groupsize, bias, days, '{{provinces}}', '{{age_dist}}', age_groups);
+            });
+
+            $('.ui.dropdown')
+              .dropdown();
+
+            $('#days_dd').dropdown('set selected', 7)
+
+            var mapRisk = L.map('mapRisk').setView([50.5, 4.4], 8);
+
+            groupsize = $("#groupsize").val();
+            bias = $("#bias").val();
+            days = $("#days").val();
+
+            var d = new Date();
+            today = formatDate(addDays(d, -1));
+            age_groups = $('#age_groups_dd').dropdown('get value')
+
+            LoadMap(mapRisk, today, groupsize, bias, days, '{{provinces}}', '{{age_dist}}', age_groups);
+
+      });
+  </script>
+
+
+	<style>#map { width: 800px; height: 700px; }
+.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+
+</head>
+<body>
+
+  <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+
+  <h1>CovidLaws // Belgium // Risk map</h1>
+  <div id="menu"></div>
+
+  <p id="grande"><b>COVID-19 Event Risk Assessment</b></p>
+
+
+  <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
+
+  <h4>Calculating the chance that one or more members of a group is/are infected.</h4>
+  <p>Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.<br>
+  Base number: Positive tests in the past X days per 100k population. CDC recommends to use past 10 days.<br>
+    Bias: As default, the value of two is set.<br>
+    For the age group ratio, the values of all Belgium is taken and calculated down to province size.
+  </p>
+  <p>Formula used: 100 - (((1-(1/(100000/(cases*bias)))) ** groupsize) * 100)</p>
+
+  <p class="red"><b>Attention:</b> be aware, don't missuse it! Don't use it for your personal risk assessment!
+    <br> "Oh, the chance that someone is infected at this party is only 9,3%? Let's go and hug everybody!"<br>
+    Probabilities are tricky to understand - this tool is maybe more useful for decision makers/event organizers (keyword "Superspreader in closed space").<br>
+    Disclaimer: I am not an epidemologist. I'm just a random dude from the internet.<br>
+    Credit for the concept goes to Gatech, I just adapted their concept for Switzerland.<br>
+    So: keep your distance, wash your hands, wear a mask where it's sensible, enjoy life but don't be stupid.
+
+  </p>
+  <br><br>
+
+  <table>
+<colgroup>
+    <col width="40%">
+    <col width="20%">
+    <col width="40%">
+</colgroup>
+<tr>
+    <td valign="top">
+      <h3>Group size:</h3>
+      <div class="ui input" >
+        <input type="number" id="groupsize" placeholder="Group size" value=300>
+      </div>
+    </td>
+    <td valign="top">
+              <h3>Base number:</h3>
+      <select class="ui dropdown" id="days">
+      <option value="10">10 days</option>
+      <option value="7">7 days</option>
+      <option value="14">14 days</option>
+      </select>
+        <br>    Cases per 100k population in the past...
+    </td>
+</tr>
+<tr>
+    <td valign="top">
+        <h3>Bias:</h3>
+        <div class="ui input" >
+          <input type="number" id="bias" placeholder="Bias" value=2>
+        </div>
+        <br>Ascertainment bias: incidence is multiplied by this number.
+
+
+    </td>
+    <td valign="bottom">
+                    <h3>Age groups (empty=all)</h3>
+
+                <div class="ui multiple fluid search selection dropdown" id="age_groups_dd">
+                  <input type="hidden" name="agegroups">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Age groups</div>
+                  <div class="menu" id="age_groups_list">
+                </div>
+              </div>
+
+
+
+    </td>
+</tr>
+</table>
+    <br><br>
+      <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
+      <div class="hidden content" >Load</div>
+      <div class="visible content">
+        <i class="large arrow circle down icon"></i>
+      </div>
+      </div>
+  <br><br>
+
+  <div align="center">
+    <div id='mapRisk'  style="height: 600px; width: 100%;"></div>
+  </div>
+  <br>
+  </body>
+</html>
+
+
+
+
+

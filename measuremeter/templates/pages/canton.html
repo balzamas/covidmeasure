@@ -1,0 +1,158 @@
+{% load static i18n %}
+{# Load the tag library #}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>CovidLaws // Coronavirus measures by canton - Canton profiles</title>
+        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+         <script src="{% url 'javascript-catalog' %}"></script>
+      <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+
+    <script
+  type="text/javascript"
+  src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"
+></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+       <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+        <script type="text/javascript" src="{% static 'js/chartjs-plugin-annotation.js' %}"></script>
+
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/ch_timeline_base.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/canton.js' %}"></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		#map {
+			width: 600px;
+			height: 400px;
+		}
+	</style>
+
+	<style>#map { width: 800px; height: 700px; }
+.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+
+
+  </head>
+  <body bgcolor="black">
+
+
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+
+
+      <h1>CovidLaws // Switzerland // Canton profiles</h1>
+      <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
+      <div id="menu_ch"></div>
+
+
+
+  <div class="ui active dimmer" id="dimmer">
+    <div class="ui text loader">Loading</div>
+  </div>
+
+<b>Please note, I am in my holidays, update for cantonal measures is currently very slow.</b>
+
+  <p id="grande"><b>Incidence and measures</b></p>
+        <div class="ui placeholder segment">
+        <div class="ui two column stackable center aligned grid">
+          <div class="ui vertical divider"></div>
+          <div class="middle aligned row">
+            <div class="column">
+              <p id="grande">Cantons (empty=all)</p>
+
+                <div class="ui multiple fluid search selection dropdown" id="cantons_dd">
+                  <i class="large flag outline icon"></i>
+                  <input type="hidden" name="cantons">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Cantons</div>
+                  <div class="menu" id="cantons_list">
+                </div>
+              </div>
+
+            </div>
+            <div class="column">
+             <p id="grande">Measure type (empty=all)</p>
+                  <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
+                    <i class="large heartbeat icon"></i>
+                    <input type="hidden" name="measuretypes">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Measure types</div>
+                    <div class="menu">
+                  </div>
+                </div>
+            </div>
+
+          </div>
+          <div class="ui divider"></div>
+          <div class="middle aligned row">
+                        <div class="column">
+              From:  <input style="height:60px" type="date" id="datefrom" value="2020-06-01">&nbsp;
+              To:   <input style="height:60px" type="date" id="dateto" value="2020-07-01">
+
+
+            </div>
+            <div class="column">
+              <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
+                <div class="hidden content" >Load</div>
+                <div class="visible content">
+                  <i class="large arrow circle down icon"></i>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+  <p id="grande">Click on lines/cantons for details.</p>
+
+      <canvas id="compareChart">
+      </canvas>
+        <div id="dialog" title="Basic dialog">
+      </div>
+  <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a>
+
+   <br><br>
+<p id="grande"><b>Timeline</b></p>
+               <p id="grande">
+                * = end of measure undefined,
+                # = regional<br>
+               </p>
+                  <div id="timeline"></div>
+
+<br><br>
+To check where you can travel to from Switzerland without a quarantine, see <a href="https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-und-wohin-nicht/" target="_blank">Passportparty.ch</a>.
+
+              <p id="grande"><b>Current active measures</b><br>For federal rules, check <a href="/country/ch">Country Profile Switzerland</a></p>
+
+               <div id="current"></div>
+
+
+      </div>
+<br><br>
+  </body>
+</html>
+
+
+
+
+

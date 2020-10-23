@@ -1,4 +1,20 @@
 /* These styles are generated from project.scss. */
+html {
+      font-size: 1.3em;
+}
+
+      body {
+        /*background-color: #d5d5d5;*/
+      }
+
+#grande {
+font-size: 30px;
+}
+
+    p {
+      font-size: 1.8em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    }
 
 .alert-debug {
   color: black;
@@ -70,5 +86,29 @@ div.sticky {
   padding: 10px;
   font-size: 20px;
   z-index: 1;
+}
+
+div.google-visualization-tooltip {
+    width: 600px;
+    height:auto;
+    color: #000000;
+    font-size: 1.5em;
+    vertical-align: left;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+
+
+}
+
+p.red {
+  border-style: solid;
+  border-color: red;
+      padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 

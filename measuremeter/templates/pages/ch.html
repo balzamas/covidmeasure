@@ -1,0 +1,129 @@
+{% load static i18n %}
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>CovidLaws // Switzerland Schweiz Suisse</title>
+    <meta name="description" content="Collection of measures/restrictions/policies/non-pharmaceutical interventions enacted in the fight/in response against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+        <script src="{% url 'javascript-catalog' %}"></script>
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+        <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
+  </head>
+  <body bgcolor="black">
+
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+
+
+      <h1>{% trans 'CovidLaws - Coronavirus measures and data Switzerland'%}</h1>
+      <div id="menu_ch"></div>
+      <div id="title_bar"></div>
+
+<div class="ui three column grid">
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/cantons">
+      <i class="plus square icon huge"></i>
+      <i class="info icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/cantons">{% trans 'Measures Switzerland'%}</a>
+      <div class="description">
+        {% trans 'Comparison dashboard'%}
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/chrisk">
+      <i class="plus square icon huge"></i>
+      <i class="exclamation triangle icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/chrisk">{% trans 'Risk calculator'%}</a>
+      <div class="description">
+        {% trans 'Switzerland'%}
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/districts">
+      <i class="plus square icon huge"></i>
+      <i class="chart area icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/districts">{% trans 'Incidence map'%}</a>
+      <div class="description">
+        {% trans 'Switzerland'%}
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/chmaps">
+      <i class="plus square icon huge"></i>
+      <i class="images icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/chmaps">{% trans 'Measures maps'%}</a>
+      <div class="description">
+        {% trans 'Switzerland'%}
+      </div>
+    </div>
+
+  </div>
+  </div>
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/ranking7">
+      <i class="plus square icon huge"></i>
+      <i class="tachometer alternate icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/ranking7">{% trans 'Rankings'%}</a>
+      <div class="description">
+        {% trans 'Switzerland'%}
+      </div>
+    </div>
+
+  </div>
+  </div>
+</div>
+  <br>
+    <b>{% trans 'Last changes'%}</b><br>
+    {% for x in measures%}
+       {{x}}, {{x.created}}<br>
+    {% endfor %}
+
+    </div>
+  </body>
+</html>
+
+
+
+

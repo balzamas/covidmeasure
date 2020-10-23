@@ -1,18 +1,18 @@
-# covidmeasures
+# covidlaws
 
-https://www.coronameasures.ch/
+https://www.covidlaws.net/
 
 Heavy work in progress, but in an nutshell:
 
-###Goal 
+### Goal 
 Data collection of corona measures in different countries.
 Visualization by measures/countries
 
-###API - REST Endpoints
-https://www.coronameasures.ch/measuremeterdata/
-To filter measures use parameters country_in= and type=
+### API - REST Endpoints
+https://www.covidlaws.ch/measuremeterdata/
+Sorry, no manual yet.
 
-###Contribute
+### Contribute
 Contact my if you want to collaborate (collect data or code). 
 Goal is to have local contributors for regions/countries to keep the data updated.
 Framework is Django.
@@ -22,19 +22,7 @@ My JQuery/CSS/HTML is a nightmare, be warned.
 Excellent ressource: 
 http://acaps.org/covid19-government-measures-dataset
 
-###Contact
+### Contact
 d.berger@dontsniff.co.uk
 
 Twitter: @BergerWhtur
-
-###Country contributors
-Switzerland: dbe
-
-Czech republic: dbe
-
-Austria: mli
-
-Lithuania: rfi
-
-
-Many text snippets and data directly from Wikipedia

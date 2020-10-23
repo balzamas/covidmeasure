@@ -1,0 +1,126 @@
+{% load static i18n %}
+{% load static %}
+{# Load the tag library #}
+
+<html>
+ <head>
+   <title>Compare countries</title>
+          <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/chartjs-plugin-annotation.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+       <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/compare.js' %}"></script>
+ </head>
+</html>
+<body>
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+      <h1>CovidLaws // Compare</h1>
+      <div id="param" type="hidden" value={{ items }}>{{ items }}</div>
+
+      <div id="menu"></div>
+  <p>For the old timeline version, go <a href="/timeline">here</a></p>
+  <p>For details on measure changes, click on vertical line/country codes.</p>
+  <p>With the reopenings it became nearly impossible to track the countries, as most switched to local measures.<br>
+  Many measures are outdated now!</p>
+  <p>The preselected countries are mostly up to date, except Germany, which is hard to cover due rules on Bundesland level.</p>
+        <div align="center">
+                <div class="ui animated button" tabindex="0" id="btnCopyLink">
+          <div class="visible content"><i class="copy icon"></i></div>
+          <div class="hidden content">
+            Copy link<br>
+          </div>
+      </div>
+      <div align="center">
+      </div>
+        <br><br>
+      <div class="ui placeholder segment">
+        <div class="ui two column stackable center aligned grid">
+          <div class="ui vertical divider"></div>
+          <div class="middle aligned row">
+            <div class="column">
+              <h2>Countries (empty=all)</h2>
+
+                <div class="ui multiple fluid search selection dropdown" id="countries_dd">
+                  <i class="large flag outline icon"></i>
+                  <input type="hidden" name="countries">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Countries</div>
+                  <div class="menu" id="countries_list">
+                </div>
+              </div>
+
+            </div>
+            <div class="column">
+             <h2>Measures (empty=all)</h2>
+                  <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
+                    <i class="large heartbeat icon"></i>
+                    <input type="hidden" name="measuretypes">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Measure types</div>
+                    <div class="menu">
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="ui divider"></div>
+          <div class="middle aligned row">
+            <div class="column">
+              From:  <input style="height:60px" type="date" id="datefrom" value="2020-06-01">&nbsp;
+              To:   <input style="height:60px" type="date" id="dateto" value="2020-07-01">
+
+
+            </div>
+            <div class="column">
+              <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
+                <div class="hidden content" >Load</div>
+                <div class="visible content">
+                  <i class="large arrow circle down icon"></i>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+      </div>
+      </div>
+      <br>
+<div class="chart-container" style="position: relative">
+      <canvas id="compareChart">
+      </canvas>
+        <div id="dialog" title="Basic dialog">
+      </div>
+</div>
+    Source Cases: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+
+  <br><br>
+<div class="chart-container" style="position: relative">
+      <canvas id="compareChartDeaths">
+      </canvas>
+</div>
+  Source Covid deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+
+<div class="chart-container" style="position: relative">
+      <canvas id="compareChartPositivity">
+      </canvas>
+</div>
+  A positivity rate higher then 5% is considered as a sign that there is not enough testing and a danger of loosing control. See this <a href="https://www.jhsph.edu/covid-19/articles/covid-19-testing-understanding-the-percent-positive.html">article</a> from the John Hopkins University.<br>
+  Source Positivity: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a>
+
+
+</div>
+</body>

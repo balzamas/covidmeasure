@@ -1,0 +1,144 @@
+{% load static i18n %}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>{% trans 'CovidLaws // Canton rankings'%}</title>
+        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="{% url 'javascript-catalog' %}"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
+       <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
+
+	<style>
+table, th, td {
+  padding: 10px;
+  font-size: 30;
+
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+
+		    .container {
+      position: relative;
+      text-align: center;
+      color: white;
+      }
+      /* Centered text */
+      .centered {
+        position: absolute;
+        color: black;
+        font-size: 30;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+	</style>
+
+	<style>#map { width: 800px; height: 700px; }
+.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+
+
+  </head>
+  <body bgcolor="black">
+
+
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+
+
+      <h1>{% trans 'CovidLaws // Cantons // Ranking'%}</h1>
+      <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
+      <div id="menu_ch"></div>
+
+  <table>
+    <h1>{% trans 'Swiss Covid Ranking 7 days' %}</h1>
+    {% trans "Don't take this too serious. It's the internet."%}
+    <br><br>
+    <p><a href="/ranking7">{% trans 'Ranking 7 days'%}</a>//<a href="/ranking14">{% trans 'Ranking 14 days'%}</a>//<a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
+    <p>{% trans 'Graphs show development in the past 2 months.'%}</p>
+
+    <tr><td></td><td>{% trans 'Rank'%}</td>
+      <td>{% trans 'Shift'%}</td>
+      <td>{% trans 'Canton'%}</td>
+      <td>{% trans 'Score'%}</td>
+      <td align="center">{% trans 'Prevalence 7d/100k<br>Graph: past 2 months'%}</td>
+      <td>{% trans 'Tendency'%}</td>
+      <td>{% trans 'Last update'%}</td></tr>
+    {% for hans in cantons %}
+
+    <tr>
+      <td>
+        <img src=/static/images/flags_ch/{{ hans.code  }}_circle.png>
+      </td>
+      <td>
+        {{ hans.rank }}
+      </td>
+      <td>
+        <i class="{{ hans.rank_icon }} icon"></i>
+        {{ hans.rank_diff }}
+      </td>
+      <td>
+
+        <b>{{ hans.name }}</b>
+      </td>
+      <td>
+        <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>
+      </td>
+     <td>
+        <div class="container">
+            {% if hans.level == 0 %}
+              <img src=/static/images/graphs_ch/{{ hans.code  }}_7.png>
+            {% else %}
+              <img src=/static/images/graphs_ch/{{ hans.id  }}_7.png>
+            {% endif %}
+          <div class="centered">{{ hans.cur_prev }}</div>
+        </div>
+      </td>
+      <td>
+        {{ hans.tendency }}
+      </td>
+      <td>
+        {{ hans.date }}
+      </td>
+
+    </tr>
+    {% endfor %}
+  </table>
+  <br>
+    {% trans 'Formula = 0 - Cases past 14 days per 100k pop - (Tendency % (=compared to 14 days ago) /5)'%}<br>
+  {% trans 'Why this Formula? Combine current cases with development smh. For a true ranking we would need positivity rate, ICU occupancy etc. etc.'%}
+  <br><br>
+  {% trans 'Source: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
+
+
+
+      </div>
+<br><br>
+  </body>
+</html>
+
+
+
+
+

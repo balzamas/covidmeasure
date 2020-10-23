@@ -6,17 +6,16 @@
   <head>
     <title>CovidLaws // Coronavirus measures by country - Country profile</title>
         <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
-    <script
-			  src="https://code.jquery.com/jquery-3.5.1.min.js"
-			  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-			  crossorigin="anonymous"></script>
-    <meta name="google-site-verification" content="hQ8G-HCPFQgyGYjjxJcseIc0Vxv1Fou_3HEMFCItEOA" />
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
     <!-- / Fathom -->
+
+    <script
+  type="text/javascript"
+  src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"
+></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
@@ -26,18 +25,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/chartjs-plugin-annotation.js' %}"></script>
+
 
        <link href="{% static 'css/project.css' %}" rel="stylesheet">
+       <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
        <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
        <script type="text/javascript" src="{% static 'js/timeline_base.js' %}"></script>
        <script type="text/javascript" src="{% static 'js/country.js' %}"></script>
-
-
-    <style>
-      body {
-        background-color: #d5d5d5;
-      }
-    </style>
 
   </head>
   <body bgcolor="black">
@@ -49,14 +45,14 @@
       <h1>CovidLaws // Country profiles</h1>
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu"></div>
+  <p>Disclaimer: With the reopenings it became nearly impossible to track the countries, as most switched to local measures.<br>
+  Many measures are outdated now!</p>
 
-      <font size="5rem">
 
 <div class="ui placeholder segment">
   <div class="ui one column stackable center aligned grid">
     <div class="middle aligned row">
       <div class="column">
-            <font size="5rem">
 
                 <div class="ui fluid search selection dropdown" id="countries_dd">
                   <i class="large flag outline icon"></i>
@@ -66,7 +62,6 @@
                   <div class="menu" id="countries_list">
                 </div>
               </div>
-            </font>
       </div>
     </div>
   </div>
@@ -75,12 +70,10 @@
 
 
 
-      </font>
 
 
 
 
-     <font size="3rem">
        <div class="container-fluid" >
   <div class="row justify-content-md-center">
     <div class="col-md-auto">
@@ -95,7 +88,7 @@
            <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
-                  <p><b>Current active measures</b></p>
+                  <p id="grande"><b>Current active measures</b></p>
                  </div>
              <div class="content active">
                   <div id="current"></div>
@@ -107,47 +100,76 @@
             <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
-                  <p><b>Timeline</b></p>
+              <p id="grande"><b>Timeline</b></p>
                  </div>
              <div class="content active">
+               <p id="grande">
                 * = end of measure undefined,
                 # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
-
-                <div id="datachartCountry"></div>
+               </p>
+               <div id="timeline"></div>
              </div>
            </div>
       </div>
-            <div id="cases"></div>
 
+  <br><br>
           <div class="ui accordion">
             <div class="title active">
               <i class="dropdown icon"></i>
-              <p><b>Reported new cases</b></p>
+              <p id="grande"><b>Reported new cases</b></p>
             </div>
             <div class="content active">
-              <p class="transition visible"><div id="datachartCases" style="height: 300px;"></div><br></p>
-            </div>
+              <p class="transition visible"><canvas id="casesChart"></canvas></p>
+                       </div>
           </div>
+    Source Cases: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+
+<br><br>
+          <div class="ui accordion">
+            <div class="title active">
+              <i class="dropdown icon"></i>
+              <p id="grande"><b>Positive rate (Tests), past 7 days</b></p>
+            </div>
+            <div class="content active">
+              <p class="transition visible"><canvas id="positivityChart"></canvas></p>
+                       </div>
+          </div>
+    Source Positivity: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a>
 
 
-              <p><b>Reported new deaths </b></p>
-              <p>
+<br><br>
+
+              <p id="grande"><b>Reported new deaths </b></p>
+            <p id="grande">
+
                 <div id="avg_desc"></div>
                 <div id="avg_peak_desc"></div>
               </p>
+                <div id="legenddeaths"></div>
 
 
-                <div id="datachartDeaths" style="height: 300px;"></div>
-                <p>
-                  <div id="source_death"></div>
-                  <div id="deaths_description">Note: some countries provide daily total death numbers, others weekly/other formats. If not daily we calculated the per day value for the period.
+
+                <div id="lineChartDeaths"></div>
+                <p id="grande">
+  <canvas id="deathChart"></canvas>
+
+   <div id="source_death"></div>
+      Source Covvid deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+
+  <div id="deaths_description">
+                    <p id="grande">Note: some countries provide daily total death numbers, others weekly/other formats. If not daily we calculated the per day value for the period.
                   <br><font color="red">Important</font>: the numbers for 2020 are in most cases incomplete! The closer the date, the larger the error margin! Please refer to the original source.
-                  <br>Also keep in mind that in all countries, the outbreaks where regional - while some regions had significant more deaths, others had usual or lower death numbers.</div>
-                  <br>As a comparison, you see the daily average in the past years and the daily average in the highest week in the past years. See explanation above the chart.
+                      <br>Also keep in mind that in all countries, the outbreaks where regional - while some regions had significant more deaths, others had usual or lower death numbers.</p>
+                  <p id="grande">As a comparison, you see the daily average in the past years and the daily average in the highest week in the past years. See explanation above the chart.</p>
+                  </div>
                 </p>
+</div>
       </div>
       </div>
+
+
+
   </body>
 </html>
 

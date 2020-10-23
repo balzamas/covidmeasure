@@ -1,0 +1,302 @@
+    /* custom styles for individual items, load this after vis-timeline-graph2d.min.css/vis-timeline-graph2d.min.css */
+
+
+
+    .vis-timeline {
+      font-size: 1.5em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    }
+
+    div.vis-tooltip {
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+      white-space: normal;
+      width: 50em;
+      max-width: 500px;
+      word-wrap: break-word;
+      padding: 5px;
+    }
+
+        /* create a custom sized dot at the bottom of the red item */
+    .vis-group.gray {
+      background-color: #d5d5d5;
+    }
+
+            /* create a custom sized dot at the bottom of the red item */
+    .vis-label.gray {
+      background-color: #d5d5d5;
+       width: 6em;
+    }
+
+            /* create a custom sized dot at the bottom of the red item */
+    .vis-group.white {
+      background-color: white;
+    }
+
+            /* create a custom sized dot at the bottom of the red item */
+    .vis-label.white {
+      background-color: white;
+      width: 6em;
+    }
+
+    /* create a custom sized dot at the bottom of the red item */
+    .vis-item.red {
+      background-color: red;
+      border-color: darkred;
+      color: white;
+      font-family: monospace;
+      box-shadow: 0 0 10px gray;
+    }
+    .vis-item.vis-dot.red {
+      border-radius: 10px;
+      border-width: 10px;
+    }
+    .vis-item.vis-line.red {
+      border-width: 5px;
+    }
+    .vis-item.vis-box.red {
+      border-radius: 0;
+      border-width: 2px;
+      font-size: 24pt;
+      font-weight: bold;
+    }
+
+    .vis-item.white {
+      background-color: white;
+      border-style:solid;
+      border-width:5px;
+      border-color: black;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+    }
+
+    .vis-item.vis-selected.white {
+       background-color: white;
+       border-style:solid;
+       border-width:5px;
+       border-color: black;
+       color: black;
+       font-size: 1.1em;
+       font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+       border-style: dotted;
+     }
+
+    .vis-item.softred {
+      background-color: #ebb5ab;
+      border-color: #e5573a;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+     .vis-item.vis-selected.softred {
+      background-color: #ebb5ab;
+      border-color: #e5573a;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
+
+    .vis-item.softyellow {
+      background-color: #f0e9aa;
+      border-color: #f5da3c;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+      font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+    .vis-item.vis-selected.softyellow {
+      background-color: #f0e9aa;
+      border-color: #f5da3c;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
+    .vis-item.level1 {
+      background-color: #bab7ff;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+      font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+    .vis-item.vis-selected.level1 {
+      background-color: #bab7ff;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
+    .vis-item.level2 {
+      background-color: #847ef8;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+      font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+    .vis-item.vis-selected.level2 {
+      background-color: #847ef8;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: black;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
+    .vis-item.level3 {
+      background-color: #3127fa;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: white;
+      font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+    .vis-item.vis-selected.level3 {
+      background-color: #3127fa;
+      border-color: #ffffff;
+      border-width:5px;
+      color: white;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
+    .vis-item.level4 {
+      background-color: #060261;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: white;
+      font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+
+    }
+
+    .vis-item.vis-selected.level4 {
+      background-color: #060261;
+      border-color: #ffffff;
+      border-style:solid;
+      border-width:5px;
+      color: white;
+            font-size: 1.1em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            border-style: dotted;
+    }
+
+    .vis-fill {
+      fill-opacity:0.1;
+      stroke: none;
+    }
+
+
+    .vis-bar {
+      fill-opacity:0.5;
+      stroke-width:1px;
+    }
+
+    .vis-point {
+      stroke-width:2px;
+      fill-opacity:1.0;
+    }
+
+    .vis-panel {
+      background-color: #ffffff;
+      fill: #ffffff;
+    }
+
+    .vis-legend-background {
+      stroke-width:1px;
+      fill-opacity:0.9;
+      fill: #ffffff;
+      stroke: #c2c2c2;
+    }
+
+
+    .vis-outline {
+      stroke-width:1px;
+      fill-opacity:1;
+      fill: #ffffff;
+      stroke: #e5e5e5;
+    }
+
+    .vis-icon-fill {
+      fill-opacity:0.3;
+      stroke: none;
+    }
+
+    div.description-container {
+      font-size: 1.5em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+      float:left;
+      height:50px;
+      padding-left:5px;
+      padding-right:5px;
+      line-height: 30px;
+    }
+
+    div.icon-container {
+      float:left;
+    }
+
+    div.legend-element-container {
+      display:inline-block;
+      height:40px;
+      border-style:solid;
+      border-width:1px;
+      border-color: #e0e0e0;
+      background-color: #ffffff;
+      margin:4px;
+      padding:4px;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      cursor:pointer;
+    }
+
+    div.legend-element-container.hidden {
+      background-color: #d3e6ff;
+    }
+
+    svg.legend-icon {
+      width:30px;
+      height:30px;
+    }
+
+    div.external-legend {
+      position:relative;
+      margin-left: -5px;
+      width: 900px;
+    }

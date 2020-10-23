@@ -18,4 +18,6 @@ django-filter
 django-ckeditor
 pandas
 xlrd
-
+django-cors-headers
+bs4
+matplotlib
