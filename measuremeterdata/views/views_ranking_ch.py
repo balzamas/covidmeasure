@@ -122,10 +122,12 @@ def ranking14_calc(cantons):
         except:
             tendency = 0
             tendency_14daysbefore = 0
-            score = -999
-            score_14days_before = -999
+            score = -9999
+            score_14days_before = -9999
 
-        if (score > -999):
+        print(score)
+
+        if (score > -9999):
             if (score > score_14days_before):
                 arrow = "arrow circle up green"
             elif (score == score_14days_before):
@@ -137,6 +139,8 @@ def ranking14_calc(cantons):
                             "date": last_date, "cur_prev": last_prev,
                             "tendency": int(tendency), "icon": arrow, "level": canton.level, "code": canton.code,
                             "id": canton.swisstopo_id}
+            print(canton_toadd)
+            print(".....")
             canton_vals.append(canton_toadd)
 
     print("finished getting cases")
