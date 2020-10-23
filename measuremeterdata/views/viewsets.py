@@ -1,8 +1,8 @@
 from django.shortcuts import render
-from .models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, CHCanton, CHMeasureType, CHMeasure, CHCases
+from measuremeterdata.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, CHCanton, CHMeasureType, CHMeasure, CHCases
 from rest_framework import viewsets
 from rest_framework import permissions
-from .serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer, CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer
+from measuremeterdata.serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer, CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q

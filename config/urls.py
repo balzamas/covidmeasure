@@ -5,14 +5,14 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework import routers
-from measuremeterdata.views import MeasureViewSet
-from . import views, view_deaths
+from measuremeterdata.views import view_deaths, views_belgium, views_ranking_ch, views_ranking_int, viewsets
+from config import views
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
 from django.conf.urls import url
 
 router = routers.DefaultRouter()
-router.register(r'measures', MeasureViewSet)
+router.register(r'measures', viewsets.MeasureViewSet)
 
 js_info_dict = {
     'domain': 'djangojs',
@@ -21,8 +21,8 @@ js_info_dict = {
 
 urlpatterns = [
     path("", views.international, name="home"),
-    path('ranking_europe/', views.ranking_europe, name='ranking_europe'),
-    path('ranking_world/', views.ranking_world, name='ranking_world'),
+    path('ranking_europe/', views_ranking_int.ranking_europe, name='ranking_europe'),
+    path('ranking_world/', views_ranking_int.ranking_world, name='ranking_world'),
 
                   path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
@@ -56,7 +56,7 @@ urlpatterns = [
                   ),
 
                   path(
-                      "belrisk/", views.belgium_risk, name="Bel Riskmap"
+                      "belrisk/", views_belgium.belgium_risk, name="Bel Riskmap"
                   ),
                   path(
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
@@ -81,15 +81,15 @@ urlpatterns += i18n_patterns(
     path(
         "districts/", TemplateView.as_view(template_name="pages/district.html"), name="CH districts"
     ),
-    path('ranking7/', views.ranking7, name='ranking7'),
-    path('ranking7all/', views.ranking7_all, name='ranking7_all'),
-    path('ranking14/', views.ranking14, name='ranking14'),
-    path('ranking14all/', views.ranking14_all, name='ranking14_all'),
+    path('ranking7/', views_ranking_ch.ranking7, name='ranking7'),
+    path('ranking7all/', views_ranking_ch.ranking7_all, name='ranking7_all'),
+    path('ranking14/', views_ranking_ch.ranking14, name='ranking14'),
+    path('ranking14all/', views_ranking_ch.ranking14_all, name='ranking14_all'),
     path(
         "cantons/", TemplateView.as_view(template_name="pages/canton.html"), name="CH measures"
     ),
     path(
-        "ch/", views.ch, name="CH Main"
+        "ch/", views_ranking_ch.ch, name="CH Main"
     ),
     path(
         "chmaps/", TemplateView.as_view(template_name="pages/chmaps.html"), name="CH Maps"

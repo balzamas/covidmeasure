@@ -1,20 +1,20 @@
 from django.urls import include, path
 from rest_framework import routers
-from . import views
+from measuremeterdata.views import viewsets
 
 router = routers.DefaultRouter()
-router.register(r'measures', views.MeasureViewSet)
+router.register(r'measures', viewsets.MeasureViewSet)
 
-router.register(r'measuresbymeasure', views.MeasureByMeasureViewSet)
-router.register(r'countries', views.CountryWithMeasuresViewSet)
-router.register(r'measuretypes', views.MeasureTypeViewSet)
-router.register(r'measurecatgories', views.MeasureCategoryViewSet)
-router.register(r'casesdeaths', views.CasesDeathsViewSet)
+router.register(r'measuresbymeasure', viewsets.MeasureByMeasureViewSet)
+router.register(r'countries', viewsets.CountryWithMeasuresViewSet)
+router.register(r'measuretypes', viewsets.MeasureTypeViewSet)
+router.register(r'measurecatgories', viewsets.MeasureCategoryViewSet)
+router.register(r'casesdeaths', viewsets.CasesDeathsViewSet)
 
-router.register(r'chmeasures', views.CHMeasureViewSet)
-router.register(r'chmeasuretypes', views.CHMeasureTypeViewSet)
-router.register(r'chcantons', views.CHCantonViewSet)
-router.register(r'chcases', views.CHCasesViewSet)
+router.register(r'chmeasures', viewsets.CHMeasureViewSet)
+router.register(r'chmeasuretypes', viewsets.CHMeasureTypeViewSet)
+router.register(r'chcantons', viewsets.CHCantonViewSet)
+router.register(r'chcases', viewsets.CHCasesViewSet)
 
 
 # Wire up our API using automatic URL routing.
