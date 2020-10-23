@@ -82,11 +82,8 @@ def ranking14_calc(cantons):
     for canton in cantons:
         date_tocheck = date.today()
 
-        print(canton)
-
         cases = CHCases.objects.filter(canton=canton,
                                        date__range=[date_tocheck - timedelta(days=10), date_tocheck]).order_by("-date")
-        print("got the cases")
 
         try:
             last_date = cases[0].date
@@ -94,11 +91,8 @@ def ranking14_calc(cantons):
             past_date_tocheck = last_date - timedelta(days=14)
             past_past_date_tocheck = past_date_tocheck - timedelta(days=14)
 
-            print("check the past")
-
             case_14days_before = CHCases.objects.get(canton=canton, date=past_date_tocheck)
             case_14days_before_before = CHCases.objects.get(canton=canton, date=past_past_date_tocheck)
-            print("checked")
 
             if (case_14days_before.incidence_past14days is not None):
                 if (case_14days_before.incidence_past14days > 0):
@@ -125,8 +119,6 @@ def ranking14_calc(cantons):
             score = -99999
             score_14days_before = -99999
 
-        print(score)
-
         if (score > -99999):
             if (score > score_14days_before):
                 arrow = "arrow circle up green"
@@ -139,11 +131,7 @@ def ranking14_calc(cantons):
                             "date": last_date, "cur_prev": last_prev,
                             "tendency": int(tendency), "icon": arrow, "level": canton.level, "code": canton.code,
                             "id": canton.swisstopo_id}
-            print(canton_toadd)
-            print(".....")
             canton_vals.append(canton_toadd)
-
-    print("finished getting cases")
 
     scores = sorted(canton_vals, key=lambda i: i['score_before'], reverse=True)
     rank = 1
@@ -182,8 +170,6 @@ def ranking14(request):
 
     scores = ranking14_calc(cantons)
 
-    print(scores)
-
     template = loader.get_template('pages/ranking14.html')
     context = {
         'cantons': scores,
@@ -195,7 +181,6 @@ def ranking14_all(request):
     cantons = CHCanton.objects.all()
 
     scores = ranking14_calc(cantons)
-    print(scores)
 
     template = loader.get_template('pages/ranking14.html')
     context = {
