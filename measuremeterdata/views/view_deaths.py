@@ -72,8 +72,8 @@ def country_deaths(request):
                         "death_total_week2" : death_total_week2,
                         "death_covid_week8": death_covid_week8,
                         "death_total_week8": death_total_week8,
-                        "diff_week2": death_total_week2 - ((weeks_wdata -1) * 7 * country.average_death_per_day),
-                        "diff_week8": death_total_week8 - ((weeks_wdata - 7) * 7 * country.average_death_per_day),
+                        "diff_week2": int(death_total_week2 - ((weeks_wdata -1) * 7 * country.average_death_per_day)),
+                        "diff_week8": int(death_total_week8 - ((weeks_wdata - 7) * 7 * country.average_death_per_day)),
                         "weeks_wdata" : weeks_wdata
                        }
         countries_values.append(countr_toadd)
