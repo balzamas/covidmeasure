@@ -22,7 +22,8 @@ def country_deaths(request):
     countries_values = []
 
     for country in countries:
-        startdate = datetime.date(2020, 2, 17)
+        #startdate = datetime.date(2020, 2, 17)
+        startdate = datetime.date(2020, 1, 6)
 
         cases = CasesDeaths.objects.filter(country=country, date__gte=startdate).order_by("date")
 
@@ -30,12 +31,19 @@ def country_deaths(request):
         week_values_alldeaths = {}
 
 
-        week = 8
+        #week = 8
+        week = 2
         weekday = 1
         week_value_covid = 0
         week_value_all = 0
 
-        print(cases)
+        death_total_week2 = 0
+        death_total_week8 = 0
+
+        death_covid_week2 = 0
+        death_covid_week8 = 0
+
+        weeks_wdata = 0
 
         for case in cases:
             if weekday == 8:
@@ -47,12 +55,26 @@ def country_deaths(request):
                 week += 1
 
             week_value_covid += case.deaths
-            week_value_all += case.deathstotal
+            if case.deathstotal:
+                week_value_all += case.deathstotal
+                death_covid_week2 += case.deaths
+                death_total_week2 += case.deathstotal
+                weeks_wdata = week
+                if week > 7:
+                    death_covid_week8 += case.deaths
+                    death_total_week8 += case.deathstotal
             weekday += 1
 
         countr_toadd = {"country": country,
                           "covid": week_values_coviddeaths,
                           "all": week_values_alldeaths,
+                        "death_covid_week2": death_covid_week2,
+                        "death_total_week2" : death_total_week2,
+                        "death_covid_week8": death_covid_week8,
+                        "death_total_week8": death_total_week8,
+                        "diff_week2": death_total_week2 - ((weeks_wdata -1) * 7 * country.average_death_per_day),
+                        "diff_week8": death_total_week8 - ((weeks_wdata - 7) * 7 * country.average_death_per_day),
+                        "weeks_wdata" : weeks_wdata
                        }
         countries_values.append(countr_toadd)
 
