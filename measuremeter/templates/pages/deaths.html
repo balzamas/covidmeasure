@@ -46,7 +46,7 @@
 
                 var div = document.createElement('div');
                 div.id = '{{country.country.code}}' + 'Chart';
-                div.innerHTML =   '<p><b>{{country.country.name}}</b></p> <div class="chart-container"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div><p><b>Week 2 - Week {{country.weeks_wdata}}</b><br>Covid: {{country.death_covid_week2}}<br>All:{{country.death_total_week2}}<br>Diff to average:{{country.diff_week2}}</p><p><b>Week 8 - Week {{country.weeks_wdata}}</b><br>Covid: {{country.death_covid_week8}}<br>All:{{country.death_total_week8}}<br>Diff to average:{{country.diff_week8}}</p>'
+                div.innerHTML =   '<p><b>{{country.country.name}}</b></p> <table><tr><td><div class="chart-container"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div></td><td><p><b>Week 2 - Week {{country.weeks_wdata}}</b><br>Covid: {{country.death_covid_week2}}<br>All:{{country.death_total_week2}}<br>Diff to average:{{country.diff_week2}}</p><p><b>Week 8 - Week {{country.weeks_wdata}}</b><br>Covid: {{country.death_covid_week8}}<br>All:{{country.death_total_week8}}<br>Diff to average:{{country.diff_week8}}</p></td></tr></table>'
                 document.body.appendChild(div);
 
                 drawLineChart('{{country.country.average_death_per_day}}', '{{country.country.average_death_per_day_peak}}', {{country.all}}, {{country.covid}}, '{{country.country.name}}', '{{country.country.code}}', '{{country.country.avg_desc}}', '{{country.country.avg_peak_desc}}')
