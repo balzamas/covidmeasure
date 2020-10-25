@@ -29,6 +29,8 @@ TIME_ZONE = "CET"
 LANGUAGES = (
     ('en', ('English')),
     ('de', ('German')),
+    ('fr', ('French')),
+    ('nl', ('Dutch')),
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = "en"
@@ -83,6 +85,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "measuremeter.users.apps.UsersConfig",
     "measuremeterdata.apps.MeasuremeterdataConfig",
+    "riskcalc.apps.RiskcalcConfig"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

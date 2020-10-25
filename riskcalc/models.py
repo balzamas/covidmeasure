@@ -1,5 +1,12 @@
 from django.db import models
 
+class MotherModel(models.Model):
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        abstract = True
+
 # Create your models here.
 class BELProvince(MotherModel):
     name = models.CharField(max_length=200)

@@ -56,9 +56,7 @@ urlpatterns = [
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
                   ),
 
-                  path(
-                      "belrisk/", risk_views.belgium_risk, name="Bel Riskmap"
-                  ),
+
                   path(
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
                   ),
@@ -79,6 +77,9 @@ urlpatterns += i18n_patterns(
                              )
 
 urlpatterns += i18n_patterns(
+    path(
+        "belrisk/", risk_views.belgium_risk, name="Bel Riskmap"
+    ),
     path(
         "districts/", TemplateView.as_view(template_name="pages/district.html"), name="CH districts"
     ),
