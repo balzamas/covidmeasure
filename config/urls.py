@@ -6,6 +6,7 @@ from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework import routers
 from measuremeterdata.views import view_deaths, views_belgium, views_ranking_ch, views_ranking_int, viewsets
+from riskcalc import views as risk_views
 from config import views
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
@@ -56,7 +57,7 @@ urlpatterns = [
                   ),
 
                   path(
-                      "belrisk/", views_belgium.belgium_risk, name="Bel Riskmap"
+                      "belrisk/", risk_views.belgium_risk, name="Bel Riskmap"
                   ),
                   path(
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
