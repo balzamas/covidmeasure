@@ -184,7 +184,7 @@
         color = '#ff0000'
         dataset_cases.push({"label": "Cases", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_cases})
         dataset_positivity.push({"label": "Positive rate, past 7 days", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_positivity})
-        dataset_tendency.push({"label": "Positive rate, past 7 days", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_tendency})
+        dataset_tendency.push({"label": "Development past week/week before (%)", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_tendency})
 
         color = '#ff6600'
         dataset_deaths.push({"label": "Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
@@ -241,6 +241,29 @@
                             }
                         }
                     },
+                    plugins: {
+            zoom: {
+                // Container for pan options
+                pan: {
+                    // Boolean to enable panning
+                    enabled: true,
+
+                    // Panning directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow panning in the y direction
+                    mode: 'y'
+                },
+
+                // Container for zoom options
+                zoom: {
+                    // Boolean to enable zooming
+                    enabled: true,
+
+                    // Zooming directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow zooming in the y direction
+                    mode: 'y',
+                }
+            }
+        },
                     }
                     }
 
@@ -284,6 +307,29 @@
                             }
                         }
                     },
+                    plugins: {
+            zoom: {
+                // Container for pan options
+                pan: {
+                    // Boolean to enable panning
+                    enabled: true,
+
+                    // Panning directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow panning in the y direction
+                    mode: 'y'
+                },
+
+                // Container for zoom options
+                zoom: {
+                    // Boolean to enable zooming
+                    enabled: true,
+
+                    // Zooming directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow zooming in the y direction
+                    mode: 'y',
+                }
+            }
+        },
                     }
                     }
 
@@ -327,6 +373,29 @@
                             }
                         }
                     },
+                    plugins: {
+            zoom: {
+                // Container for pan options
+                pan: {
+                    // Boolean to enable panning
+                    enabled: true,
+
+                    // Panning directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow panning in the y direction
+                    mode: 'y'
+                },
+
+                // Container for zoom options
+                zoom: {
+                    // Boolean to enable zooming
+                    enabled: true,
+
+                    // Zooming directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow zooming in the y direction
+                    mode: 'y',
+                }
+            }
+        },
                     }
                     }
 
