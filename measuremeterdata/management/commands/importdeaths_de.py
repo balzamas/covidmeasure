@@ -22,7 +22,7 @@ class Command(BaseCommand):
         myfile = requests.get(url)
 
         print("Read excel")
-        read_file = pd.read_excel(myfile.content, sheet_name = "D_2020_Tage")
+        read_file = pd.read_excel(myfile.content, sheet_name = "D_2016_2020_Tage")
         print("Convert and write:")
         read_file.to_csv('/tmp/death_de.csv', index=None, header=True)
 
