@@ -16,7 +16,9 @@
   type="text/javascript"
   src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"
 ></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
@@ -28,15 +30,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <script type="text/javascript" src="{% static 'js/chartjs-plugin-annotation.js' %}"></script>
 
-
        <link href="{% static 'css/project.css' %}" rel="stylesheet">
        <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
        <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
        <script type="text/javascript" src="{% static 'js/timeline_base.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/base_annotation.js' %}"></script>
        <script type="text/javascript" src="{% static 'js/country.js' %}"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+        <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
   </head>
   <body bgcolor="black">
 
@@ -87,12 +89,13 @@
     </div>
   </div>
        </div>
+ <br> Click to expand.
            <div class="ui accordion">
-            <div class="title active">
+            <div class="title">
               <i class="dropdown icon"></i>
                   <p id="grande"><b>Current active measures</b></p>
                  </div>
-             <div class="content active">
+             <div class="content">
                   <div id="current"></div>
              </div>
            </div>
@@ -100,11 +103,11 @@
 
       <div id="bycountry">
             <div class="ui accordion">
-            <div class="title active">
+            <div class="title">
               <i class="dropdown icon"></i>
               <p id="grande"><b>Timeline</b></p>
                  </div>
-             <div class="content active">
+             <div class="content">
                <p id="grande">
                 * = end of measure undefined,
                 # = regional<br>
@@ -117,46 +120,56 @@
 
   <br><br>
           <div class="ui accordion">
-            <div class="title active">
+            <div class="title">
               <i class="dropdown icon"></i>
               <p id="grande"><b>Reported new cases</b></p>
             </div>
-            <div class="content active">
-              <p class="transition visible"><canvas id="casesChart"></canvas></p>
+            <div class="content">
+              <p class="transition visible">
+                    <canvas id="casesChart"></canvas></p>
+                      <div id="dialog" title="Basic dialog">
+                      </div>
+
+                   Source Cases: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+
                        </div>
-          </div>
-    Source Cases: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+         </div>
 
 <br><br>
           <div class="ui accordion">
-            <div class="title active">
+            <div class="title">
               <i class="dropdown icon"></i>
               <p id="grande"><b>Positive rate (Tests), past 7 days</b></p>
             </div>
-            <div class="content active">
+            <div class="content">
               <p class="transition visible"><canvas id="positivityChart"></canvas></p>
+                  Source Positivity: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a>
+
                        </div>
           </div>
-    Source Positivity: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a>
 
     <br><br>
           <div class="ui accordion">
-            <div class="title active">
+            <div class="title">
               <i class="dropdown icon"></i>
               <p id="grande"><b>Development past week/week before (%)</b></p>
+            </div>
+            <div class="content">
               Rise/Fall total cases past 7 days compared to one week ago.
               <b>BETA!</b>
-            </div>
-            <div class="content active">
               <p class="transition visible"><canvas id="tendencyChart"></canvas></p>
                        </div>
           </div>
 
 
 <br><br>
-
-              <p id="grande"><b>Reported new deaths </b></p>
-            <p id="grande">
+           <div class="ui accordion">
+            <div class="title">
+              <i class="dropdown icon"></i>
+              <p id="grande"><b>Death statistics </b></p>
+                 </div>
+             <div class="content">
+                           <p id="grande">
 
                 <div id="avg_desc"></div>
                 <div id="avg_peak_desc"></div>
@@ -178,6 +191,9 @@
                       <br>Also keep in mind that in all countries, the outbreaks where regional - while some regions had significant more deaths, others had usual or lower death numbers.</p>
                   <p id="grande">As a comparison, you see the daily average in the past years and the daily average in the highest week in the past years. See explanation above the chart.</p>
                   </div>
+             </div>
+           </div>
+
                 </p>
 </div>
       </div>

@@ -200,6 +200,9 @@
 
         }
 
+        annotations = LoadMeasure(country, '', startdate, lastdate_x)
+
+
 
             config_cases = {
                 type: 'line',
@@ -264,6 +267,13 @@
                 }
             }
         },
+              annotation: {
+        events: ["click","mouseover"],
+        annotations: annotations
+
+
+
+          }
                     }
                     }
 
@@ -396,6 +406,13 @@
                 }
             }
         },
+              annotation: {
+        events: ["click","mouseover"],
+        annotations: annotations
+
+
+
+          }
                     }
                     }
 
@@ -481,9 +498,6 @@
                  }
             }
       }
-
-
-
 
       function LoadPanelsFiltered()
       {
