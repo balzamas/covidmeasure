@@ -23,9 +23,6 @@ let Colors = ["#0000ff",
 "#00ff00",
 "#ff00ff",
 "#800000",
-"#000080",
-"#808000",
-"#f0ffff",
 "#f5f5dc",
 "#800080",
 "#c0c0c0",
@@ -39,6 +36,10 @@ let Colors = ["#0000ff",
 "#ffc0cb",
 "#f0e68c",
 "#d3d3d3",
+"#808000",
+"#000080",
+"#f0ffff",
+
 ];
 var data
 
@@ -601,6 +602,8 @@ var data
             document.getElementById("datefrom").value = formatDate(real_startdate)
             document.getElementById("dateto").value = formatDate(real_enddate)
 
+
+
             LoadMeasureTypes();
             LoadCantons()
 
@@ -609,7 +612,9 @@ var data
 			drawTimeline(2);
 
 
-            LoadDataGraph(real_startdate,real_enddate);
+            $('#cantons_dd').dropdown('set selected', ['37','35','43'])
+
+            LoadDataGraph(real_startdate,real_enddate,$('#cantons_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'));
 			var ctx = document.getElementById('compareChart').getContext('2d');
 			window.myLine = new Chart(ctx, config);
 
