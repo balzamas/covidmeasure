@@ -12,8 +12,6 @@ def belgium_risk(request):
     provinces = BELProvince.objects.all()
     date_border = date.today()- timedelta(days=20)
     provinces_vals = []
-    print("hansa")
-
 
     for province in provinces:
         print(province)
@@ -76,7 +74,7 @@ def belgium_risk(request):
 
         provinces_vals.append(province_toadd)
 
-    age_dist = BELAgeGroups.objects.all()
+    age_dist = BELAgeGroups.objects.all().order_by("name")
 
     age_groups_vals = {}
     total = 0

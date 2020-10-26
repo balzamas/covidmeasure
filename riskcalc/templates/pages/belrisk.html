@@ -185,6 +185,13 @@
       </div>
       </div>
   <br><br>
+    HANSA
+    {% for province in provinces %}
+       {{province}}
+       {% for group in province %}
+           {{ group }}
+       {% endfor %}
+    {% endfor %}
 
   <div align="center">
     <div id='mapRisk'  style="height: 600px; width: 100%;"></div>

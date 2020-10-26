@@ -18,6 +18,43 @@ var statesDataOrig = {"type":"FeatureCollection", "features": [
 ]}
 var data
 
+    function AddRow(province,age_groups, bias, groupsize,days, age_dist_obj)
+    {
+        console.log(age_dist_obj)
+      var table = document.getElementById("riskTable");
+      var row = table.insertRow(-1);
+      var cell1 = row.insertCell(0);
+      cell1.innerHTML = province.name;
+      for ( var property in age_dist_obj ) {
+            if (days == 7)
+            {
+                value_cases = province.cases7[property];
+            }
+            else if (days == 10)
+            {
+                value_cases = province.cases10[property];
+            }
+            else if (days == 14)
+            {
+                value_cases = province.cases14[property];
+            }
+
+            console.log("....")
+            console.log(province.cases7[property])
+            console.log(province.cases10[property])
+            console.log(province.cases14[property])
+            console.log(value_cases)
+            pop_agegroups = age_dist_obj[property]
+            pop_agegroups_province = province.population * pop_agegroups / age_dist_obj["Total"]
+            incidence = 100000 * value_cases / pop_agegroups_province
+
+            value_risk = 100 - (((1-(1/(100000/(incidence*bias)))) ** groupsize) * 100)
+            var cell = row.insertCell(-1);
+            cell.innerHTML = property +":" + value_risk.toFixed(1) + "%";
+
+      }
+    }
+
     function LoadMap(map, datenow, groupsize, bias, days, provinces, age_dist, age_groups)
     {
            console.log(age_groups)
@@ -106,12 +143,15 @@ var data
                             console.log("Pop age groups:")
                             console.log(pop_agegroups_province)
 
+                            AddRow(item, age_groups, bias, groupsize, days, age_dist_obj)
+
                             value_risk = 100 - (((1-(1/(100000/(incidence*bias)))) ** groupsize) * 100)
                             statesData.features[id].properties.level = value_risk
                             statesData.features[id].properties.comment = incidence
                         }
 
            });
+
 
 
           datefrom = addDays(datenow, -7)
