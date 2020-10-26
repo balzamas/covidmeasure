@@ -191,16 +191,17 @@ var data
 
      function LoadMeasureGraph(startdate, enddate, gr_cantons, gr_measuretypes)
      {
-          if (gr_cantons == undefined)
+          if (gr_cantons != '')
           {
-            gr_cantons = ""
+            //Add Switzerland measures
+            gr_cantons = gr_cantons + ",173"
           }
+
           if (gr_measuretypes == undefined)
           {
             gr_measuretypes = ""
           }
 
-          console.log(gr_measuretypes)
           var data = $.ajax({
           url: "/measuremeterdata/chmeasures/?canton="+gr_cantons+"&type="+gr_measuretypes,
           dataType: "json",
@@ -343,7 +344,6 @@ var data
             canton_pk = line["canton"]["pk"]
             canton_name = line['canton']['code'].toUpperCase();
             dataset_data.push(line['incidence_past7days'])
-            console.log(line['development7to7'])
             dataset_tendency_data.push(line['development7to7'])
 
 

@@ -17,15 +17,15 @@
           LoadMeasures(country_id);
 
 
-          document.getElementById('worldometer').innerHTML = '<p><a href= "' + jsonData[0].link_worldometer + '" target="_blank">Link World-o-meter</a></p>';
-          document.getElementById('gov').innerHTML = '<p><a href="' + jsonData[0].link_gov + '" target="_blank">Link Government</a></p>' ;
+          document.getElementById('worldometer').innerHTML = '<p id="large"><a href= "' + jsonData[0].link_worldometer + '" target="_blank">Link World-o-meter</a></p>';
+          document.getElementById('gov').innerHTML = '<p id="large"><a href="' + jsonData[0].link_gov + '" target="_blank">Link Government</a></p>' ;
           if (Number(jsonData[0].average_death_per_day)>0)
           {
             $('#source_death').show();
             $('#deaths_description').show();
             avg_desc = "Deaths Average: " + jsonData[0].avg_desc +"";
             avg_peak_desc = "Deaths Peak: " + jsonData[0].avg_peak_desc+"";
-            document.getElementById('source_death').innerHTML = "<p>Source total deaths: <a href='" + jsonData[0].source_death +"'> Link</a></p>";
+            document.getElementById('source_death').innerHTML = "<p id="large">Source total deaths: <a href='" + jsonData[0].source_death +"'> Link</a></p>";
 
           }
           else

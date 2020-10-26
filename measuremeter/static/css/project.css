@@ -11,8 +11,13 @@ html {
 font-size: 30px;
 }
 
-    p {
+#large {
       font-size: 1.8em;
+      font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+}
+
+    p {
+      font-size: 1em;
       font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
     }
 
