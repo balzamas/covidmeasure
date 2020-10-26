@@ -317,6 +317,9 @@ var data
 
         var dataset = new Array()
         var dataset_data = new Array()
+        var dataset_tendency = new Array()
+        var dataset_tendency_data = new Array()
+
         var label_array = new Array()
 
         for (var d = real_startdate; d <= real_enddate; d.setDate(d.getDate() + 1)) {
@@ -332,16 +335,22 @@ var data
               color = Colors[turn];
               turn += 1
               dataset.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
+              dataset_tendency.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_tendency_data})
               dataset_data = new Array()
+              dataset_tendency_data = new Array()
+
            }
             canton_pk = line["canton"]["pk"]
             canton_name = line['canton']['code'].toUpperCase();
             dataset_data.push(line['incidence_past7days'])
+            dataset_tendency_data.push(line['incidence_past7days'])
+
 
         });
 
               color = Colors[turn];
         dataset.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
+        dataset_tendency.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_tendency_data})
 
         annotations = LoadMeasureGraph(startdate, enddate, cantons, measures)
 
@@ -351,6 +360,56 @@ var data
                 data: {
                     labels: label_array,
                     datasets: dataset
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Incidence per 100k/past 7 days',
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Incidence per 100k/past 7 days'
+                            }
+                        }
+                    },
+      annotation: {
+        events: ["click","mouseover"],
+        annotations: annotations
+
+
+
+          }
+                },
+
+            };
+            config_tendency = {
+                type: 'line',
+
+                data: {
+                    labels: label_array,
+                    datasets: dataset_tendency
                 },
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
@@ -550,6 +609,9 @@ var data
             LoadDataGraph(real_startdate,real_enddate);
 			var ctx = document.getElementById('compareChart').getContext('2d');
 			window.myLine = new Chart(ctx, config);
+
+			var ctxTendency = document.getElementById('compareTendency').getContext('2d');
+			window.myLine = new Chart(ctxTendency, config);
 
 			$('#dimmer').dimmer('hide');
 
