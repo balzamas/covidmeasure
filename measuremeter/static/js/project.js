@@ -1,7 +1,5 @@
 
       $( document ).ready(function() {
-          //document.getElementById("dateselect").valueAsDate = new Date();
-
           if ( $( "#menu" ).length ) {
                document.getElementById('menu').innerHTML = `
                <div style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10">
@@ -22,15 +20,17 @@
                <div style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10">
                <div class="ui seven item inverted huge menu">
                   <a class="item" href="/">Home</a>
-                  <a class="item" href="/cantons/">${gettext("Measures")}</a>
-                  <a class="item" href="/chrisk/">${gettext("Risk calc.")}</a>
-                  <a class="item" href="/chmaps/">${gettext("Map measures")}</a>
-                  <a class="item" href="/districts/">${gettext("Map cases<br>Districts & Cantons")}</a>
+                  <a class="item" href="/cantons/">${gettext("Measures\<br\>Case\ development")}</a>
+                  <a class="item" href="/chrisk/">${gettext("Risk\ calculator")}</a>
+                  <a class="item" href="/districts/">${gettext("Map cases\<br\>Districts\ \&\ Cantons")}</a>
                   <a class="item" href="/ranking14/">${gettext("Ranking")}</a>
                   <a class="item" href="/">${gettext("Europe") }</a>
                   </div>
                 </div> `
            }
+
+                  //<a class="item" href="/chmaps/">${gettext("Map measures")}</a>
+
 
           if ( $( "#title_bar" ).length ) {
               document.getElementById('title_bar').innerHTML = `

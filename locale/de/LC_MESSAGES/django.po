@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-21 14:35+0200\n"
+"POT-Creation-Date: 2020-10-26 20:30+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -292,7 +292,7 @@ msgstr "Massnahmen Schweiz"
 
 #: measuremeter/templates/pages/ch.html:43
 msgid "Comparison dashboard"
-msgstr "Massnahmen Dashboard"
+msgstr "Massnahmen und Fallentwicklung"
 
 #: measuremeter/templates/pages/ch.html:58
 msgid "Risk calculator"
@@ -449,7 +449,8 @@ msgstr "Gute Visualisierung der kantonalen Fall/Hospitalisations-Daten:"
 
 #: measuremeter/templates/pages/district.html:117
 msgid "Wonderful maps from and to where travel is still possible:"
-msgstr "Schöne Karten mit der Frage: von wo und wohin sind Reisen noch möglich?"
+msgstr ""
+"Schöne Karten mit der Frage: von wo und wohin sind Reisen noch möglich?"
 
 #: measuremeter/templates/pages/district.html:118
 msgid "Monitoring of current ICU capacities in Switzerland:"
@@ -468,8 +469,7 @@ msgid "Sources districts:"
 msgstr "Quellen Bezirke"
 
 #: measuremeter/templates/pages/district.html:127
-#: measuremeter/templates/pages/district.html:129
-#: measuremeter/templates/pages/district.html:134
+#: measuremeter/templates/pages/district.html:135
 msgid "monday"
 msgstr "Montag"
 
@@ -479,26 +479,27 @@ msgstr "täglich"
 
 #: measuremeter/templates/pages/district.html:129
 #: measuremeter/templates/pages/district.html:130
-#: measuremeter/templates/pages/district.html:132
-#: measuremeter/templates/pages/district.html:133
-#: measuremeter/templates/pages/district.html:134
-msgid "since Week"
-msgstr "seit Woche"
-
-#: measuremeter/templates/pages/district.html:130
 #: measuremeter/templates/pages/district.html:131
+#: measuremeter/templates/pages/district.html:132
 msgid "daily"
 msgstr "täglich"
 
-#: measuremeter/templates/pages/district.html:132
+#: measuremeter/templates/pages/district.html:130
+#: measuremeter/templates/pages/district.html:133
+#: measuremeter/templates/pages/district.html:134
+#: measuremeter/templates/pages/district.html:135
+msgid "since Week"
+msgstr "seit Woche"
+
+#: measuremeter/templates/pages/district.html:133
 msgid "wednesday"
 msgstr "Mittwoch"
 
-#: measuremeter/templates/pages/district.html:133
+#: measuremeter/templates/pages/district.html:134
 msgid "friday"
 msgstr "Freitag"
 
-#: measuremeter/templates/pages/district.html:136
+#: measuremeter/templates/pages/district.html:137
 msgid "When district data is missing, the values of the canton are used."
 msgstr "Bei fehlenden Bezirksdaten werden die Zahlen des Kantons verwendet."
 
@@ -574,7 +575,7 @@ msgid "Last update"
 msgstr "Letztes update"
 
 #: measuremeter/templates/pages/ranking.html:129
-#: measuremeter/templates/pages/ranking14.html:140
+#: measuremeter/templates/pages/ranking14.html:142
 #, python-format
 msgid ""
 "Formula = 0 - Cases past 14 days per 100k pop - (Tendency %% (=compared to "
@@ -584,7 +585,7 @@ msgstr ""
 "(=verglichen zu vor 14 Tagen) /5)"
 
 #: measuremeter/templates/pages/ranking.html:130
-#: measuremeter/templates/pages/ranking14.html:141
+#: measuremeter/templates/pages/ranking14.html:143
 msgid ""
 "Why this Formula? Combine current cases with development smh. For a true "
 "ranking we would need positivity rate, ICU occupancy etc. etc."
@@ -594,7 +595,7 @@ msgstr ""
 "Positivitätsrate, Notaufnahme-Belegung etc. etc."
 
 #: measuremeter/templates/pages/ranking.html:132
-#: measuremeter/templates/pages/ranking14.html:143
+#: measuremeter/templates/pages/ranking14.html:145
 msgid ""
 "Source: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
 "\">OpenData ZH</a> and others, see <a href=\"/districts\">here for more "
