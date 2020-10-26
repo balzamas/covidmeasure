@@ -7,23 +7,6 @@ import requests
 import pandas as pd
 from datetime import date, timedelta
 
-
-
-#Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863
-
-def get_start_end_dates(year, week):
-    d = datetime.datetime(year, 1, 1)
-    if (d.weekday() <= 3):
-        d = d - timedelta(d.weekday())
-    else:
-        d = d + timedelta(7 - d.weekday())
-    dlt = timedelta(days=(week - 1) * 7)
-    return d + dlt + timedelta(days=6)
-
-def daterange(start_date, end_date):
-    for n in range(int ((end_date - start_date).days)):
-        yield start_date + timedelta(n)
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
@@ -40,36 +23,65 @@ class Command(BaseCommand):
         print("Load data into django")
 
         count = 0
+        old_bezirk = -1
+        last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
 
         for row in my_list:
-            if (count > 0):
-                if row[5] != '' and row[4] != '':
-                    date = get_start_end_dates(int(row[5]), int(row[4]))
+            if (count > 1):
+
+                try:
                     bezirk = CHCanton.objects.filter(swisstopo_id=int(row[0]))
 
-                    print(f"{date} - {bezirk}")
-
                     if (bezirk):
-                        ftdays = None
+                        if (old_bezirk != int(row[0])):
+                            last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
 
-                        sdays = int(row[8]) / bezirk[0].population * 100000
+                        cases_td = int(row[8])
 
-                        sdays_ago =  CHCases.objects.get(canton=bezirk[0], date=(date - timedelta(days=7)))
-                        if (sdays_ago.incidence_past7days):
-                            ftdays = sdays + float(sdays_ago.incidence_past7days)
+                        last_numbers.append(cases_td)
+                        last_numbers.pop(0)
+
+                        tot = 0
+                        seven_tot = 0
+
+                        daycount = 0
+                        for x in last_numbers:
+                            tot += x
+
+                            if (daycount > 6):
+                                seven_tot += x
+
+                            daycount += 1
+
+
+                        fourteen_avg = tot * 100000 / bezirk[0].population
+                        seven_avg = seven_tot * 100000 / bezirk[0].population
+
+                        date_tosave = date.fromisoformat(row[3])
+
+                        print(bezirk[0])
+                        print(cases_td)
+                        print(date_tosave)
+                        print(f"Average:{fourteen_avg}")
 
                         try:
-                            cd_existing = CHCases.objects.get(canton=bezirk[0], date=date)
-                            cd_existing.incidence_past7days = sdays
-                            if (ftdays):
-                                cd_existing.incidence_past14days = ftdays
+                            cd_existing = CHCases.objects.get(canton=bezirk[0], date=date_tosave)
+                            cd_existing.cases = cases_td
+                            cd_existing.incidence_past7days = seven_avg
+                            cd_existing.incidence_past14days = fourteen_avg
+                            cd_existing.date = date_tosave
                             cd_existing.save()
                         except CHCases.DoesNotExist:
-                            if (ftdays):
-                                cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, date=date)
-                            else:
-                                cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, date=date)
+                            cd = CHCases(canton=bezirk[0], incidence_past7days=seven_avg, incidence_past14days=fourteen_avg, cases=cases_td, date=date_tosave)
                             cd.save()
+
+                    old_bezirk = int(row[0])
+
+                except:
+                    print("Nonedata")
+                    old_bezirk = -1
+                    last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
+                    cases_yd = 0
 
             count += 1
 
