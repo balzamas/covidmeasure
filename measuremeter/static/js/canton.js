@@ -343,7 +343,8 @@ var data
             canton_pk = line["canton"]["pk"]
             canton_name = line['canton']['code'].toUpperCase();
             dataset_data.push(line['incidence_past7days'])
-            dataset_tendency_data.push(line['incidence_past7days'])
+            console.log(line['development7to7'])
+            dataset_tendency_data.push(line['development7to7'])
 
 
         });
@@ -416,7 +417,7 @@ var data
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Incidence per 100k/past 7 days',
+                        text: 'Development past week/week before (%)',
                         fontSize: 25
 
                     },
@@ -440,7 +441,7 @@ var data
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Incidence per 100k/past 7 days'
+                                labelString: 'Development past week/week before (%)'
                             }
                         }
                     },
@@ -566,8 +567,8 @@ var data
                 if(window.myLine && window.myLine !== null){
                    window.myLine.destroy();
                 }
-                if(window.myLineDeath && window.myLineDeath !== null){
-                   window.myLineDeath.destroy();
+                if(window.myLineTendency && window.myLineTendency !== null){
+                   window.myLineTendency.destroy();
                 }
                 var datefrom = document.getElementById("datefrom").value;
                 var dateto = document.getElementById("dateto").value;
@@ -581,6 +582,8 @@ var data
 
                 LoadDataGraph(datefrom_real,dateto_real,$('#cantons_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'));
     			window.myLine = new Chart(ctx, config);
+    			window.myLineTendency = new Chart(ctxTendency, config_tendency);
+
             });
 
 
@@ -611,7 +614,7 @@ var data
 			window.myLine = new Chart(ctx, config);
 
 			var ctxTendency = document.getElementById('compareTendency').getContext('2d');
-			window.myLine = new Chart(ctxTendency, config);
+			window.myLineTendency = new Chart(ctxTendency, config_tendency);
 
 			$('#dimmer').dimmer('hide');
 

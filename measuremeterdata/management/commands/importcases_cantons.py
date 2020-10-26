@@ -6,7 +6,7 @@ import datetime
 import requests
 import pandas as pd
 from datetime import date, timedelta
-
+import numpy as np
 
 
 #Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863
@@ -37,6 +37,8 @@ class Command(BaseCommand):
         for canton in CHCanton.objects.filter(level=0):
             cantoncode = canton.code
             print(cantoncode)
+
+
 
             old_value = 0
 
@@ -119,4 +121,19 @@ class Command(BaseCommand):
                 day.incidence_past14days = fourteen_avg
                 day.incidence_past10days = ten_avg
                 day.incidence_past7days = seven_avg
+
+                cases_past7 = sum(last_numbers[7:])
+                cases_past7_before = sum(last_numbers[:7])
+                print(last_numbers)
+                print(cases_past7)
+                print(cases_past7_before)
+                if (cases_past7 == 0):
+                    cases_past7 = 1
+                if (cases_past7_before == 0):
+                    cases_past7_before = 1
+
+                print((cases_past7 *100 / cases_past7_before) - 100)
+                day.development7to7 = (cases_past7 * 100 / cases_past7_before) - 100
+
                 day.save()
+

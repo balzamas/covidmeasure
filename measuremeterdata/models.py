@@ -105,6 +105,7 @@ class CHCanton(MotherModel):
         (0, 'Canton'),
         (1, 'Disctrict'),
         (2, 'Commune'),
+        (3, 'Federation'),
     ]
 
     name = models.CharField(max_length=200)
@@ -163,6 +164,8 @@ class CHCases(MotherModel):
     incidence_past14days = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     incidence_past10days = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     incidence_past7days = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    development7to7 = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+
 
     ordering = ['canton__pk', 'date', 'cases']
 
