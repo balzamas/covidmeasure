@@ -94,7 +94,8 @@ table.center {
       <td>{% trans 'Tendency'%}</td>
       <td>{% trans 'Last update'%}</td></tr>
     {% for hans in cantons %}
-
+        {% if "(BE)" in hans.name or "(AG)" in hans.name or "(SO)" in hans.name %}
+  {% else %}
     <tr>
       <td>
         <img src=/static/images/flags_ch/{{ hans.code  }}_circle.png>
@@ -133,6 +134,7 @@ table.center {
         {{ hans.date }}
       </td>
     </tr>
+    {% endif %}
     {% endfor %}
   </table>
   <br>
