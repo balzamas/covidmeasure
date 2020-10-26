@@ -210,11 +210,11 @@
 
               //Set up tooltip
               days = convertMiliseconds(end_date - start_date,'d')+1;
-              var tooltip = "<p id="large"><b>"+type+"</b></p>";
+              var tooltip = "<p id='large'><b>"+type+"</b></p>";
 
               if (line['end'] != null || line['start'] != null)
               {
-                tooltip += "<p id="large">"+ start_date_str + " - " + end_date_str
+                tooltip += "<p id='large'>"+ start_date_str + " - " + end_date_str
                 if (line['end'] != null && line['start'] != null)
                 {
                    tooltip += " <br>Duration: " + days + " days</p>"

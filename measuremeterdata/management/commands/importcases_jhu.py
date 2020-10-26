@@ -132,6 +132,18 @@ class Command(BaseCommand):
 
                             day.cases_past14days = fourteen_avg
                             day.cases_past7days = seven_avg
+
+                            cases_past7 = sum(last_numbers[7:])
+                            cases_past7_before = sum(last_numbers[:7])
+
+                            if (cases_past7 == 0):
+                                cases_past7 = 1
+                            if (cases_past7_before == 0):
+                                cases_past7_before = 1
+
+                            print((cases_past7 * 100 / cases_past7_before) - 100)
+                            day.development7to7 = (cases_past7 * 100 / cases_past7_before) - 100
+
                             day.save()
 
               count += 1

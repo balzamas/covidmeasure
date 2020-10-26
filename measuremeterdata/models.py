@@ -94,6 +94,7 @@ class CasesDeaths(MotherModel):
     cases_past14days = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
     cases_past7days = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
     positivity = models.DecimalField(max_digits=9, decimal_places=4,blank=True,null=True)
+    development7to7 = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
 
     ordering = ['country__pk', 'date', 'cases', 'deaths']
 

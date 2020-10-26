@@ -1,6 +1,7 @@
      	var config_cases;
      	var config_death;
      	var config_positivity;
+     	var config_tendency;
 
      	var avg_desc;
      	var avg_peak_desc;
@@ -25,7 +26,7 @@
             $('#deaths_description').show();
             avg_desc = "Deaths Average: " + jsonData[0].avg_desc +"";
             avg_peak_desc = "Deaths Peak: " + jsonData[0].avg_peak_desc+"";
-            document.getElementById('source_death').innerHTML = "<p id="large">Source total deaths: <a href='" + jsonData[0].source_death +"'> Link</a></p>";
+            document.getElementById('source_death').innerHTML = "<p id='large'>Source total deaths: <a href='" + jsonData[0].source_death +"'> Link</a></p>";
 
           }
           else
@@ -143,12 +144,14 @@
 
         var dataset_cases = new Array()
         var dataset_positivity = new Array()
+        var dataset_tendency = new Array()
         var dataset_deaths = new Array()
         var label_array = new Array()
 
         var dataset_data_cases = new Array()
         var dataset_data_deaths = new Array()
         var dataset_data_positivity = new Array()
+        var dataset_data_tendency = new Array()
 
         var dataset_data_total = new Array()
         var dataset_data_avg = new Array()
@@ -163,6 +166,7 @@
 
             dataset_data_cases.push(line['cases']);
             dataset_data_positivity.push(line['positivity']);
+            dataset_data_tendency.push(line['development7to7']);
 
               if (Number(avg_values[0] > -1))
               {
@@ -180,6 +184,7 @@
         color = '#ff0000'
         dataset_cases.push({"label": "Cases", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_cases})
         dataset_positivity.push({"label": "Positive rate, past 7 days", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_positivity})
+        dataset_tendency.push({"label": "Positive rate, past 7 days", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_tendency})
 
         color = '#ff6600'
         dataset_deaths.push({"label": "Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
@@ -282,6 +287,49 @@
                     }
                     }
 
+            config_tendency = {
+                type: 'line',
+
+                data: {
+                    labels: label_array,
+                    datasets: dataset_tendency
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Development past week/week before (%)',
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Development past week/week before (%)'
+                            }
+                        }
+                    },
+                    }
+                    }
+
             annotations = new Array();
             if (avg_values[0] > 0)
             {
@@ -378,6 +426,9 @@
                 if(window.myLineDeath && window.myLineDeath !== null){
                    window.myLineDeath.destroy();
                 }
+                if(window.myLineTendency && window.myLineTendency !== null){
+                   window.myLineTendency.destroy();
+                }
 
                 avg_values = LoadCountryData($('#countries_dd').dropdown('get value'));
                 var datesft = drawTimeline(2,$('#countries_dd').dropdown('get value'));
@@ -391,6 +442,9 @@
 
   			    var ctx = document.getElementById('deathChart').getContext('2d');
 			    window.myLineDeath = new Chart(ctx, config_death);
+
+  			    var ctx = document.getElementById('tendencyChart').getContext('2d');
+			    window.myLineTendency = new Chart(ctx, config_tendency);
              }
       }
 
