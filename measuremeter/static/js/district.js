@@ -231,7 +231,7 @@ function applyCountryBorder(map, countryname) {
       }).addTo(map);*/
 
       L.geoJSON(data[0].geojson, {
-        color: "white",
+        color: "yellow",
         weight: 8,
         opacity: 1,
         fillOpacity: 0.0
@@ -639,4 +639,5 @@ function applyCountryBorder(map, countryname) {
             mapDistricts = L.map('mapDistricts').setView([46.8, 8.4], 8);
             applyCountryBorder(mapDistricts, "Switzerland");
             LoadMap(mapDistricts, real_enddate);
+
       });
