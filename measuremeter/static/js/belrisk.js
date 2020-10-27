@@ -34,6 +34,8 @@ var data
     function AddRow(province,age_groups, bias, groupsize,days, age_dist_obj)
     {
       var table = document.getElementById("riskTable");
+
+
       var row = table.insertRow(-1);
       var cell1 = row.insertCell(0);
       cell1.innerHTML = province.name;
@@ -72,6 +74,18 @@ var data
            {
                age_groups_array = age_groups.split(",")
            }
+
+           var table = document.getElementById("riskTable");
+
+           if (table.rows.length > 1)
+           {
+               for (var i = 1; i < 12; i++)
+               {
+                    table.deleteRow(-1)
+               }
+           }
+
+
 
            provinces_clean=provinces.replace(/&#x27;/g, '"');
            age_dist_clean=age_dist.replace(/&#x27;/g, '"');
