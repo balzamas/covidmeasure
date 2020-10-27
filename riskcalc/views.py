@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.db.models import F, Func
 
 def belgium_risk(request):
-    provinces = BELProvince.objects.all()
+    provinces = BELProvince.objects.all().order_by('name')
     date_border = date.today()- timedelta(days=20)
     provinces_vals = []
 

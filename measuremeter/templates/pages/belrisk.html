@@ -92,9 +92,15 @@
   </script>
 
 
-	<style>#map { width: 800px; height: 700px; }
+	<style>
+	td {
+  padding-top:10px;
+}
+	#map { width: 800px; height: 700px; }
 .info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
-.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }
+
+</style>
 
 </head>
 <body>
@@ -108,24 +114,9 @@
 
 
   <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
-
+  <div align="center">
   <h4>Calculating the chance that one or more members of a group is/are infected.</h4>
-  <p>Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.<br>
-  Base number: Positive tests in the past X days per 100k population. CDC recommends to use past 10 days.<br>
-    Bias: As default, the value of five is set. This number depends on the positivity rate, for Belgium I assume that for one tested person, there are 4 infected but not tested.<br>
-    For the age group ratio, the values of all Belgium is taken and calculated down to province size.
-  </p>
-  <p>Formula used: 100 - (((1-(1/(100000/(cases*bias)))) ** groupsize) * 100)</p>
 
-  <p class="red"><b>Attention:</b> be aware, don't missuse it! Don't use it for your personal risk assessment!
-    <br> "Oh, the chance that someone is infected at this party is only 9,3%? Let's go and hug everybody!"<br>
-    Probabilities are tricky to understand - this tool is maybe more useful for decision makers/event organizers (keyword "Superspreader in closed space").<br>
-    Disclaimer: I am not an epidemologist. I'm just a random dude from the internet.<br>
-    Credit for the concept goes to Gatech, I just adapted their concept for Belgium.<br>
-    So: keep your distance, wash your hands, wear a mask where it's sensible, enjoy life but don't be stupid.
-
-  </p>
-    <p><b>This is beta and work in progress, numbers still have to be verified.</b><br>Cases data is fetched every day at 10am from Sciensano.be</p>
   <br><br>
 
   <table>
@@ -141,6 +132,7 @@
         <input type="number" id="groupsize" placeholder="Group size" value=4>
       </div>
     </td>
+  <td></td>
     <td valign="top">
               <h3>Base number:</h3>
       <select class="ui dropdown" id="days">
@@ -155,12 +147,13 @@
     <td valign="top">
         <h3>Bias:</h3>
         <div class="ui input" >
-          <input type="number" id="bias" placeholder="Bias" value=5>
+          <input type="number" id="bias" placeholder="Bias" value=3>
         </div>
         <br>Ascertainment bias: incidence is multiplied by this number.
 
 
     </td>
+  <td></td>
     <td valign="bottom">
                     <h3>Age groups (empty=all)</h3>
 
@@ -185,25 +178,44 @@
       </div>
       </div>
   <br><br>
+
     <table id="riskTable">
       <tr>
         <td>Province</td>
-        <td>0 - 9</td>
-        <td>10 - 19</td>
-        <td>20 - 29</td>
-        <td>30 - 39</td>
-        <td>40 - 49</td>
-        <td>50 - 59</td>
-        <td>60 - 69</td>
-        <td>70 - 79</td>
-        <td>80 - 89</td>
-        <td>90plus</td>
+        <td width="80px" style="padding-left:15px;">0 - 9</td>
+        <td width="80px">10 - 19</td>
+        <td width="80px">20 - 29</td>
+        <td width="80px">30 - 39</td>
+        <td width="80px" >40 - 49</td>
+        <td width="80px">50 - 59</td>
+        <td width="80px">60 - 69</td>
+        <td width="80px">70 - 79</td>
+        <td width="80px">80 - 89</td>
+        <td width="80px">90plus</td>
+        <td width="80px">All</td>
+
       </tr>
     </table>
-  <div align="center">
+  <br>
+  <br>
     <div id='mapRisk'  style="height: 600px; width: 100%;"></div>
   </div>
   <br>
+      <p>Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.<br>
+    Base number: Positive tests in the past X days per 100k population. CDC recommends to use past 10 days.<br>
+    Bias: As default, the value of three is set. This number depends on the positivity rate, for Belgium I assume that for one tested person, there are 2 infected but not tested.<br>
+    For the age group ratio, the values of all Belgium is taken and calculated down to province size.
+  </p>
+  <p>Formula used: 100 - (((1-(1/(100000/(cases*bias)))) ** groupsize) * 100)</p>
+
+  <p class="red"><b>Attention:</b> be aware, don't missuse it! Don't use it for your personal risk assessment!
+    <br> "Oh, the chance that someone is infected at this party is only 9,3%? Let's go and hug everybody!"<br>
+    Probabilities are tricky to understand - this tool is maybe more useful for decision makers/event organizers (keyword "Superspreader in closed space").<br>
+    Disclaimer: I am not an epidemologist. I'm just a random dude from the internet.<br>
+    Credit for the concept goes to Gatech, I just adapted their concept for Belgium.<br>
+    So: keep your distance, wash your hands, wear a mask where it's sensible, enjoy life but don't be stupid.
+  </p>
+    <p>Cases data is fetched every day at 10am from Sciensano.be</p>
   </body>
 </html>
 
