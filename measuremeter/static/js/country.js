@@ -6,6 +6,12 @@
      	var avg_desc;
      	var avg_peak_desc;
 
+        moment.updateLocale('en', {
+          week: {
+            dow : 1, // Monday is the first day of the week.
+          }
+        });
+
       function LoadCountryData(country_id)
       {
           var data = $.ajax({
@@ -229,6 +235,18 @@
                         intersect: true
                     },
                     scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
                         x: {
                             display: true,
                             scaleLabel: {
@@ -302,6 +320,18 @@
                         intersect: true
                     },
                     scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
                         x: {
                             display: true,
                             scaleLabel: {
@@ -368,6 +398,18 @@
                         intersect: true
                     },
                     scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
                         x: {
                             display: true,
                             scaleLabel: {
@@ -476,6 +518,18 @@
                         intersect: true
                     },
                     scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
                         x: {
                             display: true,
                             scaleLabel: {

@@ -47,6 +47,13 @@ let Colors = ["#0000ff",
 
 ];
 
+moment.updateLocale('en', {
+  week: {
+    dow : 1, // Monday is the first day of the week.
+  }
+});
+
+
 Colors.random = function() {
     var result;
     var count = 0;
@@ -279,6 +286,18 @@ Colors.random = function() {
                         intersect: true
                     },
                     scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
                         x: {
                             display: true,
                             scaleLabel: {
@@ -330,6 +349,18 @@ Colors.random = function() {
                         intersect: true
                     },
                     scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
                         x: {
                             display: true,
                             scaleLabel: {
@@ -374,6 +405,18 @@ Colors.random = function() {
                         intersect: true
                     },
                     scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
                         x: {
                             display: true,
                             scaleLabel: {
@@ -437,6 +480,18 @@ Colors.random = function() {
                         intersect: true
                     },
                     scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
                         x: {
                             display: true,
                             scaleLabel: {
@@ -452,6 +507,29 @@ Colors.random = function() {
                             }
                         }
                     },
+                    plugins: {
+                        zoom: {
+                            // Container for pan options
+                            pan: {
+                                // Boolean to enable panning
+                                enabled: true,
+            
+                                // Panning directions. Remove the appropriate direction to disable
+                                // Eg. 'y' would only allow panning in the y direction
+                                mode: 'y'
+                            },
+
+                            // Container for zoom options
+                            zoom: {
+                                // Boolean to enable zooming
+                                enabled: true,
+
+                                // Zooming directions. Remove the appropriate direction to disable
+                                // Eg. 'y' would only allow zooming in the y direction
+                                mode: 'y',
+                            }
+                        }
+        },
       annotation: {
         events: ["click","mouseover"],
         annotations: annotations

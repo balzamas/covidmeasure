@@ -43,6 +43,12 @@ let Colors = ["#0000ff",
 ];
 var data
 
+moment.updateLocale('en', {
+  week: {
+    dow : 1, // Monday is the first day of the week.
+  }
+});
+
         function addDays(date, days) {
           var result = new Date(date);
           result.setDate(result.getDate() + days);
@@ -408,6 +414,18 @@ var data
                         intersect: true
                     },
                     scales: {
+                        xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
                         x: {
                             display: true,
                             scaleLabel: {
@@ -459,12 +477,24 @@ var data
                         intersect: true
                     },
                     scales: {
+                    xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
                         x: {
                             display: true,
                             scaleLabel: {
                                 display: true,
                                 labelString: 'Day'
-                            }
+                            },
                         },
                         y: {
                             display: true,
