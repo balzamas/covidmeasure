@@ -2,6 +2,7 @@
 		var config;
 		var config_death;
 		var config_positivity;
+		var config_tendency;
 
 let Colors = ["#0000ff",
 "#00ffff",
@@ -186,6 +187,9 @@ Colors.random = function() {
         var dataset_death_total = new Array()
         var dataset_death_total_data = new Array()
 
+        var dataset_tendency = new Array()
+        var dataset_tendency_data = new Array()
+
         var label_array = new Array()
 
         for (var d = real_startdate; d <= real_enddate; d.setDate(d.getDate() + 1)) {
@@ -206,6 +210,8 @@ Colors.random = function() {
               }
               dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
               dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_data})
+              dataset_tendency.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, data: dataset_tendency_data})
+
               if (has_total_death)
               {
                 dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
@@ -216,6 +222,7 @@ Colors.random = function() {
               dataset_death_data = new Array()
               dataset_death_total_data = new Array()
               dataset_positivity_data = new Array()
+              dataset_tendency_data = new Array()
 
               has_total_death = false
            }
@@ -224,6 +231,7 @@ Colors.random = function() {
             country_code = line['country']['code']
             dataset_data.push(line['cases_past14days'])
             dataset_positivity_data.push(line['positivity'])
+            dataset_tendency_data.push(line['development7to7'])
             dataset_death_data.push(line['deaths_past14days'])
             //if (line['deaths_total_per100k'] > 0)
             //{
@@ -242,6 +250,7 @@ Colors.random = function() {
               dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
               }
         dataset_positivity.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, data: dataset_positivity_data})
+        dataset_tendency.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, data: dataset_tendency_data})
 
         annotations = LoadMeasure(countries, measures, startdate, enddate)
 
@@ -403,6 +412,57 @@ Colors.random = function() {
 
             };
 
+            config_tendency = {
+                type: 'line',
+
+                data: {
+                    labels: label_array,
+                    datasets: dataset_tendency
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Development past week/week before (%)',
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Cases/1 Mio Pop'
+                            }
+                        }
+                    },
+      annotation: {
+        events: ["click","mouseover"],
+        annotations: annotations
+
+
+
+          }
+                },
+
+            };
+
 		};
 
 		window.onload = function() {
@@ -415,6 +475,10 @@ Colors.random = function() {
                 }
                 if(window.myLinePositivity && window.myLinePositivity !== null){
                    window.myLinePositivity.destroy();
+                }
+
+                if(window.myLineTendency && window.myLineTendency !== null){
+                   window.myLineTendency.destroy();
                 }
 
                 var datefrom = document.getElementById("datefrom").value;
@@ -431,6 +495,7 @@ Colors.random = function() {
     			window.myLine = new Chart(ctx, config);
     			window.myLineDeath = new Chart(ctx_death, config_death);
     			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
+    			window.myLineTendency = new Chart(ctx_tendency, config_tendency);
 
             });
 
@@ -477,6 +542,9 @@ Colors.random = function() {
 
 			var ctx_positivity = document.getElementById('compareChartPositivity').getContext('2d');
 			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
+
+			var ctx_tendency = document.getElementById('compareChartTendency').getContext('2d');
+			window.myLineTendency = new Chart(ctx_tendency, config_tendency);
 
 			$("#btnCopyLink").click(async function(){
                 copyToClipboard();
