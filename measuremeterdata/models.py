@@ -149,6 +149,7 @@ class CHMeasure(MotherModel):
     end = models.DateField(null=True,blank=True)
     level = models.IntegerField(choices=LEVEL_CHOICES,default=0)
     comment = RichTextField(blank=True)
+    comment_orig = RichTextField(blank=True)
     sources = models.TextField(max_length=300,blank=True)
     isregional = models.BooleanField(default= False)
 
