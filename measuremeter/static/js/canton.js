@@ -197,32 +197,11 @@ var data
             $('#param').hide();
     }
 
-     function LoadMeasureGraph(startdate, enddate, gr_cantons, gr_measuretypes)
-     {
-          if (gr_cantons != '')
-          {
-            //Add Switzerland measures
-            gr_cantons = gr_cantons + ",173"
-          }
+    function prep_annotations(jsonData, annotations_prepare)
+    {
+            var last_line
 
-          if (gr_measuretypes == undefined)
-          {
-            gr_measuretypes = ""
-          }
-
-          var data = $.ajax({
-          url: "/measuremeterdata/chmeasures/?canton="+gr_cantons+"&type="+gr_measuretypes,
-          dataType: "json",
-          async: false
-          }).responseText;
-          var jsonData = JSON.parse(data);
-
-        annotations_prepare = new Array()
-        annotations = new Array()
-
-        var last_line
-
-        $.each(jsonData, function(id, line) {
+         $.each(jsonData, function(id, line) {
             if (line['start'] != null)
             {
                 doesexist = false;
@@ -261,6 +240,48 @@ var data
 
             }
             });
+            return annotations_prepare
+    }
+
+     function LoadMeasureGraph(startdate, enddate, gr_cantons, gr_measuretypes)
+     {
+          if (gr_cantons == undefined)
+          {
+            gr_cantons = ""
+          }
+
+
+          if (gr_measuretypes == undefined)
+          {
+            gr_measuretypes = ""
+          }
+
+        annotations_prepare = new Array()
+
+          var data = $.ajax({
+          url: "/measuremeterdata/chmeasures/?canton="+gr_cantons+"&type="+gr_measuretypes,
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonData = JSON.parse(data);
+
+          annotations_prepare = prep_annotations(jsonData, annotations_prepare)
+
+          var data = $.ajax({
+
+//          url: "/measuremeterdata/chmeasures/?canton=173&type=",
+
+          url: "/measuremeterdata/chmeasures/?canton=168&type=",
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonData = JSON.parse(data);
+
+          annotations_prepare = prep_annotations(jsonData, annotations_prepare)
+
+
+
+            annotations = new Array()
 
             annotations_prepare.forEach(function(element)
                 {
