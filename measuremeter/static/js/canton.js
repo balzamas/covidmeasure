@@ -658,9 +658,9 @@ var data
             LoadMeasureTypes();
             LoadCantons()
 
-            LoadCantonData();
+            //LoadCantonData();
 
-			drawTimeline(2);
+			//drawTimeline(2);
 
 
             $('#cantons_dd').dropdown('set selected', ['37','35','43'])

@@ -150,7 +150,7 @@ class CHMeasure(MotherModel):
     level = models.IntegerField(choices=LEVEL_CHOICES,default=0)
     comment = RichTextField(blank=True)
     comment_orig = RichTextField(blank=True)
-    sources = models.TextField(max_length=300,blank=True)
+    sources = models.TextField(max_length=900,blank=True)
     isregional = models.BooleanField(default= False)
 
     ordering = ['canton', 'type__category', 'type__name']
