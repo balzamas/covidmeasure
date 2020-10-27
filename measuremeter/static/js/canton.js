@@ -269,9 +269,7 @@ var data
 
           var data = $.ajax({
 
-//          url: "/measuremeterdata/chmeasures/?canton=173&type=",
-
-          url: "/measuremeterdata/chmeasures/?canton=168&type=",
+          url: "/measuremeterdata/chmeasures/?canton=173&type=",
           dataType: "json",
           async: false
           }).responseText;
