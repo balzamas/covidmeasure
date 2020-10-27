@@ -123,7 +123,14 @@ var data
                                 endtime = line['end'];
                             }
 
-                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ (line['level'] +1) +', End: '+endtime+"<br>"+line["comment"]+"<a href='" + line["sources"]+ "' target='_blank'>Source</a></p>";
+                            source_link = ''
+                            if (line["sources"] != '')
+                            {
+                                source_link = "<a href='" + line["sources"]+ "' target='_blank'>Source</a>"
+                            }
+
+
+                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ (line['level'] +1) +', End: '+endtime+"<br>"+line["comment"]+source_link+"</p>";
 
          return htmlLine;
      }
