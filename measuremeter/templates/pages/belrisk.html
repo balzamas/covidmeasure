@@ -1,6 +1,4 @@
 {% load static i18n %}
-{% load static %}
-{# Load the tag library #}
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
@@ -10,6 +8,7 @@
     <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
     <!-- / Fathom -->
+        <script src="{% url 'javascript-catalog' %}"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
@@ -65,7 +64,7 @@
                 days = $("#days").val();
 
                 var d = new Date();
-                today = formatDate(d);
+                today = formatDate(addDays(d, -3));
 
                 age_groups = $('#age_groups_dd').dropdown('get value')
                 LoadMap(mapRisk, today, groupsize, bias, days, '{{provinces}}', '{{age_dist}}', age_groups);
@@ -83,7 +82,11 @@
             days = $("#days").val();
 
             var d = new Date();
-            today = formatDate(addDays(d, -1));
+            today = formatDate(addDays(d, -3));
+
+            var div = document.getElementById('title');
+            div.innerHTML += "<h3>Risk @ " + today + ":</h3>";
+
             age_groups = $('#age_groups_dd').dropdown('get value')
 
             LoadMap(mapRisk, today, groupsize, bias, days, '{{provinces}}', '{{age_dist}}', age_groups);
@@ -107,15 +110,15 @@
 
   <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
 
-  <h1>CovidLaws // Belgium // Risk map</h1>
+  <h1>{% trans 'CovidLaws // Belgium // Risk map' %}</h1>
   <div id="menu"></div>
 
-  <p id="grande"><b>COVID-19 Event Risk Assessment</b></p>
+  <p id="grande"><b>{% trans 'COVID-19 Event Risk Assessment' %}</b></p>
 
 
   <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
   <div align="center">
-  <h4>Calculating the chance that one or more members of a group is/are infected.</h4>
+  <h4>{% trans 'Calculating the chance that one or more members of a group is/are infected.' %}</h4>
 
   <br><br>
 
@@ -127,40 +130,40 @@
 </colgroup>
 <tr>
     <td valign="top">
-      <h3>Group size:</h3>
+      <h3>{% trans 'Group size:' %}</h3>
       <div class="ui input" >
         <input type="number" id="groupsize" placeholder="Group size" value=4>
       </div>
     </td>
   <td></td>
     <td valign="top">
-              <h3>Base number:</h3>
+              <h3>{% trans 'Base number:' %}</h3>
       <select class="ui dropdown" id="days">
-      <option value="10">10 days</option>
-      <option value="7">7 days</option>
-      <option value="14">14 days</option>
+      <option value="10">10 {% trans 'days' %}</option>
+      <option value="7">7 {% trans 'days' %}</option>
+      <option value="14">14 {% trans 'days' %}</option>
       </select>
-        <br>    Cases per 100k population in the past...
+        <br>{% trans 'Cases per 100k population in the past...' %}
     </td>
 </tr>
 <tr>
     <td valign="top">
-        <h3>Bias:</h3>
+        <h3>{% trans 'Bias:' %}</h3>
         <div class="ui input" >
           <input type="number" id="bias" placeholder="Bias" value=3>
         </div>
-        <br>Ascertainment bias: incidence is multiplied by this number.
+        <br>{% trans 'Ascertainment bias: incidence is multiplied by this number.' %}
 
 
     </td>
   <td></td>
     <td valign="bottom">
-                    <h3>Age groups (empty=all)</h3>
+                    <h3>{% trans 'Age groups (empty=all)' %}</h3>
 
                 <div class="ui multiple fluid search selection dropdown" id="age_groups_dd">
                   <input type="hidden" name="agegroups">
                   <i class="dropdown icon"></i>
-                  <div class="default text">Age groups</div>
+                  <div class="default text">{% trans 'Age groups' %}</div>
                   <div class="menu" id="age_groups_list">
                 </div>
               </div>
@@ -172,16 +175,17 @@
 </table>
     <br><br>
       <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
-      <div class="hidden content" >Load</div>
+      <div class="hidden content" >{% trans 'Load' %}</div>
       <div class="visible content">
         <i class="large arrow circle down icon"></i>
       </div>
       </div>
   <br><br>
+    <div id="title"></div>
 
     <table id="riskTable">
       <tr>
-        <td>Province</td>
+        <td>{% trans 'Province' %}</td>
         <td width="80px" style="padding-left:15px;">0 - 9</td>
         <td width="80px">10 - 19</td>
         <td width="80px">20 - 29</td>
@@ -201,21 +205,16 @@
     <div id='mapRisk'  style="height: 600px; width: 100%;"></div>
   </div>
   <br>
-      <p>Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.<br>
-    Base number: Positive tests in the past X days per 100k population. CDC recommends to use past 10 days.<br>
-    Bias: As default, the value of three is set. This number depends on the positivity rate, for Belgium I assume that for one tested person, there are 2 infected but not tested.<br>
-    For the age group ratio, the values of all Belgium is taken and calculated down to province size.
+    <p>{% trans 'Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.' %}<br>
+    {% trans 'Base number: Positive tests in the past X days per 100k population. CDC recommends to use past 10 days.' %}<br>
+    {% trans 'Bias: As default, the value of three is set. This number depends on the positivity rate, for Belgium I assume that for one tested person, there are 2 infected but not tested.' %}<br>
+    {% trans 'For the age group ratio, the values of all Belgium is taken and calculated down to province size.' %}
   </p>
-  <p>Formula used: 100 - (((1-(1/(100000/(cases*bias)))) ** groupsize) * 100)</p>
+  <p>{% trans 'Formula used:' %} 100 - (((1-(1/(100000/(cases*bias)))) ** groupsize) * 100)</p>
 
-  <p class="red"><b>Attention:</b> be aware, don't missuse it! Don't use it for your personal risk assessment!
-    <br> "Oh, the chance that someone is infected at this party is only 9,3%? Let's go and hug everybody!"<br>
-    Probabilities are tricky to understand - this tool is maybe more useful for decision makers/event organizers (keyword "Superspreader in closed space").<br>
-    Disclaimer: I am not an epidemologist. I'm just a random dude from the internet.<br>
-    Credit for the concept goes to Gatech, I just adapted their concept for Belgium.<br>
-    So: keep your distance, wash your hands, wear a mask where it's sensible, enjoy life but don't be stupid.
-  </p>
-    <p>Cases data is fetched every day at 10am from Sciensano.be</p>
+    <p>{% trans 'Cases data is fetched every day at 10am from Sciensano.be' %}</p>
+
+    <p>Thanks to Ricus van der Kwast from <a href="https://the-corona-diaries.com/" target="_blank">The Corona Diaries</a> for the assistance.</p>
   </body>
 </html>
 

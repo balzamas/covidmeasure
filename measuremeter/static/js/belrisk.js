@@ -215,8 +215,8 @@ var data
 
         info.update = function (props) {
             this._div.innerHTML = '' +  (props ?
-                '<div align=left><b>' + props.NAME_1 + '</b><br>Risk: ' + props.level.toFixed(1) + ' %<br>Incidence: ' + props.comment.toFixed(1) + '</div>'
-                : 'Hover over a state');
+                '<div align=left><b>' + props.NAME_1 + '</b><br>'+gettext('Risk') +': ' + props.level.toFixed(1) + ' %<br>Incidence: ' + props.comment.toFixed(1) + '</div>'
+                : gettext('Hover over a state'));
         };
 
         info.addTo(map);
@@ -269,12 +269,12 @@ var data
                 var commentstr = ''
                 if (e.sourceTarget.feature.properties.comment)
                 {
-                    commentstr = '<p>Cases/100k pop past ' + days + "days:<br>" + e.sourceTarget.feature.properties.comment.toFixed(1) + '</p>';
+                    commentstr = '<p>'+gettext('Cases/100k pop past ') + days + gettext('days')+":<br>" + e.sourceTarget.feature.properties.comment.toFixed(1) + '</p>';
                 }
                 var levelstr = ''
                 if (e.sourceTarget.feature.properties.level)
                 {
-                    levelstr = '<p>Risk: ' + e.sourceTarget.feature.properties.level.toFixed(1) + '%</p>';
+                    levelstr = '<p>'+gettext('Risk')+': ' + e.sourceTarget.feature.properties.level.toFixed(1) + '%</p>';
                 }
                 popup
                 .setLatLng(e.latlng)
@@ -302,7 +302,7 @@ var data
         legend.onAdd = function (map) {
 
         var div = L.DomUtil.create('div', 'info legend');
-        labels = ['<strong>Risk</strong>'],
+        labels = ['<strong>'+gettext('Risk')+'</strong>'],
         categories = ["<10%","<20%","<30%","<40%","<50%","<60%","<70%","<80%","<90%","<100%"];
 
         for (var i = 0; i < categories.length; i++) {
