@@ -64,7 +64,7 @@
                 days = $("#days").val();
 
                 var d = new Date();
-                today = formatDate(addDays(d, -3));
+                today = formatDate(addDays(d, -4));
 
                 age_groups = $('#age_groups_dd').dropdown('get value')
                 LoadMap(mapRisk, today, groupsize, bias, days, '{{provinces}}', '{{age_dist}}', age_groups);
@@ -82,7 +82,7 @@
             days = $("#days").val();
 
             var d = new Date();
-            today = formatDate(addDays(d, -3));
+            today = formatDate(addDays(d, -4));
 
             var div = document.getElementById('title');
             div.innerHTML += "<h3>Risk @ " + today + ":</h3>";
