@@ -361,6 +361,7 @@ moment.updateLocale('en', {
         }
 
         turn = 0
+        border_width = 4
 
         $.each(jsonData, function(id, line) {
 
@@ -368,8 +369,8 @@ moment.updateLocale('en', {
            {
               color = Colors[turn];
               turn += 1
-              dataset.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
-              dataset_tendency.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_tendency_data})
+              dataset.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
+              dataset_tendency.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
               dataset_data = new Array()
               dataset_tendency_data = new Array()
 
@@ -383,8 +384,8 @@ moment.updateLocale('en', {
         });
 
               color = Colors[turn];
-        dataset.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
-        dataset_tendency.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_tendency_data})
+        dataset.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
+        dataset_tendency.push({"label": canton_name, fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
 
         annotations = LoadMeasureGraph(startdate, enddate, cantons, measures)
 

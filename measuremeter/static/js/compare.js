@@ -204,6 +204,7 @@ Colors.random = function() {
         }
 
         has_total_death = false;
+        border_width = 4
 
         $.each(jsonData, function(id, line) {
 
@@ -215,15 +216,15 @@ Colors.random = function() {
               {
                 turn = 0
               }
-              dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
-              dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_data})
-              dataset_tendency.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, data: dataset_tendency_data})
+              dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
+              dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_data})
+              dataset_tendency.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
 
               if (has_total_death)
               {
-                dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
+                dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_total_data})
                }
-              dataset_positivity.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, data: dataset_positivity_data})
+              dataset_positivity.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
 
               dataset_data = new Array()
               dataset_death_data = new Array()
@@ -250,14 +251,14 @@ Colors.random = function() {
         });
 
         color = Colors[turn];
-        dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, data: dataset_data})
-        dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_data})
+        dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
+        dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_data})
         if (has_total_death)
               {
-              dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, data: dataset_death_total_data})
+              dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_total_data})
               }
-        dataset_positivity.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, data: dataset_positivity_data})
-        dataset_tendency.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, data: dataset_tendency_data})
+        dataset_positivity.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
+        dataset_tendency.push({"label": country_code.toUpperCase(), fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
 
         annotations = LoadMeasure(countries, measures, startdate, enddate)
 
