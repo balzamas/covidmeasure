@@ -53,6 +53,12 @@ moment.updateLocale('en', {
   }
 });
 
+function save_image(graph){
+      var canvas = $('#'+graph).get(0);
+      canvas.toBlob(function(blob) {
+        saveAs(blob, "graph.png");
+    });
+}
 
 Colors.random = function() {
     var result;
@@ -576,6 +582,22 @@ Colors.random = function() {
     			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
     			window.myLineTendency = new Chart(ctx_tendency, config_tendency);
 
+            });
+
+            $("#save_incidence").click(function(){
+                            save_image("compareChart")
+            });
+
+            $("#save_tendency").click(function(){
+                            save_image("compareChartTendency")
+            });
+
+            $("#save_death").click(function(){
+                            save_image("compareChartDeaths")
+            });
+
+            $("#save_positivity").click(function(){
+                            save_image("compareChartPositivity")
             });
 
 		    LoadMeasureTypes();

@@ -49,6 +49,13 @@ moment.updateLocale('en', {
   }
 });
 
+function save_image(graph){
+      var canvas = $('#'+graph).get(0);
+      canvas.toBlob(function(blob) {
+        saveAs(blob, "graph.png");
+    });
+}
+
         function addDays(date, days) {
           var result = new Date(date);
           result.setDate(result.getDate() + days);
@@ -465,7 +472,7 @@ moment.updateLocale('en', {
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Development past week/week before (%)',
+                        text: ['Development past week/week before (%)'],
                         fontSize: 25
 
                     },
@@ -669,6 +676,13 @@ moment.updateLocale('en', {
 
             });
 
+            $("#save_incidence").click(function(){
+                            save_image("compareChart")
+            });
+
+            $("#save_tendency").click(function(){
+                            save_image("compareTendency")
+            });
 
             $('#dimmer').dimmer('show');
 

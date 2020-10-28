@@ -29,6 +29,9 @@
        <script type="text/javascript" src="{% static 'js/project.js' %}"></script>
        <script type="text/javascript" src="{% static 'js/base_annotation.js' %}"></script>
        <script type="text/javascript" src="{% static 'js/compare.js' %}"></script>
+
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
+
  </head>
 </html>
 <body>
@@ -108,6 +111,12 @@
 <div class="chart-container" style="position: relative">
       <canvas id="compareChart">
       </canvas>
+                  <div class="ui vertical animated large button" tabindex="0" id="save_incidence" style="width:100px">
+                <div class="hidden content" >Save</div>
+                <div class="visible content">
+                  <i class="save icon"></i>
+                </div>
+              </div>
         <div id="dialog" title="Basic dialog">
       </div>
 </div>
@@ -116,10 +125,16 @@
   <br><br>
 
   <p id="grande"><b>Development past week/week before (%)</b></p>
-  Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = Cases double in a week, 0 = constant growth, <0 growth slowing down.
-  <b>BETA!</b>
         <canvas id="compareChartTendency">
       </canvas>
+    Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = Cases double in a week, 0 = constant growth, <0 growth slowing down.<br>
+
+                  <div class="ui vertical animated large button" tabindex="0" id="save_tendency" style="width:100px">
+                <div class="hidden content" >Save</div>
+                <div class="visible content">
+                  <i class="save icon"></i>
+                </div>
+              </div>
         <div id="dialogTendency" title="Basic dialog">
       </div>
 
@@ -127,14 +142,27 @@
 <div class="chart-container" style="position: relative">
       <canvas id="compareChartDeaths">
       </canvas>
+                 <div class="ui vertical animated large button" tabindex="0" id="save_death" style="width:100px">
+                <div class="hidden content" >Save</div>
+                <div class="visible content">
+                  <i class="save icon"></i>
+                </div>
+              </div>
 </div>
   Source Covid deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
 
 <div class="chart-container" style="position: relative">
       <canvas id="compareChartPositivity">
       </canvas>
-</div>
   A positivity rate higher then 5% is considered as a sign that there is not enough testing and a danger of loosing control. See this <a href="https://www.jhsph.edu/covid-19/articles/covid-19-testing-understanding-the-percent-positive.html">article</a> from the John Hopkins University.<br>
+
+                   <div class="ui vertical animated large button" tabindex="0" id="save_positivity" style="width:100px">
+                <div class="hidden content" >Save</div>
+                <div class="visible content">
+                  <i class="save icon"></i>
+                </div>
+              </div>
+</div>
   Source Positivity: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a>
 
 
