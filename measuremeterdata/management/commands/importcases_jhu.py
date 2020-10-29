@@ -90,7 +90,7 @@ class Command(BaseCommand):
                         col_count=0
                         for col in row:
                             if col_count > 3:
-                                tdy_val = int(col) - last_val
+                                tdy_val = int(float(col)) - last_val
                                 date_object = datetime.strptime(daterow[col_count], '%m/%d/%y')
 
                                 try:
@@ -103,7 +103,7 @@ class Command(BaseCommand):
                                                      cases_per_mio=CalcCaesesPerMio(tdy_val, country.population))
                                     cd.save()
 
-                                last_val = int(col)
+                                last_val = int(float(col))
                             col_count += 1
 
                         # calc running avg
