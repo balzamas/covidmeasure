@@ -22,11 +22,6 @@
           LoadPanelsFiltered();
         }
 
-        function copyToClipboard() {
-          var copyText = window.location.host + "/timeline/" + $('#countries_dd').dropdown('get value');
-          navigator.clipboard.writeText(copyText);
-        }
-
       $(window).on('load', function() {
           //document.getElementById("dateselect").valueAsDate = new Date();
 
@@ -100,7 +95,7 @@
             }
 
           $("#btnCopyLink").click(async function(){
-                copyToClipboard();
+                copyToClipboard("/timeline/" + $('#countries_dd').dropdown('get value'));
           });
 
 

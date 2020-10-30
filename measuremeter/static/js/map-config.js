@@ -4,28 +4,6 @@ var geojson
 var legend
 var info
 
-function copyToClipboard() {
-  var copyText = window.location.host + "/euromap/" + $('#measurechooser').dropdown('get value');
-  navigator.clipboard.writeText(copyText);
-}
-
-function addDays(date, days) {
-  var result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-}
-
-function formatDate(d)
-{
-            var month = d.getMonth()+1;
-            var day = d.getDate();
-
-            var date = d.getFullYear() + '-' +
-                (month<10 ? '0' : '') + month + '-' +
-                (day<10 ? '0' : '') + day;
-            return date;
-}
-
 function readloadDate()
 {
                 var measuretype = $('#measurechooser').dropdown('get value');
@@ -115,7 +93,7 @@ $( document ).ready(function() {
           });
 
           $("#btnCopyLink").click(async function(){
-                copyToClipboard();
+                copyToClipboard("/euromap/" + $('#measurechooser').dropdown('get value'));
           });
 
              var d = new Date();

@@ -1,73 +1,9 @@
-
 		var config;
 		var config_death;
 		var config_positivity;
 		var config_tendency;
 
-let Colors = ["#0000ff",
-"#00ffff",
-"#ff0000",
-"#ffff00",
-"#000000",
-"#a9a9a9",
-"#8b0000",
-"#e9967a",
-"#9400d3",
-"#bdb76b",
-"#556b2f",
-"#ff00ff",
-"#ffd700",
-"#4b0082",
-"#f0e68c",
-"#add8e6",
-"#e0ffff",
-"#90ee90",
-"#d3d3d3",
-"#ffb6c1",
-"#ffffe0",
-"#00ff00",
-"#ff00ff",
-"#800000",
-"#000080",
-"#808000",
-"#ffc0cb",
-"#f0ffff",
-"#800080",
-"#c0c0c0",
-"#00008b",
-"#008b8b",
-"#006400",
-"#ffa500",
-"#ff8c00",
-"#8b008b",
-"#9932cc",
-"#f5f5dc",
-"#a52a2a",
-"#008000",
 
-];
-
-moment.updateLocale('en', {
-  week: {
-    dow : 1, // Monday is the first day of the week.
-  }
-});
-
-Colors.random = function() {
-    var result;
-    var count = 0;
-    for (var prop in this.names)
-        if (Math.random() < 1/++count)
-           result = prop;
-    return result;
-};
-
-
-
-          function copyToClipboard() {
-          var copyText = window.location.host + "/compare/" + $('#countries_dd').dropdown('get value') + "&" + $('#measuretypes_dd').dropdown('get value');
-          navigator.clipboard.writeText(copyText);
-        }
 
     function LoadCountries()
     {
@@ -612,7 +548,7 @@ Colors.random = function() {
 			window.myLineTendency = new Chart(ctx_tendency, config_tendency);
 
 			$("#btnCopyLink").click(async function(){
-                copyToClipboard();
+                copyToClipboard("/compare/" + $('#countries_dd').dropdown('get value') + "&" + $('#measuretypes_dd').dropdown('get value'));
             });
 		};
 

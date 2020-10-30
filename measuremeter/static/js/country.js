@@ -6,14 +6,6 @@
      	var avg_desc;
      	var avg_peak_desc;
 
-        moment.updateLocale('en', {
-          week: {
-            dow : 1, // Monday is the first day of the week.
-          }
-        });
-
-
-
       function LoadCountryData(country_id)
       {
           var data = $.ajax({

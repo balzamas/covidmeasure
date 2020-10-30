@@ -1,48 +1,6 @@
 var current_date = new Date();
 var config;
-let Colors = ["#0000ff",
-"#00ffff",
-"#ff0000",
-"#ffff00",
-"#008000",
-"#000000",
-"#a52a2a",
-"#a9a9a9",
-"#8b0000",
-"#bdb76b",
-"#556b2f",
-"#e9967a",
-"#9400d3",
-"#ff00ff",
-"#ffd700",
-"#4b0082",
-"#add8e6",
-"#e0ffff",
-"#90ee90",
-"#ffb6c1",
-"#ffffe0",
-"#00ff00",
-"#ff00ff",
-"#800000",
-"#000080",
-"#808000",
-"#f0ffff",
-"#f5f5dc",
-"#800080",
-"#c0c0c0",
-"#00008b",
-"#008b8b",
-"#006400",
-"#ffa500",
-"#ff8c00",
-"#8b008b",
-"#9932cc",
-"#ffc0cb",
-"#f0e68c",
-"#d3d3d3",
 
-
-];
 
 var data
 var mapDistricts
