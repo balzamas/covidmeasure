@@ -3,7 +3,11 @@
 		var config_positivity;
 		var config_tendency;
 
-
+    moment.updateLocale('en', {
+      week: {
+        dow : 1, // Monday is the first day of the week.
+      }
+    });
 
     function LoadCountries()
     {

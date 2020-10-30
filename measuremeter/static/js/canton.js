@@ -1,6 +1,12 @@
 var config;
 var data
 
+    moment.updateLocale('en', {
+      week: {
+        dow : 1, // Monday is the first day of the week.
+      }
+    });
+
      function FormatPopUp(line, last_line)
      {
         var tendency = "&#11014;"

@@ -84,12 +84,6 @@
             return result;
     }
 
-    moment.updateLocale('en', {
-      week: {
-        dow : 1, // Monday is the first day of the week.
-      }
-    });
-
     function copyToClipboard(path) {
           var copyText = window.location.host + path;
           navigator.clipboard.writeText(copyText);
