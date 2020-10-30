@@ -12,6 +12,13 @@
           }
         });
 
+    function save_image(graph){
+          var canvas = $('#'+graph).get(0);
+          canvas.toBlob(function(blob) {
+            saveAs(blob, "graph.png");
+        });
+    }
+
       function LoadCountryData(country_id)
       {
           var data = $.ajax({
@@ -590,6 +597,22 @@
       $(window).on('load', function() {
          $("#countries_dd").change(function() {
                LoadPanelsFiltered()
+            });
+
+            $("#save_cases").click(function(){
+                            save_image("casesChart")
+            });
+
+            $("#save_tendency").click(function(){
+                            save_image("tendencyChart")
+            });
+
+            $("#save_deaths").click(function(){
+                            save_image("deathChart")
+            });
+
+            $("#save_positivity").click(function(){
+                            save_image("positivityChart")
             });
 
             $('.ui.accordion')
