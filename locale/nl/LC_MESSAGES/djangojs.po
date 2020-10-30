@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-28 21:40+0100\n"
+"POT-Creation-Date: 2020-10-30 23:53+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,40 +18,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: measuremeter/static/js/belrisk.js:219 measuremeter/static/js/chmap.js:166
-#: measuremeter/static/js/district.js:354
-msgid "Hover over a state"
-msgstr ""
+#: measuremeter/static/js/belrisk.js:206 measuremeter/static/js/belrisk.js:265
+#: measuremeter/static/js/belrisk.js:293 measuremeter/static/js/belrisk.js:294
+msgid "Risk"
+msgstr "Risiko"
 
-#: measuremeter/static/js/chmap.js:354 measuremeter/static/js/district.js:575
+#: measuremeter/static/js/belrisk.js:207 measuremeter/static/js/chmap.js:80
+#: measuremeter/static/js/district.js:149
+msgid "Hover over a state"
+msgstr "Beweeg over een staat"
+
+#: measuremeter/static/js/belrisk.js:260
+msgid "Cases/100k pop past "
+msgstr "Gevallen/100k pop afgelopen "
+
+#: measuremeter/static/js/belrisk.js:260
+msgid "days"
+msgstr "dagen"
+
+#: measuremeter/static/js/chmap.js:235 measuremeter/static/js/district.js:337
 msgid "Undefined"
 msgstr ""
 
-#: measuremeter/static/js/district.js:273
-#: measuremeter/static/js/district.js:289
-#: measuremeter/static/js/district.js:293
+#: measuremeter/static/js/district.js:68 measuremeter/static/js/district.js:84
+#: measuremeter/static/js/district.js:88
 msgid "Population"
 msgstr ""
 
-#: measuremeter/static/js/district.js:273
-#: measuremeter/static/js/district.js:289
-#: measuremeter/static/js/district.js:293
+#: measuremeter/static/js/district.js:68 measuremeter/static/js/district.js:84
+#: measuremeter/static/js/district.js:88
 msgid "Last update"
 msgstr ""
 
-#: measuremeter/static/js/district.js:273
-#: measuremeter/static/js/district.js:293
+#: measuremeter/static/js/district.js:68 measuremeter/static/js/district.js:88
 msgid "Development past 2 months."
 msgstr ""
 
-#: measuremeter/static/js/project.js:23
+#: measuremeter/static/js/menu.js:23
 msgid "Measures<br>Case development"
 msgstr ""
 
-#: measuremeter/static/js/project.js:25
+#: measuremeter/static/js/menu.js:25
 msgid "Map cases<br>Districts & Cantons"
 msgstr ""
 
-#: measuremeter/static/js/project.js:27
+#: measuremeter/static/js/menu.js:27
 msgid "Europe"
 msgstr ""
