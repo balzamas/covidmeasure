@@ -4,12 +4,6 @@
       var firstdate = new Date(2020, 5, 1);
       var lastdate = new Date(2020, 5, 1);
 
-        function addDays(date, days) {
-          var result = new Date(date);
-          result.setDate(result.getDate() + days);
-          return result;
-        }
-
      //-----------------------------DrawChart-------------------------------------
 
       function getStartEndDate(jsonData) {

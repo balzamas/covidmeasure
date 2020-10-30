@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-28 21:37+0100\n"
+"POT-Creation-Date: 2020-10-30 22:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -282,93 +282,93 @@ msgstr ""
 msgid "My Profile"
 msgstr "TEST"
 
-#: measuremeter/templates/pages/belrisk.html:114
+#: measuremeter/templates/pages/belrisk.html:113
 #, fuzzy
 #| msgid "CovidLaws // Switzerland // Measures maps"
 msgid "CovidLaws // Belgium // Risk map"
 msgstr "CovidLaws // Schweiz // Karten Massnahmen"
 
-#: measuremeter/templates/pages/belrisk.html:117
+#: measuremeter/templates/pages/belrisk.html:116
 msgid "COVID-19 Event Risk Assessment"
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:122
+#: measuremeter/templates/pages/belrisk.html:121
 msgid ""
 "Calculating the chance that one or more members of a group is/are infected."
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:134
+#: measuremeter/templates/pages/belrisk.html:133
 msgid "Group size:"
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:141
+#: measuremeter/templates/pages/belrisk.html:140
 msgid "Base number:"
 msgstr ""
 
+#: measuremeter/templates/pages/belrisk.html:142
 #: measuremeter/templates/pages/belrisk.html:143
 #: measuremeter/templates/pages/belrisk.html:144
-#: measuremeter/templates/pages/belrisk.html:145
 msgid "days"
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:147
+#: measuremeter/templates/pages/belrisk.html:146
 msgid "Cases per 100k population in the past..."
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:152
+#: measuremeter/templates/pages/belrisk.html:151
 msgid "Bias:"
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:156
+#: measuremeter/templates/pages/belrisk.html:155
 msgid "Ascertainment bias: incidence is multiplied by this number."
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:162
+#: measuremeter/templates/pages/belrisk.html:161
 msgid "Age groups (empty=all)"
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:167
+#: measuremeter/templates/pages/belrisk.html:166
 msgid "Age groups"
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:179
+#: measuremeter/templates/pages/belrisk.html:178
 msgid "Load"
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:189
+#: measuremeter/templates/pages/belrisk.html:188
 msgid "Province"
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:209
+#: measuremeter/templates/pages/belrisk.html:208
 msgid ""
 "Based on the model of the <a href=\"https://covid19risk.biosci.gatech.edu/\" "
 "target=\"_blank\">Georgia Institute of Technology</a>."
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:210
+#: measuremeter/templates/pages/belrisk.html:209
 msgid ""
 "Base number: Positive tests in the past X days per 100k population. CDC "
 "recommends to use past 10 days."
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:211
+#: measuremeter/templates/pages/belrisk.html:210
 msgid ""
 "Bias: As default, the value of three is set. This number depends on the "
 "positivity rate, for Belgium I assume that for one tested person, there are "
 "2 infected but not tested."
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:212
+#: measuremeter/templates/pages/belrisk.html:211
 msgid ""
 "For the age group ratio, the values of all Belgium is taken and calculated "
 "down to province size."
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:214
+#: measuremeter/templates/pages/belrisk.html:213
 msgid "Formula used:"
 msgstr ""
 
-#: measuremeter/templates/pages/belrisk.html:216
+#: measuremeter/templates/pages/belrisk.html:215
 msgid "Cases data is fetched every day at 10am from Sciensano.be"
 msgstr ""
 

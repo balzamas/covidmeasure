@@ -12,12 +12,7 @@
           }
         });
 
-    function save_image(graph){
-          var canvas = $('#'+graph).get(0);
-          canvas.toBlob(function(blob) {
-            saveAs(blob, "graph.png");
-        });
-    }
+
 
       function LoadCountryData(country_id)
       {

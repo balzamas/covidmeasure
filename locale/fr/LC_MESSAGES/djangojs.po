@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-28 22:04+0100\n"
+"POT-Creation-Date: 2020-10-30 22:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,14 +57,14 @@ msgstr ""
 msgid "Development past 2 months."
 msgstr ""
 
-#: measuremeter/static/js/project.js:23
+#: measuremeter/static/js/menu.js:23
 msgid "Measures<br>Case development"
 msgstr ""
 
-#: measuremeter/static/js/project.js:25
+#: measuremeter/static/js/menu.js:25
 msgid "Map cases<br>Districts & Cantons"
 msgstr ""
 
-#: measuremeter/static/js/project.js:27
+#: measuremeter/static/js/menu.js:27
 msgid "Europe"
 msgstr ""
