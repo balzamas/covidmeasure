@@ -141,7 +141,6 @@ class Command(BaseCommand):
                             if (cases_past7_before == 0):
                                 cases_past7_before = 1
 
-                            print((cases_past7 * 100 / cases_past7_before) - 100)
                             day.development7to7 = (cases_past7 * 100 / cases_past7_before) - 100
 
                             day.save()
