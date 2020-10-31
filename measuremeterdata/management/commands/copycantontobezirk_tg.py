@@ -35,9 +35,3 @@ class Command(BaseCommand):
                 saveit(176, cases.incidence_past14days, cases.date)
                 saveit(177, cases.incidence_past14days, cases.date)
                 saveit(178, cases.incidence_past14days, cases.date)
-
-
-
-
-
-        print(start_fr)
