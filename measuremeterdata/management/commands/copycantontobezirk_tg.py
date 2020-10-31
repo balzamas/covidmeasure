@@ -24,16 +24,17 @@ def get_start_date(year, week):
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        #BE
+        #TG
 
         start_be = get_start_date(2020,30)
         for cases in CHCases.objects.filter(canton=52).order_by('date'):
             if (cases.date < start_be):
-                saveit(2011, cases.incidence_past14days, cases.date)
-                saveit(2012, cases.incidence_past14days, cases.date)
-                saveit(2013, cases.incidence_past14days, cases.date)
-                saveit(2014, cases.incidence_past14days, cases.date)
-                saveit(2015, cases.incidence_past14days, cases.date)
+                print("save")
+                saveit(174, cases.incidence_past14days, cases.date)
+                saveit(175, cases.incidence_past14days, cases.date)
+                saveit(176, cases.incidence_past14days, cases.date)
+                saveit(177, cases.incidence_past14days, cases.date)
+                saveit(178, cases.incidence_past14days, cases.date)
 
 
 
