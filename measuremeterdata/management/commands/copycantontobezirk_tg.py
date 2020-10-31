@@ -26,7 +26,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         #TG
 
-        start_be = get_start_date(2020,30)
+        start_be = get_start_date(2020,31)
         for cases in CHCases.objects.filter(canton=52).order_by('date'):
             if (cases.date < start_be):
                 print("save")
