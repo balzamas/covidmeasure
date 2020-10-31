@@ -55,12 +55,12 @@ class Command(BaseCommand):
                         ftdays = 0
 
                         print(".....")
-                        print(row[5])
+                        print(row[8])
 
                         if (old_bezirk == int(row[0])):
-                            ftdays = (int(row[5]) + last_7days) / bezirk[0].population * 100000
+                            ftdays = (int(row[8]) + last_7days) / bezirk[0].population * 100000
 
-                        sdays = int(row[5]) / bezirk[0].population * 100000
+                        sdays = int(row[8]) / bezirk[0].population * 100000
 
                         try:
                             cd_existing = CHCases.objects.get(canton=bezirk[0], date=date)
@@ -72,7 +72,7 @@ class Command(BaseCommand):
                             cd.save()
 
                         old_bezirk = int(row[0])
-                        last_7days = int(row[5])
+                        last_7days = int(row[8])
 
             count += 1
 
