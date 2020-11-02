@@ -237,7 +237,7 @@ function loadMapData(measuretype,filterdate) {
 			opacity: 1,
 			color: 'white',
 			dashArray: '3',
-			fillOpacity: 0.7,
+			fillOpacity: 1,
 			fillColor: getColor(feature.properties.level)
 		};
 	}
@@ -249,7 +249,7 @@ function loadMapData(measuretype,filterdate) {
 			weight: 5,
 			color: '#666',
 			dashArray: '',
-			fillOpacity: 0.7
+			fillOpacity: 1
 		});
 
 		if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
