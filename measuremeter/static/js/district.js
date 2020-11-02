@@ -75,7 +75,7 @@ function applyCountryBorder(map, countryname) {
                         id = statesData['features'].findIndex(x => x.properties["BEZIRKSNUM"] === item.canton.swisstopo_id);
                         if (id > -1)
                             {
-                                if (item.canton.name.includes("(DE)") || item.canton.name.includes("(AT)") || item.canton.name.includes("(IT)") || item.canton.name.includes("(FR)"))
+                                if (item.canton.name.includes("(D)") || item.canton.name.includes("(A)") || item.canton.name.includes("(I)") || item.canton.name.includes("(F)"))
                                     {
                                         statesData.features[id].properties.is_not_ch = true
                                     }
