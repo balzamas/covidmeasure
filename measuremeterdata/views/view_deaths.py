@@ -73,6 +73,7 @@ def country_deaths(request):
         countr_toadd = {"country": country,
                           "covid": week_values_coviddeaths,
                           "all": week_values_alldeaths,
+
                         "death_covid_week2": death_covid_week2,
                         "death_total_week2" : death_total_week2,
                         "death_covid_week8": death_covid_week8,

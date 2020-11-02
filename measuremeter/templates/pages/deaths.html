@@ -34,8 +34,8 @@
 			margin: 0;
 		}
   .chart-container {
-      width: 1000px;
-      height:500px
+      width: 1200px;
+      height:600px
   }
 
 	</style>
@@ -46,7 +46,7 @@
                 var content = document.getElementById('content');
                 var div = document.createElement('div');
                 div.id = '{{country.country.code}}' + 'Chart';
-                div.innerHTML =   '<table><tr><td><div class="chart-container"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div></td></tr></table><br><p><b>Week 2 - Week {{country.weeks_wdata}}</b> // Covid: {{country.death_covid_week2}} // All: {{country.death_total_week2}} // Diff to average: {{country.diff_week2}} <br>Difference to average: <b>{{country.percent_week2|floatformat:1}}%</b></p>'
+                div.innerHTML =   '<table><tr><td><div class="chart-container"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div></td></tr></table><br><p><b>Week 2 - Week {{country.weeks_wdata}}</b> // Covid: {{country.death_covid_week2}} // All: {{country.death_total_week2}} // Diff to average: {{country.diff_week2}} <br>Difference to average: <b>{{country.percent_week2|floatformat:1}}%</b></p><p><a href="{{country.country.source_death}}" target="_blank">Source</a> // <a href="/country/{{country.country.code}}">Country Details</a> (Cases, Positive rate etc.)</p><br>'
                 <!-- <p><b>Week 8 - Week {{country.weeks_wdata}}</b><br>Covid: {{country.death_covid_week8}}<br>All: {{country.death_total_week8}}<br>Diff to average: {{country.diff_week8}}<br>%: {{country.percent_week8|floatformat:1}}</p> -->
                 content.appendChild(div);
 
@@ -65,10 +65,32 @@
 
   <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
 
+
     <h1>CovidLaws // COVID-19 and other deaths</h1>
     <div id="menu"></div>
 
     <p id="grande"><b>COVID-19 and other deaths</b></p>
+
+    <h2>How to interpret</h2>
+    The following data is compared on this site:
+    <ul>
+      <li>Deaths (all causes)</li>
+      <li>Official deaths Covid-19</li>
+      <li>Average deaths 2015-2019</li>
+      <li>Week with the highest death number (usually record week from the past 5 years</li>
+    </ul>
+    <h2>Regionality of the pandemic</h2>
+    <p>When it comes to Covid-19 deaths, in most cases there overall deaths nationwide are compared. This can be misleading as in spring the pandemic was regional. This was widely discussed about Italy, where the north was heavily affected while in the south the death toll was low.</p>
+    <p>But the same is true for most countries. People reduced their movement, hindering the spread of the virus through the country. So if the death rates of spring are compared to other years, this regionality has to be taken into account. </p>
+    <h3>Sweden</h3>
+    <p>Sweden is the well known outlier when it comes to measures. End of week 13, gatherings were limited to 50 people. There limitations on travel inside of Sweden, but in general the measures where just recommendation.</p>
+    <p>For spring, there are big differences between the regions, The west of Sweden was much less affected, Stockholm on the other hand was hard with more then twice as many deaths compared to the 2015-2019 average in the time from week 14 to 17.</p>
+    <p>Examples: Stockholm, Uppsala, Västra Götland (with the city of Gothenburg), Skåne (with the city of Malmö)</p>
+<img src="/static/images/graphs_deaths/stockholm.png">
+<img src="/static/images/graphs_deaths/uppsala.png">
+<img src="/static/images/graphs_deaths/gotaland.png">
+    <img src="/static/images/graphs_deaths/skane.png">
+
 
     <p>Raw death numbers compared with averages and peaks.</p>
     <p>Numbers are provisional.</p>
