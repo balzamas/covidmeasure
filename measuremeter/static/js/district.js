@@ -75,6 +75,15 @@ function applyCountryBorder(map, countryname) {
                         id = statesData['features'].findIndex(x => x.properties["BEZIRKSNUM"] === item.canton.swisstopo_id);
                         if (id > -1)
                             {
+                                if (item.canton.name.includes("(D)") || item.canton.name.includes("(A)") || item.canton.name.includes("(I)") || item.canton.name.includes("(F)"))
+                                    {
+                                        statesData.features[id].properties.is_not_ch = true
+                                    }
+                                   else
+                                   {
+                                      statesData.features[id].properties.is_not_ch = false
+
+                                   }
                                 if (item.incidence_past14days != null)
                                 {
                                     statesData.features[id].properties.level = item.incidence_past14days;
@@ -192,12 +201,20 @@ function applyCountryBorder(map, countryname) {
         }
 
         function style(feature) {
+             if (feature.properties.is_not_ch)
+                {
+                   fillOpacity= 0.7
+                }
+                else
+                {
+                    fillOpacity= 1
+                }
             return {
                 weight: 2,
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
-                fillOpacity: 0.7,
+                fillOpacity: fillOpacity,
                 fillColor: getColor(feature.properties.level)
             };
         }
@@ -209,7 +226,7 @@ function applyCountryBorder(map, countryname) {
                 weight: 5,
                 color: '#666',
                 dashArray: '',
-                fillOpacity: 0.7
+                fillOpacity: 1
             });
 
             if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {

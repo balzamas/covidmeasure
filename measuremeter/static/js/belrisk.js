@@ -218,7 +218,7 @@ var data
                 opacity: 1,
                 color: 'white',
                 dashArray: '3',
-                fillOpacity: 0.7,
+                fillOpacity: 1,
                 fillColor: getColor(feature.properties.level)
             };
         }
@@ -230,7 +230,7 @@ var data
                 weight: 5,
                 color: '#666',
                 dashArray: '',
-                fillOpacity: 0.7
+                fillOpacity: 1
             });
 
             if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
