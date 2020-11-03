@@ -95,7 +95,7 @@ table.center {
     <p><a href="/ranking_europe">Ranking Europe</a> // <a href="/ranking_world">Ranking World</a></p>
 
     <br>
-    <tr><td></td><td>Trend</td><td>Country</td><td>Score</td><td>Pos. Tests per 100k<br>Last 14 days</td><td>Deaths per 100k<br>Last 14 days</td><td>Positive rate<br>7 days avg. @ Date</td></tr>
+    <tr><td></td><td>Trend</td><td>Country</td><td>Score</td><td>Pos. Tests per 100k<br>Last 14 days</td><td>Deaths per 100k<br>Last 14 days</td><td>Positive rate<br>7 days avg. @ Date</td><td>{% trans 'Tendency cases<br>Week/Prev. week'%}</td></tr>
     {% for hans in countries %}
 
     <tr>
@@ -143,6 +143,9 @@ table.center {
 
         {% endif %}
       </td>
+      <td>
+        {{ hans.tendency }}%
+      </td>
     </tr>
     {% endfor %}
   </table>
@@ -179,7 +182,7 @@ table.center {
     </tr>
     <tr>
       <td>
-        [Tendency (Cases per 100k past 14 days compare to 14 days ago in %) / 5]
+        [Tendency in % (Cases past week compared to week before) * 2]
       </td>
     </tr>
 

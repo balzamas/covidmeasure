@@ -5,7 +5,7 @@ import re
 from bs4 import BeautifulSoup
 import measuremeterdata.scrape_common as sc
 from django.core.management.base import BaseCommand, CommandError
-from measuremeterdata.models.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHCases
+from measuremeterdata.models.models_ch import CHCanton, CHCases
 from datetime import date, timedelta
 
 district_names = {

@@ -1,7 +1,7 @@
 import requests
 from django.core.management.base import BaseCommand, CommandError
 import urllib.request, json
-from measuremeterdata.models.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHCases
+from measuremeterdata.models.models_ch import CHCanton, CHCases
 from datetime import date, timedelta
 
 

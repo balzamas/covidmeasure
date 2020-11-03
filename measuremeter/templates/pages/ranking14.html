@@ -92,7 +92,7 @@ table.center {
       <td>{% trans 'Canton'%}</td>
       <td>{% trans 'Score'%}</td>
       <td align="center">{% trans 'Prevalence 14d/100k<br>Graph: past 2 months'%}</td>
-      <td>{% trans 'Tendency'%}</td>
+      <td>{% trans 'Tendency cases<br>Week/Prev. week'%}</td>
       <td>{% trans 'Last update'%}</td></tr>
     {% for hans in cantons %}
         {% if "(BE)" in hans.name or "(AG)" in hans.name or "(SO)" in hans.name %}
@@ -129,7 +129,7 @@ table.center {
         {% endif %}
       </td>
       <td>
-        {{ hans.tendency }}
+        {{ hans.tendency|floatformat:1 }}%
       </td>
       <td>
         {{ hans.date }}
@@ -140,7 +140,7 @@ table.center {
   </table>
   <br>
   <p>
-    {% trans 'Formula = 0 - Cases past 14 days per 100k pop - (Tendency % (=compared to 14 days ago) /5)'%}<br>
+    {% trans 'Formula = 0 - Cases past 14 days per 100k pop - (Tendency % (Cases past week compared to week before) * 2)'%}<br>
   {% trans 'Why this Formula? Combine current cases with development smh. For a true ranking we would need positivity rate, ICU occupancy etc. etc.'%}
   <br><br>
   {% trans 'Source: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>

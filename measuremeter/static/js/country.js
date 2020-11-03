@@ -562,6 +562,9 @@
                 if(window.myLine && window.myLine !== null){
                    window.myLine.destroy();
                 }
+                if(window.myLinePositivity && window.myLinePositivity !== null){
+                   window.myLinePositivity.destroy();
+                }
                 if(window.myLineDeath && window.myLineDeath !== null){
                    window.myLineDeath.destroy();
                 }
@@ -577,7 +580,7 @@
 			    window.myLine = new Chart(ctx, config_cases);
 
 			    var ctx = document.getElementById('positivityChart').getContext('2d');
-			    window.myLine = new Chart(ctx, config_positivity);
+			    window.myLinePositivity = new Chart(ctx, config_positivity);
 
   			    var ctx = document.getElementById('deathChart').getContext('2d');
 			    window.myLineDeath = new Chart(ctx, config_death);
