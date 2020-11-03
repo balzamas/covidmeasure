@@ -12,6 +12,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/popup.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
 
@@ -23,6 +24,19 @@
        <script type="text/javascript" src="{% static 'js/base_global.js' %}"></script>
 
        <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+    $( document ).ready(function() {
+     $('.sample-container .ui.icon.button')
+      .popup({
+        on: 'hover'
+      });
+
+      $('.activating.element')
+  .popup()
+;
+});
+    </script>
 
 	<style>
 table, th, td {
@@ -85,6 +99,7 @@ table.center {
       <td>{% trans 'Score'%}</td>
       <td align="center">{% trans 'Prevalence 7d/100k<br>Graph: past 2 months'%}</td>
       <td>{% trans 'Tendency cases<br>Week/Prev. week'%}</td>
+      <td>{% trans 'Measures'%}</td>
       <td>{% trans 'Last update'%}</td></tr>
     {% for hans in cantons %}
 
@@ -118,6 +133,17 @@ table.center {
       </td>
       <td>
         {{ hans.tendency|floatformat:1 }}%
+      </td>
+      <td>
+                <div class="sample-container">
+
+        {% for measure in hans.measures %}
+            <div class="ui icon button" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}">
+            <i class="{{ measure.type.icon }}" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}"></i>
+            </div>
+        {% endfor %}
+        </div>
+
       </td>
       <td>
         {{ hans.date }}

@@ -25,6 +25,19 @@
 
        <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
 
+        <script>
+    $( document ).ready(function() {
+     $('.sample-container .ui.icon.button')
+      .popup({
+        on: 'hover'
+      });
+
+      $('.activating.element')
+  .popup()
+;
+});
+    </script>
+
 	<style>
 table, th, td {
   padding: 10px;
@@ -93,6 +106,7 @@ table.center {
       <td>{% trans 'Score'%}</td>
       <td align="center">{% trans 'Prevalence 14d/100k<br>Graph: past 2 months'%}</td>
       <td>{% trans 'Tendency cases<br>Week/Prev. week'%}</td>
+      <td>{% trans 'Measures'%}</td>
       <td>{% trans 'Last update'%}</td></tr>
     {% for hans in cantons %}
         {% if "(BE)" in hans.name or "(AG)" in hans.name or "(SO)" in hans.name %}
@@ -130,6 +144,17 @@ table.center {
       </td>
       <td>
         {{ hans.tendency|floatformat:1 }}%
+      </td>
+      <td>
+                <div class="sample-container">
+
+        {% for measure in hans.measures %}
+            <div class="ui icon button" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}">
+            <i class="{{ measure.type.icon }}"></i>
+            </div>
+        {% endfor %}
+        </div>
+
       </td>
       <td>
         {{ hans.date }}

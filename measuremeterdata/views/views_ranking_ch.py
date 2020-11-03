@@ -3,7 +3,8 @@ from django.shortcuts import get_object_or_404, render
 from datetime import date, timedelta
 from django.template import loader
 from django.http import HttpResponse
-from django.db.models import F, Func
+from django.db.models import F, Func, Q
+
 
 def ranking7_calc(cantons):
     canton_vals = []
@@ -32,11 +33,13 @@ def ranking7_calc(cantons):
         else:
             arrow = "arrow circle down red"
 
+        measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today())|Q(end__isnull=True))
+
         canton_toadd = {"name": canton.name, "score": int(score), "score_before": int(score_7days_before),
                         "date": last_date, "code": canton.code,
                         "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": last_tendency,
                         "cur_prev7": case_7days_before.incidence_past7days,
-                        "level": canton.level, "icon": arrow}
+                        "level": canton.level, "icon": arrow, "measures": measures}
 
         canton_vals.append(canton_toadd)
 
@@ -96,10 +99,12 @@ def ranking14_calc(cantons):
             else:
                 arrow = "arrow circle down red"
 
+            measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today()) | Q(end__isnull=True))
+
             canton_toadd = {"name": canton.name, "score": int(score), "score_before": int(score_14days_before),
                             "date": last_date, "cur_prev": last_prev,
                             "tendency": last_tendency, "icon": arrow, "level": canton.level, "code": canton.code,
-                            "id": canton.swisstopo_id}
+                            "id": canton.swisstopo_id, "measures": measures}
             canton_vals.append(canton_toadd)
 
     scores = sorted(canton_vals, key=lambda i: i['score_before'], reverse=True)
