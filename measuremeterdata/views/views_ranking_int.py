@@ -57,41 +57,44 @@ def calc_ranking_countries(countries):
         print(cases[0].deaths_past14days)
         print()
 
+        try:
+            score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7 * 2) ) +  float((cases[0].deaths_past14days * 100)) + float((positivity_last7 / positivity_last7_count *50))
+            score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7 * 2)  )+ float((case_14days_7daysago.deaths_past14days * 100)) + float((positivity_before7 / positivity_before7_count * 50))
+        except:
+            score = None
 
-        score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7 * 2) ) +  float((cases[0].deaths_past14days * 100)) + float((positivity_last7 / positivity_last7_count *50))
-        score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7 * 2)  )+ float((case_14days_7daysago.deaths_past14days * 100)) + float((positivity_before7 / positivity_before7_count * 50))
+        if (score):
+            if (score > score_7days_before):
+                arrow = "arrow circle up red"
+            elif (score == score_7days_before):
+                arrow = "arrow circle left orange"
+            else:
+                arrow = "arrow circle down green"
 
-        if (score > score_7days_before):
-            arrow = "arrow circle up red"
-        elif (score == score_7days_before):
-            arrow = "arrow circle left orange"
-        else:
-            arrow = "arrow circle down green"
+            peak_cases_ds = CasesDeaths.objects.filter(country=country).order_by("-cases_past14days")
+            peak_cases = peak_cases_ds[0].cases_past14days
+            peak_cases_date = peak_cases_ds[0].date
 
-        peak_cases_ds = CasesDeaths.objects.filter(country=country).order_by("-cases_past14days")
-        peak_cases = peak_cases_ds[0].cases_past14days
-        peak_cases_date = peak_cases_ds[0].date
+            peak_deaths_ds = CasesDeaths.objects.filter(country=country).order_by("-deaths_past14days")
+            peak_deaths = peak_deaths_ds[0].deaths_past14days
+            peak_deaths_date = peak_deaths_ds[0].date
 
-        peak_deaths_ds = CasesDeaths.objects.filter(country=country).order_by("-deaths_past14days")
-        peak_deaths = peak_deaths_ds[0].deaths_past14days
-        peak_deaths_date = peak_deaths_ds[0].date
+            positivity_ds = CasesDeaths.objects.filter(country=country).order_by(F('positivity').desc(nulls_last=True))
+            peak_positivity = positivity_ds[0].positivity
+            peak_positivity_date = positivity_ds[0].date
 
-        positivity_ds = CasesDeaths.objects.filter(country=country).order_by(F('positivity').desc(nulls_last=True))
-        peak_positivity = positivity_ds[0].positivity
-        peak_positivity_date = positivity_ds[0].date
+            canton_toadd = {"name": country.name, "score": int(score), "score_before": int(score_7days_before),
+                            "date": last_date, "code": country.code,
+                            "cur_prev14": last_prev14, "tendency": last_tendency,
+                            "cur_prev7": case_14days_14daysago.cases_past7days,
+                            "positivity": last_positivity, "positivity_date":last_positivity_date, "deaths": last_deaths14,
+                            "has_measures": country.has_measures, "continent": country.continent.pk, "icon": arrow,
+                            "peak_cases": peak_cases, "peak_cases_date": peak_cases_date,
+                            "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
+                            "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date
+                            }
 
-        canton_toadd = {"name": country.name, "score": int(score), "score_before": int(score_7days_before),
-                        "date": last_date, "code": country.code,
-                        "cur_prev14": last_prev14, "tendency": last_tendency,
-                        "cur_prev7": case_14days_14daysago.cases_past7days,
-                        "positivity": last_positivity, "positivity_date":last_positivity_date, "deaths": last_deaths14,
-                        "has_measures": country.has_measures, "continent": country.continent.pk, "icon": arrow,
-                        "peak_cases": peak_cases, "peak_cases_date": peak_cases_date,
-                        "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
-                        "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date
-                        }
-
-        country_vals.append(canton_toadd)
+            country_vals.append(canton_toadd)
 
     scores = sorted(country_vals, key=lambda i: i['score_before'],reverse=False)
     rank = 1
