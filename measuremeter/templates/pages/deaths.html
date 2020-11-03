@@ -34,8 +34,8 @@
 			margin: 0;
 		}
   .chart-container {
-      width: 1200px;
-      height:600px
+      width: 1000px;
+      height:500px
   }
 
 	</style>
@@ -63,13 +63,16 @@
 </head>
 <body>
 
-  <div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+  <div style="margin-left: 80;margin-top: 30;margin-right: 80;">
+
 
 
     <h1>CovidLaws // COVID-19 and other deaths</h1>
     <div id="menu"></div>
 
-    <p id="grande"><b>COVID-19 and other deaths</b></p>
+        <div style="max-width:1300;  display: block;  margin-left: auto; margin-right: auto;">
+
+    <h1>COVID-19 and other deaths</h1>
 
     <h2>How to interpret</h2>
     The following data is compared on this site:
@@ -77,21 +80,44 @@
       <li>Deaths (all causes)</li>
       <li>Official deaths Covid-19</li>
       <li>Average deaths 2015-2019</li>
-      <li>Week with the highest death number (usually record week from the past 5 years</li>
+      <li>Week with the highest death number (usually record week from the past 5 years
+      </li>
     </ul>
-    <h2>Regionality of the pandemic</h2>
-    <p>When it comes to Covid-19 deaths, in most cases there overall deaths nationwide are compared. This can be misleading as in spring the pandemic was regional. This was widely discussed about Italy, where the north was heavily affected while in the south the death toll was low.</p>
+    <p>Usually, the death excess is calculated with the expected deaths in a time period as base. To simplify, the average of the past years is taken as a comparison. This does not into acount the seasonal fluctuation, but it's easier to compare between countries.</p>
+          <p>The other line with the record week is to set the current numbers into relation. To say it simply: when the 2020 numbers are way off the record or over a longer time, then there was a serious problem.</p>
+          <p>The sharp decline of the numbers in most countries show, that the measures had an effect and quickly brang down the numbers.</p>
+          <p>Last but not least, there is more to look at in this pandemic as just the deaths. Also those who survived had to be saved by people working hard over long periods. And not everybody who comes out of this alive is just the same person as before health wise.</p>
+          <h2>Regionality of the pandemic</h2>
+    <p>When it comes to Covid-19 deaths, in most cases the overall deaths nationwide are compared. This can be misleading, as in spring the pandemic was regional. This was widely discussed about Italy, where the north was heavily affected while in the south the death toll was low.</p>
     <p>But the same is true for most countries. People reduced their movement, hindering the spread of the virus through the country. So if the death rates of spring are compared to other years, this regionality has to be taken into account. </p>
     <h3>Sweden</h3>
     <p>Sweden is the well known outlier when it comes to measures. End of week 13, gatherings were limited to 50 people. There limitations on travel inside of Sweden, but in general the measures where just recommendation.</p>
     <p>For spring, there are big differences between the regions, The west of Sweden was much less affected, Stockholm on the other hand was hard with more then twice as many deaths compared to the 2015-2019 average in the time from week 14 to 17.</p>
-    <p>Examples: Stockholm, Uppsala, Västra Götland (with the city of Gothenburg), Skåne (with the city of Malmö)</p>
+          <p>The interesting thing with Sweden is that the numbers decline. There are possible explanations: less traveling, behaviour of the population, better protection of the vulnerable. In week 24, the long school holidays started. Many people go on the countryside in summer, which results in much less contact. And there is still the topic of the seasonality.</p>
+          <p>Examples: Stockholm, Uppsala, Västra Götland (with the city of Gothenburg), Skåne (with the city of Malmö)</p>
 <img src="/static/images/graphs_deaths/stockholm.png">
 <img src="/static/images/graphs_deaths/uppsala.png">
 <img src="/static/images/graphs_deaths/gotaland.png">
     <img src="/static/images/graphs_deaths/skane.png">
+    <h3>Switzerland</h3>
+    <p>In spring, the west and south of Switzerland were much more affected then the rest of the country. The incidence rates were about four times higher in these regions compared to the north-east.</p>
 
+    <p>In week 11, the country went into a slowdown (Shops, cultural venues, schools etc. closed, gathering restriction of 5 people). This also slowed down the spread inside the regions.</p>
 
+    <p>In week 13, the incidence rates oer 100k population (past 14 days) was like this:<br>
+    <img src="/static/images/graphs_deaths/30_03_ch_incidence.png"></p>
+    <p>In week 14, the highest peak in mortality was reached - slightly higher then Week 7 of 2015. But the death toll was, as expected, not evenly distributed in the country. While in Bern and Zurich the overall death numbers look "normal", they were much higher for example in Ticino, Geneva or Vaud.</p>
+    <img src="/static/images/graphs_deaths/ticino.png">
+<img src="/static/images/graphs_deaths/geneva.png">
+<img src="/static/images/graphs_deaths/zurich.png">
+    <img src="/static/images/graphs_deaths/bern.png">
+
+    <h2>Numbers by country</h2>
+          <p>As mentioned above, keep the following in mind:
+          <ul>
+          <li>The pandemic was regional in spring.</li>
+          <li>Measures resulted in a fast decline in case and therefore death numbers.</li>
+        </ul></p>
     <p>Raw death numbers compared with averages and peaks.</p>
     <p>Numbers are provisional.</p>
 
