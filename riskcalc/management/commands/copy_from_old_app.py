@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from riskcalc.models import BELProvince, BELAgeGroups
-from measuremeterdata.models import  BELProvince as BELProvince_old
-from measuremeterdata.models import  BELAgeGroups as BELAgeGroups_old
+from measuremeterdata.models.models import  BELProvince as BELProvince_old
+from measuremeterdata.models.models import  BELAgeGroups as BELAgeGroups_old
 
 import os
 import csv

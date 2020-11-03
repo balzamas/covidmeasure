@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from measuremeterdata.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, CHCanton, CHMeasureType, CHMeasure, CHCases
+from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths
+from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases
 from rest_framework import viewsets
 from rest_framework import permissions
 from measuremeterdata.serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer, CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer

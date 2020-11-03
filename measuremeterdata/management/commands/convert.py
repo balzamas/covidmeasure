@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from measuremeterdata.models import Country, MeasureCategory, MeasureType, Measure, Continent
+from measuremeterdata.models.models import Country, MeasureCategory, MeasureType, Measure, Continent
 
 #Switch to new level field, migrate data
 class Command(BaseCommand):

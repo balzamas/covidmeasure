@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django import forms
-from .models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHMeasureType, CHMeasure, CHCases, BELCases, BELProvince, BELAgeGroups
+from measuremeterdata.models.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths
+from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases
+from measuremeterdata.models.models_bel import BELCases, BELProvince, BELAgeGroups
 
 admin.site.register(Continent)
 admin.site.register(MeasureCategory)

@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from measuremeterdata.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHCases, BELProvince, BELCases
+from measuremeterdata.models.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, CHCanton, CHCases, BELProvince, BELCases
 import os
 import csv
 import datetime

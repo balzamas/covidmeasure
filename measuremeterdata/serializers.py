@@ -1,4 +1,6 @@
-from .models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, CHCanton, CHMeasure, CHMeasureType, CHCases
+from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths
+from measuremeterdata.models.models_ch import CHCanton, CHMeasure, CHMeasureType, CHCases
+
 from rest_framework import serializers
 
 

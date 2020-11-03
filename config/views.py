@@ -1,4 +1,7 @@
-from measuremeterdata.models import Measure, Country, MeasureType, MeasureCategory, CHCases, CHCanton, CHMeasure, CasesDeaths, BELProvince, BELCases, BELAgeGroups
+from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory,CasesDeaths
+from measuremeterdata.models.models_ch import CHCases, CHCanton, CHMeasure
+from measuremeterdata.models.models_bel import BELProvince, BELCases, BELAgeGroups
+
 from django.shortcuts import get_object_or_404, render
 from datetime import date, timedelta
 from django.template import loader
