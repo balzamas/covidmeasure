@@ -144,7 +144,7 @@ table.center {
         {% endif %}
       </td>
       <td>
-        {{ hans.tendency }}%
+        {{ hans.tendency|floatformat:1 }}%
       </td>
     </tr>
     {% endfor %}
