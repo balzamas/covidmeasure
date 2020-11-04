@@ -26,10 +26,16 @@
        <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
 
         <script>
+    function showpopup(dialogid)
+    {
+          console.log("sdgfsdfg");
+          $( "#"+dialogid ).dialog();
+    }
+
     $( document ).ready(function() {
      $('.sample-container .ui.icon.button')
       .popup({
-        on: 'click'
+        on: 'hover'
       });
 
       $('.activating.element')
@@ -107,28 +113,27 @@ table.center {
       <td align="center">{% trans 'Prevalence 14d/100k<br>Graph: past 2 months'%}</td>
       <td>{% trans 'Tendency cases<br>Week/Prev. week'%}</td>
       <td>{% trans 'Measures'%}</td>
-      <td>{% trans 'Last update'%}</td></tr>
     {% for hans in cantons %}
-        {% if "(BE)" in hans.name or "(AG)" in hans.name or "(SO)" in hans.name %}
+        {% if "(BE)" in hans.name or "(AG)" in hans.name %}
   {% else %}
     <tr>
-      <td>
+      <td style="border-bottom: 3px solid black;">
         <img src=/static/images/flags_ch/{{ hans.code  }}_circle.png>
       </td>
-      <td>
+      <td style="border-bottom: 3px solid black;">
         {{ hans.rank }}
       </td>
-      <td>
+      <td style="border-bottom: 3px solid black;">
         <i class="{{ hans.rank_icon }} icon"></i>
         {{ hans.rank_diff }}
       </td>
-      <td>
+      <td style="border-bottom: 3px solid black;">
         <b>{{ hans.name }}</b>
       </td>
-      <td>
+      <td style="border-bottom: 3px solid black;">
         <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>
       </td>
-      <td>
+      <td style="border-bottom: 3px solid black;">
         {% if "(BE)" in hans.name or "(AG)" in hans.name or "(SO)" in hans.name %}
           <div align="center">{{ hans.cur_prev }}</div>
         {% else %}
@@ -138,26 +143,32 @@ table.center {
             {% else %}
               <img src=/static/images/graphs_ch/{{ hans.id  }}_14.png>
             {% endif %}
-            <div class="centered">{{ hans.cur_prev }}</div>
+            <div class="centered">{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
           </div>
         {% endif %}
       </td>
-      <td>
+      <td style="border-bottom: 3px solid black;">
         {{ hans.tendency|floatformat:1 }}%
       </td>
-      <td>
+      <td style="white-space: nowrap;border-bottom: 3px solid black;">
                 <div class="sample-container">
 
         {% for measure in hans.measures %}
-            <div class="ui icon button" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}">
+            <div class="ui icon button" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" onclick="showpopup('dialog{{ hans.code  }}{{measure.type.id}}')">
             <i class="{{ measure.type.icon }}"></i>
+            </div>
+            <div id="dialog{{ hans.code  }}{{measure.type.id}}" title={{hans.code|upper}}:&nbsp;{{measure.type.name}}  style="display: none;" >
+              {% autoescape off %}
+                {{measure.comment}}
+              {% endautoescape %}
+              <p>Start: {{measure.start}}</p>
+              {% if measure.sources != "" %}
+                <p><a href='{{measure.sources}}' target="_blank">Source</a></p>
+              {% endif %}
             </div>
         {% endfor %}
         </div>
 
-      </td>
-      <td>
-        {{ hans.date }}
       </td>
     </tr>
     {% endif %}
