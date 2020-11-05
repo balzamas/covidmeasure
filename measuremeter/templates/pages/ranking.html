@@ -47,6 +47,9 @@
     </script>
 
 	<style>
+	.ui-widget-header {
+font-size: 16px; }
+
 table, th, td {
   padding: 10px;
   font-size: 30;
@@ -98,8 +101,9 @@ table.center {
     <h1>{% trans 'Swiss Covid Ranking 7 days' %}</h1>
     {% trans "Don't take this too serious. It's the internet."%}
     <br><br>
-    <p><a href="/ranking7">{% trans 'Ranking 7 days'%}</a>//<a href="/ranking14">{% trans 'Ranking 14 days'%}</a>//<a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
-    <p>{% trans 'Graphs show development in the past 2 months.'%}</p>
+    <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days'%}</a>//<a href="/ranking14">{% trans 'Ranking 14 days'%}</a></p>
+    <!-- //<a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a> -->
+    <p id="grande">{% trans 'Graphs show development in the past 2 months.'%}</p>
 
     <tr><td></td><td>{% trans 'Rank'%}</td>
       <td>{% trans 'Shift'%}</td>
@@ -150,6 +154,8 @@ table.center {
             <i class="{{ measure.type.icon }}" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
             </div>
             <div id="dialog{{ hans.code  }}{{measure.type.id}}" title={{hans.code|upper}}:&nbsp;{{measure.type.name}} style="display: none;">
+               <div style="font-size:20px;">
+
               {% autoescape off %}
                 {{measure.comment}}
               {% endautoescape %}
@@ -157,6 +163,7 @@ table.center {
               {% if measure.sources != "" %}
                 <p><a href='{{measure.sources}}' target="_blank">Source</a></p>
               {% endif %}
+               </div>
 
             </div>
         {% endfor %}
@@ -169,8 +176,10 @@ table.center {
     {% endfor %}
   </table>
   <br>
+  <p id="grande">
     {% trans 'Formula = 0 - Cases past 14 days per 100k pop - (Tendency % (Cases past week compared to week before) * 2) )'%}<br>
   {% trans 'Why this Formula? Combine current cases with development smh. For a true ranking we would need positivity rate, ICU occupancy etc. etc.'%}
+  </p>
   <br><br>
   {% trans 'Source: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
 
