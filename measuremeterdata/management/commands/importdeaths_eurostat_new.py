@@ -54,6 +54,8 @@ def getdata(country):
             if (line.split('\t')[0].split(',')[0] == 'T'):
                 if (country.code.lower() == 'gb'):
                     code ='uk'
+                elif (country.code.lower() == 'gr'):
+                        code = 'el'
                 else:
                     code = country.code.lower()
                 if (line.split('\t')[0].split(',')[2].lower() == code):
