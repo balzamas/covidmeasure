@@ -3,12 +3,13 @@
           if ( $( "#menu" ).length ) {
                document.getElementById('menu').innerHTML = `
                <div style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10">
-               <div class="ui seven item inverted huge menu">
+               <div class="ui eight item inverted huge menu">
                   <a class="item" href="/">Home</a>
-                  <a class="item" href="/about/">Info/About</a>
-                  <a class="item" href="/compare/">Compare Countries</a>
+                  <a class="item" href="/about/">About</a>
+                  <a class="item" href="/compare/">Compare<br>Countries</a>
                   <a class="item" href="/ranking_europe/">Ranking</a>
-                  <a class="item" href="/country/">Country Profiles</a>
+                  <a class="item" href="/country/">Country<br>Profiles</a>
+                  <a class="item" href="/deaths/">Deaths</a>
                   <a class="item" href="/euromap/">Map</a>
                   <a class="item" href="/ch/">Switzerland</a>
                   </div>
