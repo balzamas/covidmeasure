@@ -142,6 +142,6 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=45)) #arm
         getdata(Country.objects.get(pk=6)) #at
         getdata(Country.objects.get(pk=23)) #se
-
+        getdata(Country.objects.get(pk=38)) #greece
 
 
