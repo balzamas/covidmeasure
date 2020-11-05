@@ -16,7 +16,7 @@ admin.site.register(BELCases, BELCasesAdmin)
 
 
 class CasesDeathsAdmin(admin.ModelAdmin):
-    list_display = ['country', 'date', 'cases_past14days', 'cases_past7days', 'deaths_past14days']
+    list_display = ['country', 'date', 'cases', 'deaths', 'deathstotal', 'deathstotal_peak']
     list_filter = ('country','date')
 admin.site.register(CasesDeaths, CasesDeathsAdmin)
 
