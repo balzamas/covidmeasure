@@ -108,7 +108,7 @@ table.center {
     <h1>{% trans 'Swiss Covid Ranking 14 days' %}</h1>
     {% trans "Don't take this too serious. It's the internet." %}
     <br><br>
-    <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days' %}</a>//<a href="/ranking14">{% trans 'Ranking 14 days'%}</a>//<a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
+    <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days' %}</a> // <a href="/ranking14">{% trans 'Ranking 14 days'%}</a> // <a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
 
     <p id="grande">{% trans 'Graphs show development in the past 2 months.' %} {% trans 'For last update see date in graph.' %}</p>
 
@@ -161,7 +161,11 @@ table.center {
 
         {% for measure in hans.measures %}
             <div class="ui icon button" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" onclick="showpopup('dialog{{ hans.code  }}{{measure.type.id}}')">
-            <i class="{{ measure.type.icon }}"></i>
+                  {% if measure.level > 2 %}
+            <i class="{{ measure.type.icon }} red" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
+                  {% else %}
+            <i class="{{ measure.type.icon }} orange" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
+                  {% endif %}
             </div>
             <div id="dialog{{ hans.code  }}{{measure.type.id}}" title={{hans.code|upper}}:&nbsp;{{measure.type.name}}  style="display: none;" >
               <div style="font-size:20px;">
