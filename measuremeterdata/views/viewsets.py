@@ -3,7 +3,8 @@ from measuremeterdata.models.models import Measure, Country, MeasureType, Measur
 from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases
 from rest_framework import viewsets
 from rest_framework import permissions
-from measuremeterdata.serializers import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer, CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer
+from measuremeterdata.serializers.serializers_ch import CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer, CHMeasurePublicSerializer, CHMeasureTypePublicSerializer, CantonPublicSerializer
+from measuremeterdata.serializers.serializers_int import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
@@ -21,16 +22,20 @@ class DateFilter(filters.BaseInFilter, filters.DateFilter):
     pass
 
 class MeasureTypeFilter(filters.FilterSet):
-     pk = NumberInFilter(field_name='pk', lookup_expr='in')
+    pk = NumberInFilter(field_name='pk', lookup_expr='in')
+    http_method_names = ['get', 'head']
 
 class CountryFilter(filters.FilterSet):
     pk = NumberInFilter(field_name='pk', lookup_expr='in')
+    http_method_names = ['get', 'head']
 
 class CasesDeathsFilter(filters.FilterSet):
     date = filters.DateFromToRangeFilter(field_name='date')
+    http_method_names = ['get', 'head']
 
 class CHCasesFilter(filters.FilterSet):
     date = filters.DateFromToRangeFilter(field_name='date')
+    http_method_names = ['get', 'head']
 
 class MeasureFilter(filters.FilterSet):
     country = NumberInFilter(field_name='country')
@@ -38,6 +43,7 @@ class MeasureFilter(filters.FilterSet):
     start = filters.DateFilter(field_name='start')
     end = filters.DateFilter(field_name='end')
     level = filters.DateFilter(field_name='level')
+    http_method_names = ['get', 'head']
 
 
 def get_queryset(self):
@@ -69,6 +75,8 @@ def get_queryset(self):
 class MeasureViewSet(viewsets.ModelViewSet):
     queryset = Measure.objects.filter(type__isactive=True).order_by('country__name', 'type__category','type__name')
     serializer_class = MeasureSerializer
+    http_method_names = ['get', 'head']
+
 #    filter_backends = [DjangoFilterBackend]
 #    filter_class = MeasureFilter
 
@@ -115,26 +123,31 @@ class MeasureByMeasureViewSet(viewsets.ModelViewSet):
     serializer_class = MeasureSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = MeasureFilter
+    http_method_names = ['get', 'head']
 
 class CountryWithMeasuresViewSet(viewsets.ModelViewSet):
     queryset = Country.objects.filter(has_measures=True).order_by('name')
     serializer_class = CountrySerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = CountryFilter
+    http_method_names = ['get', 'head']
 
 class MeasureTypeViewSet(viewsets.ModelViewSet):
     queryset = MeasureType.objects.filter(isactive=True).order_by('category','name')
     serializer_class = MeasureTypeSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = MeasureTypeFilter
+    http_method_names = ['get', 'head']
 
 class MeasureCategoryViewSet(viewsets.ModelViewSet):
     queryset = MeasureCategory.objects.all().order_by('name')
     serializer_class = MeasureCategorySerializer
+    http_method_names = ['get', 'head']
 
 class CasesDeathsViewSet(viewsets.ModelViewSet):
     queryset = CasesDeaths.objects
     serializer_class = CasesDeathsSerializer
+    http_method_names = ['get', 'head']
 
     def get_queryset(self):
         queryset = CasesDeaths.objects
@@ -159,6 +172,7 @@ class CasesDeathsViewSet(viewsets.ModelViewSet):
 class CHCasesViewSet(viewsets.ModelViewSet):
     queryset = CHCases.objects
     serializer_class = CHCasesSerializer
+    http_method_names = ['get', 'head']
 
     def get_queryset(self):
         queryset = CHCases.objects
@@ -197,21 +211,25 @@ class CHCasesViewSet(viewsets.ModelViewSet):
 
 class CHMeasureTypeFilter(filters.FilterSet):
     pk = NumberInFilter(field_name='pk', lookup_expr='in')
+    http_method_names = ['get', 'head']
 
 class CHCantonFilter(filters.FilterSet):
     pk = NumberInFilter(field_name='pk', lookup_expr='in')
+    http_method_names = ['get', 'head']
 
 class CHCantonViewSet(viewsets.ModelViewSet):
     queryset = CHCanton.objects.filter(level=0).order_by('name')
     serializer_class = CantonSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = CHCantonFilter
+    http_method_names = ['get', 'head']
 
 class CHMeasureTypeViewSet(viewsets.ModelViewSet):
     queryset = CHMeasureType.objects.filter(isactive=True).order_by('name')
     serializer_class = CHMeasureTypeSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = CHMeasureTypeFilter
+    http_method_names = ['get', 'head']
 
 class CHMeasureFilter(filters.FilterSet):
     canton = NumberInFilter(field_name='canton')
@@ -219,6 +237,7 @@ class CHMeasureFilter(filters.FilterSet):
     start = filters.DateFilter(field_name='start')
     end = filters.DateFilter(field_name='end')
     level = filters.DateFilter(field_name='level')
+    http_method_names = ['get', 'head']
 
 
     def get_queryset(self):
@@ -250,6 +269,8 @@ class CHMeasureFilter(filters.FilterSet):
 class CHMeasureViewSet(viewsets.ModelViewSet):
     queryset = CHMeasure.objects.filter(type__isactive=True).order_by('canton__code','type__name', 'start')
     serializer_class = CHMeasureSerializer
+    http_method_names = ['get', 'head']
+
 #    filter_backends = [DjangoFilterBackend]
 #    filter_class = MeasureFilter
 
@@ -290,3 +311,60 @@ class CHMeasureViewSet(viewsets.ModelViewSet):
 
         queryset = queryset.filter(type__isactive=True).order_by('canton__code','type__name', 'start')
         return queryset
+
+class CHMeasureTypePublicViewSet(viewsets.ModelViewSet):
+    queryset = CHMeasureType.objects.filter(isactive=True).order_by('name')
+    serializer_class = CHMeasureTypePublicSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_class = CHMeasureTypeFilter
+    http_method_names = ['get', 'head']
+
+
+class CHMeasurePublicViewset(viewsets.ModelViewSet):
+    queryset = CHMeasure.objects.filter(type__isactive=True).order_by('canton__code', 'type__name', 'start')
+    serializer_class = CHMeasurePublicSerializer
+    http_method_names = ['get', 'head']
+
+    def get_queryset(self):
+        queryset = CHMeasure.objects
+        cantons = self.request.query_params.get('cantons', None)
+        types = self.request.query_params.get('types', None)
+        start = self.request.query_params.get('start', None)
+        end = self.request.query_params.get('end', None)
+        levels = self.request.query_params.get('level')
+        if cantons and cantons != '' and types != ',':
+            print(cantons)
+            canton_params = []
+            for x in cantons.split(','):
+                if (x != ''):
+                    if (x == "ch"):
+                        canton = CHCanton.objects.get(code=x)
+                    else:
+                        canton = CHCanton.objects.get(code=x, level=0)
+                    canton_params.append(canton.pk)
+            queryset = queryset.filter(canton__in=canton_params)
+
+        if types != None and types != '' and types != ',':
+            type_params = []
+            for x in types.split(','):
+                if (x != ''):
+                    type_params.append(x)
+            queryset = queryset.filter(type__in=type_params)
+
+        if start != None:
+            queryset = queryset.filter(Q(start__lte=start) | Q(start__isnull=True))
+
+        if end != None:
+            queryset = queryset.filter(Q(end__gte=end) | Q(end__isnull=True))
+
+        if levels != None and levels != '' and types != ',':
+            level_params = []
+            for x in levels.split(','):
+                if (x != ''):
+                    level_params.append(x)
+            queryset = queryset.filter(level__in=level_params)
+
+        queryset = queryset.filter(type__isactive=True).order_by('canton__code', 'type__name', 'start')
+        return queryset
+
+

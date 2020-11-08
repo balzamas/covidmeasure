@@ -263,7 +263,7 @@ var data
 
 
           data = $.ajax({
-          url: "/measuremeterdata/chmeasures/?start="+today.replace('-', '\-')+"&end="+today.replace('-', '\-'),
+          url: "/measuremeterdata/chmeasures_intern/?start="+today.replace('-', '\-')+"&end="+today.replace('-', '\-'),
           dataType: "json",
           async: false
           }).responseText;

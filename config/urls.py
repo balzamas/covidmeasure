@@ -11,6 +11,7 @@ from config import views
 from django.conf.urls.i18n import i18n_patterns
 from django.views.i18n import JavaScriptCatalog
 from django.conf.urls import url
+from rest_framework.schemas import get_schema_view
 
 router = routers.DefaultRouter()
 router.register(r'measures', viewsets.MeasureViewSet)
@@ -22,18 +23,19 @@ js_info_dict = {
 
 urlpatterns = [
     path("", views.international, name="home"),
+    path('openapi', get_schema_view(
+                      title="Covidlaws",
+                      description="API for all things …",
+                      version="1.0.0"
+                  ), name='openapi-schema'),
     path('ranking_europe/', views_ranking_int.ranking_europe, name='ranking_europe'),
     path('ranking_world/', views_ranking_int.ranking_world, name='ranking_world'),
-
-                  path(
+    path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
     path(
         "euromap/", TemplateView.as_view(template_name="pages/euromap.html"), name="EuroMap"
       ),
-     path(
-                      "dash/", TemplateView.as_view(template_name="pages/dash.html"), name="EuroMap"
-                  ),
     path('euromap/<str:measure_id>/', views.render_euromap, name='item'),
     path(
     "timeline/", TemplateView.as_view(template_name="pages/timeline.html"), name="Timeline"
@@ -46,18 +48,16 @@ urlpatterns = [
     path(
     "about/", TemplateView.as_view(template_name="pages/about.html"), name="About"
                   ),
-     path('deaths/', view_deaths.country_deaths, name='deaths'),
+    path('deaths/', view_deaths.country_deaths, name='deaths'),
 
-                  path(
+    path(
     "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
                   ),
 
-                  path(
+    path(
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
                   ),
-
-
-                  path(
+    path(
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
                   ),
     path('country/<str:country_name>/',views.render_country, name='item'),

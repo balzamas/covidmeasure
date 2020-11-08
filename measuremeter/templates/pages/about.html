@@ -45,15 +45,19 @@
 
 <h3>Give me the data</h3>
       <p id="grande">
-        You can find all the Endpoints <a href="/measuremeterdata/">here</a>.<br>
-        Of course it's not documented.<br>
-        But here for the cases in Swiss cnatons and districts:<br>
-        Example:<br>
-        http://covidlaws.net/measuremeterdata/chcases/?date_after=2020-09-19&date_before=2020-09-30&nr=1723,1724<br>
-        date_after = date from (DON'T ask why it's called like this)<br>
-        date_before = date to<br>
-        nr = <a href="https://www.bfs.admin.ch/bfs/de/home/grundlagen/agvch.assetdetail.11467406.html" target="_blank">BFS-Nr</a> for district, <a href="https://de.wikipedia.org/wiki/Kanton_(Schweiz)" target="_blank">Canton-Nr</a> for Cantons.
-        <br><br>Contact me if you want to access the other data like measures (both Switzerland and international), it's all there in the Endpoints.
+        For Swiss measures, use this endpoint:<br>
+        <a href="/measuremeterdata/chmeasures">here</a><br>
+        You can use these filters:
+        <ul>
+          <li>cantons (short form like zh for Zurich)</li>
+          <li>measure type (see <a href="/measuremeterdata/chmeasuretypes/">here</a> for the list with ids</li>
+          <li>start: only show measures who started after this date (iso date)</li>
+          <li>end: only show measures who ended before this date (iso date)</li>
+        </ul>
+        Example: all mask measures from Geneva and Zurich, starting from August 8:<br>
+        measuremeterdata/chmeasures/?cantons=ge,zh&types=2&start=2020-08-08
+        <p>All the Endpoints <a href="/measuremeterdata/">here</a>.<br>
+          Of course it's not documented.</p>
       </p>
    <h3>Sources measures</h3>
 

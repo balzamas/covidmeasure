@@ -86,7 +86,7 @@
             var container = document.getElementById('timeline');
 
           var data = $.ajax({
-          url: "/measuremeterdata/chmeasures/",
+          url: "/measuremeterdata/chmeasures_intern/",
           dataType: "json",
           async: false
           }).responseText;

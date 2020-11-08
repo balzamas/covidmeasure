@@ -101,7 +101,7 @@ var data
                   //-----------------------------Load MeasureTypes----------------------
 
           var dataMeasuresTypes = $.ajax({
-          url: "/measuremeterdata/chmeasuretypes/",
+          url: "/measuremeterdata/chmeasuretypes_intern/",
           dataType: "json",
           async: false
           }).responseText;
@@ -192,7 +192,7 @@ var data
         annotations_prepare = new Array()
 
           var data = $.ajax({
-          url: "/measuremeterdata/chmeasures/?canton="+gr_cantons+"&type="+gr_measuretypes,
+          url: "/measuremeterdata/chmeasures_intern/?canton="+gr_cantons+"&type="+gr_measuretypes,
           dataType: "json",
           async: false
           }).responseText;
@@ -202,7 +202,7 @@ var data
 
           var data = $.ajax({
 
-          url: "/measuremeterdata/chmeasures/?canton=173&type=",
+          url: "/measuremeterdata/chmeasures_intern/?canton=173&type=",
           dataType: "json",
           async: false
           }).responseText;
@@ -496,7 +496,7 @@ var data
 
 
           data = $.ajax({
-          url: "/measuremeterdata/chmeasures/?start="+today.replace('-', '\-')+"&end="+today.replace('-', '\-'),
+          url: "/measuremeterdata/chmeasures_intern/?start="+today.replace('-', '\-')+"&end="+today.replace('-', '\-'),
           dataType: "json",
           async: false
           }).responseText;
