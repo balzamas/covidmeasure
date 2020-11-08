@@ -161,7 +161,7 @@
         });
 
         color = Colors[turn];
-        dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
+        dataset.push({"label": country_name, fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, pointRadius:10, data: dataset_data})
         dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_data})
         if (has_total_death)
               {
@@ -180,6 +180,11 @@
                     datasets: dataset
                 },
                 options: {
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
                     title: {
@@ -237,7 +242,11 @@
 
             config_death = {
                 type: 'line',
-
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
                 data: {
                     labels: label_array,
                     datasets: dataset_death
@@ -293,7 +302,11 @@
 
             config_positivity = {
                 type: 'line',
-
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
                 data: {
                     labels: label_array,
                     datasets: dataset_positivity
@@ -368,7 +381,11 @@
 
             config_tendency = {
                 type: 'line',
-
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
                 data: {
                     labels: label_array,
                     datasets: dataset_tendency

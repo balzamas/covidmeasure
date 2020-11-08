@@ -190,16 +190,16 @@
         border_width = 4
 
         color = '#ff0000'
-        dataset_cases.push({"label": "Cases", fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_cases})
-        dataset_positivity.push({"label": "Positive rate, past 7 days", fill: false, backgroundColor: color, borderWidth: border_width, borderColor: color, data: dataset_data_positivity})
-        dataset_tendency.push({"label": "Development past week/week before (%)", fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_tendency})
+        dataset_cases.push({"label": "Cases", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_cases})
+        dataset_positivity.push({"label": "Positive rate, past 7 days", fill: false, pointRadius: 0.1, backgroundColor: color, borderWidth: border_width, borderColor: color, data: dataset_data_positivity})
+        dataset_tendency.push({"label": "Development past week/week before (%)", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_tendency})
 
         color = '#ff6600'
-        dataset_deaths.push({"label": "Covid", fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_deaths})
+        dataset_deaths.push({"label": "Covid", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_deaths})
         if (Number(avg_values[0] > 0))
         {
             color = '#0000ff'
-            dataset_deaths.push({"label": "Total", fill: false, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_total})
+            dataset_deaths.push({"label": "Total", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_total})
             color = '#00ff00'
             dataset_deaths.push({"label": avg_desc, fill: false, pointRadius: 0.1, backgroundColor: color, borderWidth: border_width, borderColor: color, data: dataset_data_avg})
             color = '#ff0000'
@@ -214,7 +214,11 @@
 
             config_cases = {
                 type: 'line',
-
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
                 data: {
                     labels: label_array,
                     datasets: dataset_cases
@@ -299,7 +303,11 @@
 
             config_positivity = {
                 type: 'line',
-
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
                 data: {
                     labels: label_array,
                     datasets: dataset_positivity
@@ -377,7 +385,11 @@
 
             config_tendency = {
                 type: 'line',
-
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
                 data: {
                     labels: label_array,
                     datasets: dataset_tendency

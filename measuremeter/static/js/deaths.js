@@ -30,12 +30,12 @@
 
 
         color = '#ff6600'
-        dataset_deaths.push({"label": "Covid 2020", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
+        dataset_deaths.push({"label": "Covid 2020", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
 
             color = '#0000ff'
-            dataset_deaths.push({"label": "2020", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_total})
+            dataset_deaths.push({"label": "2020", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_total})
             color = '#00ffff'
-            dataset_deaths.push({"label": "2015", fill: false, backgroundColor: color, borderColor: color, data: dataset_data_peakyear})
+            dataset_deaths.push({"label": "2015", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_peakyear})
             color = '#00ff00'
             dataset_deaths.push({"label": avg_desc, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_avg})
             color = '#ff0000'
@@ -43,7 +43,11 @@
 
             config_death = {
                 type: 'line',
-
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
                 data: {
                     labels: label_array,
                     datasets: dataset_deaths
