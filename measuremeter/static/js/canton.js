@@ -635,6 +635,22 @@ var data
 
 			//drawTimeline(2);
 
+            Chart.plugins.register({
+                afterRender: function(c) {
+                    console.log("afterRender called");
+                    var ctx = c.chart.ctx;
+                    ctx.save();
+                    // This line is apparently essential to getting the
+                    // fill to go behind the drawn graph, not on top of it.
+                    // Technique is taken from:
+                    // https://stackoverflow.com/a/50126796/165164
+                    ctx.globalCompositeOperation = 'destination-over';
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, c.chart.width, c.chart.height);
+                    ctx.restore();
+                }
+            });
+
 
             $('#cantons_dd').dropdown('set selected', ['37','35','43'])
 

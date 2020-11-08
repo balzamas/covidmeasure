@@ -551,10 +551,21 @@
                 LoadData("1,3,6,12,13,14,33,35", "8,2,26",real_startdate,real_enddate);
             }
 
-
-
-
-
+            Chart.plugins.register({
+                afterRender: function(c) {
+                    console.log("afterRender called");
+                    var ctx = c.chart.ctx;
+                    ctx.save();
+                    // This line is apparently essential to getting the
+                    // fill to go behind the drawn graph, not on top of it.
+                    // Technique is taken from:
+                    // https://stackoverflow.com/a/50126796/165164
+                    ctx.globalCompositeOperation = 'destination-over';
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(0, 0, c.chart.width, c.chart.height);
+                    ctx.restore();
+                }
+            });
 
 			var ctx = document.getElementById('compareChart').getContext('2d');
 			window.myLine = new Chart(ctx, config);
