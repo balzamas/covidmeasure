@@ -21,7 +21,7 @@ def get_start_end_dates(year, week):
     else:
         d = d + timedelta(7 - d.weekday())
     dlt = timedelta(days=(week - 1) * 7)
-    return d + dlt, d + dlt + timedelta(days=6)
+    return d + dlt , d + dlt + timedelta(days=6)
 
 
 
@@ -39,32 +39,61 @@ def getdata(country):
         weeks = []
 
         head = file_content.splitlines()[0]
+
+        col_cnt = 0
         for header_col in head.split('\t'):
-            if ("W" in header_col and header_col.split('W')[0] == '2020'):
+            if ("W" in header_col and header_col.split('W')[0] == '2020' and "99" not in header_col):
                 weeks.append(get_start_end_dates(int(header_col.split('W')[0]), int(header_col.split('W')[1])))
+
+            if ("2015W"+str(len(weeks)-1) in header_col):
+                peak_col_nr = col_cnt-3
+            col_cnt += 1
 
         week = -1;
         for line in file_content.splitlines():
             if (line.split('\t')[0].split(',')[0] == 'T'):
                 if (country.code.lower() == 'gb'):
                     code ='uk'
+                elif (country.code.lower() == 'gr'):
+                        code = 'el'
                 else:
                     code = country.code.lower()
                 if (line.split('\t')[0].split(',')[2].lower() == code):
                     columns = line.split('\t')
+                    col_cnt = 0
                     for col in columns:
-                        if ("NR" not in col and ':' not in col and week < len(weeks)):
+
+                        if (col_cnt > peak_col_nr):
+                            if ("NR" not in col and ':' not in col and week < len(weeks)):
+                                value = int(col.replace('p', '').replace('e', '').replace(' ', ''))
+                                avg = value / 7
+
+                                savedate = weeks[week][0]
+
+                                for number in range(1, 8):
+                                    try:
+                                        cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
+                                        cd_existing.deathstotal_peak = avg
+                                        cd_existing.save()
+                                    except CasesDeaths.DoesNotExist:
+                                        cd = CasesDeaths(country=country, deathstotal_peak=avg,
+                                                                           date=savedate)
+                                        cd.save()
+
+                                    savedate += timedelta(days=1)
+                                week += 1
+
+                        elif ("NR" not in col and ':' not in col and week < len(weeks)):
+
                             value = int(col.replace('p', '').replace('e', '').replace(' ', ''))
+
                             avg = value / 7
-                            print(value)
-                            print(avg)
 
                             savedate = weeks[week][0]
 
                             for number in range(1, 8):
                                 try:
                                     cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
-                                    print(cd_existing)
                                     cd_existing.deathstotal = avg
                                     cd_existing.deaths_total_per100k = CalcCaesesPer100k(avg, country.population)
                                     cd_existing.save()
@@ -74,14 +103,20 @@ def getdata(country):
 
                                 savedate += timedelta(days=1)
 
-                        week += 1
+                            week += 1
+                        elif ':' in col:
+                            week += 1
+
+                        if (col_cnt == peak_col_nr):
+                            week = -1
+
+                        col_cnt += 1
 
 class Command(BaseCommand):
 
 
 
     def handle(self, *args, **options):
-
         getdata(Country.objects.get(pk=25)) #Eesti
         getdata(Country.objects.get(pk=3)) #cz
         getdata(Country.objects.get(pk=32)) #bg
@@ -107,4 +142,9 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=1)) #ch
         getdata(Country.objects.get(pk=30)) #ro
         getdata(Country.objects.get(pk=45)) #arm
+        getdata(Country.objects.get(pk=6)) #at
+        getdata(Country.objects.get(pk=23)) #se
+        getdata(Country.objects.get(pk=38)) #greece
+        getdata(Country.objects.get(pk=44)) #is
+
 
