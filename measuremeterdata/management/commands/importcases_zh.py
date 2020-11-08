@@ -61,13 +61,18 @@ class Command(BaseCommand):
 
                     sdays = int(row[5]) / bezirk[0].population * 100000
 
+                    development7to7 = 0
+                    if (last_7days > 0):
+                        development7to7 = (int(row[5]) * 100 / last_7days) - 100
+
                     try:
                         cd_existing = CHCases.objects.get(canton=bezirk[0], date=date)
                         cd_existing.incidence_past7days = sdays
                         cd_existing.incidence_past14days = ftdays
+                        cd_existing.development7to7 = development7to7
                         cd_existing.save()
                     except CHCases.DoesNotExist:
-                        cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, date=date)
+                        cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, development7to7=development7to7, date=date)
                         cd.save()
 
                     old_bezirk = int(row[0])

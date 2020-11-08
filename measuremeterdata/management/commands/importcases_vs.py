@@ -41,6 +41,8 @@ class Command(BaseCommand):
 
         count = 0
 
+        last_days = 0
+
         for row in my_list:
             if (count > 0):
                 date = get_start_end_dates(int(row[5]), int(row[4]))
@@ -57,18 +59,26 @@ class Command(BaseCommand):
                     if (sdays_ago.incidence_past7days):
                         ftdays = sdays + float(sdays_ago.incidence_past7days)
 
+
+                    development7to7 = 0
+                    if last_days > 0:
+                        development7to7 = (int(row[8]) * 100 / last_days) - 100
+
                     try:
                         cd_existing = CHCases.objects.get(canton=bezirk[0], date=date)
                         cd_existing.incidence_past7days = sdays
+                        cd_existing.development7to7 = development7to7
                         if (ftdays):
                             cd_existing.incidence_past14days = ftdays
                         cd_existing.save()
                     except CHCases.DoesNotExist:
                         if (ftdays):
-                            cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, date=date)
+                            cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, development7to7=development7to7, date=date)
                         else:
                             cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, date=date)
                         cd.save()
+
+                    last_days = int(row[8])
 
             count += 1
 

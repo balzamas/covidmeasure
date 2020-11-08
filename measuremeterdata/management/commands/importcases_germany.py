@@ -40,6 +40,10 @@ def load_bezirk(bezirk):
 
                     date_tosave = date.fromisoformat(row['Date'])
 
+                    development7to7 = 0
+                    if (tot - seven_tot) > 0:
+                        development7to7 = (seven_tot * 100 / (tot - seven_tot)) - 100
+
                     print(kreis[0])
                     print(date_tosave)
                     print(fourteen_avg)
@@ -49,11 +53,12 @@ def load_bezirk(bezirk):
                         cd_existing.cases = val_today
                         cd_existing.incidence_past7days = seven_avg
                         cd_existing.incidence_past14days = fourteen_avg
+                        cd_existing.development7to7 = development7to7
                         cd_existing.date = date_tosave
                         cd_existing.save()
                     except CHCases.DoesNotExist:
                         cd = CHCases(canton=kreis[0], incidence_past7days=seven_avg, incidence_past14days=fourteen_avg,
-                                     cases=val_today, date=date_tosave)
+                                     cases=val_today, development7to7=development7to7, date=date_tosave)
                         cd.save()
 
 

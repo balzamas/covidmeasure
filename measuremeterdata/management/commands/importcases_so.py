@@ -40,13 +40,18 @@ def set_incidence(last_numbers, bezirk, date):
         sdays = total7 / bezirk.population * 100000
         print(ftdays)
 
+        development7to7 = 0
+        if (total- total7) > 0:
+            development7to7 = (total7 * 100 / (total- total7)) - 100
+
         try:
             cd_existing = CHCases.objects.get(canton=bezirk, date=date)
             cd_existing.incidence_past14days = ftdays
             cd_existing.incidence_past7days = sdays
+            cd_existing.development7to7 = development7to7
             cd_existing.save()
         except CHCases.DoesNotExist:
-            cd = CHCases(canton=bezirk, incidence_past14days=ftdays, incidence_past7days=sdays, date=date)
+            cd = CHCases(canton=bezirk, incidence_past14days=ftdays, incidence_past7days=sdays, development7to7=development7to7, date=date)
             cd.save()
         return 0
 

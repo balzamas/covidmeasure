@@ -54,6 +54,10 @@ class Command(BaseCommand):
                             fourteen_avg = tot * 100000 / bezirk[0].population
                             seven_avg = seven_tot * 100000 / bezirk[0].population
 
+                            development7to7 = 0
+                            if (tot - seven_tot) > 0:
+                                development7to7 = (seven_tot * 100 / (tot - seven_tot)) - 100
+
                             date_tosave = date.fromisoformat(day)
 
                             print(row['properties']["name"])
@@ -67,10 +71,11 @@ class Command(BaseCommand):
                                 cd_existing.incidence_past7days = seven_avg
                                 cd_existing.incidence_past14days = fourteen_avg
                                 cd_existing.date = date_tosave
+                                cd_existing.development7to7 = development7to7
                                 cd_existing.save()
                             except CHCases.DoesNotExist:
                                 cd = CHCases(canton=bezirk[0], incidence_past7days=seven_avg, incidence_past14days=fourteen_avg,
-                                             cases=val_today, date=date_tosave)
+                                             cases=val_today, development7to7=development7to7, date=date_tosave)
                                 cd.save()
 
 
