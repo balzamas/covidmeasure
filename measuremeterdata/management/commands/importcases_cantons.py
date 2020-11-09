@@ -49,25 +49,27 @@ class Command(BaseCommand):
                     try:
                         print(row[2])
                         print(row[0])
-                        if row[4] is '':
-                                cases_today = 0
-                        else:
-                                cases_today = int(row[4]) - old_value
-                                old_value = int(row[4])
-
-                        print(cases_today)
 
                         format_str = '%Y-%m-%d'
                         date_object = datetime.datetime.strptime(row[0], format_str)
 
+                        if (row[4] is not '' or date_object<(datetime.today()- timedelta(6))):
+                            if row[4] is '':
+                                    cases_today = 0
+                            else:
+                                    cases_today = int(row[4]) - old_value
+                                    old_value = int(row[4])
 
-                        try:
-                            cd_existing = CHCases.objects.get(canton=canton, date=date_object)
-                            cd_existing.cases = cases_today
-                            cd_existing.save()
-                        except CHCases.DoesNotExist:
-                            cd = CHCases(canton=canton, cases=cases_today, date=date_object)
-                            cd.save()
+                            print(cases_today)
+
+
+                            try:
+                                cd_existing = CHCases.objects.get(canton=canton, date=date_object)
+                                cd_existing.cases = cases_today
+                                cd_existing.save()
+                            except CHCases.DoesNotExist:
+                                cd = CHCases(canton=canton, cases=cases_today, date=date_object)
+                                cd.save()
 
                         last_date = date_object.date()
                     except:
