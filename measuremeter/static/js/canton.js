@@ -333,7 +333,7 @@ var data
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Incidence per 100k/past 7 days',
+                        text: gettext('Incidence per 100k/past 7 days'),
                         fontSize: 25
 
                     },
@@ -369,7 +369,7 @@ var data
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Incidence per 100k/past 7 days'
+                                labelString: gettext('Incidence per 100k/past 7 days')
                             }
                         }
                     },
@@ -400,7 +400,7 @@ var data
                     responsive: true,
                     title: {
                         display: true,
-                        text: ['Development past week/week before (%)'],
+                        text: [gettext('Development past week/week before (%)')],
                         fontSize: 25
 
                     },
@@ -429,14 +429,14 @@ var data
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Day'
+                                labelString: gettext('Day')
                             },
                         },
                         y: {
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Development past week/week before (%)'
+                                labelString: gettext('Development past week/week before (%)')
                             }
                         }
                     },

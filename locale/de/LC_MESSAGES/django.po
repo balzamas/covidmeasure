@@ -283,8 +283,6 @@ msgid "My Profile"
 msgstr "TEST"
 
 #: measuremeter/templates/pages/canton.html:6
-#, fuzzy
-#| msgid "CovidLaws // Coronavirus measures by canton - Maps"
 msgid "Coronavirus measures by canton"
 msgstr "CovidLaws // Corona Massnahmen Kantone"
 
@@ -306,30 +304,24 @@ msgid "Loading"
 msgstr "Lade"
 
 #: measuremeter/templates/pages/canton.html:83
-#, fuzzy
-#| msgid "Incidence map"
 msgid "Incidence and measures"
-msgstr "Karte Fälle pro Einw."
+msgstr "Fallzahlen und Massnahmen"
 
 #: measuremeter/templates/pages/canton.html:89
 msgid "Cantons (empty=all)"
 msgstr "Kantone (leer=alle)"
 
 #: measuremeter/templates/pages/canton.html:95
-#, fuzzy
-#| msgid "Canton"
 msgid "Cantons"
-msgstr "Kanton"
+msgstr "Kantone"
 
 #: measuremeter/templates/pages/canton.html:102
 msgid "Measure type (empty=all)"
-msgstr "Massnahme (leer=alle)"
+msgstr "Massnahmen (leer=alle)"
 
 #: measuremeter/templates/pages/canton.html:107
-#, fuzzy
-#| msgid "Measures maps"
 msgid "Measure types"
-msgstr "Karten Massnahmen"
+msgstr "Massnahmen"
 
 #: measuremeter/templates/pages/canton.html:117
 msgid "From:"
@@ -725,10 +717,8 @@ msgid "Infos successfully updated"
 msgstr ""
 
 #: riskcalc/templates/pages/belrisk.html:114
-#, fuzzy
-#| msgid "CovidLaws // Switzerland // Measures maps"
 msgid "CovidLaws // Belgium // Risk map"
-msgstr "CovidLaws // Schweiz // Karten Massnahmen"
+msgstr "CovidLaws // Belgien // Risikokkarte"
 
 #: riskcalc/templates/pages/belrisk.html:117
 msgid "COVID-19 Event Risk Assessment"
