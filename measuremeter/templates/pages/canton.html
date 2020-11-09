@@ -3,8 +3,8 @@
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>CovidLaws // Coronavirus measures by canton - Canton profiles</title>
-        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+    <title>CovidLaws // {% trans 'Coronavirus measures by canton'%} - {% trans 'Canton profiles'%}</title>
+        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by Swiss canton. Massnahmen je Kanton in der Schweiz verglicvhen mit den Fallzahlen. Entwicklung der Covid Corona Fallzahlen. Massnahmen Schweiz Zürich Waadt Genf Basel Bern Tessin St. Gallen Aarau Schaffhausen Thurgau Jura Freiburh Fribourg Wallis Luzern Uri Nidwalden Obwalden Graubünden">
          <script src="{% url 'javascript-catalog' %}"></script>
       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <!-- Fathom - beautiful, simple website analytics -->
@@ -70,41 +70,41 @@
 <div style="margin-left: 90;margin-top: 30;margin-right: 90;">
 
 
-      <h1>CovidLaws // Switzerland // Canton profiles</h1>
+      <h1>CovidLaws // {% trans 'Switzerland'%} // {% trans 'Canton profiles'%}</h1>
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu_ch"></div>
 
 
 
   <div class="ui active dimmer" id="dimmer">
-    <div class="ui text loader">Loading</div>
+    <div class="ui text loader">{% trans 'Loading'%}</div>
   </div>
 
-  <p id="grande"><b>Incidence and measures</b></p>
+  <p id="grande"><b>{% trans 'Incidence and measures'%}</b></p>
         <div class="ui placeholder segment">
         <div class="ui two column stackable center aligned grid">
           <div class="ui vertical divider"></div>
           <div class="middle aligned row">
             <div class="column">
-              <p id="grande">Cantons (empty=all)</p>
+              <p id="grande">{% trans 'Cantons (empty=all)'%}</p>
 
                 <div class="ui multiple fluid search selection dropdown" id="cantons_dd">
                   <i class="large flag outline icon"></i>
                   <input type="hidden" name="cantons">
                   <i class="dropdown icon"></i>
-                  <div class="default text">Cantons</div>
+                  <div class="default text">{% trans 'Cantons'%}</div>
                   <div class="menu" id="cantons_list">
                 </div>
               </div>
 
             </div>
             <div class="column">
-             <p id="grande">Measure type (empty=all)</p>
+             <p id="grande">{% trans 'Measure type (empty=all)'%}</p>
                   <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
                     <i class="large heartbeat icon"></i>
                     <input type="hidden" name="measuretypes">
                     <i class="dropdown icon"></i>
-                    <div class="default text">Measure types</div>
+                    <div class="default text">{% trans 'Measure types'%}</div>
                     <div class="menu">
                   </div>
                 </div>
@@ -114,14 +114,14 @@
           <div class="ui divider"></div>
           <div class="middle aligned row">
                         <div class="column">
-              From:  <input style="height:60px" type="date" id="datefrom" value="2020-06-01">&nbsp;
-              To:   <input style="height:60px" type="date" id="dateto" value="2020-07-01">
+              {% trans 'From:'%}  <input style="height:60px" type="date" id="datefrom" value="2020-06-01">&nbsp;
+              {% trans 'To:'%}   <input style="height:60px" type="date" id="dateto" value="2020-07-01">
 
 
             </div>
             <div class="column">
               <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
-                <div class="hidden content" >Load</div>
+                <div class="hidden content" >{% trans 'Load'%}</div>
                 <div class="visible content">
                   <i class="large arrow circle down icon"></i>
                 </div>
@@ -133,14 +133,14 @@
 
         </div>
       </div>
-  <p id="grande">Click on lines/cantons for details.</p>
+  <p id="grande">{% trans 'Click on lines/cantons for details.'%}</p>
 
 
 
       <canvas id="compareChart">
       </canvas>
                 <div class="ui vertical animated large button" tabindex="0" id="save_incidence" style="width:100px">
-                <div class="hidden content" >Save</div>
+                <div class="hidden content" >{% trans 'Save'%}</div>
                 <div class="visible content">
                   <i class="save icon"></i>
                 </div>
@@ -150,7 +150,7 @@
 <br><br>
         <canvas id="compareTendency">
       </canvas>
-            Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = Cases double in a week, 0 = constant growth, < 0 cases go down.
+            {% trans 'Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = Cases double in a week, 0 = constant growth, < 0 cases go down.'%}
         <div id="dialogTendency" title="Basic dialog">
       </div>
                   <div class="ui vertical animated large button" tabindex="0" id="save_tendency" style="width:100px">
