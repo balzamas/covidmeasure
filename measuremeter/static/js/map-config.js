@@ -227,7 +227,7 @@ function loadMapData(measuretype,filterdate) {
 	function getColor(d) {
 		return  d > 1   ? '#FE0000' :
 				d > 0   ? '#FED341' :
-				d > -1   ? '#FFFFFF' :
+				d > -1   ? '#00ff80' :
 						  '#dfdcdc';
 	}
 
