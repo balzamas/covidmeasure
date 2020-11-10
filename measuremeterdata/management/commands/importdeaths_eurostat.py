@@ -148,5 +148,6 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=44)) #is
         getdata(Country.objects.get(pk=24)) #fi
         getdata(Country.objects.get(pk=35)) #de
+        getdata(Country.objects.get(pk=49)) #cy
 
 
