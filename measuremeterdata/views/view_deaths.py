@@ -24,7 +24,7 @@ def country_deaths(request):
     for country in countries:
         print(country)
         #startdate = datetime.date(2020, 2, 17)
-        startdate = datetime.date(2020, 1, 6)
+        startdate = datetime.date(2019, 12, 30)
 
         cases = CasesDeaths.objects.filter(country=country, date__gte=startdate).order_by("date")
 
