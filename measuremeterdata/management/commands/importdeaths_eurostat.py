@@ -146,5 +146,7 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=23)) #se
         getdata(Country.objects.get(pk=38)) #greece
         getdata(Country.objects.get(pk=44)) #is
+        getdata(Country.objects.get(pk=24)) #fi
+        getdata(Country.objects.get(pk=35)) #de
 
 

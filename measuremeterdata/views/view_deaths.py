@@ -33,7 +33,7 @@ def country_deaths(request):
         week_values_alldeaths_peak = {}
 
         #week = 8
-        week = 2
+        week = 1
         weekday = 1
         week_value_covid = 0
         week_value_all = 0
