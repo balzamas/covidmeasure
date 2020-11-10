@@ -15,15 +15,6 @@ def daterange(start_date, end_date):
     for n in range(int ((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
-
-def CalcCaesesPerMio(cases, population):
-    casespm = int(cases) *1000000 / (int(population))
-    return casespm
-
-def CalcCaesesPer100k(cases, population):
-    casespm = int(cases) *100000 / (int(population))
-    return casespm
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
@@ -61,7 +52,7 @@ class Command(BaseCommand):
                     try:
                         cd_existing_zero = CasesDeaths.objects.get(country=country, date=single_date)
                     except CasesDeaths.DoesNotExist:
-                        cd = CasesDeaths(country=country, deaths=0, cases=0, date=single_date, cases_per_mio=0)
+                        cd = CasesDeaths(country=country, deaths=0, cases=0, date=single_date)
                         cd.save()
 
                 for row in spamreader:
@@ -78,12 +69,9 @@ class Command(BaseCommand):
                                 cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
                                 cd_existing.deaths=row[5]
                                 cd_existing.cases = row[4]
-                                cd_existing.cases_per_mio = CalcCaesesPerMio(row[4],country.population)
-                                cd_existing.cases_per_mio_seven = 0
-                                cd_existing.deaths_per100k = CalcCaesesPer100k(row[5], country.population)
                                 cd_existing.save()
                             except CasesDeaths.DoesNotExist:
-                                cd = CasesDeaths(country=country, deaths=row[5], cases=row[4], date=date_object, deaths_per100k=CalcCaesesPer100k(row[5], country.population), cases_per_mio=CalcCaesesPerMio(row[4],country.population), cases_per_mio_seven = 0)
+                                cd = CasesDeaths(country=country, deaths=row[5], cases=row[4], date=date_object)
                                 cd.save()
                     except:
                         print("Error reading line:")

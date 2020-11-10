@@ -24,11 +24,6 @@ def daterange(start_date, end_date):
     for n in range(int ((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
-
-def CalcCaesesPerMio(cases, population):
-    casespm = int(cases) *1000000 / (int(population))
-    return casespm
-
 def set_incidence(last_numbers, bezirk, date, cases_today):
     total = 0
     total7 = 0

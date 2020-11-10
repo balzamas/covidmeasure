@@ -96,11 +96,9 @@ class Command(BaseCommand):
                                 try:
                                     cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
                                     cd_existing.cases = tdy_val
-                                    cd_existing.cases_per_mio = CalcCaesesPerMio(tdy_val, country.population)
                                     cd_existing.save()
                                 except CasesDeaths.DoesNotExist:
-                                    cd = CasesDeaths(country=country, cases=tdy_val, date=date_object,
-                                                     cases_per_mio=CalcCaesesPerMio(tdy_val, country.population))
+                                    cd = CasesDeaths(country=country, cases=tdy_val, date=date_object)
                                     cd.save()
 
                                 last_val = int(float(col))

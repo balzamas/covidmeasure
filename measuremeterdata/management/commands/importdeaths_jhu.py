@@ -24,15 +24,6 @@ def daterange(start_date, end_date):
     for n in range(int ((end_date - start_date).days)):
         yield start_date + timedelta(n)
 
-
-def CalcCaesesPerMio(cases, population):
-    casespm = int(cases) *1000000 / (int(population))
-    return casespm
-
-def CalcCaesesPer100k(cases, population):
-    casespm = int(cases) *100000 / (int(population))
-    return casespm
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
@@ -75,11 +66,9 @@ class Command(BaseCommand):
                                     try:
                                         cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
                                         cd_existing.deaths = tdy_val
-                                        cd_existing.deaths_per100k = CalcCaesesPer100k(tdy_val, country.population)
                                         cd_existing.save()
                                     except CasesDeaths.DoesNotExist:
-                                        cd = CasesDeaths(country=country, deaths=tdy_val, date=date_object,
-                                                         deaths_per100k=CalcCaesesPer100k(tdy_val, country.population))
+                                        cd = CasesDeaths(country=country, deaths=tdy_val, date=date_object)
                                         cd.save()
 
                                     last_val = int(float(col))

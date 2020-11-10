@@ -5,13 +5,13 @@ from rest_framework import serializers
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
-        fields = ['pk', 'name', 'code', 'iso_code', 'link_dashboard', 'link_worldometer','link_gov', 'comment',  'continent', 'average_death_per_day','average_death_per_day_peak', 'avg_desc', 'avg_peak_desc', 'source_death', 'population', 'has_measures']
+        fields = ['pk', 'name', 'code', 'iso_code', 'link_dashboard', 'link_worldometer','link_gov', 'comment',  'continent', 'average_death_per_day','average_death_per_day_peak', 'avg_desc', 'avg_peak_desc', 'source_death', 'population', 'has_measures', 'peak_year']
 
 class CasesDeathsSerializer(serializers.ModelSerializer):
     country = CountrySerializer()
     class Meta:
         model = CasesDeaths
-        fields = ['pk', 'country', 'date', 'deaths', 'cases', 'deathstotal', 'deaths_past14days', 'cases_past14days', 'deaths_per100k', 'deaths_total_per100k', 'cases_past7days', 'positivity', 'development7to7']
+        fields = ['pk', 'country', 'date', 'deaths', 'cases', 'deathstotal', 'deaths_past14days', 'cases_past14days', 'cases_past7days', 'positivity', 'development7to7']
 
 class MeasureCategorySerializer(serializers.ModelSerializer):
     class Meta:
