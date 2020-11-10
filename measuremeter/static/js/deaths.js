@@ -1,7 +1,7 @@
       function drawLineChart(avg, avg_peak, deaths_all, deaths_covid, deaths_all_peak, country, code, avg_desc, avg_peak_desc, peak_year)
       {
-        week_avg = parseFloat(avg) * 7
-        week_avg_peak = parseFloat(avg_peak) * 7
+        week_avg = Math.round(parseFloat(avg.replace(",", ".")) * 7)
+        week_avg_peak = Math.round(parseFloat(avg_peak.replace(",", ".")) * 7)
 
         var dataset_cases = new Array()
         var dataset_positivity = new Array()
