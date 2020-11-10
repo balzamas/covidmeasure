@@ -55,7 +55,7 @@ class Command(BaseCommand):
                                 beznum = cell
                             if (cell_count > 2):
 
-                                date = import_helper.get_start_end_dates(2020, int(float(weeks_row[cell_count])))
+                                date = import_helper.get_start_end_dates(2020, int(float(weeks_row[cell_count])))[1]
 
                                 bezirk = CHCanton.objects.filter(swisstopo_id=int(float(beznum)))
 

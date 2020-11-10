@@ -30,7 +30,7 @@ class Command(BaseCommand):
         for row in my_list:
             if (count > 1):
                 if int(row[4]) > 28:
-                    date = import_helper.get_start_end_dates(int(row[5]), int(row[4]))
+                    date = import_helper.get_start_end_dates(int(row[5]), int(row[4]))[1]
 
                     bezirk = CHCanton.objects.filter(swisstopo_id=int(row[0]))
 

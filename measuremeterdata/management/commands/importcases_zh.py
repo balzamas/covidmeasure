@@ -29,8 +29,9 @@ class Command(BaseCommand):
 
         for row in my_list:
             if (count > 1):
-                date =  import_helper.get_start_end_dates(int(row[4]), int(row[3]))
-
+                print("get")
+                date =  import_helper.get_start_end_dates(int(row[4]), int(row[3]))[1]
+                print(date)
                 bezirk = CHCanton.objects.filter(swisstopo_id=int(row[0]))
 
                 if (bezirk):
