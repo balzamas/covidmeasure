@@ -19,7 +19,6 @@ class Command(BaseCommand):
         decoded_content = download.content.decode('utf-8')
 
         cr = csv.reader(decoded_content.splitlines(), delimiter=',')
-        my_list = list(cr)
 
         print("Load data into django")
 
@@ -29,20 +28,14 @@ class Command(BaseCommand):
             if (cntry.iso_code):
                 cntries.append(cntry.iso_code.lower())
 
-        for row in my_list:
+        for row in cr:
             if (row[0].lower() in cntries):
-                print(row[0])
-
                 if row[31]:
-                    print(row[31])
-
                     date_tosave = date.fromisoformat(row[3])
 
                     country = Country.objects.get(iso_code = row[0])
 
                     print(country)
-                    print(date_tosave)
-                    print(Decimal(row[31]) * 100)
 
                     try:
                         cd_existing = CasesDeaths.objects.get(country=country, date=date_tosave)

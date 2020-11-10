@@ -9,23 +9,7 @@ import pandas as pd
 from io import BytesIO
 import gzip
 from urllib.request import urlopen
-
-def CalcCaesesPer100k(cases, population):
-    casespm = int(cases) *100000 / (int(population))
-    return casespm
-
-def get_start_end_dates(year, week):
-    d = datetime.datetime(year, 1, 1)
-    if (d.weekday() <= 3):
-        d = d - timedelta(d.weekday())
-    else:
-        d = d + timedelta(7 - d.weekday())
-    dlt = timedelta(days=(week - 1) * 7)
-    return d + dlt , d + dlt + timedelta(days=6)
-
-
-
-
+from measuremeterdata.tasks import import_helper
 
 def getdata(country):
     print(country)
@@ -44,7 +28,7 @@ def getdata(country):
         col_cnt = 0
         for header_col in head.split('\t'):
             if ("W" in header_col and header_col.split('W')[0] == '2020' and "99" not in header_col):
-                weeks.append(get_start_end_dates(int(header_col.split('W')[0]), int(header_col.split('W')[1])))
+                weeks.append(import_helper.get_start_end_dates(int(header_col.split('W')[0]), int(header_col.split('W')[1])))
 
             if (str(country.peak_year)+"W"+str(len(weeks)-1) in header_col):
                 peak_col_nr = col_cnt-3

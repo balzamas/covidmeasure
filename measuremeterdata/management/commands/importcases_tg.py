@@ -6,19 +6,7 @@ import datetime
 import requests
 import pandas as pd
 from datetime import date, timedelta
-
-def get_start_end_dates(year, week):
-    d = datetime.datetime(year, 1, 1)
-    if (d.weekday() <= 3):
-        d = d - timedelta(d.weekday())
-    else:
-        d = d + timedelta(7 - d.weekday())
-    dlt = timedelta(days=(week - 1) * 7)
-    return d + dlt + timedelta(days=6)
-
-def daterange(start_date, end_date):
-    for n in range(int ((end_date - start_date).days)):
-        yield start_date + timedelta(n)
+from measuremeterdata.tasks import import_helper
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -42,7 +30,7 @@ class Command(BaseCommand):
         for row in my_list:
             if (count > 1):
                 if int(row[4]) > 28:
-                    date = get_start_end_dates(int(row[5]), int(row[4]))
+                    date = import_helper.get_start_end_dates(int(row[5]), int(row[4]))
 
                     bezirk = CHCanton.objects.filter(swisstopo_id=int(row[0]))
 

@@ -6,23 +6,7 @@ import datetime
 import requests
 import pandas as pd
 from datetime import date, timedelta
-
-
-
-#Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863
-
-def get_start_end_dates(year, week):
-    d = datetime.datetime(year, 1, 1)
-    if (d.weekday() <= 3):
-        d = d - timedelta(d.weekday())
-    else:
-        d = d + timedelta(7 - d.weekday())
-    dlt = timedelta(days=(week - 1) * 7)
-    return d + dlt + timedelta(days=6)
-
-def daterange(start_date, end_date):
-    for n in range(int ((end_date - start_date).days)):
-        yield start_date + timedelta(n)
+from measuremeterdata.tasks import import_helper
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -45,7 +29,7 @@ class Command(BaseCommand):
 
         for row in my_list:
             if (count > 0):
-                date = get_start_end_dates(int(row[5]), int(row[4]))
+                date = import_helper.get_start_end_dates(int(row[5]), int(row[4]))
                 bezirk = CHCanton.objects.filter(swisstopo_id=int(row[0]))
 
                 print(f"{date} - {bezirk}")

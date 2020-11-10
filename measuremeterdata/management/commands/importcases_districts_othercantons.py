@@ -6,19 +6,11 @@ import datetime
 import requests
 import pandas as pd
 from datetime import date, timedelta
+from measuremeterdata.tasks import import_helper
 
 
 
 #Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863
-
-def get_start_end_dates(year, week):
-    d = datetime.datetime(year, 1, 1)
-    if (d.weekday() <= 3):
-        d = d - timedelta(d.weekday())
-    else:
-        d = d + timedelta(7 - d.weekday())
-    dlt = timedelta(days=(week - 1) * 7)
-    return d + dlt + timedelta(days=6)
 
 def get_start_end_dates_ag(year, week):
     d = datetime.datetime(year, 1, 1)
@@ -28,15 +20,6 @@ def get_start_end_dates_ag(year, week):
         d = d + timedelta(7 - d.weekday())
     dlt = timedelta(days=(week - 1) * 7)
     return d + dlt + timedelta(days=4)
-
-def daterange(start_date, end_date):
-    for n in range(int ((end_date - start_date).days)):
-        yield start_date + timedelta(n)
-
-
-def CalcCaesesPerMio(cases, population):
-    casespm = int(cases) *1000000 / (int(population))
-    return casespm
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -72,7 +55,7 @@ class Command(BaseCommand):
                                 beznum = cell
                             if (cell_count > 2):
 
-                                date = get_start_end_dates(2020, int(float(weeks_row[cell_count])))
+                                date = import_helper.get_start_end_dates(2020, int(float(weeks_row[cell_count])))
 
                                 bezirk = CHCanton.objects.filter(swisstopo_id=int(float(beznum)))
 

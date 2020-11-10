@@ -6,17 +6,7 @@ import datetime
 import requests
 import pandas as pd
 from datetime import date, timedelta
-
-
-
-def get_start_end_dates(year, week):
-    d = datetime.datetime(year, 1, 1)
-    if (d.weekday() <= 3):
-        d = d - timedelta(d.weekday())
-    else:
-        d = d + timedelta(7 - d.weekday())
-    dlt = timedelta(days=(week - 1) * 7)
-    return d + dlt + timedelta(days=6)
+import measuremeterdata.tasks
 
 def daterange(start_date, end_date):
     for n in range(int ((end_date - start_date).days)):
