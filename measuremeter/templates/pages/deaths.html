@@ -47,11 +47,10 @@
                 var content = document.getElementById('content');
                 var div = document.createElement('div');
                 div.id = '{{country.country.code}}' + 'Chart';
-                div.innerHTML =   '<table><tr><td><div class="chart-container"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div></td></tr></table><br><p><b>Week 2 - Week {{country.weeks_wdata}}</b> // Covid 2020: {{country.death_covid_week2}} // All 2020: {{country.death_total_week2}} // All 2015: {{country.death_peak_week2|floatformat:0}} // Diff to average: {{country.diff_week2}} // Diff to 2015: {{country.diff_peak}} <br>Difference to average: <b>{{country.percent_week2|floatformat:1}}%</b><br>Difference to 2015: <b>{{country.percent_peak|floatformat:1}}%</b></p><p><a href="{{country.country.source_death}}" target="_blank">Source</a> // <a href="/country/{{country.country.code}}">Country Details</a> (Cases, Positive rate etc.)</p><br>'
+                div.innerHTML =   '<table><tr><td><div class="chart-container"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div></td></tr></table><br><p><b>Week 2 - Week {{country.weeks_wdata}}</b> // Covid 2020: {{country.death_covid_week2}} // All 2020: {{country.death_total_week2}} // All {{country.country.peak_year}}: {{country.death_peak_week2|floatformat:0}} // Diff to average: {{country.diff_week2}} // Diff to {{country.country.peak_year}}: {{country.diff_peak}} <br>Difference to average: <b>{{country.percent_week2|floatformat:1}}%</b><br>Difference to 2015: <b>{{country.percent_peak|floatformat:1}}%</b></p><p><a href="{{country.country.source_death}}" target="_blank">Source</a> // <a href="/country/{{country.country.code}}">Country Details</a> (Cases, Positive rate etc.)</p><br>'
                 <!-- <p><b>Week 8 - Week {{country.weeks_wdata}}</b><br>Covid: {{country.death_covid_week8}}<br>All: {{country.death_total_week8}}<br>Diff to average: {{country.diff_week8}}<br>%: {{country.percent_week8|floatformat:1}}</p> -->
                 content.appendChild(div);
-
-                drawLineChart('{{country.country.average_death_per_day}}', '{{country.country.average_death_per_day_peak}}', {{country.all}}, {{country.covid}}, {{country.all_peak}}, '{{country.country.name}}', '{{country.country.code}}', '{{country.country.avg_desc}}', '{{country.country.avg_peak_desc}}')
+                drawLineChart('{{country.country.average_death_per_day}}', '{{country.country.average_death_per_day_peak}}', {{country.all}}, {{country.covid}}, {{country.all_peak}}, '{{country.country.name}}', '{{country.country.code}}', '{{country.country.avg_desc}}', '{{country.country.avg_peak_desc}}', '{{country.country.peak_year}}')
 
           {% endfor %}
 
@@ -78,11 +77,11 @@
     <h2>How to interpret</h2>
     The following data is compared on this site:
     <ul>
-      <li>Deaths (all causes)</li>
-      <li>Official deaths Covid-19</li>
+      <li>Deaths (all causes) - blue line</li>
+      <li>Official deaths Covid-19 - orange line</li>
       <li>Average deaths 2015-2019 - green line</li>
       <li>Week with the highest death number (usually record week from the past 5 years) - red line.</li>
-      <li>Year 2015 - this was in most European countries the year with the most deaths.</li>
+      <li>Year with the highest death number (from the past 5 years) - light blue line</li>
 
     </ul>
     <p>Usually, the death excess is calculated with the expected deaths in a time period as base. To simplify, the average of the past years is taken as a comparison. This does not into acount the seasonal fluctuation, but it's easier to compare between countries.</p>

@@ -1,4 +1,4 @@
-      function drawLineChart(avg, avg_peak, deaths_all, deaths_covid, deaths_all_peak, country, code, avg_desc, avg_peak_desc)
+      function drawLineChart(avg, avg_peak, deaths_all, deaths_covid, deaths_all_peak, country, code, avg_desc, avg_peak_desc, peak_year)
       {
         week_avg = parseFloat(avg) * 7
         week_avg_peak = parseFloat(avg_peak) * 7
@@ -35,7 +35,7 @@
             color = '#0000ff'
             dataset_deaths.push({"label": "2020", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_total})
             color = '#00ffff'
-            dataset_deaths.push({"label": "2015", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_peakyear})
+            dataset_deaths.push({"label": peak_year, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_peakyear})
             color = '#00ff00'
             dataset_deaths.push({"label": avg_desc, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_avg})
             color = '#ff0000'

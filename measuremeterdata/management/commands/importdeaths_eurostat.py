@@ -28,6 +28,7 @@ def get_start_end_dates(year, week):
 
 
 def getdata(country):
+    print(country)
     resp = urlopen(
         'https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/demo_r_mwk_ts.tsv.gz')
 
@@ -45,7 +46,7 @@ def getdata(country):
             if ("W" in header_col and header_col.split('W')[0] == '2020' and "99" not in header_col):
                 weeks.append(get_start_end_dates(int(header_col.split('W')[0]), int(header_col.split('W')[1])))
 
-            if ("2015W"+str(len(weeks)-1) in header_col):
+            if (str(country.peak_year)+"W"+str(len(weeks)-1) in header_col):
                 peak_col_nr = col_cnt-3
             col_cnt += 1
 
