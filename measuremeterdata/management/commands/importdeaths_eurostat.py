@@ -95,10 +95,9 @@ def getdata(country):
                                 try:
                                     cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
                                     cd_existing.deathstotal = avg
-                                    cd_existing.deaths_total_per100k = CalcCaesesPer100k(avg, country.population)
                                     cd_existing.save()
                                 except CasesDeaths.DoesNotExist:
-                                    cd = CasesDeaths(country=country, deathstotal=avg, deaths_total_per100k=CalcCaesesPer100k(avg, country.population), date=savedate)
+                                    cd = CasesDeaths(country=country, deathstotal=avg,date=savedate)
                                     cd.save()
 
                                 savedate += timedelta(days=1)
