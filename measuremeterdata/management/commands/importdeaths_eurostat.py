@@ -139,7 +139,7 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=8)) #dk
         getdata(Country.objects.get(pk=20))  # es
         getdata(Country.objects.get(pk=34)) #fr
-        getdata(Country.objects.get(pk=1)) #ch
+#        getdata(Country.objects.get(pk=1)) #ch
         getdata(Country.objects.get(pk=30)) #ro
         getdata(Country.objects.get(pk=45)) #arm
         getdata(Country.objects.get(pk=6)) #at

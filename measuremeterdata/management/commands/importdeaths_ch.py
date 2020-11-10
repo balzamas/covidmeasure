@@ -40,17 +40,18 @@ class Command(BaseCommand):
                     rowcount += 1
                     if (rowcount > 7 and rowcount < 61 and row[1] is not ''):
 
-                        avg = int(int(row[1])/7)
+                        avg = int(row[1])/7
+                        avg_peak = float(row[6])/7
 
                         for number in range(1,8):
                             try:
                                 cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
                                 print(cd_existing)
                                 cd_existing.deathstotal = avg
-                                cd_existing.deaths_total_per100k = CalcCaesesPer100k(avg, country.population)
+                                cd_existing.deathstotal_peak = avg_peak
                                 cd_existing.save()
                             except CasesDeaths.DoesNotExist:
-                                cd = CasesDeaths(country=country, deathstotal=avg, date=savedate, deaths_total_per100k = CalcCaesesPer100k(avg, country.population))
+                                cd = CasesDeaths(country=country, deathstotal=avg, deathstotal_peak=avg_peak, date=savedate)
                                 cd.save()
 
                             print(savedate)
