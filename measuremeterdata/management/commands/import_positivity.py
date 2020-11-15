@@ -30,7 +30,7 @@ class Command(BaseCommand):
 
         for row in cr:
             if (row[0].lower() in cntries):
-                if row[31]:
+                if row[32]:
                     date_tosave = date.fromisoformat(row[3])
 
                     country = Country.objects.get(iso_code = row[0])
@@ -39,7 +39,7 @@ class Command(BaseCommand):
 
                     try:
                         cd_existing = CasesDeaths.objects.get(country=country, date=date_tosave)
-                        cd_existing.positivity = Decimal(row[31]) * 100
+                        cd_existing.positivity = Decimal(row[32]) * 100
                         cd_existing.save()
                     except:
                         print("Day record does not exist yet")

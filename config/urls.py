@@ -34,6 +34,9 @@ urlpatterns = [
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
     path(
+                      "barrace/", TemplateView.as_view(template_name="pages/barchart.html"), name="BarChartRace"
+                  ),
+    path(
         "euromap/", TemplateView.as_view(template_name="pages/euromap.html"), name="EuroMap"
       ),
     path('euromap/<str:measure_id>/', views.render_euromap, name='item'),
