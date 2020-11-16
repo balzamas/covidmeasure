@@ -535,7 +535,7 @@
 
                 document.getElementById("datefrom").value = formatDate(datefrom)
                 document.getElementById("dateto").value = formatDate(dateto)
-                
+
                 $('#countries_dd').dropdown('set selected', cntries)
                 $('#measuretypes_dd').dropdown('set selected', msures)
                 LoadData(params[0], params[1],datefrom,dateto);
