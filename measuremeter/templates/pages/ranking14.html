@@ -171,7 +171,7 @@ table.center {
         <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>
       </td>
       <td style="border-bottom: 3px solid black;">
-        {% if "(BE)" in hans.name or "(AG)" in hans.name or "(SO)" in hans.name %}
+        {% if "(BE)" in hans.name or "(AG)" in hans.name %}
           <div align="center">{{ hans.cur_prev }}</div>
         {% else %}
           <div class="container">

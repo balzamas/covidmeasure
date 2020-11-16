@@ -88,7 +88,7 @@ function applyCountryBorder(map, countryname) {
                                 {
                                     statesData.features[id].properties.level = item.incidence_past14days;
                                     statesData.features[id].properties.name = item.canton.name;
-                                    if (item.canton.name.includes("(BE)") || item.canton.name.includes("(AG)") || item.canton.name.includes("(SO)"))
+                                    if (item.canton.name.includes("(BE)") || item.canton.name.includes("(AG)"))
                                     {
                                         statesData.features[id].properties.comment = "<div align='center'><p>"+item.incidence_past14days +'</p><p>' + gettext('Population') + ':<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>' + gettext('Last update') + ':<br>' + item.date+'</div></p>';
                                     }
