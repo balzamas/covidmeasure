@@ -620,16 +620,51 @@ var data
 
             $('#param').hide();
 
-            real_enddate = new Date();
-            real_startdate = new Date(2020,7,8)
-
-            document.getElementById("datefrom").value = formatDate(real_startdate)
-            document.getElementById("dateto").value = formatDate(real_enddate)
 
 
 
             LoadMeasureTypes();
             LoadCantons()
+
+            console.log("Let's do it")
+            console.log($('#param').text().length)
+            if ($('#param').text().length > 0)
+            {
+                params = $('#param').text().split("&")
+
+                cntries = params[0].split(",")
+                msures = params[1].split(",")
+                datefrom = new Date(params[2])
+                dateto = new Date(params[3])
+
+                document.getElementById("datefrom").value = formatDate(datefrom)
+                document.getElementById("dateto").value = formatDate(dateto)
+
+                $('#cantons_dd').dropdown('set selected', cntries)
+                $('#measuretypes_dd').dropdown('set selected', msures)
+                LoadDataGraph(datefrom,dateto,params[0], params[1],);
+               var ctx = document.getElementById('compareChart').getContext('2d');
+                window.myLine = new Chart(ctx, config);
+
+                var ctxTendency = document.getElementById('compareTendency').getContext('2d');
+                window.myLineTendency = new Chart(ctxTendency, config_tendency);
+            }
+            else
+            {
+                real_enddate = new Date();
+                real_startdate = addDays(real_enddate, -60)
+
+                document.getElementById("datefrom").value = formatDate(real_startdate)
+                document.getElementById("dateto").value = formatDate(real_enddate)
+                $('#cantons_dd').dropdown('set selected', ['37','35','43'])
+
+                LoadDataGraph(real_startdate,real_enddate,$('#cantons_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'));
+                var ctx = document.getElementById('compareChart').getContext('2d');
+                window.myLine = new Chart(ctx, config);
+
+                var ctxTendency = document.getElementById('compareTendency').getContext('2d');
+                window.myLineTendency = new Chart(ctxTendency, config_tendency);
+            }
 
             //LoadCantonData();
 
@@ -652,15 +687,13 @@ var data
             });
 
 
-            $('#cantons_dd').dropdown('set selected', ['37','35','43'])
 
-            LoadDataGraph(real_startdate,real_enddate,$('#cantons_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'));
-			var ctx = document.getElementById('compareChart').getContext('2d');
-			window.myLine = new Chart(ctx, config);
-
-			var ctxTendency = document.getElementById('compareTendency').getContext('2d');
-			window.myLineTendency = new Chart(ctxTendency, config_tendency);
 
 			$('#dimmer').dimmer('hide');
+
+			$("#btnCopyLink").click(async function(){
+			    console.log(document.getElementById("datefrom").value)
+                copyToClipboard("/cantons/" + $('#cantons_dd').dropdown('get value') + "&" + $('#measuretypes_dd').dropdown('get value') + "&" + document.getElementById("datefrom").value + "&" + document.getElementById("dateto").value);
+            });
 
       });

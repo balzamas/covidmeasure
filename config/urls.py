@@ -93,6 +93,8 @@ urlpatterns += i18n_patterns(
     path(
         "cantons/", TemplateView.as_view(template_name="pages/canton.html"), name="CH measures"
     ),
+    path("cantons/<str:options>/", views.render_cantons, name="item"
+         ),
     path(
         "ch/", views_ranking_ch.ch, name="CH Main"
     ),

@@ -22,6 +22,9 @@ def render_timeline(request, country_name):
 def render_compare(request, country_name):
     return render(request, 'pages/compare.html', {'items': country_name })
 
+def render_cantons(request, options):
+    return render(request, 'pages/canton.html', {'items': options })
+
 def international(request):
     measures = Measure.objects.all().order_by('-created')[:10]
 

@@ -71,10 +71,17 @@
 
 
       <h1>CovidLaws // {% trans 'Switzerland'%} // {% trans 'Canton profiles'%}</h1>
-      <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
+      <div id="param" type="hidden" value={{ items }}>{{ items }}</div>
       <div id="menu_ch"></div>
 
-
+        <div align="center">
+                <div class="ui animated button" tabindex="0" id="btnCopyLink">
+          <div class="visible content"><i class="copy icon"></i></div>
+          <div class="hidden content">
+            Copy link<br>
+          </div>
+      </div>
+        </div>
 
   <div class="ui active dimmer" id="dimmer">
     <div class="ui text loader">{% trans 'Loading'%}</div>
