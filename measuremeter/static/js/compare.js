@@ -524,27 +524,29 @@
 		    LoadMeasureTypes();
 		    LoadCountries();
 
-            real_enddate = new Date();
-            real_startdate = addDays(real_enddate, -60)
-
-            document.getElementById("datefrom").value = formatDate(real_startdate)
-            document.getElementById("dateto").value = formatDate(real_enddate)
-
             if ($('#param').text().length > 0)
             {
                 params = $('#param').text().split("&")
 
-
-
                 cntries = params[0].split(",")
                 msures = params[1].split(",")
+                datefrom = new Date(params[2])
+                dateto = new Date(params[3])
 
+                document.getElementById("datefrom").value = formatDate(datefrom)
+                document.getElementById("dateto").value = formatDate(dateto)
+                
                 $('#countries_dd').dropdown('set selected', cntries)
                 $('#measuretypes_dd').dropdown('set selected', msures)
-                LoadData(params[0], params[1],real_startdate,real_enddate);
+                LoadData(params[0], params[1],datefrom,dateto);
             }
             else
             {
+                real_enddate = new Date();
+                real_startdate = addDays(real_enddate, -60)
+
+                document.getElementById("datefrom").value = formatDate(real_startdate)
+                document.getElementById("dateto").value = formatDate(real_enddate)
 
                 $('#countries_dd').dropdown('set selected', ['1','3','6','12','13','14','33','35'])
                 $('#measuretypes_dd').dropdown('set selected', ['8','2','26'])
@@ -580,7 +582,7 @@
 			window.myLineTendency = new Chart(ctx_tendency, config_tendency);
 
 			$("#btnCopyLink").click(async function(){
-                copyToClipboard("/compare/" + $('#countries_dd').dropdown('get value') + "&" + $('#measuretypes_dd').dropdown('get value'));
+                copyToClipboard("/compare/" + $('#countries_dd').dropdown('get value') + "&" + $('#measuretypes_dd').dropdown('get value')+ "&" + document.getElementById("datefrom").value + "&" + document.getElementById("dateto").value);
             });
 		};
 
