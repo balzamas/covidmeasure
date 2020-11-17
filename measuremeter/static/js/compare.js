@@ -126,15 +126,15 @@
               {
                 turn = 0
               }
-              dataset.push({"label": country_name, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
-              dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_data})
-              dataset_tendency.push({"label": country_code.toUpperCase(), fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
+              dataset.push({"label": country_name, fill: false, lineTension: 0, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
+              dataset_death.push({"label": country_code.toUpperCase() + " Covid", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_data})
+              dataset_tendency.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
 
               if (has_total_death)
               {
-                dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_total_data})
+                dataset_death.push({"label": country_code.toUpperCase() + " All", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_total_data})
                }
-              dataset_positivity.push({"label": country_code.toUpperCase(), fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
+              dataset_positivity.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
 
               dataset_data = new Array()
               dataset_death_data = new Array()
@@ -161,14 +161,14 @@
         });
 
         color = Colors[turn];
-        dataset.push({"label": country_name, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
-        dataset_death.push({"label": country_code.toUpperCase() + " Covid", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_data})
+        dataset.push({"label": country_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
+        dataset_death.push({"label": country_code.toUpperCase() + " Covid", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_data})
         if (has_total_death)
               {
-              dataset_death.push({"label": country_code.toUpperCase() + " All", fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_total_data})
+              dataset_death.push({"label": country_code.toUpperCase() + " All", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_total_data})
               }
-        dataset_positivity.push({"label": country_code.toUpperCase(), fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
-        dataset_tendency.push({"label": country_code.toUpperCase(), fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
+        dataset_positivity.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
+        dataset_tendency.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
 
         annotations = LoadMeasure(countries, measures, startdate, enddate)
 

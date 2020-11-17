@@ -296,8 +296,8 @@ var data
            {
               color = Colors[turn];
               turn += 1
-              dataset.push({"label": canton_name, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
-              dataset_tendency.push({"label": canton_name, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
+              dataset.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
+              dataset_tendency.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
               dataset_data = new Array()
               dataset_tendency_data = new Array()
 
@@ -311,9 +311,8 @@ var data
         });
 
               color = Colors[turn];
-        dataset.push({"label": canton_name, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
-        dataset_tendency.push({"label": canton_name, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
-
+        dataset.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
+        dataset_tendency.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
         annotations = LoadMeasureGraph(startdate, enddate, cantons, measures)
 
             config = {
@@ -389,7 +388,7 @@ var data
                     elements: {
                         point:{
                             radius: 0
-                        }
+                        },
                     },
                 data: {
                     labels: label_array,
