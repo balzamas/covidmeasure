@@ -71,7 +71,6 @@ function applyCountryBorder(map, countryname) {
                     }
                     else if (item.canton.level == 1)
                     {
-                       console.log(item.canton.swisstopo_id)
                         id = statesData['features'].findIndex(x => x.properties["BEZIRKSNUM"] === item.canton.swisstopo_id);
                         if (id > -1)
                             {
