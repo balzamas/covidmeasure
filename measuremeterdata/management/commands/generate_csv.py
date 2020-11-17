@@ -53,6 +53,22 @@ class Command(BaseCommand):
             f.write(f"{day.date},{day.country.name},{day.cases_past7days}\n")
         f.close()
 
+        f = open("measuremeter/static/csv/countries7_int_start.csv", "w")
+        start_date = date(2020, 2, 25)
+        cases = CasesDeaths.objects.filter(date__gte=start_date).order_by("date")
+        f.write("Date,Country,Value\n")
+        for day  in cases:
+            f.write(f"{day.date},{day.country.name},{day.cases_past7days}\n")
+        f.close()
+
+        f = open("measuremeter/static/csv/countries7_int_july.csv", "w")
+        start_date = date(2020, 7, 1)
+        cases = CasesDeaths.objects.filter(date__gte=start_date).order_by("date")
+        f.write("Date,Country,Value\n")
+        for day  in cases:
+            f.write(f"{day.date},{day.country.name},{day.cases_past7days}\n")
+        f.close()
+
 
         f = open("measuremeter/static/csv/countries14_death_start.csv", "w")
         start_date = date(2020, 3, 20)
