@@ -99,7 +99,6 @@ table.center {
 
   <table id="ranking">
     <h1>{% trans 'Swiss Covid Ranking 7 days' %}</h1>
-    {% trans "Don't take this too serious. It's the internet."%}
     <br><br>
     <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days'%}</a> // <a href="/ranking14">{% trans 'Ranking 14 days'%}</a> // <a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
 
@@ -108,9 +107,8 @@ table.center {
     <tr><th></th><th onclick="sortTable(1,'ranking')">{% trans 'Rank'%}</th>
       <th>{% trans 'Shift'%}</th>
       <th>{% trans 'Canton'%}</th>
-      <th>{% trans 'Score'%}</th>
-      <th align="center" onclick="sortTable(5,'ranking')">{% trans 'Prevalence 7d/100k<br>Graph: past 2 months'%}</th>
-      <th onclick="sortTable(6,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
+      <th align="center" onclick="sortTable(4,'ranking')">{% trans 'Prevalence 7d/100k<br>Graph: past 2 months'%}</th>
+      <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
       <th>{% trans 'Measures'%}</th>
     </tr>
     {% for hans in cantons %}
@@ -131,9 +129,6 @@ table.center {
       <td style="border-bottom: 3px solid black;">
 
         <b>{{ hans.name }}</b>
-      </td>
-      <td style="border-bottom: 3px solid black;">
-        <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>
       </td>
      <td style="border-bottom: 3px solid black;">
         <div hidden>{{ hans.cur_prev }}</div>
@@ -187,14 +182,8 @@ table.center {
   </table>
   <br>
   <p id="grande">
-    {% trans 'Formula = 0 - Cases past 14 days per 100k pop - (Tendency % (Cases past week compared to week before) * 2) )'%}<br>
-  {% trans 'Why this Formula? Combine current cases with development smh. For a true ranking we would need positivity rate, ICU occupancy etc. etc.'%}
-  </p>
-  <br><br>
   {% trans 'Source: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
-
-
-
+  </p>
       </div>
 <br><br>
   </body>

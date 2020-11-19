@@ -43,13 +43,13 @@ def ranking7_calc(cantons):
 
         canton_vals.append(canton_toadd)
 
-    scores = sorted(canton_vals, key=lambda i: i['score_before'], reverse=True)
+    scores = sorted(canton_vals, key=lambda i: i['cur_prev7'], reverse=False)
     rank = 1
     for score in scores:
         score["rank_old"] = rank
         rank += 1
 
-    scores = sorted(scores, key=lambda i: i['score'], reverse=True)
+    scores = sorted(scores, key=lambda i: i['cur_prev'], reverse=False)
     rank = 1
     for score in scores:
         score["rank"] = rank
@@ -102,18 +102,18 @@ def ranking14_calc(cantons):
             measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today()) | Q(end__isnull=True)).order_by("type__name")
 
             canton_toadd = {"name": canton.name, "score": int(score), "score_before": int(score_14days_before),
-                            "date": last_date, "cur_prev": last_prev,
+                            "date": last_date, "cur_prev": last_prev, "cur_prev14": case_14days_before.incidence_past14days,
                             "tendency": last_tendency, "icon": arrow, "level": canton.level, "code": canton.code,
                             "id": canton.swisstopo_id, "measures": measures}
             canton_vals.append(canton_toadd)
 
-    scores = sorted(canton_vals, key=lambda i: i['score_before'], reverse=True)
+    scores = sorted(canton_vals, key=lambda i: i['cur_prev14'], reverse=False)
     rank = 1
     for score in scores:
         score["rank_old"] = rank
         rank += 1
 
-    scores = sorted(scores, key=lambda i: i['score'], reverse=True)
+    scores = sorted(scores, key=lambda i: i['cur_prev'], reverse=False)
     rank = 1
     for score in scores:
         score["rank"] = rank
