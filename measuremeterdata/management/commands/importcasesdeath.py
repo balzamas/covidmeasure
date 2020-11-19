@@ -32,7 +32,7 @@ class Command(BaseCommand):
         workpath = os.path.dirname(os.path.abspath(__file__))  # Returns the Path your .py file is in
 
         print("Load data into django")
-        for cntry in Country.objects.filter(Q(code = 'us') | Q(code = 'au') | Q(code = 'cd')):
+        for cntry in Country.objects.filter(Q(code = 'us') | Q(code = 'au') | Q(code = 'ca')):
             countrycode = cntry.code;
             if (countrycode.lower() == 'gb'):
                 countrycode = 'uk'
