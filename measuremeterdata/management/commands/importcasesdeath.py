@@ -6,7 +6,7 @@ import datetime
 import requests
 import pandas as pd
 from datetime import date, timedelta
-
+from django.db.models import Q
 
 
 #Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863
@@ -32,7 +32,7 @@ class Command(BaseCommand):
         workpath = os.path.dirname(os.path.abspath(__file__))  # Returns the Path your .py file is in
 
         print("Load data into django")
-        for cntry in Country.objects.all():
+        for cntry in Country.objects.filter(Q(code = 'us') | Q(code = 'au') | Q(code = 'cd')):
             countrycode = cntry.code;
             if (countrycode.lower() == 'gb'):
                 countrycode = 'uk'
@@ -113,6 +113,18 @@ class Command(BaseCommand):
                 day.deaths_past14days = fourteen_avg_death
                 day.cases_past14days = fourteen_avg
                 day.cases_past7days = seven_avg
+
+                cases_past7 = sum(last_numbers[7:])
+                cases_past7_before = sum(last_numbers[:7])
+
+                if (cases_past7 == 0):
+                    cases_past7 = 1
+                if (cases_past7_before == 0):
+                    cases_past7_before = 1
+
+                day.development7to7 = (cases_past7 * 100 / cases_past7_before) - 100
+
+
                 day.save()
 
 
