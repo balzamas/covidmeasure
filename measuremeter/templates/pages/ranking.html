@@ -97,7 +97,7 @@ table.center {
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu_ch"></div>
 
-  <table>
+  <table id="ranking">
     <h1>{% trans 'Swiss Covid Ranking 7 days' %}</h1>
     {% trans "Don't take this too serious. It's the internet."%}
     <br><br>
@@ -105,13 +105,13 @@ table.center {
 
     <p id="grande">{% trans 'Graphs show development in the past 2 months.'%} {% trans 'For last update see date in graph.' %}</p>
 
-    <tr><td></td><td>{% trans 'Rank'%}</td>
-      <td>{% trans 'Shift'%}</td>
-      <td>{% trans 'Canton'%}</td>
-      <td>{% trans 'Score'%}</td>
-      <td align="center">{% trans 'Prevalence 7d/100k<br>Graph: past 2 months'%}</td>
-      <td>{% trans 'Tendency cases<br>Week over week'%}</td>
-      <td>{% trans 'Measures'%}</td>
+    <tr><th></th><th onclick="sortTable(1,'ranking')">{% trans 'Rank'%}</th>
+      <th>{% trans 'Shift'%}</th>
+      <th>{% trans 'Canton'%}</th>
+      <th>{% trans 'Score'%}</th>
+      <th align="center" onclick="sortTable(5,'ranking')">{% trans 'Prevalence 7d/100k<br>Graph: past 2 months'%}</th>
+      <th onclick="sortTable(6,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
+      <th>{% trans 'Measures'%}</th>
     </tr>
     {% for hans in cantons %}
 
@@ -120,6 +120,8 @@ table.center {
         <img src=/static/images/flags_ch/{{ hans.code  }}_circle.png>
       </td>
       <td style="border-bottom: 3px solid black;">
+        <div hidden>{{ hans.rank }}</div>
+
         {{ hans.rank }}
       </td>
       <td style="border-bottom: 3px solid black;">
@@ -134,6 +136,8 @@ table.center {
         <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>
       </td>
      <td style="border-bottom: 3px solid black;">
+        <div hidden>{{ hans.cur_prev }}</div>
+
         <div class="container">
             {% if hans.level == 0 %}
               <img src=/static/images/graphs_ch/{{ hans.code  }}_7.png>
@@ -144,6 +148,8 @@ table.center {
         </div>
       </td>
       <td style="border-bottom: 3px solid black;">
+        <div hidden>{{ hans.tendency|floatformat:1 }}</div>
+
         {{ hans.tendency|floatformat:1 }}%
       </td>
       <td style="white-space: nowrap;border-bottom: 3px solid black;">

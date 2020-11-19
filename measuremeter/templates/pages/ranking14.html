@@ -143,13 +143,13 @@ table.center {
 
   <table id="ranking">
 
-    <tr><td></td><td>{% trans 'Rank'%}</td>
-      <td>{% trans 'Shift'%}</td>
-      <td>{% trans 'Canton'%}</td>
-      <td>{% trans 'Score'%}</td>
-      <td align="center">{% trans 'Prevalence 14d/100k<br>Graph: past 2 months'%}</td>
-      <td>{% trans 'Tendency cases<br>Week over week'%}</td>
-      <td>{% trans 'Measures'%}</td>
+    <tr><th></th><th onclick="sortTable(1,'ranking')">{% trans 'Rank'%}</th>
+      <th>{% trans 'Shift'%}</th>
+      <th>{% trans 'Canton'%}</th>
+      <th>{% trans 'Score'%}</th>
+      <th align="center" onclick="sortTable(5,'ranking')">{% trans 'Prevalence 14d/100k<br>Graph: past 2 months'%}</th>
+      <th onclick="sortTable(6,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
+      <th>{% trans 'Measures'%}</th>
     {% for hans in cantons %}
         {% if "(BE)" in hans.name or "(AG)" in hans.name %}
         {% else %}
@@ -158,6 +158,7 @@ table.center {
         <img src=/static/images/flags_ch/{{ hans.code  }}_circle.png>
       </td>
       <td style="border-bottom: 3px solid black;">
+        <div hidden>{{ hans.rank }}</div>
         {{ hans.rank }}
       </td>
       <td style="border-bottom: 3px solid black;">
@@ -174,6 +175,7 @@ table.center {
         {% if "(BE)" in hans.name or "(AG)" in hans.name %}
           <div align="center">{{ hans.cur_prev }}</div>
         {% else %}
+          <div hidden>{{ hans.cur_prev }}</div>
           <div class="container">
             {% if hans.level == 0 %}
               <img src=/static/images/graphs_ch/{{ hans.code  }}_14.png>
@@ -185,6 +187,7 @@ table.center {
         {% endif %}
       </td>
       <td style="border-bottom: 3px solid black;">
+        <div hidden>{{ hans.tendency|floatformat:1 }}</div>
         {{ hans.tendency|floatformat:1 }}%
       </td>
       <td style="white-space: nowrap;border-bottom: 3px solid black;">
