@@ -81,7 +81,7 @@ table.center {
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu"></div>
 
-  <table>
+  <table id="ranking">
     <h1>Europe Covid Ranking</h1>
     Don't take this too serious. It's the internet.
     <br><br>
@@ -92,10 +92,11 @@ table.center {
     Nonetheless I decided to create a ranking system because I realized that I didn't notice when the situation was changing in other countries.<br>
     So with the help of this list I hope it's easier to see what's currently going on in Europe.</p>
 
-    <p><a href="/ranking_europe">Ranking Europe</a> // <a href="/ranking_world">Ranking World</a></p>
+    <p id="grande"><a href="/ranking_europe">Ranking Europe</a> // <a href="/ranking_world">Ranking World</a></p>
 
-    <br>
-    <tr><td></td><td>Trend</td><td>Country</td><td>Score</td><td>Pos. Tests per 100k<br>Last 14 days</td><td>Deaths per 100k<br>Last 14 days</td><td>Positive rate<br>7 days avg. @ Date</td><td>{% trans 'Tendency cases<br>Week/Prev. week'%}</td></tr>
+    <p id="grande">Click on table headers to sort.</p>
+
+    <tr><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(3,'ranking')">Score</th><th onclick="sortTable(4,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(5,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(7,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th></tr>
     {% for hans in countries %}
 
     <tr>
@@ -112,9 +113,11 @@ table.center {
         <a href="/country/{{hans.code}}"><i class="info circle icon"></i></a>
       </td>
       <td>
+        <div hidden>{{ hans.score }}</div>
         <b>{{ hans.score }} <i class="{{ hans.icon }} icon"></i></b>
       </td>
       <td>
+        <div hidden>{{ hans.cur_prev14 }}</div>
 
         <div class="container">
           <img src=/static/images/graphs_world/{{ hans.code  }}_cases.png>
@@ -124,6 +127,8 @@ table.center {
         {{ hans.peak_cases_date }}</div>
       </td>
       <td>
+         <div hidden>{{ hans.deaths }}</div>
+
         <div class="container">
         <img src=/static/images/graphs_world/{{ hans.code  }}_deaths.png>
           <div class="centered">{{ hans.deaths }}</div>
@@ -132,6 +137,8 @@ table.center {
         {{ hans.peak_deaths_date }}</div>
        </td>
       <td>
+        <div hidden>{{ hans.positivity|floatformat:1 }}</div>
+
         {% if hans.positivity != None %}
           <div class="container">
             <img src=/static/images/graphs_world/{{ hans.code  }}_positivity.png>
@@ -144,6 +151,8 @@ table.center {
         {% endif %}
       </td>
       <td>
+        <div hidden>{{ hans.tendency|floatformat:1 }}</div>
+
         {{ hans.tendency|floatformat:1 }}%
       </td>
     </tr>
