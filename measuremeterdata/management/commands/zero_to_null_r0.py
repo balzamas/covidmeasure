@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
             if (x.r0low == 0):
                 x.r0low = None
-                
+
             if (x.r0median == 0):
                 x.r0median = None
 
