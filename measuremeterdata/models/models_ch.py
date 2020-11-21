@@ -74,7 +74,9 @@ class CHCases(MotherModel):
     incidence_past10days = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     incidence_past7days = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     development7to7 = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
-
+    r0peak = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+    r0low = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+    r0median = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
 
     ordering = ['canton__pk', 'date', 'cases']
 

@@ -98,6 +98,9 @@
         var dataset_death = new Array()
         var dataset_death_data = new Array()
 
+        var dataset_r0 = new Array()
+        var dataset_r0_data = new Array()
+
         var dataset_positivity = new Array()
         var dataset_positivity_data = new Array()
 
@@ -135,11 +138,13 @@
                 dataset_death.push({"label": country_code.toUpperCase() + " All", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_total_data})
                }
               dataset_positivity.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
+              dataset_r0.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
 
               dataset_data = new Array()
               dataset_death_data = new Array()
               dataset_death_total_data = new Array()
               dataset_positivity_data = new Array()
+              dataset_r0_data = new Array()
               dataset_tendency_data = new Array()
 
               has_total_death = false
@@ -149,6 +154,7 @@
             country_code = line['country']['code']
             dataset_data.push(line['cases_past14days'])
             dataset_positivity_data.push(line['positivity'])
+            dataset_r0_data.push(line['r0median'])
             dataset_tendency_data.push(line['development7to7'])
             dataset_death_data.push(line['deaths_past14days'])
             //if (line['deaths_total_per100k'] > 0)
@@ -168,6 +174,7 @@
               dataset_death.push({"label": country_code.toUpperCase() + " All", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_total_data})
               }
         dataset_positivity.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
+        dataset_r0.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
         dataset_tendency.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
 
         annotations = LoadMeasure(countries, measures, startdate, enddate)
@@ -299,6 +306,97 @@
                 },
 
             };
+
+            config_r0 = {
+                type: 'line',
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
+                data: {
+                    labels: label_array,
+                    datasets: dataset_r0
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Re -  Average effective reproductive number over the last 7 days ',
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Re -  Average effective reproductive number over the last 7 days'
+                            }
+                        }
+                    },
+                    plugins: {
+                        zoom: {
+                            // Container for pan options
+                            pan: {
+                                // Boolean to enable panning
+                                enabled: true,
+
+                                // Panning directions. Remove the appropriate direction to disable
+                                // Eg. 'y' would only allow panning in the y direction
+                                mode: 'y'
+                            },
+
+                            // Container for zoom options
+                            zoom: {
+                                // Boolean to enable zooming
+                                enabled: true,
+
+                                // Zooming directions. Remove the appropriate direction to disable
+                                // Eg. 'y' would only allow zooming in the y direction
+                                mode: 'y',
+                            }
+                        }
+        },
+      annotation: {
+        events: ["click","mouseover"],
+        annotations: annotations
+
+
+
+          }
+                },
+
+            };
+
 
             config_positivity = {
                 type: 'line',
@@ -482,6 +580,9 @@
                 if(window.myLinePositivity && window.myLinePositivity !== null){
                    window.myLinePositivity.destroy();
                 }
+                if(window.myLineR0 && window.myLineR0 !== null){
+                   window.myLineR0.destroy();
+                }
 
                 if(window.myLineTendency && window.myLineTendency !== null){
                    window.myLineTendency.destroy();
@@ -501,6 +602,7 @@
     			window.myLine = new Chart(ctx, config);
     			window.myLineDeath = new Chart(ctx_death, config_death);
     			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
+    			window.myLineR0 = new Chart(ctx_r0, config_r0);
     			window.myLineTendency = new Chart(ctx_tendency, config_tendency);
 
             });
@@ -519,6 +621,10 @@
 
             $("#save_positivity").click(function(){
                             save_image("compareChartPositivity")
+            });
+
+            $("#save_r0").click(function(){
+                            save_image("compareChartR0")
             });
 
 		    LoadMeasureTypes();
@@ -577,6 +683,9 @@
 
 			var ctx_positivity = document.getElementById('compareChartPositivity').getContext('2d');
 			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
+
+			var ctx_r0 = document.getElementById('compareChartR0').getContext('2d');
+			window.myLineR0 = new Chart(ctx_r0, config_r0);
 
 			var ctx_tendency = document.getElementById('compareChartTendency').getContext('2d');
 			window.myLineTendency = new Chart(ctx_tendency, config_tendency);

@@ -146,6 +146,8 @@
 
       <canvas id="compareChart">
       </canvas>
+    <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a><br><br>
+
                 <div class="ui vertical animated large button" tabindex="0" id="save_incidence" style="width:100px">
                 <div class="hidden content" >{% trans 'Save'%}</div>
                 <div class="visible content">
@@ -155,9 +157,28 @@
         <div id="dialog" title="Basic dialog">
       </div>
 <br><br>
+        <canvas id="compareR0">
+      </canvas>
+        <div id="dialogR0" title="Basic dialog">
+      </div>
+  Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>
+  R<sub>e</sub> estimation based on confirmed cases is used.<br>
+  This is the mean R<sub>e</sub>, for high/low, visit the <a href="https://ibz-shiny.ethz.ch/covid-19-re/" target="_blank">Dashboard</a> of ETH Zurich.<br>
+  The methods used are explained <a href="https://ibz-shiny.ethz.ch/covid-19-re/methods.pdf" target="_blank">here</a>.
+  <br><br>
+  <div class="ui vertical animated large button" tabindex="0" id="save_r0" style="width:100px">
+                <div class="hidden content" >Save</div>
+                <div class="visible content">
+                  <i class="save icon"></i>
+                </div>
+              </div>
+  <br><br>
+
         <canvas id="compareTendency">
       </canvas>
-            {% trans 'Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = Cases double in a week, 0 = constant growth, < 0 cases go down.'%}
+            {% trans 'Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = Cases double in a week, 0 = constant growth, < 0 cases go down.'%}<br>
+            <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a>
+<br><br>
         <div id="dialogTendency" title="Basic dialog">
       </div>
                   <div class="ui vertical animated large button" tabindex="0" id="save_tendency" style="width:100px">
@@ -168,7 +189,6 @@
               </div>
 
   <br><br>
-  <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a>
 
 <!--
 

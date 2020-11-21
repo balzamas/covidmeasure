@@ -280,6 +280,8 @@ var data
         var dataset_data = new Array()
         var dataset_tendency = new Array()
         var dataset_tendency_data = new Array()
+        var dataset_r0 = new Array()
+        var dataset_r0_data = new Array()
 
         var label_array = new Array()
 
@@ -298,14 +300,18 @@ var data
               turn += 1
               dataset.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
               dataset_tendency.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
+              dataset_r0.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
+
               dataset_data = new Array()
               dataset_tendency_data = new Array()
+              dataset_r0_data = new Array()
 
            }
             canton_pk = line["canton"]["pk"]
             canton_name = line['canton']['code'].toUpperCase();
             dataset_data.push(line['incidence_past7days'])
             dataset_tendency_data.push(line['development7to7'])
+            dataset_r0_data.push(line['r0median'])
 
 
         });
@@ -313,6 +319,7 @@ var data
               color = Colors[turn];
         dataset.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
         dataset_tendency.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
+        dataset_r0.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
         annotations = LoadMeasureGraph(startdate, enddate, cantons, measures)
 
             config = {
@@ -383,6 +390,97 @@ var data
                 },
 
             };
+
+            config_r0 = {
+                type: 'line',
+                    elements: {
+                        point:{
+                            radius: 0
+                        },
+                    },
+                data: {
+                    labels: label_array,
+                    datasets: dataset_r0
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: [gettext('Re -  Average effective reproductive number over the last 7 days')],
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                    xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: gettext('Day')
+                            },
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: gettext('Re -  Average effective reproductive number over the last 7 days')
+                            }
+                        }
+                    },
+                    plugins: {
+            zoom: {
+                // Container for pan options
+                pan: {
+                    // Boolean to enable panning
+                    enabled: true,
+
+                    // Panning directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow panning in the y direction
+                    mode: 'y'
+                },
+
+                // Container for zoom options
+                zoom: {
+                    // Boolean to enable zooming
+                    enabled: true,
+
+                    // Zooming directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow zooming in the y direction
+                    mode: 'y',
+                }
+            }
+        },
+      annotation: {
+        events: ["click","mouseover"],
+        annotations: annotations
+
+
+
+          }
+                },
+
+            };
+
             config_tendency = {
                 type: 'line',
                     elements: {
@@ -587,6 +685,10 @@ var data
                 if(window.myLineTendency && window.myLineTendency !== null){
                    window.myLineTendency.destroy();
                 }
+
+                if(window.myLineR0 && window.myLineR0!== null){
+                   window.myLineR0.destroy();
+                }
                 var datefrom = document.getElementById("datefrom").value;
                 var dateto = document.getElementById("dateto").value;
 
@@ -600,6 +702,7 @@ var data
                 LoadDataGraph(datefrom_real,dateto_real,$('#cantons_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'));
     			window.myLine = new Chart(ctx, config);
     			window.myLineTendency = new Chart(ctxTendency, config_tendency);
+    			window.myLineR0 = new Chart(ctxR0, config_r0);
 
             });
 
@@ -609,6 +712,10 @@ var data
 
             $("#save_tendency").click(function(){
                             save_image("compareTendency")
+            });
+
+            $("#save_r0").click(function(){
+                            save_image("compareR0")
             });
 
             $('#dimmer').dimmer('show');
@@ -647,6 +754,9 @@ var data
 
                 var ctxTendency = document.getElementById('compareTendency').getContext('2d');
                 window.myLineTendency = new Chart(ctxTendency, config_tendency);
+
+                var ctxR0 = document.getElementById('compareR0').getContext('2d');
+                window.myLineR0 = new Chart(ctxR0, config_r0);
             }
             else
             {
@@ -663,6 +773,9 @@ var data
 
                 var ctxTendency = document.getElementById('compareTendency').getContext('2d');
                 window.myLineTendency = new Chart(ctxTendency, config_tendency);
+
+                var ctxR0 = document.getElementById('compareR0').getContext('2d');
+                window.myLineR0 = new Chart(ctxR0, config_r0);
             }
 
             //LoadCantonData();

@@ -29,11 +29,10 @@ class Country(MotherModel):
     average_death_per_day_peak = models.DecimalField(default=0,max_digits=17, decimal_places=5)
     avg_desc = models.CharField(max_length=500,blank=True,null=True)
     avg_peak_desc = models.CharField(max_length=500,blank=True,null=True)
-    peak_year = models.CharField(max_length=4,null=True)
+    peak_year = models.CharField(max_length=4,blank=True,null=True)
     source_death = models.CharField(max_length=500,blank=True,null=True)
     population = models.IntegerField(default=1)
     has_measures = models.BooleanField(default= True)
-
     ordering = ['name']
 
     def __str__(self):
@@ -93,6 +92,9 @@ class CasesDeaths(MotherModel):
     cases_past7days = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
     positivity = models.DecimalField(max_digits=9, decimal_places=4,blank=True,null=True)
     development7to7 = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    r0peak = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+    r0low = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+    r0median = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
 
     ordering = ['country__pk', 'date', 'cases', 'deaths']
 

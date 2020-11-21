@@ -122,13 +122,34 @@
         <div id="dialog" title="Basic dialog">
       </div>
 </div>
+    <br>
     Source Cases: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+
+  <br><br>
+<div class="chart-container" style="position: relative">
+      <canvas id="compareChartR0">
+      </canvas>
+
+                   <div class="ui vertical animated large button" tabindex="0" id="save_r0" style="width:100px">
+                <div class="hidden content" >Save</div>
+                <div class="visible content">
+                  <i class="save icon"></i>
+                </div>
+              </div>
+</div>
+  <br>
+  Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>
+  R<sub>e</sub> estimation based on confirmed cases is used.<br>
+  This is the mean R<sub>e</sub>, for high/low, visit the <a href="https://ibz-shiny.ethz.ch/covid-19-re/" target="_blank">Dashboard</a> of ETH Zurich.<br>
+  The methods used are explained <a href="https://ibz-shiny.ethz.ch/covid-19-re/methods.pdf" target="_blank">here</a>.
 
   <br><br>
 
   <p id="grande"><b>Development past week/week before (%)</b></p>
         <canvas id="compareChartTendency">
       </canvas>
+  <br>
+
     Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = Cases double in a week, 0 = constant growth, <0 growth slowing down.<br>
 
                   <div class="ui vertical animated large button" tabindex="0" id="save_tendency" style="width:100px">
@@ -151,12 +172,14 @@
                 </div>
               </div>
 </div>
+    <br>
   Source Covid deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
 
 <div class="chart-container" style="position: relative">
       <canvas id="compareChartPositivity">
       </canvas>
   A positivity rate higher then 5% is considered as a sign that there is not enough testing and a danger of loosing control. See this <a href="https://www.jhsph.edu/covid-19/articles/covid-19-testing-understanding-the-percent-positive.html">article</a> from the John Hopkins University.<br>
+  <br>
 
                    <div class="ui vertical animated large button" tabindex="0" id="save_positivity" style="width:100px">
                 <div class="hidden content" >Save</div>
@@ -165,6 +188,8 @@
                 </div>
               </div>
 </div>
+    <br>
+
   Source Positivity: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a>
 
 
