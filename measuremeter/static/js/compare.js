@@ -323,7 +323,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Re -  Average effective reproductive number over the last 7 days ',
+                        text: 'Re -  Effective reproductive number (mean)',
                         fontSize: 25
 
                     },
@@ -359,7 +359,7 @@
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Re -  Average effective reproductive number over the last 7 days'
+                                labelString: 'Re -  Effective reproductive number (mean)'
                             }
                         }
                     },

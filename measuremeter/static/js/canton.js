@@ -407,7 +407,7 @@ var data
                     responsive: true,
                     title: {
                         display: true,
-                        text: [gettext('Re -  Average effective reproductive number over the last 7 days')],
+                        text: [gettext('Re -  Effective reproductive number (mean)')],
                         fontSize: 25
 
                     },
@@ -443,7 +443,7 @@ var data
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: gettext('Re -  Average effective reproductive number over the last 7 days')
+                                labelString: gettext('Re -  Effective reproductive number (mean)')
                             }
                         }
                     },
