@@ -86,7 +86,11 @@ class Command(BaseCommand):
 
             print(canton.name)
             for day in rec_cases:
-                last_numbers.append(day.cases)
+                if (day.cases):
+                    last_numbers.append(day.cases)
+                else:
+                    last_numbers.append(0)
+
                 last_numbers.pop(0)
                 tot = 0
                 ten_tot = 0
@@ -95,10 +99,10 @@ class Command(BaseCommand):
                 for x in last_numbers:
                     tot += x
                     if (daycount > 3):
-                        ten_tot += x
+                       ten_tot += x
 
                     if (daycount > 6):
-                        seven_tot += x
+                       seven_tot += x
 
                     daycount += 1
 
