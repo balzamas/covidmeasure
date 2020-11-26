@@ -31,6 +31,7 @@ def country_deaths(request):
         week_values_coviddeaths = {}
         week_values_alldeaths = {}
         week_values_alldeaths_peak = {}
+        week_values_avg_and_covid = {}
 
         #week = 8
         week = 1
@@ -83,6 +84,7 @@ def country_deaths(request):
                 if week_value_peak_all:
                     week_values_alldeaths_peak[week] = int(week_value_peak_all)
                 week_values_coviddeaths[week] = week_value_covid
+                week_values_avg_and_covid[week] = int((country.average_death_per_day*7) + week_value_covid)
                 weekday = 1
                 week_value_covid = 0
                 week_value_all = -1
@@ -106,6 +108,7 @@ def country_deaths(request):
                           "covid": week_values_coviddeaths,
                           "all": week_values_alldeaths,
                           "all_peak": week_values_alldeaths_peak,
+                          "avg_and_covid": week_values_avg_and_covid,
 
                         "death_covid_week2": int(death_covid_week2),
                         "death_total_week2" : int(death_total_week2),
