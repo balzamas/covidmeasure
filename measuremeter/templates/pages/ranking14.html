@@ -149,7 +149,7 @@ table.center {
       <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
       <th>{% trans 'Measures'%}</th>
     {% for hans in cantons %}
-        {% if "(BE)" in hans.name or "(AG)" in hans.name %}
+        {% if "(AG)" in hans.name %}
         {% else %}
     <tr>
       <td style="border-bottom: 3px solid black;">
