@@ -28,7 +28,7 @@ class Command(BaseCommand):
         last_7days = -1
 
         for row in my_list:
-            if (count > 1):
+            if (count > 0):
                 if row[4] != '' and int(row[4]) > 28:
                     date = import_helper.get_start_end_dates(int(row[5]), int(row[4]))[1]
 
