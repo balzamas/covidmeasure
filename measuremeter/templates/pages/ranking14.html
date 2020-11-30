@@ -148,6 +148,7 @@ table.center {
       <th align="center" onclick="sortTable(4,'ranking')">{% trans 'Prevalence 14d/100k<br>Graph: past 2 months'%}</th>
       <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
       <th>{% trans 'Measures'%}</th>
+    </tr>
     {% for hans in cantons %}
         {% if "(AG)" in hans.name %}
         {% else %}
