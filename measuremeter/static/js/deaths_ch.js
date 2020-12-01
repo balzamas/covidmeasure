@@ -6,11 +6,6 @@
         var dataset_data_deaths = new Array()
         var dataset_data_deaths_avg = new Array()
 
-
-        console.log(deaths)
-        console.log(deaths_avg)
-        console.log("..................")
-
         obj_deaths = deaths.split("[")[1].split("]")[0]
         obj_deaths_avg = deaths_avg.split("[")[1].split("]")[0]
 
@@ -22,10 +17,6 @@
                 dataset_data_deaths.push(obj_deaths.split(",")[property]);
                 dataset_data_deaths_avg.push(parseFloat(obj_deaths_avg.split(",")[property].replace('Decimal(&#x27;','').replace('&#x27;','')));
         }
-
-        console.log(dataset_data_deaths)
-        console.log(dataset_data_deaths_avg)
-
 
         color = '#ff6600'
         dataset_deaths.push({"label": "2020", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
