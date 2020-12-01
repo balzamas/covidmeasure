@@ -46,9 +46,23 @@
                 var content = document.getElementById('content');
                 var div = document.createElement('div');
                 div.id = '{{canton.canton.code}}' + 'Chart';
-                div.innerHTML =   '<table><tr><td><div class="chart-container"><canvas id="'+ '{{canton.canton.code}}' +'deathChart"></canvas></div></td></tr></table><br>'
+                div.innerHTML =   '<table><tr><td><div class="chart-container"><canvas id="'+ '{{canton.canton.code}}' +'deathChart"></canvas></div></td></tr></table>\
+                <table><tr>\
+                <td><img src=/static/images/flags_ch/{{ canton.canton.code  }}_circle.png></td>\
+                <td>&nbsp;</td>\
+                <td>\
+                  <table>\
+                   <tr><td>2020:</td><td>&nbsp;</td><td>{{canton.total20}}</td></tr>\
+                   <tr><td>2019:</td><td>&nbsp;</td><td>{{canton.total19}}</td><td>&nbsp;</td><td>{{ canton.diff19|floatformat:2 }} %</td></tr>\
+                   <tr><td>2015:</td><td>&nbsp;</td><td>{{canton.total15}}</td><td>&nbsp;</td><td>{{ canton.diff15|floatformat:2 }} %</td></tr>\
+                   <tr><td>&#8709; 15-19:</td><td>&nbsp;</td><td>{{canton.total_avg|floatformat:0}}</td><td>&nbsp;</td><td>{{ canton.diff_avg|floatformat:2 }} %</td></tr>\
+                  </table>\
+              </td>\
+                </tr></table>'
+
+
                 content.appendChild(div);
-                drawLineChart('{{canton.all}}', '{{canton.all_avg}}', '{{canton.canton.name}}', '{{canton.canton.code}}')
+                drawLineChart('{{canton.all}}', '{{canton.all_avg}}', '{{canton.all15}}', '{{canton.all19}}', '{{canton.canton.name}}', '{{canton.canton.code}}')
 
           {% endfor %}
 
