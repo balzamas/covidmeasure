@@ -41,11 +41,8 @@ class Command(BaseCommand):
             with open('/tmp/death_ch.csv', newline='') as csvfile:
                 spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
                 rowcount = 0
-                print(canton.code)
                 for row in spamreader:
-                    print(row)
                     if rowcount > 6 and row[1] != '':
-                        print(row[0])
                         avg = (float(row[2]) + float(row[3]) + float(row[4]) + float(row[5]) + float(row[6]))/5
                         try:
                             cd_existing = CHDeaths.objects.get(canton=canton, week=row[0])
@@ -56,6 +53,8 @@ class Command(BaseCommand):
                         except CHDeaths.DoesNotExist:
                             cd = CHDeaths(canton=canton, deaths=int(row[1]), average_deaths=avg, week=row[0])
                             cd.save()
+                        except:
+                            print("Other error")
                     rowcount += 1
 
 
