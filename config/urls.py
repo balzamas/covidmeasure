@@ -5,7 +5,7 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework import routers
-from measuremeterdata.views import view_deaths, views_belgium, views_ranking_ch, views_ranking_int, viewsets
+from measuremeterdata.views import view_deaths, view_deaths_ch,views_belgium, views_ranking_ch, views_ranking_int, viewsets
 from riskcalc import views as risk_views
 from config import views
 from django.conf.urls.i18n import i18n_patterns
@@ -52,14 +52,12 @@ urlpatterns = [
     "about/", TemplateView.as_view(template_name="pages/about.html"), name="About"
                   ),
     path('deaths/', view_deaths.country_deaths, name='deaths'),
+    path('deaths_ch/', view_deaths_ch.canton_deaths, name='deaths_ch'),
 
-    path(
+                  path(
     "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
                   ),
 
-    path(
-                      "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
-                  ),
     path(
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
                   ),

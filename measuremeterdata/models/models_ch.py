@@ -82,3 +82,14 @@ class CHCases(MotherModel):
 
     def __str__(self):
         return f"{self.canton} {self.date}"
+
+class CHDeaths(MotherModel):
+    canton = models.ForeignKey(CHCanton, on_delete=models.CASCADE)
+    week = models.IntegerField(null=True,blank=True)
+    deaths = models.IntegerField(null=True,blank=True)
+    average_deaths = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+
+    ordering = ['canton__pk', 'week']
+
+    def __str__(self):
+        return f"{self.canton} {self.week}"

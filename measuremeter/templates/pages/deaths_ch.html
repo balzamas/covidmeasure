@@ -1,0 +1,90 @@
+{% load static i18n %}
+{% load static %}
+{# Load the tag library #}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>CovidLaws // Todesfälle pro Kanton</title>
+        <meta name="description" content="Risiko Karte für die Schweiz - wahrscheinlichkeit Covid Corona infizierte Person, Carte risque suisse covid corona gruppen groupe">
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/menu.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'js/base_global.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/deaths_ch.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+
+
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+  .chart-container {
+      width: 1000px;
+      height:500px
+  }
+
+	</style>
+  <script>
+          $(window).on('load', function() {
+
+          {% for canton in cantons %}
+                var content = document.getElementById('content');
+                var div = document.createElement('div');
+                div.id = '{{canton.canton.code}}' + 'Chart';
+                div.innerHTML =   '<table><tr><td><div class="chart-container"><canvas id="'+ '{{canton.canton.code}}' +'deathChart"></canvas></div></td></tr></table><br>'
+                content.appendChild(div);
+                drawLineChart('{{canton.all}}', '{{canton.all_avg}}', '{{canton.canton.name}}', '{{canton.canton.code}}')
+
+          {% endfor %}
+
+
+
+
+      });
+  </script>
+
+</head>
+<body>
+
+  <div style="margin-left: 90;margin-top: 30;margin-right: 90;">
+
+
+
+    <h1>CovidLaws // Todesfälle pro Kanton</h1>
+    <div id="menu"></div>
+
+        <div style="max-width:1300;  display: block;  margin-left: auto; margin-right: auto;">
+
+    <h1>Todesfälle pro Kanton</h1>
+          <p>Die Zahlen sind provisorisch und werden jeden Dienstag nachgeführt.</p>
+
+
+    <div id="content"></div>
+
+
+
+
+  </div>
+
+  </body>
+</html>
+
+
+
+
+
