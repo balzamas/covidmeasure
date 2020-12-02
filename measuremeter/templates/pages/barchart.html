@@ -78,15 +78,6 @@
                   <td>Positivity rates in European countries</td>
                   <td><a href="" @click.prevent="loadExample('covid19_eu_positivity_start')">load data</a></td>
                 </tr>
-                <tr>
-                  <td>Belgian provinces since July</td>
-                  <td><a href="" @click.prevent="loadExample('covid19_bel_july')">load data</a></td>
-                </tr>
-                <tr>
-                  <td>Belgian provinces since begin</td>
-                  <td><a href="" @click.prevent="loadExample('covid19_bel_start')">load data</a></td>
-                </tr>
-
                 </tbody>
 
               </table>
@@ -243,18 +234,6 @@
             "top_n": 20,
             "title": "Cantons Incidence 14 days ",
             "url": "{% static 'csv/cantons14_july.csv' %}"
-        },
-        "covid19_bel_start": {
-            "duration": 60,
-            "top_n": 20,
-            "title": "Provinces Incidence 14 days ",
-            "url": "{% static 'csv/bel14_start.csv' %}"
-        },
-        "covid19_bel_july": {
-            "duration": 30,
-            "top_n": 20,
-            "title": "Provinces Incidence 14 days ",
-            "url": "{% static 'csv/bel14_july.csv' %}"
         },
         "covid19_eu_start": {
             "duration": 60,
