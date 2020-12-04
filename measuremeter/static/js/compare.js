@@ -178,6 +178,22 @@
         dataset_tendency.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
 
         annotations = LoadMeasure(countries, measures, startdate, enddate)
+        annotations_zero = $.extend( true, [], annotations );
+
+        annotations_zero.push({
+						type: 'line',
+						mode: 'horizontal',
+						scaleID: 'y-axis-0',
+						value: 0,
+						borderColor: 'green',
+						borderWidth: 2,
+						label: {
+							backgroundColor: 'green',
+							content: "0",
+							fontSize: 19,
+							enabled: true
+					    	},
+						})
 
             config = {
                 type: 'line',
@@ -388,7 +404,7 @@
         },
       annotation: {
         events: ["click","mouseover"],
-        annotations: annotations
+        annotations: annotations_zero
 
 
 
@@ -558,7 +574,7 @@
         },
       annotation: {
         events: ["click","mouseover"],
-        annotations: annotations
+        annotations: annotations_zero
 
 
 

@@ -209,7 +209,22 @@
         }
 
         annotations = LoadMeasure(country, '', startdate, lastdate_x)
+        annotations_zero = $.extend( true, [], annotations );
 
+        annotations_zero.push({
+						type: 'line',
+						mode: 'horizontal',
+						scaleID: 'y-axis-0',
+						value: 0,
+						borderColor: 'green',
+						borderWidth: 2,
+						label: {
+							backgroundColor: 'green',
+							content: "0",
+							fontSize: 19,
+							enabled: true
+					    	},
+						})
 
 
             config_cases = {
@@ -464,7 +479,7 @@
         },
               annotation: {
         events: ["click","mouseover"],
-        annotations: annotations
+        annotations: annotations_zero
 
 
 
