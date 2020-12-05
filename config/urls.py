@@ -52,7 +52,6 @@ urlpatterns = [
     "about/", TemplateView.as_view(template_name="pages/about.html"), name="About"
                   ),
     path('deaths/', view_deaths.country_deaths, name='deaths'),
-    path('deaths_ch/', view_deaths_ch.canton_deaths, name='deaths_ch'),
 
                   path(
     "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
@@ -81,6 +80,8 @@ urlpatterns += i18n_patterns(
     path(
         "belrisk/", risk_views.belgium_risk, name="Bel Riskmap"
     ),
+    path('deaths_ch/', view_deaths_ch.canton_deaths, name='deaths_ch'),
+
     path(
         "districts/", TemplateView.as_view(template_name="pages/district.html"), name="CH districts"
     ),

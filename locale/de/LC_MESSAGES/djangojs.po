@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 12:19+0100\n"
+"POT-Creation-Date: 2020-12-05 23:35+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,53 +18,61 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: measuremeter/static/js/canton.js:336 measuremeter/static/js/canton.js:372
+#: measuremeter/static/js/canton.js:352 measuremeter/static/js/canton.js:388
 msgid "Incidence per 100k/past 7 days"
 msgstr "Inzidenz pro 100k in den letzten 7 Tage"
 
-#: measuremeter/static/js/canton.js:403 measuremeter/static/js/canton.js:439
-msgid "Development past week/week before (%)"
-msgstr "Entwicklung Fälle Woche/Vorwoche (%)"
+#: measuremeter/static/js/canton.js:420 measuremeter/static/js/canton.js:456
+msgid "Re -  Effective reproductive number (mean)"
+msgstr "Re - effektive Reproduktionsrate (Mittelwert)"
 
-#: measuremeter/static/js/canton.js:432
+#: measuremeter/static/js/canton.js:449 measuremeter/static/js/canton.js:539
 msgid "Day"
 msgstr "Tag"
 
-#: measuremeter/static/js/chmap.js:80 measuremeter/static/js/district.js:158
+#: measuremeter/static/js/canton.js:510 measuremeter/static/js/canton.js:546
+msgid "Development past week/week before (%)"
+msgstr "Entwicklung Fälle Woche/Vorwoche (%)"
+
+#: measuremeter/static/js/chmap.js:80 measuremeter/static/js/district.js:157
 #: riskcalc/static/js/belrisk.js:207
 msgid "Hover over a state"
 msgstr "Für Details:<br>Klick auf Gebiet"
 
-#: measuremeter/static/js/chmap.js:235 measuremeter/static/js/district.js:354
+#: measuremeter/static/js/chmap.js:235 measuremeter/static/js/district.js:353
 msgid "Undefined"
 msgstr "Undef."
 
-#: measuremeter/static/js/district.js:68 measuremeter/static/js/district.js:93
-#: measuremeter/static/js/district.js:97
+#: measuremeter/static/js/district.js:68 measuremeter/static/js/district.js:92
+#: measuremeter/static/js/district.js:96
 msgid "Population"
 msgstr "Bevölkerung"
 
-#: measuremeter/static/js/district.js:68 measuremeter/static/js/district.js:93
-#: measuremeter/static/js/district.js:97
+#: measuremeter/static/js/district.js:68 measuremeter/static/js/district.js:92
+#: measuremeter/static/js/district.js:96
 msgid "Last update"
 msgstr "Letztes update"
 
-#: measuremeter/static/js/district.js:68 measuremeter/static/js/district.js:97
+#: measuremeter/static/js/district.js:68 measuremeter/static/js/district.js:96
 msgid "Development past 2 months."
 msgstr "Entwicklung letzte 2 Monate"
 
 #: measuremeter/static/js/menu.js:25
-msgid "Risk calculator"
-msgstr "Risikorechner"
+msgid "Map cases Districts Cantons"
+msgstr "Fälle pro Einw.<br>Bezirke & Kantone"
 
 #: measuremeter/static/js/menu.js:27
 msgid "Ranking"
 msgstr "Ranglisten"
 
+#: measuremeter/static/js/menu.js:29
+msgid "Europe"
+msgstr "Europa"
+
 #: riskcalc/static/js/belrisk.js:206 riskcalc/static/js/belrisk.js:265
 #: riskcalc/static/js/belrisk.js:293 riskcalc/static/js/belrisk.js:294
 msgid "Risk"
-msgstr ""
+msgstr "Risiko"
 
 #: riskcalc/static/js/belrisk.js:260
 msgid "Cases/100k pop past "
@@ -74,14 +82,16 @@ msgstr ""
 msgid "days"
 msgstr ""
 
-#~ msgid "Measures<br>Case development"
+#, fuzzy
+#~| msgid "Measures<br>Case development"
+#~ msgid "Measures Case development"
 #~ msgstr "Massnahmen<br>Fallentwicklung"
 
-#~ msgid "Map cases<br>Districts & Cantons"
-#~ msgstr "Fälle pro Einw.<br>Bezirke & Kantone"
+#~ msgid "Risk calculator"
+#~ msgstr "Risikorechner"
 
-#~ msgid "Europe"
-#~ msgstr "Europa"
+#~ msgid "Deaths per canton"
+#~ msgstr "Todesfälle per Kanton"
 
 #~ msgid "Measures"
 #~ msgstr "Massnahmen"

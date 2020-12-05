@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-09 12:07+0100\n"
+"POT-Creation-Date: 2020-12-05 23:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -299,56 +299,59 @@ msgstr "Fallzahlen und Massnahmen (Kantone)"
 msgid "Switzerland"
 msgstr "Schweiz"
 
-#: measuremeter/templates/pages/canton.html:80
+#: measuremeter/templates/pages/canton.html:87
 msgid "Loading"
 msgstr "Lade"
 
-#: measuremeter/templates/pages/canton.html:83
+#: measuremeter/templates/pages/canton.html:90
 msgid "Incidence and measures"
 msgstr "Fallzahlen und Massnahmen"
 
-#: measuremeter/templates/pages/canton.html:89
+#: measuremeter/templates/pages/canton.html:96
 msgid "Cantons (empty=all)"
 msgstr "Kantone (leer=alle)"
 
-#: measuremeter/templates/pages/canton.html:95
+#: measuremeter/templates/pages/canton.html:102
 msgid "Cantons"
 msgstr "Kantone"
 
-#: measuremeter/templates/pages/canton.html:102
+#: measuremeter/templates/pages/canton.html:109
 msgid "Measure type (empty=all)"
 msgstr "Massnahmen (leer=alle)"
 
-#: measuremeter/templates/pages/canton.html:107
+#: measuremeter/templates/pages/canton.html:114
 msgid "Measure types"
 msgstr "Massnahmen"
 
-#: measuremeter/templates/pages/canton.html:117
+#: measuremeter/templates/pages/canton.html:124
 msgid "From:"
 msgstr "Von:"
 
-#: measuremeter/templates/pages/canton.html:118
+#: measuremeter/templates/pages/canton.html:125
 msgid "To:"
 msgstr "Bis:"
 
-#: measuremeter/templates/pages/canton.html:124
+#: measuremeter/templates/pages/canton.html:131
 #: riskcalc/templates/pages/belrisk.html:179
 msgid "Load"
 msgstr ""
 
-#: measuremeter/templates/pages/canton.html:136
+#: measuremeter/templates/pages/canton.html:143
 msgid "Click on lines/cantons for details."
 msgstr "Klicke auf Linie/Kanton für Details."
 
-#: measuremeter/templates/pages/canton.html:143
+#: measuremeter/templates/pages/canton.html:152
 msgid "Save"
 msgstr "Speichern"
 
-#: measuremeter/templates/pages/canton.html:153
+#: measuremeter/templates/pages/canton.html:179
 msgid ""
 "Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = "
 "Cases double in a week, 0 = constant growth, < 0 cases go down."
-msgstr "Veränderung der Fälle der letzten 7 Tage verglichen mit der Vorwoche. Wert > 100 = neue Fälle verdoppeln sich jede Woche, 0 = konstantes Wachstum, <0 Fälle gehen runter."
+msgstr ""
+"Veränderung der Fälle der letzten 7 Tage verglichen mit der Vorwoche. Wert > "
+"100 = neue Fälle verdoppeln sich jede Woche, 0 = konstantes Wachstum, <0 "
+"Fälle gehen runter."
 
 #: measuremeter/templates/pages/ch.html:29
 msgid "CovidLaws - Coronavirus measures and data Switzerland"
@@ -378,7 +381,15 @@ msgstr "Karten Massnahmen"
 msgid "Rankings"
 msgstr "Ranglisten"
 
-#: measuremeter/templates/pages/ch.html:120
+#: measuremeter/templates/pages/ch.html:126
+msgid "Deaths"
+msgstr "Todesfälle"
+
+#: measuremeter/templates/pages/ch.html:128
+msgid "per canton"
+msgstr "per Kanton"
+
+#: measuremeter/templates/pages/ch.html:136
 msgid "Last changes"
 msgstr "Letzte updates"
 
@@ -498,7 +509,7 @@ msgstr "seit 24. Februar"
 
 #: measuremeter/templates/pages/district.html:116
 msgid "Further information Switzerland"
-msgstr ""
+msgstr "Weitere Informationen zur Schweiz"
 
 #: measuremeter/templates/pages/district.html:117
 msgid "The ultimate Switzerland data page for Corona related stats:"
@@ -530,8 +541,9 @@ msgid "Sources districts:"
 msgstr "Quellen Bezirke"
 
 #: measuremeter/templates/pages/district.html:129
+#: measuremeter/templates/pages/district.html:132
+#: measuremeter/templates/pages/district.html:136
 #: measuremeter/templates/pages/district.html:137
-#: measuremeter/templates/pages/district.html:138
 msgid "monday"
 msgstr "Montag"
 
@@ -540,7 +552,6 @@ msgid "daily/workdays"
 msgstr "täglich"
 
 #: measuremeter/templates/pages/district.html:131
-#: measuremeter/templates/pages/district.html:132
 #: measuremeter/templates/pages/district.html:133
 #: measuremeter/templates/pages/district.html:134
 msgid "daily"
@@ -550,7 +561,6 @@ msgstr "täglich"
 #: measuremeter/templates/pages/district.html:135
 #: measuremeter/templates/pages/district.html:136
 #: measuremeter/templates/pages/district.html:137
-#: measuremeter/templates/pages/district.html:138
 msgid "since Week"
 msgstr "seit Woche"
 
@@ -558,11 +568,7 @@ msgstr "seit Woche"
 msgid "wednesday"
 msgstr "Mittwoch"
 
-#: measuremeter/templates/pages/district.html:136
-msgid "friday"
-msgstr "Freitag"
-
-#: measuremeter/templates/pages/district.html:140
+#: measuremeter/templates/pages/district.html:139
 msgid "When district data is missing, the values of the canton are used."
 msgstr "Bei fehlenden Bezirksdaten werden die Zahlen des Kantons verwendet."
 
@@ -578,90 +584,62 @@ msgstr "CovidLaws // Kantone // Rangliste"
 msgid "Swiss Covid Ranking 7 days"
 msgstr "Schweizer Covid Rangliste 7 Tage"
 
-#: measuremeter/templates/pages/ranking.html:102
-#: measuremeter/templates/pages/ranking14.html:109
-msgid "Don't take this too serious. It's the internet."
-msgstr "Nicht zu ernst nehmen - it's the internet."
-
-#: measuremeter/templates/pages/ranking.html:104
-#: measuremeter/templates/pages/ranking14.html:111
+#: measuremeter/templates/pages/ranking.html:103
+#: measuremeter/templates/pages/ranking14.html:138
 msgid "Ranking 7 days"
 msgstr "Rangliste 7 Tage"
 
-#: measuremeter/templates/pages/ranking.html:104
-#: measuremeter/templates/pages/ranking14.html:111
+#: measuremeter/templates/pages/ranking.html:103
+#: measuremeter/templates/pages/ranking14.html:138
 msgid "Ranking 14 days"
 msgstr "Rangliste 14 Tage"
 
-#: measuremeter/templates/pages/ranking.html:104
-#: measuremeter/templates/pages/ranking14.html:111
+#: measuremeter/templates/pages/ranking.html:103
+#: measuremeter/templates/pages/ranking14.html:138
 msgid "Ranking 14 days Cantons & Districts"
 msgstr "Rangliste 14 Tage Kantone und Bezirke"
 
-#: measuremeter/templates/pages/ranking.html:106
-#: measuremeter/templates/pages/ranking14.html:113
+#: measuremeter/templates/pages/ranking.html:105
+#: measuremeter/templates/pages/ranking14.html:140
 msgid "Graphs show development in the past 2 months."
 msgstr "Grafiken zeigen die Entwicklung in den letzten 2 Monaten."
 
-#: measuremeter/templates/pages/ranking.html:106
-#: measuremeter/templates/pages/ranking14.html:113
+#: measuremeter/templates/pages/ranking.html:105
+#: measuremeter/templates/pages/ranking14.html:140
 msgid "For last update see date in graph."
 msgstr "Für das letzte Update siehe Datum in Grafik."
 
-#: measuremeter/templates/pages/ranking.html:108
-#: measuremeter/templates/pages/ranking14.html:115
+#: measuremeter/templates/pages/ranking.html:107
+#: measuremeter/templates/pages/ranking14.html:145
 msgid "Rank"
 msgstr "Rang"
 
-#: measuremeter/templates/pages/ranking.html:109
-#: measuremeter/templates/pages/ranking14.html:116
+#: measuremeter/templates/pages/ranking.html:108
+#: measuremeter/templates/pages/ranking14.html:146
 msgid "Shift"
 msgstr "Veränd."
 
-#: measuremeter/templates/pages/ranking.html:110
-#: measuremeter/templates/pages/ranking14.html:117
+#: measuremeter/templates/pages/ranking.html:109
+#: measuremeter/templates/pages/ranking14.html:147
 msgid "Canton"
 msgstr "Kanton"
 
-#: measuremeter/templates/pages/ranking.html:111
-#: measuremeter/templates/pages/ranking14.html:118
-msgid "Score"
-msgstr "Punkte"
-
-#: measuremeter/templates/pages/ranking.html:112
+#: measuremeter/templates/pages/ranking.html:110
 msgid "Prevalence 7d/100k<br>Graph: past 2 months"
 msgstr "Fälle 7 Tage/100k Einw.<br>Grafik: letzte 2 Monate"
 
-#: measuremeter/templates/pages/ranking.html:113
-#: measuremeter/templates/pages/ranking14.html:120
+#: measuremeter/templates/pages/ranking.html:111
+#: measuremeter/templates/pages/ranking14.html:149
 msgid "Tendency cases<br>Week over week"
 msgstr "Entwicklung Fälle<br>Woche/Vorwoche"
 
-#: measuremeter/templates/pages/ranking.html:114
-#: measuremeter/templates/pages/ranking14.html:121
+#: measuremeter/templates/pages/ranking.html:112
+#: measuremeter/templates/pages/ranking14.html:150
 msgid "Measures"
 msgstr "Massnahmen"
 
-#: measuremeter/templates/pages/ranking.html:184
-msgid ""
-"Formula = 0 - Cases past 14 days per 100k pop - (Tendency %% (Cases past "
-"week compared to week before) * 2) )"
-msgstr ""
-"Formel = 0 - Fälle letzte 14 Tage pro 100k Einwohner - (Veränderung %% "
-"(Fälle Woche/Vorwoche) * 2)"
-
 #: measuremeter/templates/pages/ranking.html:185
-#: measuremeter/templates/pages/ranking14.html:192
-msgid ""
-"Why this Formula? Combine current cases with development smh. For a true "
-"ranking we would need positivity rate, ICU occupancy etc. etc."
-msgstr ""
-"Warum diese Formel? Kombination aktuelle Fallzahlen mit der Veränderung. Für "
-"eine richtige Rangliste würden mehr Angaben benötigt, wie etwa "
-"Positivitätsrate, Notaufnahme-Belegung etc. etc."
-
-#: measuremeter/templates/pages/ranking.html:188
-#: measuremeter/templates/pages/ranking14.html:194
+#: measuremeter/templates/pages/ranking14.html:221
 msgid ""
 "Source: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
 "\">OpenData ZH</a> and others, see <a href=\"/districts\">here for more "
@@ -675,28 +653,20 @@ msgstr ""
 msgid "CovidLaws // Canton and district ranking"
 msgstr "CovidLaws // Kanton und Bezirk Rangliste"
 
-#: measuremeter/templates/pages/ranking14.html:103
+#: measuremeter/templates/pages/ranking14.html:131
 msgid "CovidLaws // Switzerland // Ranking"
 msgstr "CovidLaws // Schweiz // Rangliste"
 
-#: measuremeter/templates/pages/ranking14.html:108
+#: measuremeter/templates/pages/ranking14.html:136
 msgid "Swiss Covid Ranking 14 days"
 msgstr "Schweizer Covid Rangliste 14 Tage"
 
-#: measuremeter/templates/pages/ranking14.html:119
+#: measuremeter/templates/pages/ranking14.html:148
 msgid "Prevalence 14d/100k<br>Graph: past 2 months"
 msgstr "Fälle 14 Tage/100k Einw.<br>Grafik: letzten 2 Monate"
 
-#: measuremeter/templates/pages/ranking14.html:191
-msgid ""
-"Formula = 0 - Cases past 14 days per 100k pop - (Tendency %% (Cases past "
-"week compared to week before) * 2)"
-msgstr ""
-"Formel = 0 - Fälle letzte 14 Tage pro 100k Einwohner - (Veränderung %% "
-"(Fälle Woche/Vorwoche) * 2)"
-
-#: measuremeter/templates/pages/ranking_europe.html:98
-#: measuremeter/templates/pages/ranking_world.html:100
+#: measuremeter/templates/pages/ranking_europe.html:99
+#: measuremeter/templates/pages/ranking_world.html:99
 msgid "Tendency cases<br>Week/Prev. week"
 msgstr "Entwicklung Fälle<br>Woche/Vorwoche"
 
@@ -799,6 +769,37 @@ msgstr ""
 #: riskcalc/templates/pages/belrisk.html:216
 msgid "Cases data is fetched every day at 10am from Sciensano.be"
 msgstr ""
+
+#~ msgid "friday"
+#~ msgstr "Freitag"
+
+#~ msgid "Don't take this too serious. It's the internet."
+#~ msgstr "Nicht zu ernst nehmen - it's the internet."
+
+#~ msgid "Score"
+#~ msgstr "Punkte"
+
+#~ msgid ""
+#~ "Formula = 0 - Cases past 14 days per 100k pop - (Tendency %% (Cases past "
+#~ "week compared to week before) * 2) )"
+#~ msgstr ""
+#~ "Formel = 0 - Fälle letzte 14 Tage pro 100k Einwohner - (Veränderung %% "
+#~ "(Fälle Woche/Vorwoche) * 2)"
+
+#~ msgid ""
+#~ "Why this Formula? Combine current cases with development smh. For a true "
+#~ "ranking we would need positivity rate, ICU occupancy etc. etc."
+#~ msgstr ""
+#~ "Warum diese Formel? Kombination aktuelle Fallzahlen mit der Veränderung. "
+#~ "Für eine richtige Rangliste würden mehr Angaben benötigt, wie etwa "
+#~ "Positivitätsrate, Notaufnahme-Belegung etc. etc."
+
+#~ msgid ""
+#~ "Formula = 0 - Cases past 14 days per 100k pop - (Tendency %% (Cases past "
+#~ "week compared to week before) * 2)"
+#~ msgstr ""
+#~ "Formel = 0 - Fälle letzte 14 Tage pro 100k Einwohner - (Veränderung %% "
+#~ "(Fälle Woche/Vorwoche) * 2)"
 
 #~ msgid "Tendency"
 #~ msgstr "Tendenz Punkte"
