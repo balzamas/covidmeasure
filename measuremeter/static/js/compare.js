@@ -187,12 +187,6 @@
 						value: 0,
 						borderColor: 'green',
 						borderWidth: 2,
-						label: {
-							backgroundColor: 'green',
-							content: "0",
-							fontSize: 19,
-							enabled: true
-					    	},
 						})
 
             config = {
