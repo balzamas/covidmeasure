@@ -95,6 +95,9 @@ class CasesDeaths(MotherModel):
     r0peak = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
     r0low = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
     r0median = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+    tests = models.IntegerField(blank=True,null=True)
+    tests_smoothed_per_thousand = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+
 
     ordering = ['country__pk', 'date', 'cases', 'deaths']
 

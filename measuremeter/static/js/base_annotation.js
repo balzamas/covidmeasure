@@ -21,7 +21,7 @@
                             }
 
 
-                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ '<br>Level: '+line["type"]["name"] +'<br>Measure:'+status+'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ '<br>Measure: '+line["type"]["name"]+'<br>Level: '+status +'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }

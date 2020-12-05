@@ -104,6 +104,9 @@
         var dataset_positivity = new Array()
         var dataset_positivity_data = new Array()
 
+        var dataset_tests = new Array()
+        var dataset_tests_data = new Array()
+
         var dataset_death_total = new Array()
         var dataset_death_total_data = new Array()
 
@@ -138,12 +141,14 @@
                 dataset_death.push({"label": country_code.toUpperCase() + " All", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_total_data})
                }
               dataset_positivity.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
+              dataset_tests.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tests_data})
               dataset_r0.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
 
               dataset_data = new Array()
               dataset_death_data = new Array()
               dataset_death_total_data = new Array()
               dataset_positivity_data = new Array()
+              dataset_tests_data = new Array()
               dataset_r0_data = new Array()
               dataset_tendency_data = new Array()
 
@@ -154,6 +159,7 @@
             country_code = line['country']['code']
             dataset_data.push(line['cases_past14days'])
             dataset_positivity_data.push(line['positivity'])
+            dataset_tests_data.push(line['tests_smoothed_per_thousand'])
             dataset_r0_data.push(line['r0median'])
             dataset_tendency_data.push(line['development7to7'])
             dataset_death_data.push(line['deaths_past14days'])
@@ -174,6 +180,7 @@
               dataset_death.push({"label": country_code.toUpperCase() + " All", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_death_total_data})
               }
         dataset_positivity.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
+        dataset_tests.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tests_data})
         dataset_r0.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
         dataset_tendency.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
 
@@ -487,6 +494,66 @@
 
             };
 
+            config_tests = {
+                type: 'line',
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
+                data: {
+                    labels: label_array,
+                    datasets: dataset_tests
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Tests per 1000 population (Smoothed)',
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Tests per 1000 population (Smoothed)'
+                            }
+                        }
+                    },
+                },
+
+            };
+
             config_tendency = {
                 type: 'line',
                     elements: {
@@ -587,9 +654,17 @@
                 if(window.myLineDeath && window.myLineDeath !== null){
                    window.myLineDeath.destroy();
                 }
+
                 if(window.myLinePositivity && window.myLinePositivity !== null){
                    window.myLinePositivity.destroy();
                 }
+
+                if(window.myLineTests && window.myLineTests !== null){
+                   window.myLineTests.destroy();
+                }
+
+
+
                 if(window.myLineR0 && window.myLineR0 !== null){
                    window.myLineR0.destroy();
                 }
@@ -612,6 +687,7 @@
     			window.myLine = new Chart(ctx, config);
     			window.myLineDeath = new Chart(ctx_death, config_death);
     			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
+    			window.myLineTests = new Chart(ctx_tests, config_tests);
     			window.myLineR0 = new Chart(ctx_r0, config_r0);
     			window.myLineTendency = new Chart(ctx_tendency, config_tendency);
 
@@ -631,6 +707,10 @@
 
             $("#save_positivity").click(function(){
                             save_image("compareChartPositivity")
+            });
+
+            $("#save_tests").click(function(){
+                            save_image("compareChartTests")
             });
 
             $("#save_r0").click(function(){
@@ -693,6 +773,9 @@
 
 			var ctx_positivity = document.getElementById('compareChartPositivity').getContext('2d');
 			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
+
+			var ctx_tests = document.getElementById('compareChartTests').getContext('2d');
+			window.myLineTests = new Chart(ctx_tests, config_tests);
 
 			var ctx_r0 = document.getElementById('compareChartR0').getContext('2d');
 			window.myLineR0 = new Chart(ctx_r0, config_r0);
