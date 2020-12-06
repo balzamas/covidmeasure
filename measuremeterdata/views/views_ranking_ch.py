@@ -33,7 +33,7 @@ def ranking7_calc(cantons):
         else:
             arrow = "arrow circle down red"
 
-        measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today())|Q(end__isnull=True)).order_by("type__name")
+        measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today())|Q(end__isnull=True)).filter(Q(start__lte=date.today())).order_by("type__name")
 
         canton_toadd = {"name": canton.name, "score": int(score), "score_before": int(score_7days_before),
                         "date": last_date, "code": canton.code,
@@ -99,7 +99,7 @@ def ranking14_calc(cantons):
             else:
                 arrow = "arrow circle down red"
 
-            measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today()) | Q(end__isnull=True)).order_by("type__name")
+            measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today()) | Q(end__isnull=True)).filter(Q(start__lte=date.today())).order_by("type__name")
 
             canton_toadd = {"name": canton.name, "score": int(score), "score_before": int(score_14days_before),
                             "date": last_date, "cur_prev": last_prev, "cur_prev14": case_14days_before.incidence_past14days,
