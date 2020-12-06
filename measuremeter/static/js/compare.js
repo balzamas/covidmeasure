@@ -186,8 +186,9 @@
 
         annotations = LoadMeasure(countries, measures, startdate, enddate)
         annotations_zero = $.extend( true, [], annotations );
+        annotations_one = $.extend( true, [], annotations );
 
-        annotations_zero.push({
+        annotations_zero.unshift({
 						type: 'line',
 						mode: 'horizontal',
 						scaleID: 'y-axis-0',
@@ -195,6 +196,16 @@
 						borderColor: 'green',
 						borderWidth: 2,
 						})
+
+        annotations_one.unshift({
+						type: 'line',
+						mode: 'horizontal',
+						scaleID: 'y-axis-0',
+						value: 1,
+						borderColor: 'green',
+						borderWidth: 2,
+						})
+
 
             config = {
                 type: 'line',
@@ -405,7 +416,7 @@
         },
       annotation: {
         events: ["click","mouseover"],
-        annotations: annotations_zero
+        annotations: annotations_one
 
 
 
