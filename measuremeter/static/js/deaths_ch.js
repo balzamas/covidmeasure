@@ -4,6 +4,7 @@
         var label_array = new Array()
 
         var dataset_data_deaths = new Array()
+        var dataset_data_deaths_temp = new Array()
         var dataset_data_deaths_avg = new Array()
         var dataset_data_deaths15 = new Array()
         var dataset_data_deaths19 = new Array()
@@ -14,11 +15,26 @@
         obj_deaths19 = deaths19.split("[")[1].split("]")[0]
 
 
+        temp_start =  obj_deaths.split(",").length - 2
         for (const property in obj_deaths.split(",")) {
 
                 label_array.push("Woche " + (parseInt(property) + 1))
 
-                dataset_data_deaths.push(obj_deaths.split(",")[property]);
+                if ((parseInt(property) + 1) > temp_start)
+                {
+                    dataset_data_deaths.push(null);
+                    dataset_data_deaths_temp.push(obj_deaths.split(",")[property])
+                }
+                else if ((parseInt(property) + 1) == temp_start)
+                {
+                    dataset_data_deaths.push(obj_deaths.split(",")[property]);
+                    dataset_data_deaths_temp.push(obj_deaths.split(",")[property])
+                }
+                else
+                {
+                    dataset_data_deaths.push(obj_deaths.split(",")[property]);
+                    dataset_data_deaths_temp.push(null)
+                }
                 dataset_data_deaths_avg.push(parseFloat(obj_deaths_avg.split(",")[property].replace('Decimal(&#x27;','').replace('&#x27;','')));
                 dataset_data_deaths15.push(obj_deaths15.split(",")[property]);
                 dataset_data_deaths19.push(obj_deaths19.split(",")[property]);
@@ -26,6 +42,7 @@
 
         color = '#ff6600'
         dataset_deaths.push({"label": "2020", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
+        dataset_deaths.push({"label": "2020", borderDash: [3,3],lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths_temp})
         color = '#0000ff'
         dataset_deaths.push({"label": "Ø 15-19", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths_avg})
         color = '#faec93'

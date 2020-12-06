@@ -53,13 +53,14 @@
                 <td>&nbsp;</td>\
                 <td>\
                   <table>\
-                   <tr><td>2020:</td><td>&nbsp;</td><td>{{canton.total20}}</td><td>&nbsp;</td><td>2020 im Vergleich zu:</td></tr>\
-                   <tr><td>2019:</td><td>&nbsp;</td><td>{{canton.total19}}</td><td>&nbsp;</td><td>{{ canton.diff19|floatformat:2 }} %</td></tr>\
-                   <tr><td>2015:</td><td>&nbsp;</td><td>{{canton.total15}}</td><td>&nbsp;</td><td>{{ canton.diff15|floatformat:2 }} %</td></tr>\
-                   <tr><td>&#8709; 15-19:</td><td>&nbsp;</td><td>{{canton.total_avg|floatformat:0}}</td><td>&nbsp;</td><td>{{ canton.diff_avg|floatformat:2 }} %</td></tr>\
+                  <tr><td colspan="5"><b>Todesfälle ganzes Jahr</b></td><td style="padding-right:50px">&nbsp;&nbsp;</td><td colspan="5"><b>Seit Woche 12</b></td></tr>\
+                   <tr><td>2020:</td><td>&nbsp;</td><td>{{canton.total20}}</td><td>&nbsp;</td><td >2020 im Vgl. zu:</td><td>&nbsp;&nbsp;</td><td>2020:</td><td>&nbsp;</td><td>{{canton.total20_w12}}</td><td>&nbsp;</td><td>2020 im Vgl. zu:</td></tr>\
+                   <tr><td>2019:</td><td>&nbsp;</td><td>{{canton.total19}}</td><td>&nbsp;</td><td>{{ canton.diff19|floatformat:2 }} %</td><td>&nbsp;&nbsp;</td><td>2019:</td><td>&nbsp;</td><td>{{canton.total19_w12}}</td><td>&nbsp;</td><td>{{ canton.diff19_w12|floatformat:2 }} %</td></tr>\
+                   <tr><td>2015:</td><td>&nbsp;</td><td>{{canton.total15}}</td><td>&nbsp;</td><td>{{ canton.diff15|floatformat:2 }} %</td><td>&nbsp;&nbsp;</td><td>2015:</td><td>&nbsp;</td><td>{{canton.total15_w12}}</td><td>&nbsp;</td><td>{{ canton.diff15_w12|floatformat:2 }} %</td></tr>\
+                   <tr><td>&#8709; 15-19:</td><td>&nbsp;</td><td>{{canton.total_avg|floatformat:0}}</td><td>&nbsp;</td><td>{{ canton.diff_avg|floatformat:2 }} %</td><td>&nbsp;&nbsp;</td><td>&#8709; 15-19:</td><td>&nbsp;</td><td>{{canton.total_avg_w12|floatformat:0}}</td><td>&nbsp;</td><td>{{ canton.diff_avg_w12|floatformat:2 }} %</td></tr>\
                   </table>\
               </td>\
-                </tr></table>'
+                </tr></table><hr>'
 
 
                 content.appendChild(div);
@@ -83,10 +84,13 @@
     <h1>CovidLaws // Todesfälle pro Kanton</h1>
     <div id="menu_ch"></div>
 
-        <div style="max-width:1300;  display: block;  margin-left: auto; margin-right: auto;">
+        <div style="max-width:1000;  display: block;  margin-left: auto; margin-right: auto;">
+
+
 
     <h1>Todesfälle pro Kanton</h1>
-          <p>Die Zahlen sind provisorisch und werden jeden Dienstag nachgeführt.</p>
+          <p>Die Zahlen sind provisorisch und werden jeden Dienstag nachgeführt. &Uuml;blicherweise erhöhen sich die letzten beiden Wochen noch, daher sind sie gestrichelt, aber in den Summen enthalten. </p>
+          <p>Neben dem Vergleich mit den Ganzjahreswerten ist noch der Vergleich ab Woche 12 aufgeführt.<br>Der Vergleich mit dem ganzen Jahr ist insofern willkürlich, da es ja zu Beginn des Jahres noch kein Corona in der Schweiz gab. In Woche 12 hat die Schweiz erstmals >50 Covid-Tote gemeldet.</p>
           <p>Quelle: <a href="https://www.bfs.admin.ch/bfs/de/home/statistiken/bevoelkerung/geburten-todesfaelle/todesfaelle.html">BFS</a></p>
 
 

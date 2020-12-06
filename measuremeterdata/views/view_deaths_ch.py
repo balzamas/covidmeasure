@@ -37,6 +37,10 @@ def canton_deaths(request):
         total15 = 0
         total_avg = 0
 
+        total20_w12 = 0
+        total19_w12 = 0
+        total15_w12 = 0
+        total_avg_w12 = 0
 
         for case in cases:
             print(case.week)
@@ -51,25 +55,44 @@ def canton_deaths(request):
             total15 += case.deaths15
             total_avg += case.average_deaths
 
+            if (case.week > 11):
+                total20_w12 += case.deaths
+                total19_w12 += case.deaths19
+                total15_w12 += case.deaths15
+                total_avg_w12 += case.average_deaths
+
+        if (canton.code != 'fl'):
             diff19= (total20 * 100 / total19) - 100
             diff15 = (total20 * 100 / total15) - 100
             diff_avg = (total20 * 100 / total_avg) - 100
 
-        if (canton.code != 'fl'):
-            canton_toadd = {"canton": canton,
-                              "all": week_values_deaths,
-                              "all_avg": week_values_avg,
-                            "all19": week_values_deaths19,
-                            "all15": week_values_deaths15,
-                            "total20" : total20,
-                            "total19":  total19,
-                            "total15": total15,
-                            "total_avg": total_avg,
-                            "diff19": diff19,
-                            "diff15": diff15,
-                            "diff_avg": diff_avg
+            diff19_w12 = (total20_w12 * 100 / total19_w12) - 100
+            diff15_w12 = (total20_w12 * 100 / total15_w12) - 100
+            diff_avg_w12 = (total20_w12 * 100 / total_avg_w12) - 100
 
-                            }
+
+
+            canton_toadd = {"canton": canton,
+                                  "all": week_values_deaths,
+                                  "all_avg": week_values_avg,
+                                "all19": week_values_deaths19,
+                                "all15": week_values_deaths15,
+                                "total20" : total20,
+                                "total19":  total19,
+                                "total15": total15,
+                                "total_avg": total_avg,
+                                "diff19": diff19,
+                                "diff15": diff15,
+                                "diff_avg": diff_avg,
+                                "total20_w12": total20_w12,
+                                "total19_w12": total19_w12,
+                                "total15_w12": total15_w12,
+                                "total_avg_w12": total_avg_w12,
+                                "diff19_w12": diff19_w12,
+                                "diff15_w12": diff15_w12,
+                                "diff_avg_w12": diff_avg_w12
+
+                                }
             cantons_values.append(canton_toadd)
 
     template = loader.get_template('pages/deaths_ch.html')
