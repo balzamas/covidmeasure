@@ -45,6 +45,7 @@ class Command(BaseCommand):
         for canton in CHCanton.objects.filter(level=1):
             print(canton)
 
+            cases7 = []
             cases14 = []
             dates = []
 
@@ -54,6 +55,11 @@ class Command(BaseCommand):
                    cases14.append(float(day.incidence_past14days))
                else:
                    cases14.append(0)
+               if (day.incidence_past7days):
+                   cases7.append(float(day.incidence_past7days))
+               else:
+                   cases7.append(0)
                dates.append(day.date)
 
             write_graph(canton, dates, cases14, "14", None)
+            write_graph(canton, dates, cases7, "7", None)

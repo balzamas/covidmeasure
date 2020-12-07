@@ -85,6 +85,9 @@ urlpatterns += i18n_patterns(
     path(
         "districts/", TemplateView.as_view(template_name="pages/district.html"), name="CH districts"
     ),
+    path(
+        "districts7/", TemplateView.as_view(template_name="pages/district7.html"), name="CH districts"
+    ),
     path('ranking7/', views_ranking_ch.ranking7, name='ranking7'),
     path('ranking7all/', views_ranking_ch.ranking7_all, name='ranking7_all'),
     path('ranking14/', views_ranking_ch.ranking14, name='ranking14'),

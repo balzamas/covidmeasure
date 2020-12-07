@@ -18,7 +18,7 @@
 
        <link href="{% static 'css/project.css' %}" rel="stylesheet">
        <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
-       <script type="text/javascript" src="{% static 'js/district.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/district7.js' %}"></script>
        <script type="text/javascript" src="{% static 'js/base_global.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/geojson/switzerland_districts.js' %}"></script>
 
@@ -55,9 +55,8 @@
       <div id="menu_ch"></div>
 
 
-  <p id="grande"><b>{% trans 'Incidence per 100k/past 14 days' %}</b></p>
-  <p><a href="/districts7">{% trans 'Switch to 7 day incidence.' %}</a></p>
-
+  <p id="grande"><b>{% trans 'Incidence per 100k/past 7 days' %}</b></p>
+  <p><a href="/districts">{% trans 'Switch to 14 day incidence.' %}</a></p>
       {% trans 'Including neighbouring districts from Italy, Germany, France (data since May 13), Austria (data since March 25)'%}<br><br>
       {% trans 'Note: numbers are updated at different dates, see below for details.'%}<br><br>
       {% trans 'Note: Graph with development of past 2 months is generated every night.'%}<br><br>
