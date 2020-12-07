@@ -15,7 +15,7 @@ var data
                         {
                             statesData.features[id].properties.level = item.level;
                             statesData.features[id].properties.comment = item.comment;
-
+                            statesData.features[id].properties.sources = item.sources;
                             if (item.start != null)
                               {
                                 var start_date_str = item.start
@@ -74,7 +74,10 @@ var data
                 {
                     commentstr = '<p>' + props.comment + '</p>';
                 }
-            }
+                if (props.sources)
+                {
+                    commentstr += '<p><a href="' + props.sources + '" target="_blank">Source</a></p>';
+                }            }
             this._div.innerHTML = '' +  (props ?
                 '<div align=left><b>' + props.NAME + '</b>' + datestr + commentstr+'</div>'
                 : gettext('Hover over a state'));
@@ -89,7 +92,7 @@ var data
                     d > 1   ? '#3127fa' :
                     d > 0   ? '#847ef8' :
                     d > -1   ? '#bab7ff' :
-                              '#ffffff';
+                              '#d2ddfb';
         }
 
         function style(feature) {
@@ -141,6 +144,10 @@ var data
                 if (e.sourceTarget.feature.properties.comment)
                 {
                     commentstr = '<p>' + e.sourceTarget.feature.properties.comment + '</p>';
+                }
+                if (e.sourceTarget.feature.properties.sources)
+                {
+                    commentstr += '<p><a href="' + e.sourceTarget.feature.properties.sources + '" target="_blank">Source</a></p>';
                 }
             popup
                 .setLatLng(e.latlng)
@@ -285,8 +292,14 @@ var data
             var mapSecondary = L.map('mapSecondary').setView([46.8, 8.4], 8);
             LoadMap(mapSecondary, 6);
 
-            var mapDisco = L.map('mapDisco').setView([46.8, 8.4], 8);
-            LoadMap(mapDisco, 3);
+            var mapGatherings = L.map('mapGatherings').setView([46.8, 8.4], 8);
+            LoadMap(mapGatherings, 1);
+
+            var mapShops = L.map('mapShops').setView([46.8, 8.4], 8);
+            LoadMap(mapShops, 9);
+
+            var mapLeisure = L.map('mapLeisure').setView([46.8, 8.4], 8);
+            LoadMap(mapLeisure, 8);
 
             var mapMasks = L.map('mapMasks').setView([46.8, 8.4], 8);
             LoadMap(mapMasks, 2);

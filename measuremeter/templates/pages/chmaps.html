@@ -53,27 +53,36 @@
       <h1>{% trans 'CovidLaws // Switzerland // Measures maps' %}</h1>
       <div id="menu_ch"></div>
 
-  <b>{% trans 'Please note, I am in my holidays, update for cantonal measures is currently very slow.' %}</b>
-
   <div class="ui active dimmer" id="dimmer">
     <div class="ui text loader">{% trans 'Loading</div>
   </div>
-  <p id="grande"><b>{% trans 'Masks in public' %}</b></p>
-        <div align="center">
-          <div id='mapMasks'  style="height: 600px; width: 100%;"></div>
-        </div>
-
-   <br>
-  <p id="grande"><b>{% trans 'Rules in Clubs' %}</b></p>
-        <div align="center">
-          <div id='mapDisco'  style="height: 600px; width: 100%;"></div>
-        </div>
-  <br>
   <p id="grande"><b>{% trans 'Rules in Restaurants' %}</b></p>
         <div align="center">
           <div id='mapRestaurants'  style="height: 600px; width: 100%;"></div>
         </div>
   <br>
+  <p id="grande"><b>{% trans 'Gathering restrictions' %}</b></p>
+        <div align="center">
+          <div id='mapGatherings'  style="height: 600px; width: 100%;"></div>
+        </div>
+  <br>
+  <p id="grande"><b>{% trans 'Shops/Services' %}</b></p>
+        <div align="center">
+          <div id='mapShops'  style="height: 600px; width: 100%;"></div>
+        </div>
+  <br>
+  <p id="grande"><b>{% trans 'Sport/Social clubs/Culture' %}</b></p>
+        <div align="center">
+          <div id='mapLeisure'  style="height: 600px; width: 100%;"></div>
+        </div>
+  <br>
+
+  <p id="grande"><b>{% trans 'Masks in public' %}</b></p>
+        <div align="center">
+          <div id='mapMasks'  style="height: 600px; width: 100%;"></div>
+        </div>
+  <br>
+
   <p id="grande"><b>{% trans 'Rules in Intermediate/Vocational school' %}</b></p>
         <div align="center">
           <div id='mapSecondary'  style="height: 600px; width: 100%;"></div>
