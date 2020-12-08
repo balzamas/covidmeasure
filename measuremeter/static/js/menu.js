@@ -19,12 +19,13 @@
            if ( $( "#menu_ch" ).length ) {
                document.getElementById('menu_ch').innerHTML = `
                <div style="padding-left: 10;padding-top: 10;padding-bottom: 10;padding-right: 10;margin-bottom: 10">
-               <div class="ui seven item inverted huge menu">
+               <div class="ui eight item inverted huge menu">
                   <a class="item" href="/">Home</a>
                   <a class="item" href="/cantons/">${gettext("Measures Case development")}</a>
                   <a class="item" href="/districts/">${gettext("Map cases Districts Cantons")}</a>
                   <a class="item" href="/chrisk/">${gettext("Risk calculator")}</a>
                   <a class="item" href="/ranking14/">${gettext("Ranking")}</a>
+                  <a class="item" href="/chmaps/">${gettext("Maps measures")}</a>
                   <a class="item" href="/deaths_ch/">${gettext("Deaths per canton")}</a>
                   <a class="item" href="/">${gettext("Europe") }</a>
                   </div>
