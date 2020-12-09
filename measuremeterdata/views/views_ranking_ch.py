@@ -12,7 +12,6 @@ def ranking7_calc(cantons):
     for canton in cantons:
         date_tocheck = date.today()
 
-        print(canton)
         cases = CHCases.objects.filter(canton=canton, date__range=[date_tocheck - timedelta(days=10), date_tocheck]).order_by("-date")
 
         try:
@@ -43,7 +42,7 @@ def ranking7_calc(cantons):
         canton_toadd = {"name": canton.name, "score": int(score), "score_before": int(score_7days_before),
                         "date": last_date, "code": canton.code,
                         "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": last_tendency,
-                        "cur_prev7": case_7days_before.incidence_past7days,
+                        "cur_prev7": case_7days_before.incidence_past7days, "id": canton.swisstopo_id,
                         "level": canton.level, "icon": arrow, "measures": measures}
 
         canton_vals.append(canton_toadd)
