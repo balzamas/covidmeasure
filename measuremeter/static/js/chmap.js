@@ -289,14 +289,8 @@ var data
 
             LoadCantonData();
 
-            var mapSecondary = L.map('mapSecondary').setView([46.8, 8.4], 8);
-            LoadMap(mapSecondary, 6);
-
             var mapGatherings = L.map('mapGatherings').setView([46.8, 8.4], 8);
             LoadMap(mapGatherings, 1);
-
-            var mapShops = L.map('mapShops').setView([46.8, 8.4], 8);
-            LoadMap(mapShops, 9);
 
             var mapLeisure = L.map('mapLeisure').setView([46.8, 8.4], 8);
             LoadMap(mapLeisure, 8);
