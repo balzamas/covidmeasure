@@ -153,7 +153,7 @@ table.center {
       <td>
         <div hidden>{{ hans.tendency|floatformat:1 }}</div>
 
-        {{ hans.tendency|floatformat:1 }}%
+        {{ hans.tendency|stringformat:"+.1f" }}%
       </td>
     </tr>
     {% endfor %}

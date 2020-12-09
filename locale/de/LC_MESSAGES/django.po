@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-08 23:36+0100\n"
+"POT-Creation-Date: 2020-12-09 20:58+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -405,23 +405,23 @@ msgstr "CovidLaws // Corona Massnahmen Kantone"
 msgid "CovidLaws // Switzerland // Measures maps"
 msgstr "CovidLaws // Schweiz // Karten Massnahmen"
 
-#: measuremeter/templates/pages/chmaps.html:59
+#: measuremeter/templates/pages/chmaps.html:60
 msgid "Rules in Restaurants"
 msgstr "Regeln in Restaurants"
 
-#: measuremeter/templates/pages/chmaps.html:64
+#: measuremeter/templates/pages/chmaps.html:65
 msgid "Gathering restrictions"
 msgstr "Versammlungsregeln"
 
-#: measuremeter/templates/pages/chmaps.html:69
+#: measuremeter/templates/pages/chmaps.html:70
 msgid "Sport/Social clubs/Culture"
 msgstr "Sport/Freizeit/Kultur"
 
-#: measuremeter/templates/pages/chmaps.html:75
+#: measuremeter/templates/pages/chmaps.html:76
 msgid "Masks in public"
 msgstr "Maskenpflicht"
 
-#: measuremeter/templates/pages/chmaps.html:82
+#: measuremeter/templates/pages/chmaps.html:83
 msgid ""
 "To check where you can travel to from Switzerland without a quarantine, see "
 "<a href=\"https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-"
@@ -638,6 +638,10 @@ msgstr "Rangliste 7 Tage"
 #: measuremeter/templates/pages/ranking14.html:138
 msgid "Ranking 14 days"
 msgstr "Rangliste 14 Tage"
+
+#: measuremeter/templates/pages/ranking.html:103
+msgid "Ranking 7 days Cantons & Districts"
+msgstr "Rangliste 7 Tage Kantone und Bezirke"
 
 #: measuremeter/templates/pages/ranking.html:103
 #: measuremeter/templates/pages/ranking14.html:138

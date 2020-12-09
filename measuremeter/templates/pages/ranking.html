@@ -100,7 +100,7 @@ table.center {
   <table id="ranking">
     <h1>{% trans 'Swiss Covid Ranking 7 days' %}</h1>
     <br><br>
-    <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days'%}</a> // <a href="/ranking14">{% trans 'Ranking 14 days'%}</a> // <a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
+    <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days' %}</a> // <a href="/ranking14">{% trans 'Ranking 14 days'%}</a> // <a href="/ranking7all">{% trans 'Ranking 7 days Cantons & Districts'%}</a> // <a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
 
     <p id="grande">{% trans 'Graphs show development in the past 2 months.'%} {% trans 'For last update see date in graph.' %}</p>
 
@@ -145,7 +145,7 @@ table.center {
       <td style="border-bottom: 3px solid black;">
         <div hidden>{{ hans.tendency|floatformat:1 }}</div>
 
-        {{ hans.tendency|floatformat:1 }}%
+        {{ hans.tendency|stringformat:"+.1f" }}%
       </td>
       <td style="white-space: nowrap;border-bottom: 3px solid black;">
                 <div class="sample-container">
