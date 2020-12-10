@@ -15,17 +15,17 @@ def ranking7_calc(cantons):
         cases = CHCases.objects.filter(canton=canton, date__range=[date_tocheck - timedelta(days=10), date_tocheck]).order_by("-date")
 
         try:
-            if (canton.level == 0):
-                last_date = cases[2].date
-                last_prev7 = cases[2].incidence_past7days
-                last_prev14 = cases[2].incidence_past14days
-                last_tendency = cases[2].development7to7
+            if (canton.level == 0 and cases[0].date == date.today()):
+                last_date = cases[1].date
+                last_prev7 = cases[1].incidence_past7days
+                last_prev14 = cases[1].incidence_past14days
+                last_tendency = cases[1].development7to7
 
                 past_date_tocheck = last_date - timedelta(days=7)
 
                 case_7days_before = CHCases.objects.get(canton=canton, date=past_date_tocheck)
 
-                score = 0 - cases[2].incidence_past7days - (last_tendency * 2)
+                score = 0 - cases[1].incidence_past7days - (last_tendency * 2)
             else:
                 last_date = cases[0].date
                 last_prev7 = cases[0].incidence_past7days
@@ -94,17 +94,17 @@ def ranking14_calc(cantons):
                                        date__range=[date_tocheck - timedelta(days=10), date_tocheck]).order_by("-date")
 
         try:
-            if (canton.level == 0):
-                last_date = cases[2].date
-                last_prev = cases[2].incidence_past14days
-                last_tendency = cases[2].development7to7
+            if (canton.level == 0 and cases[0].date == date.today()):
+                last_date = cases[1].date
+                last_prev = cases[1].incidence_past14days
+                last_tendency = cases[1].development7to7
 
                 past_date_tocheck = last_date - timedelta(days=14)
 
                 case_14days_before = CHCases.objects.get(canton=canton, date=past_date_tocheck)
 
                 score_14days_before = 0 - case_14days_before.incidence_past14days - (case_14days_before.development7to7 * 2)
-                score = 0 - cases[2].incidence_past14days - (last_tendency * 2)
+                score = 0 - cases[1].incidence_past14days - (last_tendency * 2)
             else:
                 last_date = cases[0].date
                 last_prev = cases[0].incidence_past14days
