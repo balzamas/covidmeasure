@@ -88,9 +88,9 @@ class Command(BaseCommand):
                             cases_past7_before = sum(last_numbers[:7])
 
                             if (cases_past7 == 0):
-                                cases_past7 = 1
+                                cases_past7 = 0.1
                             if (cases_past7_before == 0):
-                                cases_past7_before = 1
+                                cases_past7_before = 0.1
 
                             day.development7to7 = (cases_past7 * 100 / cases_past7_before) - 100
 
