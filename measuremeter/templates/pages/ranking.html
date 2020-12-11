@@ -79,6 +79,14 @@ table.center {
         left: 50%;
         transform: translate(-50%, -50%);
       }
+            .centered_green {
+        position: absolute;
+        color: green;
+        font-size: 30;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
 	</style>
 
 	<style>#map { width: 800px; height: 700px; }
@@ -103,12 +111,14 @@ table.center {
     <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days' %}</a> // <a href="/ranking14">{% trans 'Ranking 14 days'%}</a> // <a href="/ranking7all">{% trans 'Ranking 7 days Cantons & Districts'%}</a> // <a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
 
     <p id="grande">{% trans 'Graphs show development in the past 2 months.'%} {% trans 'For last update see date in graph.' %}</p>
-
+    <p id="grande">{% trans 'R in green: below 1 in the past 7 days.' %} {% trans 'Incidence in green: lower than Swiss average.' %}</p>
+    <p id="grande">{% trans 'Source for incidence are cantonal data, not BAG. Values can differ from official values.' %}</p>
     <tr><th></th><th onclick="sortTable(1,'ranking')">{% trans 'Rank'%}</th>
       <th>{% trans 'Shift'%}</th>
       <th>{% trans 'Canton'%}</th>
       <th align="center" onclick="sortTable(4,'ranking')">{% trans 'Prevalence 7d/100k<br>Graph: past 2 months'%}</th>
       <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
+      <th onclick="sortTable(6, 'ranking')">{% trans 'R median'%}</th>
       <th>{% trans 'Measures'%}</th>
     </tr>
     {% for hans in cantons %}
@@ -139,13 +149,30 @@ table.center {
             {% else %}
               <img src=/static/images/graphs_ch/{{ hans.id  }}_7.png>
             {% endif %}
-          <div class="centered">{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
-        </div>
+                    {% if hans.incidence_below_ch %}
+
+          <div class="centered_green" >{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
+          {% else %}
+               <div class="centered">{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
+
+                    {% endif%}
+
       </td>
       <td style="border-bottom: 3px solid black;">
         <div hidden>{{ hans.tendency|floatformat:1 }}</div>
 
         {{ hans.tendency|stringformat:"+.1f" }}%
+      </td>
+      <td style="border-bottom: 3px solid black;">
+        <div hidden>{{ hans.r0 }}</div>
+        {% if hans.level == 0 and hans.code != 'fl' %}
+          {% if hans.r_under_one %}
+          <div style="color:green">{{ hans.r0|floatformat:2 }}<br><font size=2px>{{ hans.r0_date }}</font></div>
+          {% else %}
+            {{ hans.r0|floatformat:2 }}<br><font size=2px>{{ hans.r0_date }}</font>
+           {% endif %}
+
+        {% endif %}
       </td>
       <td style="white-space: nowrap;border-bottom: 3px solid black;">
                 <div class="sample-container">
@@ -182,7 +209,9 @@ table.center {
   </table>
   <br>
   <p id="grande">
-  {% trans 'Source: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
+  {% trans 'Source cases: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
+    {% trans 'Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>
+'%}
   </p>
       </div>
 <br><br>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-09 20:58+0100\n"
+"POT-Creation-Date: 2020-12-11 19:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -345,7 +345,7 @@ msgstr "Bis:"
 #: measuremeter/templates/pages/canton.html:131
 #: riskcalc/templates/pages/belrisk.html:179
 msgid "Load"
-msgstr ""
+msgstr "Lade"
 
 #: measuremeter/templates/pages/canton.html:143
 msgid "Click on lines/cantons for details."
@@ -460,9 +460,9 @@ msgstr ""
 
 #: measuremeter/templates/pages/district.html:62
 #: measuremeter/templates/pages/district7.html:61
-msgid "Note: numbers are updated at different dates, see below for details."
+msgid "Note: Numbers are updated at different dates, see below for details."
 msgstr ""
-"Hinweis: die Zahlen in den Bezirken/Kantonen werden zu verschiedenen Zeiten "
+"Hinweis: Die Zahlen in den Bezirken/Kantonen werden zu verschiedenen Zeiten "
 "nachgetragen. Für Details siehe unten."
 
 #: measuremeter/templates/pages/district.html:63
@@ -621,76 +621,94 @@ msgstr "Wechsle zur 14-Tage-Inzidenz"
 msgid "CovidLaws // Canton rankings"
 msgstr "Covidlaws // Rangliste Kantone"
 
-#: measuremeter/templates/pages/ranking.html:96
+#: measuremeter/templates/pages/ranking.html:104
 msgid "CovidLaws // Cantons // Ranking"
 msgstr "CovidLaws // Kantone // Rangliste"
 
-#: measuremeter/templates/pages/ranking.html:101
+#: measuremeter/templates/pages/ranking.html:109
 msgid "Swiss Covid Ranking 7 days"
 msgstr "Schweizer Covid Rangliste 7 Tage"
 
-#: measuremeter/templates/pages/ranking.html:103
+#: measuremeter/templates/pages/ranking.html:111
 #: measuremeter/templates/pages/ranking14.html:138
 msgid "Ranking 7 days"
 msgstr "Rangliste 7 Tage"
 
-#: measuremeter/templates/pages/ranking.html:103
+#: measuremeter/templates/pages/ranking.html:111
 #: measuremeter/templates/pages/ranking14.html:138
 msgid "Ranking 14 days"
 msgstr "Rangliste 14 Tage"
 
-#: measuremeter/templates/pages/ranking.html:103
+#: measuremeter/templates/pages/ranking.html:111
+#: measuremeter/templates/pages/ranking14.html:138
 msgid "Ranking 7 days Cantons & Districts"
 msgstr "Rangliste 7 Tage Kantone und Bezirke"
 
-#: measuremeter/templates/pages/ranking.html:103
+#: measuremeter/templates/pages/ranking.html:111
 #: measuremeter/templates/pages/ranking14.html:138
 msgid "Ranking 14 days Cantons & Districts"
 msgstr "Rangliste 14 Tage Kantone und Bezirke"
 
-#: measuremeter/templates/pages/ranking.html:105
+#: measuremeter/templates/pages/ranking.html:113
 #: measuremeter/templates/pages/ranking14.html:140
 msgid "Graphs show development in the past 2 months."
 msgstr "Grafiken zeigen die Entwicklung in den letzten 2 Monaten."
 
-#: measuremeter/templates/pages/ranking.html:105
+#: measuremeter/templates/pages/ranking.html:113
 #: measuremeter/templates/pages/ranking14.html:140
 msgid "For last update see date in graph."
 msgstr "Für das letzte Update siehe Datum in Grafik."
 
-#: measuremeter/templates/pages/ranking.html:107
+#: measuremeter/templates/pages/ranking.html:114
+msgid "R in green: below 1 in the past 7 days."
+msgstr "R in Grün: unter 1 in den vergangenen 7 Tagen."
+
+#: measuremeter/templates/pages/ranking.html:114
+msgid "Incidence in green: lower than Swiss average."
+msgstr "Inzidenz in Grün: tiefer als gesamtschweizer Wert."
+
+#: measuremeter/templates/pages/ranking.html:115
+msgid ""
+"Source for incidence are cantonal data, not BAG. Values can differ from "
+"official values."
+msgstr "Inzidenz von kantonalen Daten. Zahlen können abweichen von offiziellen Daten (BAG)."
+
+#: measuremeter/templates/pages/ranking.html:116
 #: measuremeter/templates/pages/ranking14.html:145
 msgid "Rank"
 msgstr "Rang"
 
-#: measuremeter/templates/pages/ranking.html:108
+#: measuremeter/templates/pages/ranking.html:117
 #: measuremeter/templates/pages/ranking14.html:146
 msgid "Shift"
 msgstr "Veränd."
 
-#: measuremeter/templates/pages/ranking.html:109
+#: measuremeter/templates/pages/ranking.html:118
 #: measuremeter/templates/pages/ranking14.html:147
 msgid "Canton"
 msgstr "Kanton"
 
-#: measuremeter/templates/pages/ranking.html:110
+#: measuremeter/templates/pages/ranking.html:119
 msgid "Prevalence 7d/100k<br>Graph: past 2 months"
 msgstr "Fälle 7 Tage/100k Einw.<br>Grafik: letzte 2 Monate"
 
-#: measuremeter/templates/pages/ranking.html:111
+#: measuremeter/templates/pages/ranking.html:120
 #: measuremeter/templates/pages/ranking14.html:149
 msgid "Tendency cases<br>Week over week"
 msgstr "Entwicklung Fälle<br>Woche/Vorwoche"
 
-#: measuremeter/templates/pages/ranking.html:112
+#: measuremeter/templates/pages/ranking.html:121
+msgid "R median"
+msgstr ""
+
+#: measuremeter/templates/pages/ranking.html:122
 #: measuremeter/templates/pages/ranking14.html:150
 msgid "Measures"
 msgstr "Massnahmen"
 
-#: measuremeter/templates/pages/ranking.html:185
-#: measuremeter/templates/pages/ranking14.html:221
+#: measuremeter/templates/pages/ranking.html:212
 msgid ""
-"Source: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
+"Source cases: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
 "\">OpenData ZH</a> and others, see <a href=\"/districts\">here for more "
 "information.</a>"
 msgstr ""
@@ -713,6 +731,16 @@ msgstr "Schweizer Covid Rangliste 14 Tage"
 #: measuremeter/templates/pages/ranking14.html:148
 msgid "Prevalence 14d/100k<br>Graph: past 2 months"
 msgstr "Fälle 14 Tage/100k Einw.<br>Grafik: letzten 2 Monate"
+
+#: measuremeter/templates/pages/ranking14.html:221
+msgid ""
+"Source: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
+"\">OpenData ZH</a> and others, see <a href=\"/districts\">here for more "
+"information.</a>"
+msgstr ""
+"Quelle: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
+"\">OpenData ZH</a> und andere, siehe <a href=\"/districts\">hier für mehr "
+"Informationen.</a>"
 
 #: measuremeter/templates/pages/ranking_europe.html:99
 #: measuremeter/templates/pages/ranking_world.html:99
