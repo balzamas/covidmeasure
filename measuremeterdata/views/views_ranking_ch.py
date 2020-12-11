@@ -67,13 +67,14 @@ def ranking7_calc(cantons):
 
                 score = 0 - cases[0].incidence_past7days - (last_tendency * 2)
 
+            incidence_below_ch = False
+            if last_prev7 < ch_incidence:
+                incidence_below_ch = True
+
         except:
             score = -99999
             score_14days_before = -99999
 
-        incidence_below_ch = False
-        if last_prev7 < ch_incidence:
-            incidence_below_ch = True
 
         measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today())|Q(end__isnull=True)).filter(Q(start__lte=date.today())).order_by("type__name")
 
