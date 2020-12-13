@@ -17,7 +17,9 @@ def ranking7_calc(cantons):
         date_tocheck = date.today()
 
         cases = CHCases.objects.filter(canton=canton, date__range=[date_tocheck - timedelta(days=25), date_tocheck]).order_by("-date")
-
+        r0 = False
+        r0_date = False
+        r_under_one = False
         try:
             if canton.level == 0:
                 r0 = 0
