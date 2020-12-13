@@ -77,17 +77,17 @@ def ranking7_calc(cantons):
             score = -99999
             score_14days_before = -99999
 
+        if (score > -99999):
+            measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today())|Q(end__isnull=True)).filter(Q(start__lte=date.today())).order_by("type__name")
 
-        measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today())|Q(end__isnull=True)).filter(Q(start__lte=date.today())).order_by("type__name")
+            canton_toadd = {"name": canton.name, "score": int(score),
+                            "date": last_date, "code": canton.code, "level": canton.level,
+                            "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": last_tendency,
+                            "cur_prev7": case_7days_before.incidence_past7days, "id": canton.swisstopo_id,
+                            "level": canton.level, "measures": measures, "incidence_below_ch": incidence_below_ch,
+                            "r0":r0, "r0_date":r0_date, "r_under_one":r_under_one}
 
-        canton_toadd = {"name": canton.name, "score": int(score),
-                        "date": last_date, "code": canton.code, "level": canton.level,
-                        "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": last_tendency,
-                        "cur_prev7": case_7days_before.incidence_past7days, "id": canton.swisstopo_id,
-                        "level": canton.level, "measures": measures, "incidence_below_ch": incidence_below_ch,
-                        "r0":r0, "r0_date":r0_date, "r_under_one":r_under_one}
-
-        canton_vals.append(canton_toadd)
+            canton_vals.append(canton_toadd)
 
     scores = sorted(canton_vals, key=lambda i: i['cur_prev7'], reverse=False)
     rank = 1
