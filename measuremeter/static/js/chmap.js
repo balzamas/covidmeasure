@@ -92,6 +92,7 @@ var data
                     d > 1   ? '#3127fa' :
                     d > 0   ? '#847ef8' :
                     d > -1   ? '#bab7ff' :
+                    d > -2 ? '#66ff66':
                               '#d2ddfb';
         }
 
@@ -176,7 +177,7 @@ var data
 
         var div = L.DomUtil.create('div', 'info legend');
         labels = ['<strong>Level</strong>'],
-        categories = ["CH","+1","+2","+3","+4"];
+        categories = ["Relaxed", "CH","+1","+2","+3","+4"];
 
         for (var i = 0; i < categories.length; i++) {
 
@@ -222,7 +223,11 @@ var data
         }
                             str_level = '<i class="green '+line["type"]["icon"] +'" data-tooltip="None"></i>'
 
-                            if (line['level'] == 1)
+                            if (line['level'] == -1)
+                            {
+                                str_level =  '<i class="green '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_partial"]+'"></i>'
+                            }
+                            else if (line['level'] == 1)
                             {
                                 str_level =  '<i class="yellow '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_partial"]+'"></i>'
                             }
@@ -245,7 +250,7 @@ var data
                                 endtime = line['end'];
                             }
 
-                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ (line['level'] +1) +', End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ (line['level']) +', End: '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }
