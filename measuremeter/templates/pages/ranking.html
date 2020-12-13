@@ -178,26 +178,31 @@ table.center {
                 <div class="sample-container">
 
         {% for measure in hans.measures %}
-            <div class="ui icon button"  data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" onclick="showpopup('dialog{{ hans.code  }}{{measure.type.id}}')">
-                  {% if measure.level > 2 %}
-            <i class="{{ measure.type.icon }} red" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
-                  {% else %}
-            <i class="{{ measure.type.icon }} orange" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
-                  {% endif %}
-            </div>
-            <div id="dialog{{ hans.code  }}{{measure.type.id}}" title={{hans.code|upper}}:&nbsp;{{measure.type.name}} style="display: none;">
-               <div style="font-size:25px;">
+            {% if measure.level != 0 %}
+              <div class="ui icon button"  data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" onclick="showpopup('dialog{{ hans.code  }}{{measure.type.id}}')">
+                    {% if measure.level > 2 %}
+              <i class="{{ measure.type.icon }} red" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
+                    {% elif measure.level > 0 %}
+              <i class="{{ measure.type.icon }} orange" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
+                {% elif measure.level < 0 %}
+                <i class="{{ measure.type.icon }} green" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
+                    {% endif %}
 
-              {% autoescape off %}
-                {{measure.comment}}
-              {% endautoescape %}
-              <p>Start: {{measure.start}}</p>
-              {% if measure.sources != "" %}
-                <p><a href='{{measure.sources}}' target="_blank">Source</a></p>
-              {% endif %}
-               </div>
+              </div>
+              <div id="dialog{{ hans.code  }}{{measure.type.id}}" title={{hans.code|upper}}:&nbsp;{{measure.type.name}} style="display: none;">
+                <div style="font-size:25px;">
 
-            </div>
+                {% autoescape off %}
+                  {{measure.comment}}
+                {% endautoescape %}
+                <p>Start: {{measure.start}}</p>
+                {% if measure.sources != "" %}
+                  <p><a href='{{measure.sources}}' target="_blank">Source</a></p>
+                {% endif %}
+                </div>
+
+              </div>
+            {% endif %}
         {% endfor %}
         </div>
 

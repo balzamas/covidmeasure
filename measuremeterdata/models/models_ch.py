@@ -44,10 +44,12 @@ class CHMeasureType(MotherModel):
 
 class CHMeasure(MotherModel):
     LEVEL_CHOICES=[
-        (0, 'Level 1'),
-        (1, 'Level 2'),
-        (2, 'Level 3'),
-        (3, 'Level 4'),
+        (-1, 'Relaxed'),
+        (0, 'CH Level'),
+        (1, 'Level 1'),
+        (2, 'Level 2'),
+        (3, 'Level 3'),
+        (4, 'Level 4'),
     ]
 
     canton = models.ForeignKey(CHCanton, on_delete=models.CASCADE)

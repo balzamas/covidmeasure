@@ -33,7 +33,11 @@ var data
         }
                             str_level = '<i class="green '+line["type"]["icon"] +'" data-tooltip="None"></i>'
 
-                            if (line['level'] == 1)
+                            if (line['level'] == -1)
+                            {
+                                str_level =  '<i class="green '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_partial"]+'"></i>'
+                            }
+                            else if (line['level'] == 1)
                             {
                                 str_level =  '<i class="yellow '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_partial"]+'"></i>'
                             }
@@ -63,7 +67,7 @@ var data
                             }
 
 
-                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ (line['level'] +1) +', End: '+endtime+"<br>"+line["comment"]+source_link+"</p>";
+                            htmlLine = '<p>'+ line['canton']['name'] + "  "+ str_level+ tendency+"<br>"+line["type"]["name"] +'<br>Level: '+ (line['level']) +', End: '+endtime+"<br>"+line["comment"]+source_link+"</p>";
 
          return htmlLine;
      }

@@ -26,7 +26,7 @@ def LoadR0(country):
         if len(my_list) > 1:
 
             for row in my_list:
-                if (country.code == "ch"):
+                if country.code == "ch":
                     if row[1] == "CHE" and row[3] == 'Confirmed cases' and row[4] == 'Cori_slidingWindow':
                         date_tosave = date.fromisoformat(row[5])
 
