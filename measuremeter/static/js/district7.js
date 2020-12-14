@@ -67,6 +67,7 @@ function applyCountryBorder(map, countryname) {
                                 statesData.features[id].properties.name = item.canton.name;
                                 statesData.features[id].properties.comment = "<div align='center'><p>"+item.incidence_past7days +'</p><p>' + gettext('Population') + ':<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>' + gettext('Last update') + ':<br>' + item.date+'</div><br><img src="/static/images/graphs_ch/'+ item.canton.code +'_7.png"><br>' + gettext('Development past 2 months.') + '</p>';
                                 statesData.features[id].properties.code = item.canton.code + "_7"
+                                statesData.features[id].properties.weekoverweek = item.development7to7
                             }
                     }
                     else if (item.canton.level == 1)
@@ -87,6 +88,8 @@ function applyCountryBorder(map, countryname) {
                                 {
                                     statesData.features[id].properties.level = item.incidence_past7days;
                                     statesData.features[id].properties.name = item.canton.name;
+                                    statesData.features[id].properties.weekoverweek = item.development7to7;
+
                                     if (item.canton.name.includes("(BE)") || item.canton.name.includes("(AG)"))
                                     {
                                         statesData.features[id].properties.comment = "<div align='center'><p>"+item.incidence_past7days +'</p><p>' + gettext('Population') + ':<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>' + gettext('Last update') + ':<br>' + item.date+'</div></p>';
@@ -153,7 +156,7 @@ function applyCountryBorder(map, countryname) {
                 }
             }
             this._div.innerHTML = '' +  (props ?
-                '<div align=center><p><b>' + props.name + '</b></p>' + datestr + commentstr+'</div>'
+                '<div align=center><p><b>' + props.name + '</b></p>' + datestr + commentstr+"Entwicklung Fälle<br>Woche/Vorwoche:<br> "+props.weekoverweek+'%</div>'
                 : gettext('Hover over a state'));
         };
 
@@ -259,7 +262,7 @@ function applyCountryBorder(map, countryname) {
                 }
             popup
                 .setLatLng(e.latlng)
-                .setContent('<div align=center><p><b>' + e.sourceTarget.feature.properties.name + '</b></p>' + datestr + commentstr+'</div>')
+                .setContent('<div align=center><p><b>' + e.sourceTarget.feature.properties.name + '</b></p>' + datestr + commentstr+"Entwicklung Fälle<br>Woche/Vorwoche:<br> "+e.sourceTarget.feature.properties.weekoverweek+'%</div>')
                 .openOn(map);
         }
 
