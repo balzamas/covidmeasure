@@ -26,6 +26,27 @@
        <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
 
     <script>
+        function searchTable() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("ranking");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1 || i == 0)  {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
     function showpopup(dialogid)
     {
           console.log("sdgfsdfg");
@@ -215,9 +236,10 @@ table.center {
   <br>
   <p id="grande">
   {% trans 'Source cases: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
-    {% trans 'Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>
-'%}
+  {% trans 'Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>'%}
   </p>
+  <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Filter table (e.g. (ZH) for all Zurich districts">
+
       </div>
 <br><br>
   </body>
