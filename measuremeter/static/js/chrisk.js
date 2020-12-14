@@ -11,7 +11,8 @@ var data
 
           statesData = $.extend( true, {}, statesDataOrig );
 
-          datefrom = addDays(datenow, -7)
+          datefrom = addDays(datenow, -9)
+          dateto = addDays(datenow, -2)
 
           var data = $.ajax({
           url: "/measuremeterdata/chcases/?date_after="+formatDate(datefrom).replace('-', '\-')+"&date_before="+datenow.replace('-', '\-'),
