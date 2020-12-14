@@ -5,7 +5,7 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework import routers
-from measuremeterdata.views import view_deaths, view_deaths_ch,views_belgium, views_ranking_ch, views_ranking_int, viewsets
+from measuremeterdata.views import view_deaths, view_deaths_ch,views_belgium, views_ranking_ch, views_ranking_int, viewsets, view_madlaina
 from riskcalc import views as risk_views
 from config import views
 from django.conf.urls.i18n import i18n_patterns
@@ -77,6 +77,9 @@ urlpatterns += i18n_patterns(
                              )
 
 urlpatterns += i18n_patterns(
+    path(
+        "madlaina/", view_madlaina.hallo_welt, name="Madlaina"
+    ),
     path(
         "belrisk/", risk_views.belgium_risk, name="Bel Riskmap"
     ),

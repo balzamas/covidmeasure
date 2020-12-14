@@ -1,0 +1,136 @@
+{% load static i18n %}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>{% trans 'CovidLaws // Canton rankings'%}</title>
+        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="{% url 'javascript-catalog' %}"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/popup.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+       <link href="{% static 'css/project.css' %}" rel="stylesheet">
+       <script type="text/javascript" src="{% static 'js/base_global.js' %}"></script>
+
+       <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        function searchTable() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("ranking");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1 || i == 0)  {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+    function showpopup(dialogid)
+    {
+          console.log("sdgfsdfg");
+          $( "#"+dialogid ).dialog();
+    }
+
+    $( document ).ready(function() {
+
+     $('.sample-container .ui.icon.button')
+      .popup({
+        on: 'hover'
+      });
+
+
+      $('.activating.element')
+  .popup()
+;
+});
+    </script>
+
+	<style>
+#myInput {
+  width: 100%; /* Full-width */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
+}
+	.ui-widget-header {
+font-size: 16px; }
+
+table, th, td {
+  padding: 10px;
+  font-size: 30;
+
+}
+table.center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+
+		    .container {
+      position: relative;
+      text-align: center;
+      color: white;
+      }
+      /* Centered text */
+      .centered {
+        position: absolute;
+        color: black;
+        font-size: 30;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+            .centered_green {
+        position: absolute;
+        color: green;
+        font-size: 30;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+	</style>
+
+	<style>#map { width: 800px; height: 700px; }
+.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+
+
+  </head>
+  <body bgcolor="black">
+   <h1>Hoi Taaafit!</h1>
+  {{hans}}
+  {{datum}}
+  </body>
+</html>
+
+
+
+
+
