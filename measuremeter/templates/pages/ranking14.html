@@ -168,10 +168,10 @@ table.center {
         <b>{{ hans.name }}</b>
       </td>
       <td style="border-bottom: 3px solid black;">
+          <div hidden>{{ hans.cur_prev }}</div>
         {% if "(BE)" in hans.name or "(AG)" in hans.name %}
           <div align="center">{{ hans.cur_prev }}</div>
         {% else %}
-          <div hidden>{{ hans.cur_prev }}</div>
           <div class="container">
             {% if hans.level == 0 %}
               <img src=/static/images/graphs_ch/{{ hans.code  }}_14.png>

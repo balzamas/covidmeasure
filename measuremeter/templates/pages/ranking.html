@@ -170,20 +170,21 @@ table.center {
       </td>
      <td style="border-bottom: 3px solid black;">
         <div hidden>{{ hans.cur_prev }}</div>
-
+       {% if "(BE)" in hans.name or "(AG)" in hans.name %}
+          <div align="center">{{ hans.cur_prev }}</div>
+        {% else %}
         <div class="container">
             {% if hans.level == 0 %}
               <img src=/static/images/graphs_ch/{{ hans.code  }}_7.png>
             {% else %}
               <img src=/static/images/graphs_ch/{{ hans.id  }}_7.png>
             {% endif %}
-                    {% if hans.incidence_below_ch %}
-
-          <div class="centered_green" >{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
-          {% else %}
+            {% if hans.incidence_below_ch %}
+              <div class="centered_green" >{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
+            {% else %}
                <div class="centered">{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
-
-                    {% endif%}
+            {% endif%}
+       {% endif%}
 
       </td>
       <td style="border-bottom: 3px solid black;">
