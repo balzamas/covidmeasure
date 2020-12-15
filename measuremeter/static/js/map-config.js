@@ -81,7 +81,22 @@ $( document ).ready(function() {
 
                 date = new Date(2020,2,5);
                 enddate_x = new Date();
-                enddate = addDays(enddate_x, 10);
+                enddate = addDays(enddate_x, 3);
+
+                while (date < enddate)
+                {
+                        date_f = formatDate(date);
+                        loadMapData(measuretype,date_f);
+                        await sleep(100);
+                        date = addDays(date, 2);
+                }
+          });
+          $("#btnPlay2").click(async function(){
+                var measuretype = $('#measurechooser').dropdown('get value');
+
+                date = new Date(2020,8,10);
+                enddate_x = new Date();
+                enddate = addDays(enddate_x, 3);
 
                 while (date < enddate)
                 {
