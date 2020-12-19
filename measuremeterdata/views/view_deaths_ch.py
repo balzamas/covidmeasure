@@ -45,21 +45,21 @@ def canton_deaths(request):
         for case in cases:
             print(case.week)
 
-            week_values_deaths.append(case.deaths)
-            week_values_avg.append(case.average_deaths)
+            week_values_deaths.append(case.deaths20)
+            week_values_avg.append(case.average_deaths_15_19)
             week_values_deaths19.append(case.deaths19)
             week_values_deaths15.append(case.deaths15)
 
-            total20 += case.deaths
+            total20 += case.deaths20
             total19 += case.deaths19
             total15 += case.deaths15
-            total_avg += case.average_deaths
+            total_avg += case.average_deaths_15_19
 
             if (case.week > 11):
-                total20_w12 += case.deaths
+                total20_w12 += case.deaths20
                 total19_w12 += case.deaths19
                 total15_w12 += case.deaths15
-                total_avg_w12 += case.average_deaths
+                total_avg_w12 += case.average_deaths_15_19
 
         if (canton.code != 'fl'):
             diff19= (total20 * 100 / total19) - 100

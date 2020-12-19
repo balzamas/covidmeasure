@@ -47,10 +47,10 @@ class Command(BaseCommand):
                         try:
                             cd_existing = CHDeaths.objects.get(canton=canton, week=row[0])
                             print(cd_existing)
-                            cd_existing.deaths = int(row[1])
+                            cd_existing.deaths20 = int(row[1])
                             cd_existing.deaths19 = int(float(row[2]))
                             cd_existing.deaths15 = int(float(row[6]))
-                            cd_existing.average_deaths = avg
+                            cd_existing.average_deaths_15_19 = avg
                             cd_existing.save()
                         except CHDeaths.DoesNotExist:
                             cd = CHDeaths(canton=canton, deaths=int(row[1]), deaths19=int(float(row[2])), deaths15=int(float(row[6])), average_deaths=avg, week=row[0])

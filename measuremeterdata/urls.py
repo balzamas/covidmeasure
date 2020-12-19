@@ -16,6 +16,7 @@ router.register(r'chmeasuretypes_intern', viewsets.CHMeasureTypeViewSet)
 router.register(r'chcantons', viewsets.CHCantonViewSet)
 router.register(r'chcases', viewsets.CHCasesViewSet)
 router.register(r'chmeasures', viewsets.CHMeasurePublicViewset)
+router.register(r'chdeaths', viewsets.CHDeathsPublicViewset)
 router.register(r'chmeasuretypes', viewsets.CHMeasureTypePublicViewSet)
 
 

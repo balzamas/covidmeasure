@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths
-from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases
+from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases, CHDeaths
 from rest_framework import viewsets
 from rest_framework import permissions
-from measuremeterdata.serializers.serializers_ch import CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer, CHMeasurePublicSerializer, CHMeasureTypePublicSerializer, CantonPublicSerializer
+from measuremeterdata.serializers.serializers_ch import CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer, CHMeasurePublicSerializer, CHMeasureTypePublicSerializer, CantonPublicSerializer, CHDeathsPublicSerializer
 from measuremeterdata.serializers.serializers_int import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
@@ -368,3 +368,25 @@ class CHMeasurePublicViewset(viewsets.ModelViewSet):
         return queryset
 
 
+class CHDeathsPublicViewset(viewsets.ModelViewSet):
+    queryset = CHDeaths.objects.order_by('canton__code', 'week')
+    serializer_class = CHDeathsPublicSerializer
+    http_method_names = ['get', 'head']
+
+    def get_queryset(self):
+        queryset = CHDeaths.objects
+        cantons = self.request.query_params.get('cantons', None)
+        if cantons and cantons != '':
+            print(cantons)
+            canton_params = []
+            for x in cantons.split(','):
+                if (x != ''):
+                    if (x == "ch"):
+                        canton = CHCanton.objects.get(code=x)
+                    else:
+                        canton = CHCanton.objects.get(code=x, level=0)
+                    canton_params.append(canton.pk)
+            queryset = queryset.filter(canton__in=canton_params)
+
+        queryset = queryset.order_by('canton__code', 'week')
+        return queryset
