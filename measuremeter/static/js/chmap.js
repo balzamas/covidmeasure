@@ -294,17 +294,28 @@ var data
 
             LoadCantonData();
 
-            var mapGatherings = L.map('mapGatherings').setView([46.8, 8.4], 8);
-            LoadMap(mapGatherings, 1);
+            //var mapGatherings = L.map('mapGatherings').setView([46.8, 8.4], 8);
+            //LoadMap(mapGatherings, 1);
 
-            var mapLeisure = L.map('mapLeisure').setView([46.8, 8.4], 8);
-            LoadMap(mapLeisure, 8);
+            //var mapLeisure = L.map('mapLeisure').setView([46.8, 8.4], 8);
+            //LoadMap(mapLeisure, 8);
+
+            var mapSkiing = L.map('mapSkiing').setView([46.8, 8.4], 8);
+            LoadMap(mapSkiing, 12);
+
+            var mapShops = L.map('mapShops').setView([46.8, 8.4], 8);
+            LoadMap(mapShops, 9);
+
+            var mapHomeOffice = L.map('mapHomeOffice').setView([46.8, 8.4], 8);
+            LoadMap(mapHomeOffice, 11);
+
 
             var mapMasks = L.map('mapMasks').setView([46.8, 8.4], 8);
             LoadMap(mapMasks, 2);
 
-            var mapRestaurants = L.map('mapRestaurants').setView([46.8, 8.4], 8);
-            LoadMap(mapRestaurants, 4);
+
+            //var mapRestaurants = L.map('mapRestaurants').setView([46.8, 8.4], 8);
+            //LoadMap(mapRestaurants, 4);
 
 			$('#dimmer').dimmer('hide');
 
