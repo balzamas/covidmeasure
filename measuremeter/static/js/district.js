@@ -414,6 +414,18 @@ function applyCountryBorder(map, countryname) {
                         date = addDays(date, 7);
                 }
           });
+                $("#btnPlaySept").click(async function(){
+                date = new Date(2020,8,6);
+                enddate = new Date();
+
+                while (date < enddate)
+                {
+                        LoadMap(mapDistricts,date);
+                        await sleep(10);
+                        document.getElementById('dateview').innerHTML = formatDate(date);
+                        date = addDays(date, 7);
+                }
+          });
 
             real_enddate = new Date();
 

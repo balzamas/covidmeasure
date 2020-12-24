@@ -22,7 +22,7 @@
                <div class="ui eight item inverted huge menu">
                   <a class="item" href="/">Home</a>
                   <a class="item" href="/cantons/">${gettext("Measures Case development")}</a>
-                  <a class="item" href="/districts/">${gettext("Map cases Districts Cantons")}</a>
+                  <a class="item" href="/districts7/">${gettext("Map cases Districts Cantons")}</a>
                   <a class="item" href="/chrisk/">${gettext("Risk calculator")}</a>
                   <a class="item" href="/ranking7/">${gettext("Ranking")}</a>
                   <a class="item" href="/chmaps/">${gettext("Maps measures")}</a>

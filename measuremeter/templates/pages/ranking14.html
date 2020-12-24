@@ -170,7 +170,7 @@ table.center {
       <td style="border-bottom: 3px solid black;">
           <div hidden>{{ hans.cur_prev }}</div>
         {% if "(BE)" in hans.name or "(AG)" in hans.name %}
-          <div align="center">{{ hans.cur_prev }}</div>
+            <div class="centered">{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
         {% else %}
           <div class="container">
             {% if hans.level == 0 %}
@@ -205,7 +205,9 @@ table.center {
               {% autoescape off %}
                 {{measure.comment}}
               {% endautoescape %}
-              <p>Start: {{measure.start}}</p>
+                {{measure.type.name}}
+              <p>Start: {{measure.start}}<br>
+               End: {{measure.end}}</p>
               {% if measure.sources != "" %}
                 <p><a href='{{measure.sources}}' target="_blank">Source</a></p>
               {% endif %}
