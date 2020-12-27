@@ -31,7 +31,7 @@ def ranking7_calc(cantons):
                         if r_count == 0:
                             r0 = case.r0median
                             r0_date = case.date
-                        if r_count < 7 and case.r0median > 1:
+                        if r_count < 7 and case.r0median > 0.9:
                             r_under_one = False
                         r_count += 1
 
