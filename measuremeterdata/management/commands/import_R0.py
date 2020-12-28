@@ -40,22 +40,20 @@ def LoadR0(country):
                             cd = CasesDeaths(country=country, r0median = row[6], r0peak = row[7],
                                          r0low = row[8], date=date_tosave)
                             cd.save()
-                    elif row[1] != "CHE" and row[3] == 'Confirmed cases' and row[4] == 'Cori_slidingWindow':
-                        date_tosave = date.fromisoformat(row[5])
-                        try:
-                            canton = CHCanton.objects.get(code=row[1].lower(), level=0)
-                            try:
-                                cd_existing = CHCases.objects.get(canton=canton, date=date_tosave)
-                                cd_existing.r0peak = row[7]
-                                cd_existing.r0low = row[8]
-                                cd_existing.r0median = row[6]
-                                cd_existing.save()
-                            except CHCases.DoesNotExist:
-                                cd = CHCases(canton=canton, r0median = row[6], r0peak = row[7],
-                                             r0low = row[8], date=date_tosave)
-                                cd.save()
-                        except:
-                            print(f"{row[1]} does not exist.")
+                elif country.code == "gb":
+                            if row[0] == "United Kingdom" and row[3] == 'Confirmed cases' and row[4] == 'Cori_slidingWindow':
+                                date_tosave = date.fromisoformat(row[5])
+
+                                try:
+                                    cd_existing = CasesDeaths.objects.get(country=country, date=date_tosave)
+                                    cd_existing.r0peak = row[7]
+                                    cd_existing.r0low = row[8]
+                                    cd_existing.r0median = row[6]
+                                    cd_existing.save()
+                                except CasesDeaths.DoesNotExist:
+                                    cd = CasesDeaths(country=country, r0median=row[6], r0peak=row[7],
+                                                     r0low=row[8], date=date_tosave)
+                                    cd.save()
                 else:
                     if (row[3] == 'Confirmed cases' and row[4] == 'Cori_slidingWindow'):
                         date_tosave = date.fromisoformat(row[5])
