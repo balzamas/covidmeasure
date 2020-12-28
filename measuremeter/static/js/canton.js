@@ -326,12 +326,22 @@ var data
         dataset_r0.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
         annotations = LoadMeasureGraph(startdate, enddate, cantons, measures)
         annotations_zero = $.extend( true, [], annotations );
+        annotations_one = $.extend( true, [], annotations );
 
         annotations_zero.push({
 						type: 'line',
 						mode: 'horizontal',
 						scaleID: 'y-axis-0',
 						value: 0,
+						borderColor: 'green',
+						borderWidth: 2,
+						})
+
+        annotations_one.unshift({
+						type: 'line',
+						mode: 'horizontal',
+						scaleID: 'y-axis-0',
+						value: 1,
 						borderColor: 'green',
 						borderWidth: 2,
 						})
@@ -486,7 +496,7 @@ var data
         },
       annotation: {
         events: ["click","mouseover"],
-        annotations: annotations_zero
+        annotations: annotations_one
 
 
 
