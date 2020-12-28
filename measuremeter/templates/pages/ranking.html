@@ -179,7 +179,9 @@ table.center {
      <td style="border-bottom: 3px solid black;">
         <div hidden>{{ hans.cur_prev }}</div>
        {% if "(BE)" in hans.name or "(AG)" in hans.name %}
+                 <div class="container">
                <div class="centered">{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
+                 </div>
         {% else %}
         <div class="container">
             {% if hans.level == 0 %}
