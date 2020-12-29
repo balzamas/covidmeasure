@@ -133,7 +133,6 @@ table.center {
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu_ch"></div>
 
-  <table id="ranking">
     <h1>{% trans 'Swiss Covid Ranking 7 days' %}</h1>
     <br><br>
     <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days' %}</a> // <a href="/ranking14">{% trans 'Ranking 14 days'%}</a>  // <a href="/ranking7all">{% trans 'Ranking 7 days Cantons & Districts' %}</a> // <a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
@@ -149,34 +148,42 @@ table.center {
       <a href="https://www.admin.ch/opc/de/classified-compilation/20201774/index.html#a7">{% trans 'Original regulation' %}</a>
    </p>
     <p id="grande">{% trans 'Source for incidence are cantonal data, not BAG. Values can differ from official values.' %}</p>
+
+  <table class="ui celled table" id="ranking">
     <tr><th></th><th onclick="sortTable(1,'ranking')">{% trans 'Rank'%}</th>
       <th>{% trans 'Shift'%}</th>
       <th>{% trans 'Canton'%}</th>
       <th align="center" onclick="sortTable(4,'ranking')">{% trans 'Prevalence 7d/100k'%}</th>
       <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
-      <th onclick="sortTable(6, 'ranking')">{% trans 'R median'%}</th>
+      <th onclick="sortTable(6, 'ranking')" nowrap>{% trans 'R median'%}</th>
       <th>{% trans 'Measures'%}</th>
     </tr>
     {% for hans in cantons %}
 
     <tr >
-      <td style="border-bottom: 3px solid black;">
+      <td>
         <img src=/static/images/flags_ch/{{ hans.code  }}_circle.png>
       </td>
-      <td style="border-bottom: 3px solid black;">
+      <td>
         <div hidden>{{ hans.rank }}</div>
 
         {{ hans.rank }}
       </td>
-      <td style="border-bottom: 3px solid black;">
+      <td>
         <i class="{{ hans.rank_icon }} icon"></i>
         {{ hans.rank_diff }}
       </td>
-      <td style="border-bottom: 3px solid black;">
+      <td>
 
         <b>{{ hans.name }}</b>
       </td>
-     <td style="border-bottom: 3px solid black;">
+
+     {% if hans.incidence_below_ch %}
+     <td class="positive">
+     {% else %}
+     <td>
+     {% endif%}
+
         <div hidden>{{ hans.cur_prev }}</div>
        {% if "(BE)" in hans.name or "(AG)" in hans.name %}
                  <div class="container">
@@ -189,32 +196,39 @@ table.center {
             {% else %}
               <img src=/static/images/graphs_ch/{{ hans.id  }}_7.png>
             {% endif %}
-            {% if hans.incidence_below_ch %}
-              <div class="centered_green" >{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
-            {% else %}
                <div class="centered">{{ hans.cur_prev }}<br><font size=2px>     {{ hans.date }}</font></div>
-            {% endif%}
        {% endif%}
         </div>
 
       </td>
-      <td style="border-bottom: 3px solid black;">
+      {% if hans.tendency < 0 %}
+            <td class="positive">
+      {% else %}
+            <td class="negative">
+      {% endif %}
         <div hidden>{{ hans.tendency|floatformat:1 }}</div>
-
-        {{ hans.tendency|stringformat:"+.1f" }}%
+        <div class="container">
+          <div class="centered">
+            {{ hans.tendency|stringformat:"+.1f" }}%
+          </div>
+        </div>
       </td>
-      <td style="border-bottom: 3px solid black;">
+
+          {% if hans.r_under_one and hans.r0 %}
+            <td class="positive" nowrap>
+          {% else %}
+            <td nowrap>
+           {% endif %}
         <div hidden>{{ hans.r0 }}</div>
         {% if hans.level == 0 and hans.code != 'fl' %}
-          {% if hans.r_under_one %}
-          <div style="color:green">{{ hans.r0|floatformat:2 }}<br><font size=2px>{{ hans.r0_date }}</font></div>
-          {% else %}
-            {{ hans.r0|floatformat:2 }}<br><font size=2px>{{ hans.r0_date }}</font>
-           {% endif %}
-
+          <div class="container">
+            <div class="centered">
+              {{ hans.r0|floatformat:2 }}<br><font size=2px>{{ hans.r0_date }}</font>
+            </div>
+          </div>
         {% endif %}
       </td>
-      <td style="white-space: nowrap;border-bottom: 3px solid black;">
+      <td>
                 <div class="sample-container">
 
         {% for measure in hans.measures %}
@@ -247,8 +261,6 @@ table.center {
         {% endfor %}
         </div>
 
-      </td>
-      <td>
       </td>
     </tr>
     {% endfor %}
