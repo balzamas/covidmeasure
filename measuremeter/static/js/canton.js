@@ -284,6 +284,10 @@ var data
         var dataset_data = new Array()
         var dataset_tendency = new Array()
         var dataset_tendency_data = new Array()
+        var dataset_mobility = new Array()
+        var dataset_mobility_recreation_data = new Array()
+        var dataset_mobility_transit_data = new Array()
+        var dataset_mobility_workplace_data = new Array()
         var dataset_r0 = new Array()
         var dataset_r0_data = new Array()
 
@@ -304,10 +308,16 @@ var data
               turn += 1
               dataset.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
               dataset_tendency.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
+              dataset_mobility.push({"label": canton_name + " Recreation/Retail", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_mobility_recreation_data})
+              dataset_mobility.push({"label": canton_name + " Transit stations", borderDash: [10,5], lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_mobility_transit_data})
+              dataset_mobility.push({"label": canton_name + " Workplace", borderDash: [5,10], lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_mobility_workplace_data})
               dataset_r0.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
 
               dataset_data = new Array()
               dataset_tendency_data = new Array()
+              dataset_mobility_recreation_data = new Array()
+              dataset_mobility_transit_data = new Array()
+              dataset_mobility_workplace_data = new Array()
               dataset_r0_data = new Array()
 
            }
@@ -315,6 +325,12 @@ var data
             canton_name = line['canton']['code'].toUpperCase();
             dataset_data.push(line['incidence_past7days'])
             dataset_tendency_data.push(line['development7to7'])
+            console.log(line['mobility_recreation'])
+            console.log("-----")
+            dataset_mobility_recreation_data.push(line['mobility_recreation'])
+            dataset_mobility_transit_data.push(line['mobility_transit'])
+            dataset_mobility_workplace_data.push(line['mobility_workplace'])
+
             dataset_r0_data.push(line['r0median'])
 
 
@@ -324,6 +340,9 @@ var data
         dataset.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data})
         dataset_tendency.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
         dataset_r0.push({"label": canton_name, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
+        dataset_mobility.push({"label": canton_name + " Recreation/Retail", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_mobility_recreation_data})
+        dataset_mobility.push({"label": canton_name + " Transit stations", borderDash: [10,5], lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_mobility_transit_data})
+        dataset_mobility.push({"label": canton_name + " Workplace", borderDash: [5,10], lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_mobility_workplace_data})
         annotations = LoadMeasureGraph(startdate, enddate, cantons, measures)
         annotations_zero = $.extend( true, [], annotations );
         annotations_one = $.extend( true, [], annotations );
@@ -594,6 +613,96 @@ var data
                 },
 
             };
+
+            config_mobility = {
+                type: 'line',
+                    elements: {
+                        point:{
+                            radius: 0
+                        },
+                    },
+                data: {
+                    labels: label_array,
+                    datasets: dataset_mobility
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: [gettext('Mobility')],
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                    xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: gettext('Day')
+                            },
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: gettext('Development past week/week before (%)')
+                            }
+                        }
+                    },
+                    plugins: {
+            zoom: {
+                // Container for pan options
+                pan: {
+                    // Boolean to enable panning
+                    enabled: true,
+
+                    // Panning directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow panning in the y direction
+                    mode: 'y'
+                },
+
+                // Container for zoom options
+                zoom: {
+                    // Boolean to enable zooming
+                    enabled: true,
+
+                    // Zooming directions. Remove the appropriate direction to disable
+                    // Eg. 'y' would only allow zooming in the y direction
+                    mode: 'y',
+                }
+            }
+        },
+      annotation: {
+        events: ["click","mouseover"],
+        annotations: annotations_zero
+
+
+
+          }
+                },
+
+            };
 		};
 
 
@@ -726,6 +835,7 @@ var data
                 LoadDataGraph(datefrom_real,dateto_real,$('#cantons_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'));
     			window.myLine = new Chart(ctx, config);
     			window.myLineTendency = new Chart(ctxTendency, config_tendency);
+    			window.myLineMobility = new Chart(ctxMobility, config_mobility);
     			window.myLineR0 = new Chart(ctxR0, config_r0);
 
             });
@@ -736,6 +846,10 @@ var data
 
             $("#save_tendency").click(function(){
                             save_image("compareTendency")
+            });
+
+            $("#save_mobility").click(function(){
+                            save_image("compareMobility")
             });
 
             $("#save_r0").click(function(){
@@ -756,8 +870,6 @@ var data
             LoadMeasureTypes();
             LoadCantons()
 
-            console.log("Let's do it")
-            console.log($('#param').text().length)
             if ($('#param').text().length > 0)
             {
                 params = $('#param').text().split("&")
@@ -779,6 +891,9 @@ var data
                 var ctxTendency = document.getElementById('compareTendency').getContext('2d');
                 window.myLineTendency = new Chart(ctxTendency, config_tendency);
 
+                var ctxMobility = document.getElementById('compareMobility').getContext('2d');
+                window.myLineMobility = new Chart(ctxMobility, config_mobility);
+
                 var ctxR0 = document.getElementById('compareR0').getContext('2d');
                 window.myLineR0 = new Chart(ctxR0, config_r0);
             }
@@ -798,6 +913,9 @@ var data
                 var ctxTendency = document.getElementById('compareTendency').getContext('2d');
                 window.myLineTendency = new Chart(ctxTendency, config_tendency);
 
+                var ctxMobility = document.getElementById('compareMobility').getContext('2d');
+                window.myLineMobility = new Chart(ctxMobility, config_mobility);
+
                 var ctxR0 = document.getElementById('compareR0').getContext('2d');
                 window.myLineR0 = new Chart(ctxR0, config_r0);
             }
@@ -808,7 +926,6 @@ var data
 
             Chart.plugins.register({
                 afterRender: function(c) {
-                    console.log("afterRender called");
                     var ctx = c.chart.ctx;
                     ctx.save();
                     // This line is apparently essential to getting the
@@ -828,7 +945,6 @@ var data
 			$('#dimmer').dimmer('hide');
 
 			$("#btnCopyLink").click(async function(){
-			    console.log(document.getElementById("datefrom").value)
                 copyToClipboard("/cantons/" + $('#cantons_dd').dropdown('get value') + "&" + $('#measuretypes_dd').dropdown('get value') + "&" + document.getElementById("datefrom").value + "&" + document.getElementById("dateto").value);
             });
 

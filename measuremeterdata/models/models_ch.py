@@ -79,6 +79,9 @@ class CHCases(MotherModel):
     r0peak = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
     r0low = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
     r0median = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+    mobility_recreation = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+    mobility_workplace = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+    mobility_transit = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
 
     ordering = ['canton__pk', 'date', 'cases']
 
