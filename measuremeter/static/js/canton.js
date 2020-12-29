@@ -325,8 +325,6 @@ var data
             canton_name = line['canton']['code'].toUpperCase();
             dataset_data.push(line['incidence_past7days'])
             dataset_tendency_data.push(line['development7to7'])
-            console.log(line['mobility_recreation'])
-            console.log("-----")
             dataset_mobility_recreation_data.push(line['mobility_recreation'])
             dataset_mobility_transit_data.push(line['mobility_transit'])
             dataset_mobility_workplace_data.push(line['mobility_workplace'])
@@ -817,6 +815,10 @@ var data
                 }
                 if(window.myLineTendency && window.myLineTendency !== null){
                    window.myLineTendency.destroy();
+                }
+
+                if(window.myLineMobility && window.myLineMobility !== null){
+                   window.myLineMobility.destroy();
                 }
 
                 if(window.myLineR0 && window.myLineR0!== null){
