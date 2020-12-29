@@ -23,12 +23,18 @@ def calc_ranking_countries(countries):
             last_tendency = cases[0].development7to7
             last_positivity = None
             last_positivity_date = None
+            last_R = None
+            last_R_date = None
             positivity_last7 = 0.0
             positivity_last7_count = 0
             positivity_before7 = 0.0
             positivity_before7_count = 0
             pos_count = 0
             for case in cases:
+                if (case.r0median != None and last_R == None):
+                    last_R = case.r0median
+                    last_R_date = case.date
+
                 if (case.positivity != None and last_positivity == None):
                     last_positivity = case.positivity
                     last_positivity_date = case.date
@@ -88,7 +94,8 @@ def calc_ranking_countries(countries):
                                 "has_measures": country.has_measures, "continent": country.continent.pk, "icon": arrow,
                                 "peak_cases": peak_cases, "peak_cases_date": peak_cases_date,
                                 "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
-                                "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date
+                                "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date,
+                                "R": last_R, "R_date": last_R_date
                                 }
 
                 country_vals.append(canton_toadd)

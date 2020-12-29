@@ -147,12 +147,13 @@ table.center {
       {% trans 'Values are shown in green when complying with there rules.'%}<br>
       <a href="https://www.admin.ch/opc/de/classified-compilation/20201774/index.html#a7">{% trans 'Original regulation' %}</a>
    </p>
-    <p id="grande">{% trans 'Source for incidence are cantonal data, not BAG. Values can differ from official values.' %}</p>
+    <p id="grande">{% trans 'Source for incidence are cantonal data, not BAG. Values can differ from official values.' %} {% trans 'Values always 2 days or older (too many errors in most recent numbers).' %}</p>
+  <input type="text" id="myInput" onkeyup="searchTable()" placeholder="{% trans 'Filter table (e.g. (ZH) for all Zurich districts)' %}">
 
   <table class="ui celled table" id="ranking">
     <tr><th></th><th onclick="sortTable(1,'ranking')">{% trans 'Rank'%}</th>
       <th>{% trans 'Shift'%}</th>
-      <th>{% trans 'Canton'%}</th>
+      <th>{% trans 'Canton'%}/{% trans 'District'%}</th>
       <th align="center" onclick="sortTable(4,'ranking')">{% trans 'Prevalence 7d/100k'%}</th>
       <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
       <th onclick="sortTable(6, 'ranking')" nowrap>{% trans 'R median'%}</th>
@@ -270,7 +271,6 @@ table.center {
   {% trans 'Source cases: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
   {% trans 'Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>'%}
   </p>
-  <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Filter table (e.g. (ZH) for all Zurich districts">
 
       </div>
 <br><br>

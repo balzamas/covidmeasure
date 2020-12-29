@@ -81,7 +81,7 @@ table.center {
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
       <div id="menu"></div>
 
-  <table id="ranking">
+  <table class="ui celled table" id="ranking">
     <h1>Europe Covid Ranking</h1>
     Don't take this too serious. It's the internet.
     <br><br>
@@ -96,7 +96,7 @@ table.center {
 
     <p id="grande">Click on table headers to sort.</p>
 
-    <tr><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(3,'ranking')">Score</th><th onclick="sortTable(4,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(5,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(7,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th></tr>
+    <tr><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(3,'ranking')">Score</th><th onclick="sortTable(4,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(5,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(7,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th>R median</th></tr>
     {% for hans in countries %}
 
     <tr>
@@ -136,7 +136,11 @@ table.center {
         <div class="peak">All time peak: {{ hans.peak_deaths }}<br>
         {{ hans.peak_deaths_date }}</div>
        </td>
-      <td>
+      {% if hans.positivity < 5 %}
+            <td class="positive">
+      {% else %}
+            <td class="negative">
+      {% endif %}
         <div hidden>{{ hans.positivity|floatformat:1 }}</div>
 
         {% if hans.positivity != None %}
@@ -150,10 +154,26 @@ table.center {
 
         {% endif %}
       </td>
-      <td>
+      {% if hans.tendency < 0 %}
+            <td class="positive">
+      {% else %}
+            <td class="negative">
+      {% endif %}
         <div hidden>{{ hans.tendency|floatformat:1 }}</div>
-
+        <div class="container">
+            <div class="centered">
         {{ hans.tendency|stringformat:"+.1f" }}%
+            </div>
+        </div>
+      </td>
+      {% if hans.R < 1 %}
+            <td class="positive" nowrap>
+      {% else %}
+            <td class="negative" nowrap>
+      {% endif %}
+        <div class="container">
+            <div class="centered">{{ hans.R|floatformat:1 }}<br><font size=1px>{{ hans.R_date }}</font></div>
+        </div>
       </td>
     </tr>
     {% endfor %}
@@ -202,9 +222,10 @@ table.center {
 
       <p>
       <b>Sources</b><br>
-         Cases/Deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+         Cases/Deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a><br>
 
-        Positive rate: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a>
+        Positive rate: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a><br>
+        Reproduction Rate R: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a>
       </p>
       </div>
 

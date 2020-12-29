@@ -139,12 +139,13 @@ table.center {
 
     <p id="grande">{% trans 'Graphs show development in the past 2 months.' %} {% trans 'For last update see date in graph.' %}</p>
 
+ <input type="text" id="myInput" onkeyup="searchTable()" placeholder="{% trans 'Filter table (e.g. (ZH) for all Zurich districts)' %}">
 
-  <table id="ranking">
+  <table class="ui celled table" id="ranking">
 
     <tr><th></th><th onclick="sortTable(1,'ranking')">{% trans 'Rank'%}</th>
       <th>{% trans 'Shift'%}</th>
-      <th>{% trans 'Canton'%}</th>
+      <th>{% trans 'Canton'%}/{% trans 'District'%}</th>
       <th align="center" onclick="sortTable(4,'ranking')">{% trans 'Prevalence 14d/100k'%}</th>
       <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
       <th>{% trans 'Measures'%}</th>
@@ -153,21 +154,21 @@ table.center {
         {% if "(AG)" in hans.name %}
         {% else %}
     <tr>
-      <td style="border-bottom: 3px solid black;">
+      <td>
         <img src=/static/images/flags_ch/{{ hans.code  }}_circle.png>
       </td>
-      <td style="border-bottom: 3px solid black;">
+      <td>
         <div hidden>{{ hans.rank }}</div>
         {{ hans.rank }}
       </td>
-      <td style="border-bottom: 3px solid black;">
+      <td>
         <i class="{{ hans.rank_icon }} icon"></i>
         {{ hans.rank_diff }}
       </td>
-      <td style="border-bottom: 3px solid black;">
+      <td>
         <b>{{ hans.name }}</b>
       </td>
-      <td style="border-bottom: 3px solid black;">
+      <td>
           <div hidden>{{ hans.cur_prev }}</div>
         {% if "(BE)" in hans.name or "(AG)" in hans.name %}
                   <div class="container">
@@ -184,11 +185,19 @@ table.center {
           </div>
         {% endif %}
       </td>
-      <td style="border-bottom: 3px solid black;">
+      {% if hans.tendency < 0 %}
+            <td class="positive">
+      {% else %}
+            <td class="negative">
+      {% endif %}
         <div hidden>{{ hans.tendency|floatformat:1 }}</div>
-        {{ hans.tendency|stringformat:"+.1f" }}%
+        <div class="container">
+            <div class="centered">
+              {{ hans.tendency|stringformat:"+.1f" }}%
+            </div>
+        </div>
       </td>
-      <td style="white-space: nowrap;border-bottom: 3px solid black;">
+      <td style="white-space: nowrap;">
                 <div class="sample-container">
 
         {% for measure in hans.measures %}
@@ -228,7 +237,6 @@ table.center {
   <p id="grande">
   {% trans 'Source: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
   </p>
- <input type="text" id="myInput" onkeyup="searchTable()" placeholder="Filter table (e.g. (ZH) for all Zurich districts">
 
 
       </div>
