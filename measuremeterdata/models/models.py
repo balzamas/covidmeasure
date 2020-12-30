@@ -89,6 +89,7 @@ class CasesDeaths(MotherModel):
     deathstotal_peak = models.DecimalField(max_digits=50, decimal_places=8, blank=True,null=True)
     deathstotal_average = models.DecimalField(max_digits=50, decimal_places=8, blank=True,null=True)
     deaths_past14days = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
+    deaths_past7days = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
     cases_past14days = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
     cases_past7days = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
     positivity = models.DecimalField(max_digits=9, decimal_places=4,blank=True,null=True)

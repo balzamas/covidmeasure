@@ -69,13 +69,23 @@ class Command(BaseCommand):
                             last_numbers_death.append(day.deaths)
                             last_numbers_death.pop(0)
                             tot_death = 0
+                            seven_tot = 0
+                            daycount = 0
 
                             for x in last_numbers_death:
                                 tot_death += x
 
+                                if (daycount > 6):
+                                    seven_tot += x
+
+                                daycount += 1
+
+
                             fourteen_avg_death = tot_death * 100000 / country.population
+                            seven_avg = seven_tot * 100000 / country.population
 
                             day.deaths_past14days = fourteen_avg_death
+                            day.deaths_past7days = seven_avg
 
                             day.save()
 

@@ -157,12 +157,12 @@
             country_pk = line["country"]["pk"]
             country_name = line['country']['name']
             country_code = line['country']['code']
-            dataset_data.push(line['cases_past14days'])
+            dataset_data.push(line['cases_past7days'])
             dataset_positivity_data.push(line['positivity'])
             dataset_tests_data.push(line['tests_smoothed_per_thousand'])
             dataset_r0_data.push(line['r0median'])
             dataset_tendency_data.push(line['development7to7'])
-            dataset_death_data.push(line['deaths_past14days'])
+            dataset_death_data.push(line['deaths_past7days'])
             //if (line['deaths_total_per100k'] > 0)
             //{
             //    dataset_death_total_data.push(line['deaths_total_per100k'])
@@ -224,7 +224,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Incidence per 100k/past 14 days',
+                        text: 'Incidence per 100k/past 7 days',
                         fontSize: 25
 
                     },
@@ -291,7 +291,7 @@
                     responsive: true,
                     title: {
                         display: true,
-                        text: 'Reported Covid-Deaths per 100k/past 14 days',
+                        text: 'Reported Covid-Deaths per 100k/past 7 days',
                         fontSize: 25
 
                     },
@@ -755,9 +755,9 @@
                 document.getElementById("datefrom").value = formatDate(real_startdate)
                 document.getElementById("dateto").value = formatDate(real_enddate)
 
-                $('#countries_dd').dropdown('set selected', ['1','3','6','12','13','14','33','35'])
-                $('#measuretypes_dd').dropdown('set selected', ['8','2','26'])
-                LoadData("1,3,6,12,13,14,33,35", "8,2,26",real_startdate,real_enddate);
+                $('#countries_dd').dropdown('set selected', ['1','6','13','14','33','34','35'])
+                $('#measuretypes_dd').dropdown('set selected', ['8','2','16'])
+                LoadData("1,3,6,12,13,14,33,34,35", "8,2,26",real_startdate,real_enddate);
             }
 
             Chart.plugins.register({
