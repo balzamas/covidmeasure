@@ -107,3 +107,32 @@ class CasesDeaths(MotherModel):
         return f"{self.country} {self.date}"
 
 
+class OxfordMeasureType(MotherModel):
+    name = models.CharField(max_length=200)
+    code = models.CharField(max_length=2)
+    text_level0 = models.CharField(max_length=200,null=True,blank=True)
+    text_level1 = models.CharField(max_length=200,null=True,blank=True)
+    text_level2 = models.CharField(max_length=200,null=True,blank=True)
+    text_level3 = models.CharField(max_length=200,null=True,blank=True)
+    text_level4 = models.CharField(max_length=200,null=True,blank=True)
+    isactive = models.BooleanField(default= True)
+    ordering = ['code', 'name']
+    icon =models.CharField(max_length=200,blank=True)
+
+    def __str__(self):
+        return self.name
+
+class OxfordMeasure(MotherModel):
+
+    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    type = models.ForeignKey(OxfordMeasureType, on_delete=models.CASCADE)
+    start = models.DateField(null=True,blank=True)
+    end = models.DateField(null=True,blank=True)
+    comment = models.CharField(max_length=200,default= '')
+    level = models.IntegerField(default=0)
+    last_level = models.IntegerField(default=0)
+
+    ordering = ['country', 'type__code', 'type__name']
+
+    def __str__(self):
+        return f"{self.country} {self.type}"

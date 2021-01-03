@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from measuremeterdata.models.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths
+from measuremeterdata.models.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, OxfordMeasure, OxfordMeasureType
 from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases
 from measuremeterdata.models.models_bel import BELCases, BELProvince, BELAgeGroups
 
@@ -8,6 +8,14 @@ admin.site.register(Continent)
 admin.site.register(MeasureCategory)
 admin.site.register(BELProvince)
 admin.site.register(BELAgeGroups)
+
+admin.site.register(OxfordMeasureType)
+
+class OxfordMeasureAdmin(admin.ModelAdmin):
+    list_display = ['country', 'type', 'level', 'last_level','comment', 'start', 'end']
+    ordering = ['country__name', 'type__name']
+    list_filter = ('country', 'type')
+admin.site.register(OxfordMeasure, OxfordMeasureAdmin)
 
 class BELCasesAdmin(admin.ModelAdmin):
     list_display = ['province', 'date']
