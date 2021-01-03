@@ -4,10 +4,13 @@ from measuremeterdata.views import viewsets
 
 router = routers.DefaultRouter()
 router.register(r'measures', viewsets.MeasureViewSet)
+router.register(r'oxfordmeasures', viewsets.OxfordMeasureViewSet)
 
 router.register(r'measuresbymeasure', viewsets.MeasureByMeasureViewSet)
 router.register(r'countries', viewsets.CountryWithMeasuresViewSet)
 router.register(r'measuretypes', viewsets.MeasureTypeViewSet)
+router.register(r'oxfordmeasuretypes', viewsets.OxfordMeasureTypeViewSet)
+
 router.register(r'measurecatgories', viewsets.MeasureCategoryViewSet)
 router.register(r'casesdeaths', viewsets.CasesDeathsViewSet)
 

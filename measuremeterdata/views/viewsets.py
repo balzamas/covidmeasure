@@ -1,10 +1,10 @@
 from django.shortcuts import render
-from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths
+from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, OxfordMeasure, OxfordMeasureType
 from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases, CHDeaths
 from rest_framework import viewsets
 from rest_framework import permissions
 from measuremeterdata.serializers.serializers_ch import CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer, CHMeasurePublicSerializer, CHMeasureTypePublicSerializer, CantonPublicSerializer, CHDeathsPublicSerializer
-from measuremeterdata.serializers.serializers_int import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer
+from measuremeterdata.serializers.serializers_int import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer, OxfordMeasureSerializer, OxfordMeasureTypeSerializer
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
 from django.db.models import Q
@@ -118,6 +118,52 @@ class MeasureViewSet(viewsets.ModelViewSet):
         queryset = queryset.filter(type__isactive=True).order_by('country__name', 'type__category__name','type__name')
         return queryset
 
+class OxfordMeasureViewSet(viewsets.ModelViewSet):
+    queryset = OxfordMeasure.objects.filter(type__isactive=True).order_by('country__name', 'type__name')
+    serializer_class = OxfordMeasureSerializer
+    http_method_names = ['get', 'head']
+
+#    filter_backends = [DjangoFilterBackend]
+#    filter_class = MeasureFilter
+
+    def get_queryset(self):
+        queryset = OxfordMeasure.objects
+        countries = self.request.query_params.get('country', None)
+        types = self.request.query_params.get('type', None)
+        start = self.request.query_params.get('start', None)
+        end = self.request.query_params.get('end', None)
+        levels = self.request.query_params.get('level')
+        if countries and countries != '' and types != ',':
+            print(countries)
+            country_params = []
+            for x in countries.split(','):
+                if (x != ''):
+                    country_params.append(x)
+            queryset = queryset.filter(country__in=country_params)
+
+        if types != None and types != '' and types != ',':
+            type_params = []
+            for x in types.split(','):
+                if (x != ''):
+                    type_params.append(x)
+            queryset = queryset.filter(type__in=type_params)
+
+        if start != None:
+            queryset = queryset.filter(Q(start__lte=start)|Q(start__isnull=True))
+
+        if end != None:
+            queryset = queryset.filter(Q(end__gte=end)|Q(end__isnull=True))
+
+        if levels != None and levels != '' and types != ',':
+            level_params = []
+            for x in levels.split(','):
+                if (x != ''):
+                    level_params.append(x)
+            queryset = queryset.filter(level__in=level_params)
+
+        queryset = queryset.filter(type__isactive=True).order_by('country__name', 'type__name')
+        return queryset
+
 class MeasureByMeasureViewSet(viewsets.ModelViewSet):
     queryset = Measure.objects.filter(type__isactive=True).order_by('country__name', 'type__category__name','type__name' )
     serializer_class = MeasureSerializer
@@ -138,6 +184,14 @@ class MeasureTypeViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filter_class = MeasureTypeFilter
     http_method_names = ['get', 'head']
+
+class OxfordMeasureTypeViewSet(viewsets.ModelViewSet):
+    queryset = OxfordMeasureType.objects.filter(isactive=True).order_by('name')
+    serializer_class = OxfordMeasureTypeSerializer
+    filter_backends = [DjangoFilterBackend]
+    filter_class = MeasureTypeFilter
+    http_method_names = ['get', 'head']
+
 
 class MeasureCategoryViewSet(viewsets.ModelViewSet):
     queryset = MeasureCategory.objects.all().order_by('name')

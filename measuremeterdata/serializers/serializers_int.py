@@ -1,4 +1,4 @@
-from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths
+from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, OxfordMeasure, OxfordMeasureType
 from rest_framework import serializers
 
 
@@ -31,3 +31,14 @@ class MeasureSerializer(serializers.ModelSerializer):
         model = Measure
         fields = ['country', 'type', 'level', 'start', 'end', 'sources', 'comment', 'isregional', 'created', 'updated']
 
+class OxfordMeasureTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OxfordMeasureType
+        fields = ['pk', 'name', 'isactive', 'text_level0', 'text_level1', 'text_level2', 'text_level3', 'text_level4','icon']
+
+class OxfordMeasureSerializer(serializers.ModelSerializer):
+    type = OxfordMeasureTypeSerializer()
+    country = CountrySerializer()
+    class Meta:
+        model = OxfordMeasure
+        fields = ['country', 'type', 'level', 'last_level', 'start', 'end', 'comment', 'created', 'updated']

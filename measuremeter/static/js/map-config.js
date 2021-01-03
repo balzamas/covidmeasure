@@ -20,7 +20,7 @@ $( document ).ready(function() {
             map = L.map('map').setView([52, 12], 4);
 
           var dataMeasuresTypes = $.ajax({
-          url: "/measuremeterdata/measuretypes/",
+          url: "/measuremeterdata/oxfordmeasuretypes/",
           dataType: "json",
           async: false
           }).responseText;
@@ -124,7 +124,7 @@ $( document ).ready(function() {
             }
             else
             {
-                $('#measurechooser').dropdown('set selected',26);
+                $('#measurechooser').dropdown('set selected',2);
                 loadMapData(26,today);
             }
 });
@@ -134,7 +134,7 @@ function loadMapData(measuretype,filterdate) {
           statesData = $.extend( true, {}, statesDataOrig );
 
           var dataMeasuresType = $.ajax({
-          url: "/measuremeterdata/measuretypes/?pk="+measuretype,
+          url: "/measuremeterdata/oxfordmeasuretypes/?pk="+measuretype,
           dataType: "json",
           async: false
           }).responseText;
@@ -144,7 +144,7 @@ function loadMapData(measuretype,filterdate) {
 /*----------------------------------------------------------------------------------*/
 
           var data = $.ajax({
-          url: "/measuremeterdata/measures/?type="+measuretype.toString()+"&start="+filterdate.replace('-', '\-')+"&end="+filterdate.replace('-', '\-'),
+          url: "/measuremeterdata/oxfordmeasures/?type="+measuretype.toString()+"&start="+filterdate.replace('-', '\-')+"&end="+filterdate.replace('-', '\-'),
           dataType: "json",
           async: false
           }).responseText;
@@ -238,9 +238,10 @@ function loadMapData(measuretype,filterdate) {
 	info.addTo(map);
 
 
-	// get color depending on population density value
 	function getColor(d) {
-		return  d > 1   ? '#FE0000' :
+		return  d > 3   ? '#FED711' :
+		        d > 2   ? '#FEEE00' :
+		        d > 1   ? '#FE0000' :
 				d > 0   ? '#FED341' :
 				d > -1   ? '#00ff80' :
 						  '#dfdcdc';
@@ -324,7 +325,7 @@ function loadMapData(measuretype,filterdate) {
 
     var div = L.DomUtil.create('div', 'info legend');
     labels = ['<strong>'+ jsonMeasuresType[0]['name'] +'</strong>'],
-    categories = ['Unknown','None',jsonMeasuresType[0]['tooltip_partial'],jsonMeasuresType[0]['tooltip_nonpartial']];
+    categories = ['Unknown',jsonMeasuresType[0]['text_level0'],jsonMeasuresType[0]['text_level1'],jsonMeasuresType[0]['text_level2'], jsonMeasuresType[0]['text_level3'], jsonMeasuresType[0]['text_level4']];
 
     for (var i = 0; i < categories.length; i++) {
 
