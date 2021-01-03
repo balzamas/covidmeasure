@@ -28,9 +28,7 @@ class Command(BaseCommand):
 
         for row in my_list:
             if (count > 1):
-                    if (row[0] == "01" or row[0] == "25" or row[0] == "90" or row[0] == "68" or row[0] == "39" or row[0] == "74") and row[4] == "0":
-                        print(row)
-
+                    if (row[0] == "01" or row[0] == "25" or row[0] == "90" or row[0] == "68" or row[0] == "39" or row[0] == "74") and row[3] == "0":
                         bezirk = CHCanton.objects.filter(swisstopo_id="F"+row[0])
 
                         if (bezirk):
@@ -38,7 +36,7 @@ class Command(BaseCommand):
                                 print("reset")
                                 last_numbers = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]
 
-                            cases_td = int(row[3])
+                            cases_td = int(row[2])
 
                             last_numbers.append(cases_td)
                             last_numbers.pop(0)
