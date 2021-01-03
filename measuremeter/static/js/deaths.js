@@ -1,6 +1,5 @@
-      function drawLineChart(avg, avg_peak, deaths_all, deaths_covid, deaths_all_peak, avg_and_covid, country, code, avg_desc, avg_peak_desc, peak_year)
+      function drawLineChart(avg_peak, avg_15_19, deaths_all, deaths_covid, deaths_all_peak, avg_and_covid, country, code, avg_desc, avg_peak_desc, peak_year)
       {
-        week_avg = Math.round(parseFloat(avg.replace(",", ".")) * 7)
         week_avg_peak = Math.round(parseFloat(avg_peak.replace(",", ".")) * 7)
 
         var dataset_deaths = new Array()
@@ -12,7 +11,7 @@
 
         var dataset_data_total = new Array()
         var dataset_data_peakyear = new Array()
-        var dataset_data_avg = new Array()
+        var dataset_data_avg_15_19 = new Array()
         var dataset_data_peak = new Array()
         var dataset_data_avg_and_covid = new Array()
 
@@ -24,7 +23,7 @@
                 dataset_data_avg_and_covid.push(avg_and_covid[property]);
                 dataset_data_total.push(deaths_all[property]);
                 dataset_data_peakyear.push(deaths_all_peak[property]);
-                dataset_data_avg.push(week_avg);
+                dataset_data_avg_15_19.push(avg_15_19[property]);
                 dataset_data_peak.push(week_avg_peak);
         }
 
@@ -37,7 +36,7 @@
             color = '#00ffff'
             dataset_deaths.push({"label": peak_year, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_peakyear})
             color = '#00ff00'
-            dataset_deaths.push({"label": avg_desc, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_avg})
+            dataset_deaths.push({"label": "AVG 15-19", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_avg_15_19})
             color = '#ff0000'
             dataset_deaths.push({"label": avg_peak_desc, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_peak})
             color = '#faec93'

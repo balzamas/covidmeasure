@@ -21,7 +21,11 @@ def getdata(country):
     with gzip.open(resp, 'rt') as f:
         file_content = f.read()
 
-        weeks = []
+        weeks19 = []
+        weeks18 = []
+        weeks17 = []
+        weeks16 = []
+        weeks15 = []
 
         head = file_content.splitlines()[0]
 
@@ -32,16 +36,25 @@ def getdata(country):
         col_nr_19 = -1
 
         col_cnt = 0
-
         for header_col in head.split('\t'):
-            if ("W" in header_col and header_col.split('W')[0] == '2020' and "99" not in header_col):
-                weeks.append(import_helper.get_start_end_dates(int(header_col.split('W')[0]), int(header_col.split('W')[1])))
+            if ("W" in header_col and header_col.split('W')[0] == '2019' and "99" not in header_col):
+                weeks19.insert(0,col_cnt)
 
-            if (str(country.peak_year)+"W"+str(len(weeks)-1) in header_col):
-                peak_col_nr = col_cnt-3
+            if ("W" in header_col and header_col.split('W')[0] == '2018' and "99" not in header_col):
+                weeks18.insert(0,col_cnt)
+
+            if ("W" in header_col and header_col.split('W')[0] == '2017' and "99" not in header_col):
+                weeks17.insert(0,col_cnt)
+
+            if ("W" in header_col and header_col.split('W')[0] == '2016' and "99" not in header_col):
+                weeks16.insert(0,col_cnt)
+
+            if ("W" in header_col and header_col.split('W')[0] == '2015' and "99" not in header_col):
+                weeks15.insert(0,col_cnt)
+
             col_cnt += 1
 
-        week = -1;
+
         for line in file_content.splitlines():
             if (line.split('\t')[0].split(',')[0] == 'T'):
                 if (country.code.lower() == 'gb'):
@@ -52,56 +65,31 @@ def getdata(country):
                     code = country.code.lower()
                 if (line.split('\t')[0].split(',')[2].lower() == code):
                     columns = line.split('\t')
-                    col_cnt = 0
-                    for col in columns:
 
-                        if (col_cnt > peak_col_nr):
-                            if ("NR" not in col and ':' not in col and week < len(weeks)):
-                                value = int(col.replace('p', '').replace('e', '').replace(' ', ''))
-                                avg = value / 7
+                    for week in range(0, 52):
+                        try:
+                            total = (int(columns[weeks19[week]].replace('p', '').replace('e', '').replace(' ', '')) + int(columns[weeks18[week]].replace('p', '').replace('e', '').replace(' ', '')) + int(columns[weeks17[week]].replace('p', '').replace('e', '').replace(' ', '')) + int(columns[weeks16[week]].replace('p', '').replace('e', '').replace(' ', '')) + int(columns[weeks15[week]].replace('p', '').replace('e', '').replace(' ', '')))/5
+                        except:
+                            total = int(columns[weeks15[week]].replace('p', '').replace('e', '').replace(' ', ''))
 
-                                savedate = weeks[week][0]
+                        avg = total / 7
 
-                                for number in range(1, 8):
-                                    try:
-                                        cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
-                                        cd_existing.deathstotal_peak = avg
-                                        cd_existing.save()
-                                    except CasesDeaths.DoesNotExist:
-                                        cd = CasesDeaths(country=country, deathstotal_peak=avg,
-                                                                           date=savedate)
-                                        cd.save()
+                        savedate = import_helper.get_start_end_dates(2020,(week+1))[0]
+                        print(savedate)
+                        print(avg)
 
-                                    savedate += timedelta(days=1)
-                                week += 1
+                        for number in range(1, 8):
+                            try:
+                                cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
+                                cd_existing.deathstotal_average = avg
+                                cd_existing.save()
+                            except CasesDeaths.DoesNotExist:
+                                cd = CasesDeaths(country=country, deathstotal_average=avg,date=savedate)
+                                cd.save()
 
-                        elif ("NR" not in col and ':' not in col and week < len(weeks)):
+                            savedate += timedelta(days=1)
 
-                            value = int(col.replace('p', '').replace('e', '').replace(' ', ''))
 
-                            avg = value / 7
-
-                            savedate = weeks[week][0]
-
-                            for number in range(1, 8):
-                                try:
-                                    cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
-                                    cd_existing.deathstotal = avg
-                                    cd_existing.save()
-                                except CasesDeaths.DoesNotExist:
-                                    cd = CasesDeaths(country=country, deathstotal=avg,date=savedate)
-                                    cd.save()
-
-                                savedate += timedelta(days=1)
-
-                            week += 1
-                        elif ':' in col:
-                            week += 1
-
-                        if (col_cnt == peak_col_nr):
-                            week = -1
-
-                        col_cnt += 1
 
 class Command(BaseCommand):
 
@@ -117,7 +105,7 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=31)) #pt
         getdata(Country.objects.get(pk=36)) #hr
         getdata(Country.objects.get(pk=29)) #hu
-        getdata(Country.objects.get(pk=33)) #it
+    #    getdata(Country.objects.get(pk=33)) #it incomplete data 2015
         getdata(Country.objects.get(pk=19)) #si
         getdata(Country.objects.get(pk=16)) #lt
         getdata(Country.objects.get(pk=26)) #lv
@@ -138,7 +126,7 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=38)) #greece
         getdata(Country.objects.get(pk=44)) #is
         getdata(Country.objects.get(pk=24)) #fi
-        getdata(Country.objects.get(pk=35)) #de
+#        getdata(Country.objects.get(pk=35)) #de incomplete data 2015
         getdata(Country.objects.get(pk=49)) #cy
 
 
