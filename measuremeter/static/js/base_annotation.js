@@ -3,15 +3,30 @@
                             str_level = '<i class="green '+line["type"]["icon"] +'" data-tooltip="None"></i>'
                             status = "None"
 
+                            if (line['level'] == 0)
+                            {
+                                status = line['level']
+                                str_level =  '<i class="yellow '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["text_level0"]+'"></i>'
+                            }
                             if (line['level'] == 1)
                             {
-                                status = line["type"]["tooltip_partial"]
-                                str_level =  '<i class="yellow '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_partial"]+'"></i>'
+                                status = line['level']
+                                str_level =  '<i class="yellow '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["text_level1"]+'"></i>'
                             }
                             else if (line['level'] == 2)
                             {
-                                status = line["type"]["tooltip_nonpartial"]
-                                str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["tooltip_nonpartial"]+'"></i>'
+                                status = line['level']
+                                str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["text_level2"]+'"></i>'
+                            }
+                            else if (line['level'] == 3)
+                            {
+                                status = line['level']
+                                str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["text_level3"]+'"></i>'
+                            }
+                            else if (line['level'] == 4)
+                            {
+                                status = line['level']
+                                str_level =  '<i class="red '+line["type"]["icon"] +'" data-tooltip="'+line["type"]["text_level4"]+'"></i>'
                             }
 
                             endtime = "Undefined"
@@ -42,7 +57,7 @@
 
 
           var data = $.ajax({
-          url: "/measuremeterdata/measures/?country="+countries+"&type="+measuretypes,
+          url: "/measuremeterdata/oxfordmeasures/?country="+countries+"&type="+measuretypes,
           dataType: "json",
           async: false
           }).responseText;

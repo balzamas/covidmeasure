@@ -43,7 +43,7 @@
                   //-----------------------------Load MeasureTypes----------------------
 
           var dataMeasuresTypes = $.ajax({
-          url: "/measuremeterdata/measuretypes/",
+          url: "/measuremeterdata/oxfordmeasuretypes/",
           dataType: "json",
           async: false
           }).responseText;
@@ -756,8 +756,8 @@
                 document.getElementById("dateto").value = formatDate(real_enddate)
 
                 $('#countries_dd').dropdown('set selected', ['1','6','13','14','33','34','35'])
-                $('#measuretypes_dd').dropdown('set selected', ['8','2','16'])
-                LoadData("1,6,13,14,33,34,35", "8,2,26",real_startdate,real_enddate);
+                $('#measuretypes_dd').dropdown('set selected', ['1','5','2'])
+                LoadData("1,6,13,14,33,34,35", "1,5,2",real_startdate,real_enddate);
             }
 
             Chart.plugins.register({
