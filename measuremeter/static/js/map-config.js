@@ -124,8 +124,8 @@ $( document ).ready(function() {
             }
             else
             {
-                $('#measurechooser').dropdown('set selected',2);
-                loadMapData(26,today);
+                $('#measurechooser').dropdown('set selected',9);
+                //loadMapData(9,today);
             }
 });
 
@@ -156,6 +156,18 @@ function loadMapData(measuretype,filterdate) {
                 {
                     statesData.features[id].properties.level = item.level;
                     statesData.features[id].properties.comment = item.comment;
+             		if (item.type.text_level3 == null)
+                    {
+                        statesData.features[id].properties.levels = 2
+                    }
+                    else if (item.type.text_level4 == null)
+                    {
+                        statesData.features[id].properties.levels = 3
+                    }
+                    else
+                    {
+                        statesData.features[id].properties.levels = 4
+                    }
 
                     if (item.start != null)
                       {
@@ -238,23 +250,47 @@ function loadMapData(measuretype,filterdate) {
 	info.addTo(map);
 
 
-	function getColor(d) {
-		return  d > 3   ? '#FED711' :
-		        d > 2   ? '#FEEE00' :
-		        d > 1   ? '#FE0000' :
+	function getColor(d, levels) {
+	    if (levels == 2)
+	    {
+      		return  d > 1   ? '#FE0000' :
 				d > 0   ? '#FED341' :
 				d > -1   ? '#00ff80' :
 						  '#dfdcdc';
+	    }
+	    else if (levels == 3)
+	    {
+      		return  d > 2   ? '#FE0000' :
+		        d > 1   ? '#ff7c1b' :
+				d > 0   ? '#FED341' :
+				d > -1   ? '#00ff80' :
+						  '#dfdcdc';
+	    }
+	    else if (levels == 4)
+	    {
+            return  d > 3   ? '#FE0000' :
+                    d > 2   ? '#fa8173' :
+                    d > 1   ? '#fecc2f' :
+                    d > 0   ? '#FED341' :
+                    d > -1   ? '#00ff80' :
+                              '#dfdcdc';
+	    }
+
 	}
 
+
 	function style(feature) {
+   	    fcolor = getColor(feature.properties.level, feature.properties.levels)
+
 		return {
 			weight: 2,
 			opacity: 1,
 			color: 'white',
 			dashArray: '3',
 			fillOpacity: 1,
-			fillColor: getColor(feature.properties.level)
+			fillColor: fcolor
+
+
 		};
 	}
 
@@ -287,7 +323,6 @@ function loadMapData(measuretype,filterdate) {
     var popup = L.popup();
 
     function onMapClick(e) {
-        console.log(e.sourceTarget.feature.properties.name);
         var datestr = ''
             if (e.sourceTarget.feature.properties.start != e.sourceTarget.feature.properties.end)
             {
@@ -324,14 +359,28 @@ function loadMapData(measuretype,filterdate) {
     legend.onAdd = function (map) {
 
     var div = L.DomUtil.create('div', 'info legend');
-    labels = ['<strong>'+ jsonMeasuresType[0]['name'] +'</strong>'],
-    categories = ['Unknown',jsonMeasuresType[0]['text_level0'],jsonMeasuresType[0]['text_level1'],jsonMeasuresType[0]['text_level2'], jsonMeasuresType[0]['text_level3'], jsonMeasuresType[0]['text_level4']];
+    labels = ['<strong>'+ jsonMeasuresType[0]['name'] +'</strong>']
+    if (jsonMeasuresType[0]['text_level3'] == null)
+    {
+        categories = ['Unknown',jsonMeasuresType[0]['text_level0'],jsonMeasuresType[0]['text_level1'],jsonMeasuresType[0]['text_level2']];
+        levels = 2;
+    }
+    else if (jsonMeasuresType[0]['text_level4'] == null)
+    {
+        categories = ['Unknown',jsonMeasuresType[0]['text_level0'],jsonMeasuresType[0]['text_level1'],jsonMeasuresType[0]['text_level2'], jsonMeasuresType[0]['text_level3']];
+        levels = 3;
+    }
+    else
+    {
+        categories = ['Unknown',jsonMeasuresType[0]['text_level0'],jsonMeasuresType[0]['text_level1'],jsonMeasuresType[0]['text_level2'], jsonMeasuresType[0]['text_level3'], jsonMeasuresType[0]['text_level4']];
+        levels = 3;
+    }
 
     for (var i = 0; i < categories.length; i++) {
 
             div.innerHTML +=
             labels.push(
-                '<i class="circle" style="background:' + getColor(i-1) + '"></i> ' +
+                '<i class="circle" style="background:' + getColor(i-1,levels) + '"></i> ' +
             (categories[i] ? categories[i] : '+'));
 
         }

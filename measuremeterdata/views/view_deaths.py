@@ -51,7 +51,7 @@ def country_deaths(request):
 
         weeks_wdata = 0
 
-        week_stop = datetime.datetime.now().isocalendar()[1] -2
+        week_stop = datetime.date(2021, 1, 3).isocalendar()[1] -2
 
         for case in cases:
             week_value_covid += case.deaths
@@ -98,6 +98,7 @@ def country_deaths(request):
                 week_value_peak_all = 0
                 week += 1
 
+            diff_week2_peak = None
             if case.deathstotal_average:
                 diff_week2 = int(death_total_week2 - ((weeks_wdata - 1) * 7 * case.deathstotal_average))
                 if death_peak_week2:
