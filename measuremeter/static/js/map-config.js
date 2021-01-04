@@ -125,7 +125,6 @@ $( document ).ready(function() {
             else
             {
                 $('#measurechooser').dropdown('set selected',9);
-                //loadMapData(9,today);
             }
 });
 
@@ -373,7 +372,7 @@ function loadMapData(measuretype,filterdate) {
     else
     {
         categories = ['Unknown',jsonMeasuresType[0]['text_level0'],jsonMeasuresType[0]['text_level1'],jsonMeasuresType[0]['text_level2'], jsonMeasuresType[0]['text_level3'], jsonMeasuresType[0]['text_level4']];
-        levels = 3;
+        levels = 4;
     }
 
     for (var i = 0; i < categories.length; i++) {
