@@ -30,7 +30,12 @@ def calc_ranking_countries(countries):
             positivity_before7 = 0.0
             positivity_before7_count = 0
             pos_count = 0
+            last_stringency = None
             for case in cases:
+                if (case.stringency_index != None and last_stringency == None):
+                    last_stringency = case.stringency_index
+                    last_stringency_date = case.date
+
                 if (case.r0median != None and last_R == None):
                     last_R = case.r0median
                     last_R_date = case.date
@@ -95,7 +100,7 @@ def calc_ranking_countries(countries):
                                 "peak_cases": peak_cases, "peak_cases_date": peak_cases_date,
                                 "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
                                 "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date,
-                                "R": last_R, "R_date": last_R_date
+                                "R": last_R, "R_date": last_R_date, "stringency": last_stringency, "stringency_date": last_stringency_date
                                 }
 
                 country_vals.append(canton_toadd)

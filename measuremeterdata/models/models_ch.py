@@ -82,6 +82,7 @@ class CHCases(MotherModel):
     mobility_recreation = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
     mobility_workplace = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
     mobility_transit = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+    kof_index = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
 
     ordering = ['canton__pk', 'date', 'cases']
 

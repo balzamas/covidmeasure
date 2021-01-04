@@ -96,7 +96,7 @@ table.center {
 
     <p id="grande">Click on table headers to sort.</p>
 
-    <tr><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(3,'ranking')">Score</th><th onclick="sortTable(4,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(5,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(7,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th>R median</th></tr>
+    <tr><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(3,'ranking')">Score</th><th onclick="sortTable(4,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(5,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(7,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th onclick="sortTable(8,'ranking')">R median</th><th onclick="sortTable(9,'ranking')">Stringency index</th></tr>
     {% for hans in countries %}
 
     <tr>
@@ -171,8 +171,15 @@ table.center {
       {% else %}
             <td class="negative" nowrap>
       {% endif %}
+       <div hidden>{{ hans.R|floatformat:2 }}</div>
         <div class="container">
             <div class="centered">{{ hans.R|floatformat:2 }}<br><font size=1px>{{ hans.R_date }}</font></div>
+        </div>
+      </td>
+      <td nowrap>
+       <div hidden>{{ hans.stringency|floatformat:2 }}</div>
+        <div class="container">
+            <div class="centered">{{ hans.stringency|floatformat:2 }}<br><font size=1px>{{ hans.stringency_date }}</font></div>
         </div>
       </td>
     </tr>
