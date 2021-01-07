@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from measuremeterdata.models.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, OxfordMeasure, OxfordMeasureType
+from measuremeterdata.models.models import Country, MeasureCategory, MeasureType_old, Measure_old, Continent, CasesDeaths, CountryMeasure, CountryMeasureType
 import os
 import csv
 import datetime
@@ -80,7 +80,7 @@ def import_oxford(url, category):
                 cntries.append(cntry.iso_code.lower())
 
 
-        category = OxfordMeasureType.objects.get(pk=category)
+        category = CountryMeasureType.objects.get(pk=category)
 
         print(f"Load {category} into django")
 
@@ -122,13 +122,13 @@ def import_oxford(url, category):
                                 comment = category.text_level4
 
                             try:
-                                measure = OxfordMeasure.objects.get(country=country, type=category, start=start_date)
+                                measure = CountryMeasure.objects.get(country=country, type=category, start=start_date)
                                 measure.level = level
                                 measure.comment = comment
                                 measure.last_level = last_level
                                 measure.save()
                             except:
-                                measure = OxfordMeasure(country=country, type=category, comment = comment, start=start_date, level=level, last_level = last_level)
+                                measure = CountryMeasure(country=country, type=category, comment = comment, start=start_date, level=level, last_level = last_level)
                                 measure.save()
                             last_level = int(col)
 

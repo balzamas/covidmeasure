@@ -1,4 +1,4 @@
-from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths
+from measuremeterdata.models.models import Measure_old, Country, MeasureType_old, MeasureCategory, CasesDeaths
 from django.shortcuts import get_object_or_404, render
 from datetime import timedelta
 import datetime

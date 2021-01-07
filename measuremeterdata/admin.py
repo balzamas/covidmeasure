@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django import forms
-from measuremeterdata.models.models import Country, MeasureCategory, MeasureType, Measure, Continent, CasesDeaths, OxfordMeasure, OxfordMeasureType
+from measuremeterdata.models.models import Country, MeasureCategory, MeasureType_old, Measure_old, Continent, CasesDeaths, CountryMeasure, CountryMeasureType
 from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases
 from measuremeterdata.models.models_bel import BELCases, BELProvince, BELAgeGroups
 
@@ -9,13 +9,13 @@ admin.site.register(MeasureCategory)
 admin.site.register(BELProvince)
 admin.site.register(BELAgeGroups)
 
-admin.site.register(OxfordMeasureType)
+admin.site.register(CountryMeasureType)
 
 class OxfordMeasureAdmin(admin.ModelAdmin):
     list_display = ['country', 'type', 'level', 'last_level','comment', 'start', 'end']
     ordering = ['country__name', 'type__name']
     list_filter = ('country', 'type')
-admin.site.register(OxfordMeasure, OxfordMeasureAdmin)
+admin.site.register(CountryMeasure, OxfordMeasureAdmin)
 
 class BELCasesAdmin(admin.ModelAdmin):
     list_display = ['province', 'date']
@@ -45,7 +45,7 @@ class MeasureTypeAdmin(admin.ModelAdmin):
     list_display = ['name', 'category', 'isactive', 'comment']
     ordering = ['category', 'name']
     search_fields = ['name']
-admin.site.register(MeasureType, MeasureTypeAdmin)
+admin.site.register(MeasureType_old, MeasureTypeAdmin)
 
 def duplicate_record(modeladmin, request, queryset):
     for object in queryset:
@@ -70,7 +70,7 @@ class MeasureAdmin(admin.ModelAdmin):
     actions = [duplicate_record]
     list_filter = ('country', 'type', 'type__category')
     form = MeasureAddForm
-admin.site.register(Measure, MeasureAdmin)
+admin.site.register(Measure_old, MeasureAdmin)
 
 class CantonAdmin(admin.ModelAdmin):
     list_display = ['name', 'id']

@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, OxfordMeasure, OxfordMeasureType
+from measuremeterdata.models.models import Measure_old, Country, MeasureType_old, MeasureCategory, CasesDeaths, CountryMeasure, CountryMeasureType
 from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases, CHDeaths
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -52,7 +52,7 @@ def get_queryset(self):
         start = self.request.query_params.get('start')
         end = self.request.query_params.get('end')
         levels = self.request.query_params.get('level')
-        measures = Measure.objects
+        measures = Measure_old.objects
         if countries:
             measures.filter(country__in=countries)  # returned queryset filtered by ids
         if type:
@@ -69,11 +69,11 @@ def get_queryset(self):
         return measures  # return whole queryset
 
         class Meta:
-            model = Measure
+            model = Measure_old
             fields = ['country', 'type', 'start', 'end', 'level']
 
 class MeasureViewSet(viewsets.ModelViewSet):
-    queryset = Measure.objects.filter(type__isactive=True).order_by('country__name', 'type__category','type__name')
+    queryset = Measure_old.objects.filter(type__isactive=True).order_by('country__name', 'type__category', 'type__name')
     serializer_class = MeasureSerializer
     http_method_names = ['get', 'head']
 
@@ -81,7 +81,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
 #    filter_class = MeasureFilter
 
     def get_queryset(self):
-        queryset = Measure.objects
+        queryset = Measure_old.objects
         countries = self.request.query_params.get('country', None)
         types = self.request.query_params.get('type', None)
         start = self.request.query_params.get('start', None)
@@ -119,7 +119,7 @@ class MeasureViewSet(viewsets.ModelViewSet):
         return queryset
 
 class OxfordMeasureViewSet(viewsets.ModelViewSet):
-    queryset = OxfordMeasure.objects.filter(type__isactive=True).order_by('country__name', 'type__name')
+    queryset = CountryMeasure.objects.filter(type__isactive=True).order_by('country__name', 'type__name')
     serializer_class = OxfordMeasureSerializer
     http_method_names = ['get', 'head']
 
@@ -127,7 +127,7 @@ class OxfordMeasureViewSet(viewsets.ModelViewSet):
 #    filter_class = MeasureFilter
 
     def get_queryset(self):
-        queryset = OxfordMeasure.objects
+        queryset = CountryMeasure.objects
         countries = self.request.query_params.get('country', None)
         types = self.request.query_params.get('type', None)
         start = self.request.query_params.get('start', None)
@@ -165,7 +165,7 @@ class OxfordMeasureViewSet(viewsets.ModelViewSet):
         return queryset
 
 class MeasureByMeasureViewSet(viewsets.ModelViewSet):
-    queryset = Measure.objects.filter(type__isactive=True).order_by('country__name', 'type__category__name','type__name' )
+    queryset = Measure_old.objects.filter(type__isactive=True).order_by('country__name', 'type__category__name', 'type__name')
     serializer_class = MeasureSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = MeasureFilter
@@ -179,14 +179,14 @@ class CountryWithMeasuresViewSet(viewsets.ModelViewSet):
     http_method_names = ['get', 'head']
 
 class MeasureTypeViewSet(viewsets.ModelViewSet):
-    queryset = MeasureType.objects.filter(isactive=True).order_by('category','name')
+    queryset = MeasureType_old.objects.filter(isactive=True).order_by('category', 'name')
     serializer_class = MeasureTypeSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = MeasureTypeFilter
     http_method_names = ['get', 'head']
 
 class OxfordMeasureTypeViewSet(viewsets.ModelViewSet):
-    queryset = OxfordMeasureType.objects.filter(isactive=True).order_by('name')
+    queryset = CountryMeasureType.objects.filter(isactive=True).order_by('name')
     serializer_class = OxfordMeasureTypeSerializer
     filter_backends = [DjangoFilterBackend]
     filter_class = MeasureTypeFilter
@@ -300,7 +300,7 @@ class CHMeasureFilter(filters.FilterSet):
             start = self.request.query_params.get('start')
             end = self.request.query_params.get('end')
             levels = self.request.query_params.get('level')
-            measures = Measure.objects
+            measures = Measure_old.objects
             if cantons:
                 measures.filter(canton__in=cantons)  # returned queryset filtered by ids
             if type:
@@ -317,7 +317,7 @@ class CHMeasureFilter(filters.FilterSet):
             return measures  # return whole queryset
 
             class Meta:
-                model = Measure
+                model = Measure_old
                 fields = ['canton', 'type', 'start', 'end', 'level']
 
 class CHMeasureViewSet(viewsets.ModelViewSet):

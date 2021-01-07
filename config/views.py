@@ -1,4 +1,4 @@
-from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory,CasesDeaths
+from measuremeterdata.models.models import Measure_old, Country, MeasureType_old, MeasureCategory,CasesDeaths
 from measuremeterdata.models.models_ch import CHCases, CHCanton, CHMeasure
 from measuremeterdata.models.models_bel import BELProvince, BELCases, BELAgeGroups
 
@@ -13,7 +13,7 @@ def render_country(request, country_name):
     return render(request, 'pages/country.html', {'item': item })
 
 def render_euromap(request, measure_id):
-    item = get_object_or_404(MeasureType, pk=measure_id)
+    item = get_object_or_404(MeasureType_old, pk=measure_id)
     return render(request, 'pages/euromap.html', {'item': item })
 
 def render_timeline(request, country_name):
@@ -26,7 +26,7 @@ def render_cantons(request, options):
     return render(request, 'pages/canton.html', {'items': options })
 
 def international(request):
-    measures = Measure.objects.all().order_by('-created')[:10]
+    measures = Measure_old.objects.all().order_by('-created')[:10]
 
     template = loader.get_template('pages/home.html')
     context = {

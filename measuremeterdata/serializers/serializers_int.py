@@ -1,4 +1,4 @@
-from measuremeterdata.models.models import Measure, Country, MeasureType, MeasureCategory, CasesDeaths, OxfordMeasure, OxfordMeasureType
+from measuremeterdata.models.models import Measure_old, Country, MeasureType_old, MeasureCategory, CasesDeaths, CountryMeasure, CountryMeasureType
 from rest_framework import serializers
 
 
@@ -21,24 +21,24 @@ class MeasureCategorySerializer(serializers.ModelSerializer):
 class MeasureTypeSerializer(serializers.ModelSerializer):
     category = MeasureCategorySerializer()
     class Meta:
-        model = MeasureType
+        model = MeasureType_old
         fields = ['pk', 'name', 'category', 'isactive', 'tooltip_nonpartial','tooltip_partial', 'comment', 'icon']
 
 class MeasureSerializer(serializers.ModelSerializer):
     type = MeasureTypeSerializer()
     country = CountrySerializer()
     class Meta:
-        model = Measure
+        model = Measure_old
         fields = ['country', 'type', 'level', 'start', 'end', 'sources', 'comment', 'isregional', 'created', 'updated']
 
 class OxfordMeasureTypeSerializer(serializers.ModelSerializer):
     class Meta:
-        model = OxfordMeasureType
+        model = CountryMeasureType
         fields = ['pk', 'name', 'isactive', 'text_level0', 'text_level1', 'text_level2', 'text_level3', 'text_level4','icon']
 
 class OxfordMeasureSerializer(serializers.ModelSerializer):
     type = OxfordMeasureTypeSerializer()
     country = CountrySerializer()
     class Meta:
-        model = OxfordMeasure
+        model = CountryMeasure
         fields = ['country', 'type', 'level', 'last_level', 'start', 'end', 'comment', 'created', 'updated']
