@@ -126,9 +126,11 @@ def import_oxford(url, category):
                                 measure.level = level
                                 measure.comment = comment
                                 measure.last_level = last_level
+                                meusare.source = "https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker"
                                 measure.save()
                             except:
-                                measure = CountryMeasure(country=country, type=category, comment = comment, start=start_date, level=level, last_level = last_level)
+                                measure = CountryMeasure(country=country, type=category, comment = comment,
+                                                         source="https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker", start=start_date, level=level, last_level = last_level)
                                 measure.save()
                             last_level = int(col)
 

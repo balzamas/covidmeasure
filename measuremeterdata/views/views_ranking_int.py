@@ -131,7 +131,7 @@ def calc_ranking_countries(countries):
     return context
 
 def ranking_world(request):
-    countries = Country.objects.all()
+    countries = Country.objects.filter(isactive=True)
     context = calc_ranking_countries(countries)
 
     template = loader.get_template('pages/ranking_world.html')
@@ -141,7 +141,7 @@ def ranking_world(request):
 
 def ranking_europe(request):
 
-    countries = Country.objects.filter(continent=1)
+    countries = Country.objects.filter(continent=1,isactive=True)
     context = calc_ranking_countries(countries)
 
     template = loader.get_template('pages/ranking_europe.html')

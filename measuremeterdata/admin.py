@@ -9,7 +9,6 @@ admin.site.register(MeasureCategory)
 admin.site.register(BELProvince)
 admin.site.register(BELAgeGroups)
 
-admin.site.register(CountryMeasureType)
 
 def duplicate_record(modeladmin, request, queryset):
     for object in queryset:
@@ -17,12 +16,20 @@ def duplicate_record(modeladmin, request, queryset):
         object.save()
 duplicate_record.short_description = "Duplicate selected record"
 
-class OxfordMeasureAdmin(admin.ModelAdmin):
+class MeasureTypeAdmin(admin.ModelAdmin):
+    list_display = ['name', 'isactive']
+    ordering = ['name']
+    search_fields = ['name']
+admin.site.register(CountryMeasureType, MeasureTypeAdmin)
+
+class MeasureAdmin(admin.ModelAdmin):
     list_display = ['country', 'type', 'level', 'last_level','comment', 'start', 'end']
     ordering = ['country__name', 'type__name']
     actions = [duplicate_record]
+    search_fields = ['country']
+    autocomplete_fields = ['country', 'type']
     list_filter = ('country', 'type')
-admin.site.register(CountryMeasure, OxfordMeasureAdmin)
+admin.site.register(CountryMeasure, MeasureAdmin)
 
 class BELCasesAdmin(admin.ModelAdmin):
     list_display = ['province', 'date']
@@ -48,11 +55,11 @@ class CountryAdmin(admin.ModelAdmin):
 admin.site.register(Country, CountryAdmin)
 
 
-class MeasureTypeAdmin(admin.ModelAdmin):
+class MeasureTypeAdmin_old(admin.ModelAdmin):
     list_display = ['name', 'category', 'isactive', 'comment']
     ordering = ['category', 'name']
     search_fields = ['name']
-admin.site.register(MeasureType_old, MeasureTypeAdmin)
+admin.site.register(MeasureType_old, MeasureTypeAdmin_old)
 
 def duplicate_record(modeladmin, request, queryset):
     for object in queryset:
@@ -69,7 +76,7 @@ class MeasureAddForm(forms.ModelForm):
         if end_date != None and start_date != None and end_date < start_date:
             raise forms.ValidationError("End date should be greater than start date.")
 
-class MeasureAdmin(admin.ModelAdmin):
+class MeasureAdmin_old(admin.ModelAdmin):
     # a list of displayed columns name.
     list_display = ['country', 'type', 'level', 'comment', 'start', 'end']
     ordering = ['country__name', 'type__category', 'type__name']
@@ -77,7 +84,7 @@ class MeasureAdmin(admin.ModelAdmin):
     actions = [duplicate_record]
     list_filter = ('country', 'type', 'type__category')
     form = MeasureAddForm
-admin.site.register(Measure_old, MeasureAdmin)
+admin.site.register(Measure_old, MeasureAdmin_old)
 
 class CantonAdmin(admin.ModelAdmin):
     list_display = ['name', 'id']
