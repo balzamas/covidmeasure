@@ -44,7 +44,7 @@ class MeasureCategory(MotherModel):
     def __str__(self):
         return self.name
 
-class MeasureType(MotherModel):
+class MeasureType_old(MotherModel):
     name = models.CharField(max_length=200)
     category = models.ForeignKey(MeasureCategory, on_delete=models.CASCADE,blank=True,null=True)
     comment = RichTextField(blank=True)
@@ -58,7 +58,7 @@ class MeasureType(MotherModel):
     def __str__(self):
         return self.name
 
-class Measure(MotherModel):
+class Measure_old(MotherModel):
     LEVEL_CHOICES=[
         (0, 'None'),
         (1, 'Partial'),
@@ -66,7 +66,7 @@ class Measure(MotherModel):
     ]
 
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    type = models.ForeignKey(MeasureType, on_delete=models.CASCADE)
+    type = models.ForeignKey(MeasureType_old, on_delete=models.CASCADE)
     start = models.DateField(null=True,blank=True)
     end = models.DateField(null=True,blank=True)
     level = models.IntegerField(choices=LEVEL_CHOICES,default=0)
@@ -107,7 +107,7 @@ class CasesDeaths(MotherModel):
         return f"{self.country} {self.date}"
 
 
-class OxfordMeasureType(MotherModel):
+class CountryMeasureType(MotherModel):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=2)
     text_level0 = models.CharField(max_length=200,null=True,blank=True)
@@ -122,10 +122,10 @@ class OxfordMeasureType(MotherModel):
     def __str__(self):
         return self.name
 
-class OxfordMeasure(MotherModel):
+class CountryMeasure(MotherModel):
 
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
-    type = models.ForeignKey(OxfordMeasureType, on_delete=models.CASCADE)
+    type = models.ForeignKey(CountryMeasureType, on_delete=models.CASCADE)
     start = models.DateField(null=True,blank=True)
     end = models.DateField(null=True,blank=True)
     comment = models.CharField(max_length=200,default= '')
