@@ -35,8 +35,20 @@
                                 endtime = line['end'];
                             }
 
+                          if (line['level'] < line['last_level'])
+                           {
+                            tendency = "&#11015;"
+                           }
+                           else if (line['level'] == line['last_level'])
+                           {
+                            tendency = "&#10145;"
+                           }
+                           else if (line['level'] > line['last_level'])
+                           {
+                            tendency = "&#11014;"
+                           }
 
-                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ '<br>Measure: '+line["type"]["name"]+'<br>Level: '+status +'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ tendency +'<br>Measure: '+line["type"]["name"]+'<br>Level: '+status +'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
 
          return htmlLine;
      }
