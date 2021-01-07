@@ -128,9 +128,11 @@ class CountryMeasure(MotherModel):
     type = models.ForeignKey(CountryMeasureType, on_delete=models.CASCADE)
     start = models.DateField(null=True,blank=True)
     end = models.DateField(null=True,blank=True)
-    comment = models.CharField(max_length=200,default= '')
+    comment = RichTextField(blank=True)
     level = models.IntegerField(default=0)
-    last_level = models.IntegerField(default=0)
+    last_level = models.IntegerField(default=0,null=True,blank=True)
+    isregional = models.BooleanField(default= False)
+    source = models.TextField(max_length=300,blank=True)
 
     ordering = ['country', 'type__code', 'type__name']
 
