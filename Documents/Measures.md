@@ -21,3 +21,22 @@ Problem with most countries are regional rules. We use the measures on national 
 | C1 | `CL1_Gastronomy` | Record closings of restaurants/bars | Ordinal scale | 0 - no measures <br/>1 - One or more of: restricted opening hours/outside only/ <br/>2 - require closing (only take away and delivery) <br/>3 - require closing all levels <br/>Blank - no data |
 | C2 | `CL2_None-essential Shops and Services` | Record closings shops and services | Ordinal scale | 0 - no measures <br/>1 - restricted opening hours <br/>2 - require closing for some categories<br/>3 - all non essential closed <br/>Blank - no data |
 | C3 | `CL3_Culture and Leisure` | Record closings of culture and leisure venues (cinemas, theatres, museums, zoo/entertainment parks | Ordinal scale | 0 - no measures <br/>1 - require closing for nightclubs<br/>2 - require closing for some categories<br/>3 - require closing all venues <br/>Blank - no data |
+
+### Sources
+Country Profiles WKO ('Coronavirus: Situation in XY'):
+https://www.wko.at/service/aussenwirtschaft/belgien.html 
+
+acaps.org -  Covid-19 Government Measures Dataset
+https://www.acaps.org/covid19-government-measures-dataset
+
+Euractiv - Europe by regions
+https://www.euractiv.com/section/coronavirus/linksdossier/coronavirus-whats-happening-in-europe/
+
+Balkaninsight - Balkans and south east europe
+https://balkaninsight.com/2020/06/30/live-blog-central-southeast-europe-responds-to-uptick-in-covid-19-pandemic/
+
+eurasianet - Caucasus and Central Asia
+https://eurasianet.org/topic/coronavirus
+
+
+
