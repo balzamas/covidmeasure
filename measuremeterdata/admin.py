@@ -11,6 +11,12 @@ admin.site.register(BELAgeGroups)
 
 admin.site.register(CountryMeasureType)
 
+def duplicate_record(modeladmin, request, queryset):
+    for object in queryset:
+        object.id = None
+        object.save()
+duplicate_record.short_description = "Duplicate selected record"
+
 class OxfordMeasureAdmin(admin.ModelAdmin):
     list_display = ['country', 'type', 'level', 'last_level','comment', 'start', 'end']
     ordering = ['country__name', 'type__name']
@@ -85,12 +91,6 @@ class CHMeasureTypeAdmin(admin.ModelAdmin):
     ordering = ['name']
     search_fields = ['name']
 admin.site.register(CHMeasureType, CHMeasureTypeAdmin)
-
-def duplicate_record(modeladmin, request, queryset):
-    for object in queryset:
-        object.id = None
-        object.save()
-duplicate_record.short_description = "Duplicate selected record"
 
 class CHMeasureAddForm(forms.ModelForm):
     def clean(self):
