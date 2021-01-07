@@ -1,7 +1,7 @@
 from pylab import figure, axes, pie, title, show
 from django.core.management.base import BaseCommand, CommandError
 from matplotlib import pyplot as plt
-from measuremeterdata.models.models import Country, MeasureCategory, MeasureType_old, Measure_old, Continent, CasesDeaths
+from measuremeterdata.models.models import Country, MeasureCategory, Continent, CasesDeaths
 import os
 
 def write_graph(country,dates, data, suffix, ymax):
