@@ -14,6 +14,7 @@ admin.site.register(CountryMeasureType)
 class OxfordMeasureAdmin(admin.ModelAdmin):
     list_display = ['country', 'type', 'level', 'last_level','comment', 'start', 'end']
     ordering = ['country__name', 'type__name']
+    actions = [duplicate_record]
     list_filter = ('country', 'type')
 admin.site.register(CountryMeasure, OxfordMeasureAdmin)
 
