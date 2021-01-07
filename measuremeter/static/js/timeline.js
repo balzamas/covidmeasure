@@ -48,8 +48,6 @@
           //optionsMeasuresTypes += '<div class="form-check"><input type="checkbox" class="form-check-input" name="checkbox-all" id="checkbox-all" value="all" />';
           //optionsMeasuresTypes += '<label class="form-check-label" for="checkbox-all">All</label></div>';
 
-          var category = -1;
-
           measuretypes = []
 
           $.each(jsonMeasuresTypes, function(id, line) {

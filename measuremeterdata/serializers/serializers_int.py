@@ -19,7 +19,6 @@ class MeasureCategorySerializer(serializers.ModelSerializer):
         fields = ['pk','name']
 
 class MeasureTypeSerializer(serializers.ModelSerializer):
-    category = MeasureCategorySerializer()
     class Meta:
         model = CountryMeasureType
         fields = ['pk', 'name', 'isactive', 'text_level0','text_level1','text_level2','text_level3','text_level4','code', 'icon']
