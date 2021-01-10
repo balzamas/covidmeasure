@@ -239,7 +239,7 @@
                 class_type='white';
               }
 
-              var source = "Source: " + line['sources'].toString()
+              var source = "Source: " + line['source'].toString()
 
 
 
