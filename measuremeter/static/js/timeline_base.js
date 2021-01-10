@@ -216,28 +216,22 @@
               }
               tooltip += line['comment'].toString()+'';
 
+              type += ": " +  line['level'];
+              country += ": " +  line['level'];
+
               if (line['level'] == 1)
               {
-                type += " " +  line['type']['tooltip_partial'];
-                country += " " +  line['type']['tooltip_partial'];
                 class_type = 'softyellow'
+              }
+              else if (line['level'] == 0)
+              {
+                class_type='white';
               }
               else
               {
                 class_type = 'softred';
-                if (line['level'] > 0)
-               {
-                 type += " " + line['type']['tooltip_nonpartial'];
-                 country += " " + line['type']['tooltip_nonpartial'];
-               }
               }
 
-              if (line['level'] == 0)
-              {
-                type += " (none)";
-                country += " (none)";
-                class_type='white';
-              }
 
               var source = "Source: " + line['source'].toString()
 

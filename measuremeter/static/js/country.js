@@ -62,18 +62,41 @@
            $.each(jsonData, function(id, line) {
                 if (line['level'] > 0)
                 {
+                    var source = line['source']
+                    var level = line['level']
                     var tooltip = ''
                     var color_symbol = 'white'
-                    if (line['level'] == 1 )
+                    if (line['level'] == 0 )
                     {
-                        tooltip = line['type']['tooltip_partial']
+                        tooltip = line['type']['text_level0']
+                        color_symbol = 'white'
+                    }
+                    else if (line['level'] == 1 )
+                    {
+                        tooltip = line['type']['text_level1']
                         color_symbol = 'orange'
                     }
                     else if (line['level'] == 2 )
                     {
-                        tooltip = line['type']['tooltip_nonpartial']
+                        tooltip = line['type']['text_level2']
                         color_symbol = 'red'
                     }
+                    else if (line['level'] == 2 )
+                    {
+                        tooltip = line['type']['text_level2']
+                        color_symbol = 'red'
+                    }
+                    else if (line['level'] == 3 )
+                    {
+                        tooltip = line['type']['text_level3']
+                        color_symbol = 'red'
+                    }
+                    else if (line['level'] == 4 )
+                    {
+                        tooltip = line['type']['text_level4']
+                        color_symbol = 'red'
+                    }
+
 
                     var start_str = line['start']
                     if (line['start'] == null)
@@ -105,10 +128,11 @@
                     <div class="content">
                       <div class="header"><font size='5em'>`+ line['type']['name'] +`</font></div>
                       <div class="meta">
-                        <a><i class="ban big icon" style='color:`+ color_symbol +`'></i><font size='5em'>&nbsp;`+ tooltip +`</font></a>
+                        <a><i class="ban big icon" style='color:`+ color_symbol +`'></i><font size='5em'>&nbsp;`+ level + ` - `+ tooltip +`</font></a>
                       </div>
                       <div class="description" >
                         <font size='5em'>`+ details +`</font>
+                        <br><a href="`+source+`" target="new_target">Source</a>
                       </div>
                     </div>
                     <div class="extra content">

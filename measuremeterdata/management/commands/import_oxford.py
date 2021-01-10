@@ -11,6 +11,10 @@ from decimal import *
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
+        import_oxford(
+            'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/timeseries/h2_testing_policy.csv',
+            10
+        )
 
         import_oxford(
             'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/timeseries/c4_restrictions_on_gatherings.csv',
@@ -59,10 +63,7 @@ class Command(BaseCommand):
             9
         )
 
-        import_oxford(
-            'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/timeseries/h2_testing_policy.csv',
-            10
-        )
+
 
 def import_oxford(url, category):
 
@@ -126,9 +127,10 @@ def import_oxford(url, category):
                                 measure.level = level
                                 measure.comment = comment
                                 measure.last_level = last_level
-                                meusare.source = "https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker"
+                                measure.source = "https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker"
                                 measure.save()
                             except:
+                                print("does not exist, create new")
                                 measure = CountryMeasure(country=country, type=category, comment = comment,
                                                          source="https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker", start=start_date, level=level, last_level = last_level)
                                 measure.save()
