@@ -2,10 +2,7 @@
 
       function LoadPanelsFiltered()
       {
-            console.log(mode)
             var datesft = drawTimeline(mode,$('#countries_dd').dropdown('get value'), $('#measuretypes_dd').dropdown('get value'));
-            console.log(datesft)
-            drawLineChartperPop($('#countries_dd').dropdown('get value'), datesft[0], datesft[1])
       }
 
       function switchPanels() {
@@ -88,8 +85,6 @@
                measuretypes=measure_list_filtered[0].toString()+","+measure_list_filtered[1].toString()+","+measure_list_filtered[2].toString()+","+measure_list_filtered[3].toString()+","+measure_list_filtered[4].toString();
 
                 var datesft = drawTimeline(mode, countries, measuretypes);
-                 console.log(datesft)
-                drawLineChartperPop(countries, datesft[0], datesft[1]);
             }
 
           $("#btnCopyLink").click(async function(){

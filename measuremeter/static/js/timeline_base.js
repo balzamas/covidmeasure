@@ -208,7 +208,7 @@
 
               if (line['end'] != null || line['start'] != null)
               {
-                tooltip += "<p id='large'>"+ start_date_str + " - " + end_date_str
+                tooltip += "<p id='large'>"+ start_date_str + " - " + end_date_str + "<br>"
                 if (line['end'] != null && line['start'] != null)
                 {
                    tooltip += " <br>Duration: " + days + " days</p>"
@@ -272,118 +272,6 @@
                 timeline.setGroups(groups);
             return [firstdate, lastdate];
         }
-
-
-        function drawLineChartperPop(countries, startdate, endate)
-        {
-                    document.getElementById('lineChartCasesPerPop').innerHTML = "";
-
-          var containergraph = document.getElementById('lineChartCasesPerPop');
-
-          lastdate_x = formatDate(endate);
-          firstdate_x = formatDate(startdate);
-
-          var data = $.ajax({
-          url: "/measuremeterdata/casesdeaths/?country="+countries+"&date_after=2020-01-01&date_before="+lastdate_x,
-          dataType: "json",
-          async: false
-          }).responseText;
-          var jsonData = JSON.parse(data);
-
-         var diffTime = Math.abs(lastdate - firstdate);
-         var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-         dayscount = 0
-
-         rowsCases = new Array();
-
-        var diffTime = Math.abs(lastdate - firstdate);
-        var diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        dayscount = 0
-        ctry_count = countries.split(',').length;
-        var row = new Array()
-        old_date = new Date(2020, 1, 1);
-
-        country_pk = -1
-        country_elements = new Array()
-        countries_data = new Array()
-        countries_groups = new Array()
-        var groupsgraph = new vis.DataSet();
-
-        $.each(jsonData, function(id, line) {
-                  if (country_pk != line["country"]["pk"])
-                      {
-                         if (!country_elements.includes(line["country"]["pk"]))
-                         {
-                           country_elements.push(line["country"]["pk"]);
-                           groupsgraph.add({"id": line['country']['name'], "content": line['country']['name']});
-                           country_pk = line["country"]["pk"]
-                          }
-                      }
-            countries_data.push({"group":line['country']['name'], "x": line['date'], "y": line['cases_past7days'] })
-        });
-
-          var datasetgraph = new vis.DataSet(countries_data);
-          var optionsgraph = {
-                defaultGroup: "Country ",
-                drawPoints: false,
-                start: firstdate,
-                end: lastdate
-
-          };
-          var graph2dline = new vis.Graph2d(containergraph, datasetgraph, groupsgraph, optionsgraph);
-          graph2dline.setGroups(groupsgraph)
-
-          populateExternalLegend(groupsgraph, "legendperpop", graph2dline)
-        }
-
-function populateExternalLegend(groups, legendelement, graphobj) {
-    var groupsData = groups.get();
-    var legendDiv = document.getElementById(legendelement);
-    legendDiv.innerHTML = "";
-
-    // get for all groups:
-    for (var i = 0; i < groupsData.length; i++) {
-      // create divs
-      var containerDiv = document.createElement("div");
-      var iconDiv = document.createElement("div");
-      var descriptionDiv = document.createElement("div");
-
-      // give divs classes and Ids where necessary
-      containerDiv.className = 'legend-element-container';
-      containerDiv.id = groupsData[i].id + "_legendContainer"
-      iconDiv.className = "icon-container";
-      descriptionDiv.className = "description-container";
-
-      // get the legend for this group.
-      var legend = graphobj.getLegend(groupsData[i].id,30,30);
-
-      // append class to icon. All styling classes from the vis-timeline-graph2d.min.css/vis-timeline-graph2d.min.css have been copied over into the head here to be able to style the
-      // icons with the same classes if they are using the default ones.
-      legend.icon.setAttributeNS(null, "class", "legend-icon");
-
-      // append the legend to the corresponding divs
-      iconDiv.appendChild(legend.icon);
-      descriptionDiv.innerHTML = legend.label;
-
-      // determine the order for left and right orientation
-      if (legend.orientation == 'left') {
-        descriptionDiv.style.textAlign = "left";
-        containerDiv.appendChild(iconDiv);
-        containerDiv.appendChild(descriptionDiv);
-      }
-      else {
-        descriptionDiv.style.textAlign = "right";
-        containerDiv.appendChild(descriptionDiv);
-        containerDiv.appendChild(iconDiv);
-      }
-
-      // append to the legend container div
-      legendDiv.appendChild(containerDiv);
-
-      // bind click event to this legend element.
-      containerDiv.onclick = toggleGraph.bind(this,groupsData[i].id, graphobj, groups);
-    }
-  }
 
     /**
    * This function switchs the visible option of the selected group on an off.
