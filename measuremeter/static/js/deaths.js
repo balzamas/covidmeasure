@@ -1,4 +1,4 @@
-      function drawLineChart(avg_peak, avg_15_19, deaths_all, deaths_covid, deaths_all_peak, avg_and_covid, country, code, avg_desc, avg_peak_desc, peak_year)
+      function drawLineChart(avg_peak, avg_15_19, deaths_all, deaths_covid20, deaths_covid21, deaths_all_peak, avg_and_covid, country, code, avg_desc, avg_peak_desc, peak_year)
       {
         week_avg_peak = Math.round(parseFloat(avg_peak.replace(",", ".")) * 7)
 
@@ -6,7 +6,8 @@
         var label_array = new Array()
 
         var dataset_data_cases = new Array()
-        var dataset_data_deaths = new Array()
+        var dataset_data_deaths20 = new Array()
+        var dataset_data_deaths21 = new Array()
         var dataset_data_positivity = new Array()
 
         var dataset_data_total = new Array()
@@ -15,11 +16,12 @@
         var dataset_data_peak = new Array()
         var dataset_data_avg_and_covid = new Array()
 
-        for (const property in deaths_covid) {
+        for (const property in deaths_covid20) {
 
                 label_array.push("Week " + property)
 
-                dataset_data_deaths.push(deaths_covid[property]);
+                dataset_data_deaths20.push(deaths_covid20[property]);
+                dataset_data_deaths21.push(deaths_covid21[property]);
                 dataset_data_avg_and_covid.push(avg_and_covid[property]);
                 dataset_data_total.push(deaths_all[property]);
                 dataset_data_peakyear.push(deaths_all_peak[property]);
@@ -29,7 +31,11 @@
 
 
         color = '#ff6600'
-        dataset_deaths.push({"label": "Covid", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
+        dataset_deaths.push({"label": "Covid 20", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths20})
+
+        color = '#ff66FF'
+        dataset_deaths.push({"label": "Covid 21", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths21})
+
 
             color = '#0000ff'
             dataset_deaths.push({"label": "2020", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_total})
@@ -40,7 +46,7 @@
             color = '#ff0000'
             dataset_deaths.push({"label": avg_peak_desc, lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_peak})
             color = '#faec93'
-            dataset_deaths.push({"label": avg_desc + " + Covid", borderDash: [10,5], lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_avg_and_covid})
+            dataset_deaths.push({"label": avg_desc + " + Covid 20", borderDash: [10,5], lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_avg_and_covid})
 
             config_death = {
                 type: 'line',

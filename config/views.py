@@ -1,4 +1,4 @@
-from measuremeterdata.models.models import Country, MeasureCategory,CasesDeaths
+from measuremeterdata.models.models import Country, MeasureCategory,CasesDeaths, CountryMeasure
 from measuremeterdata.models.models_ch import CHCases, CHCanton, CHMeasure
 from measuremeterdata.models.models_bel import BELProvince, BELCases, BELAgeGroups
 

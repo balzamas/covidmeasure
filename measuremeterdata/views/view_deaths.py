@@ -28,7 +28,8 @@ def country_deaths(request):
 
         cases = CasesDeaths.objects.filter(country=country, date__gte=startdate).order_by("date")
 
-        week_values_coviddeaths = {}
+        week_values_coviddeaths20 = {}
+        week_values_coviddeaths21 = {}
         week_values_alldeaths = {}
         week_values_alldeaths_peak = {}
         week_values_avg_and_covid = {}
@@ -84,13 +85,18 @@ def country_deaths(request):
                     week_values_alldeaths[week] = int(week_value_all)
                 if week_value_peak_all:
                     week_values_alldeaths_peak[week] = int(week_value_peak_all)
-                week_values_coviddeaths[week] = week_value_covid
-                if case.deathstotal_average:
-                    week_values_avg[week] = int(case.deathstotal_average*7)
-                    week_values_avg_and_covid[week] = int((case.deathstotal_average*7) + week_value_covid)
-                else:
-                    week_values_avg[week] = int(country.average_death_per_day*7)
-                    week_values_avg_and_covid[week] = int((country.average_death_per_day*7) + week_value_covid)
+                if case.date < datetime.date(2021, 1, 4):
+                    week_values_coviddeaths20[week] = week_value_covid
+                    if case.deathstotal_average:
+                        week_values_avg[week] = int(case.deathstotal_average * 7)
+                        week_values_avg_and_covid[week] = int((case.deathstotal_average * 7) + week_value_covid)
+                    else:
+                        week_values_avg[week] = int(country.average_death_per_day * 7)
+                        week_values_avg_and_covid[week] = int((country.average_death_per_day * 7) + week_value_covid)
+                elif case.date > datetime.date(2021, 1, 3):
+                    print("Year 21")
+                    week_values_coviddeaths21[case.date.isocalendar()[1]] = week_value_covid
+
 
                 weekday = 1
                 week_value_covid = 0
@@ -118,8 +124,11 @@ def country_deaths(request):
         if (death_peak_week2):
             percent_peak = (100 * diff_week2_peak / death_peak_week2)
 
+        print(week_values_coviddeaths21)
+
         countr_toadd = {"country": country,
-                          "covid": week_values_coviddeaths,
+                          "covid20": week_values_coviddeaths20,
+                          "covid21": week_values_coviddeaths21,
                           "all": week_values_alldeaths,
                           "all_peak": week_values_alldeaths_peak,
                           "avg_and_covid": week_values_avg_and_covid,

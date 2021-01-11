@@ -23,7 +23,7 @@ class CHCasesSerializer(serializers.ModelSerializer):
     canton = CantonSerializer()
     class Meta:
         model = CHCases
-        fields = ['pk', 'canton', 'date', 'cases', 'incidence_past14days', 'incidence_past10days', 'incidence_past7days', 'development7to7', 'r0peak', 'r0low', 'r0median', 'mobility_recreation', 'mobility_workplace', 'mobility_transit']
+        fields = ['pk', 'canton', 'date', 'cases', 'incidence_past14days', 'incidence_past10days', 'incidence_past7days', 'development7to7', 'r0peak', 'r0low', 'r0median', 'mobility_recreation', 'mobility_workplace', 'mobility_transit', 'kof_index']
 
 
 class CHMeasureTypePublicSerializer(serializers.ModelSerializer):
