@@ -5,7 +5,7 @@ from django.urls import include, path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
 from rest_framework import routers
-from measuremeterdata.views import view_deaths, view_deaths_ch,views_belgium, views_ranking_ch, views_ranking_int, viewsets, view_madlaina
+from measuremeterdata.views import view_deaths, view_deaths_ch,views_belgium, views_ranking_ch, views_ranking_int, viewsets, view_madlaina, view_measures_ch
 from riskcalc import views as risk_views
 from config import views
 from django.conf.urls.i18n import i18n_patterns
@@ -84,7 +84,7 @@ urlpatterns += i18n_patterns(
         "belrisk/", risk_views.belgium_risk, name="Bel Riskmap"
     ),
     path('deaths_ch/', view_deaths_ch.canton_deaths, name='deaths_ch'),
-
+    path('measures_ch/', view_measures_ch.measures_ch, name='measures_ch'),
     path(
         "districts/", TemplateView.as_view(template_name="pages/district.html"), name="CH districts"
     ),
