@@ -6,8 +6,8 @@ from datetime import date, timedelta
 
 
 def measures_ch(request):
-    #measures = CHMeasure.objects.all().order_by('canton', 'start')
-    measures = CHMeasure.objects.filter(canton__pk=37).order_by('canton', 'start')
+    measures = CHMeasure.objects.all().order_by('canton', 'start')
+    #measures = CHMeasure.objects.filter(canton__pk=37).order_by('canton', 'start')
 
     measures_analytics = []
 
