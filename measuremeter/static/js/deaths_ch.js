@@ -40,15 +40,16 @@
                 dataset_data_deaths19.push(obj_deaths19.split(",")[property]);
         }
 
+
         color = '#ff6600'
         dataset_deaths.push({"label": "2020", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
         dataset_deaths.push({"label": "2020", borderDash: [3,3],lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths_temp})
         color = '#0000ff'
         dataset_deaths.push({"label": "Ø 15-19", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths_avg})
         color = '#faec93'
-        dataset_deaths.push({"label": "2019", borderDash: [10,5], lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths15})
+        dataset_deaths.push({"label": "2019", borderDash: [10,5], lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths19})
         color = '#93fa9c'
-        dataset_deaths.push({"label": "2015", borderDash: [10,5], lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths19})
+        dataset_deaths.push({"label": "2015", borderDash: [10,5], lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths15})
 
              config_death = {
                 type: 'line',

@@ -43,20 +43,29 @@ class Command(BaseCommand):
                 rowcount = 0
                 for row in spamreader:
                     if rowcount > 6 and row[1] != '':
-                        if row[0] == 53:
+                        print(row[0])
+                        if int(row[0].split(" ")[0]) == 53:
                             avg = (float(row[2]) + float(row[3]) + float(row[4]) + float(row[5]) + float(row[6]))
+                            print("Only one")
+                            print(avg)
                         else:
                             avg = (float(row[2]) + float(row[3]) + float(row[4]) + float(row[5]) + float(row[6]))/5
+
+                        if int(float(row[2])) == 0:
+                            val19 = None
+                        else:
+                            val19 = int(float(row[2]))
+
                         try:
                             cd_existing = CHDeaths.objects.get(canton=canton, week=row[0])
                             print(cd_existing)
                             cd_existing.deaths20 = int(row[1])
-                            cd_existing.deaths19 = int(float(row[2]))
+                            cd_existing.deaths19 = val19
                             cd_existing.deaths15 = int(float(row[6]))
                             cd_existing.average_deaths_15_19 = avg
                             cd_existing.save()
                         except CHDeaths.DoesNotExist:
-                            cd = CHDeaths(canton=canton, deaths=int(row[1]), deaths19=int(float(row[2])), deaths15=int(float(row[6])), average_deaths=avg, week=row[0])
+                            cd = CHDeaths(canton=canton, deaths20=int(row[1]), deaths19=val19, deaths15=int(float(row[6])), average_deaths_15_19=avg, week=row[0])
                             cd.save()
                         except:
                             print("Other error")

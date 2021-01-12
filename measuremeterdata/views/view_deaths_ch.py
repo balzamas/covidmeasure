@@ -51,13 +51,13 @@ def canton_deaths(request):
             week_values_deaths15.append(case.deaths15)
 
             total20 += case.deaths20
-            total19 += case.deaths19
+            total19 += case.deaths19 or 0
             total15 += case.deaths15
             total_avg += case.average_deaths_15_19
 
             if (case.week > 11):
                 total20_w12 += case.deaths20
-                total19_w12 += case.deaths19
+                total19_w12 += case.deaths19 or 0
                 total15_w12 += case.deaths15
                 total_avg_w12 += case.average_deaths_15_19
 
