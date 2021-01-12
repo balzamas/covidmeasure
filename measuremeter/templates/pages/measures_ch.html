@@ -3,7 +3,7 @@
 
 <html xmlns="http://www.w3.org/1999/html">
   <head>
-    <title>{% trans 'CovidLaws // Canton rankings'%}</title>
+    <title>CovidLaws // Measures</title>
         <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
         <script src="{% url 'javascript-catalog' %}"></script>
@@ -20,6 +20,7 @@
 
        <link href="{% static 'css/project.css' %}" rel="stylesheet">
        <script type="text/javascript" src="{% static 'js/base_global.js' %}"></script>
+       <script type="text/javascript" src="{% static 'js/jquery.table2excel.js' %}"></script>
 
        <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
 
@@ -58,11 +59,13 @@
         on: 'hover'
       });
 
-
-      $('.activating.element')
+      $('.button')
   .popup()
 ;
 });
+
+
+
     </script>
 
 	<style>
@@ -144,11 +147,12 @@ table.center {
         After: +7d<br>
         After 2: +14d<br>
       </p>
-
+      <button class="exportToExcel" id="export">Export HTML table to CSV file</button>
       <table class="ui celled table" id="ranking">
         <tr>
           <th>Canton</th>
           <th>Type</th>
+          <th></th>
           <th >Level</th>
           <th>Start</th>
           <th>End</th>
@@ -164,8 +168,17 @@ table.center {
         {% for hans in measures %}
         <tr>
           <td>{{ hans.canton }}</td>
-          <td>{{ hans.type }}</td>
-          <td>{{ hans.level }}</td>
+          <td>
+            {{ hans.type }}
+          </td>
+          <td>
+            <div class="ui icon button" data-html="{{hans.comment}}">
+              i
+            </div>
+          </td>
+          <td>
+            {{ hans.level }}
+          </td>
           <td>{{ hans.start }}</td>
           <td>{{ hans.end }}</td>
           <td>{{ hans.tend_start_before }}</td>
@@ -181,3 +194,15 @@ table.center {
       </table>
     </div>
   </body>
+
+<script>
+$( "#export" ).click(function() {
+  $("#ranking").table2excel({
+    // exclude CSS class
+    exclude: ".noExl",
+    name: "Worksheet Name",
+    filename: "SomeFile", //do not include extension
+    fileext: ".xls" // file extension
+  });
+  });
+</script>

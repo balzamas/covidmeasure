@@ -18,6 +18,7 @@ def measures_ch(request):
             start = measure.start
             end = measure.end
             level = measure.level
+            comment = measure.comment
 
             tend_start_before = None
             tend_start_during = None
@@ -85,7 +86,8 @@ def measures_ch(request):
 
                     measure_record = {'canton': canton, 'type': type, 'start': start, 'end':end, 'level':level,'tend_start_before':tend_start_before,
                                       'tend_start_during':tend_start_during, 'tend_start_after': tend_start_after, 'tend_start_after2': tend_start_after2,
-                                      'r_start_during':r_start_during, 'r_start_before':r_start_before, 'r_start_after':r_start_after, 'r_start_after2':r_start_after2}
+                                      'r_start_during':r_start_during, 'r_start_before':r_start_before, 'r_start_after':r_start_after, 'r_start_after2':r_start_after2,
+                                      'comment':comment}
                     measures_analytics.append(measure_record)
                     print(f"{canton};{type};{start};{end};{level};{tend_start_before};{tend_start_during};{tend_start_after}")
 
