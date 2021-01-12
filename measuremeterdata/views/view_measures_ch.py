@@ -43,21 +43,30 @@ def measures_ch(request):
                         during_start_date = start - timedelta(days=7)
                         during_end_date = start + timedelta(days=7)
                         tend_start_during = CHCases.objects.get(canton=measure.canton, date=during_end_date).development7to7 - CHCases.objects.get(canton=measure.canton, date=during_start_date).development7to7
+                    except:
+                        pass
 
+                    try:
                         r_start_during = CHCases.objects.get(canton=measure.canton, date=start).r0median
-
                     except:
                         pass
 
                     before_start_date = start - timedelta(days=21)
                     before_end_date = start - timedelta(days=7)
                     tend_start_before = CHCases.objects.get(canton=measure.canton, date=before_end_date).development7to7 - CHCases.objects.get(canton=measure.canton, date=before_start_date).development7to7
-                    r_start_before = CHCases.objects.get(canton=measure.canton, date=before_end_date).r0median
+                    try:
+                        r_start_before = CHCases.objects.get(canton=measure.canton, date=before_end_date).r0median
+                    except:
+                        pass
 
                     try:
                         after_start_date = start + timedelta(days=7)
                         after_end_date = start + timedelta(days=21)
                         tend_start_after = CHCases.objects.get(canton=measure.canton, date=after_end_date).development7to7 - CHCases.objects.get(canton=measure.canton, date=after_start_date).development7to7
+                    except:
+                        pass
+
+                    try:
                         r_start_after = CHCases.objects.get(canton=measure.canton, date=after_start_date).r0median
                     except:
                         pass
@@ -66,6 +75,10 @@ def measures_ch(request):
                         after2_start_date = start + timedelta(days=21)
                         after2_end_date = start + timedelta(days=35)
                         tend_start_after2 = CHCases.objects.get(canton=measure.canton, date=after2_end_date).development7to7 - CHCases.objects.get(canton=measure.canton, date=after2_start_date).development7to7
+                    except:
+                        pass
+
+                    try:
                         r_start_after2 = CHCases.objects.get(canton=measure.canton, date=start + timedelta(days=14)).r0median
                     except:
                         pass

@@ -43,7 +43,10 @@ class Command(BaseCommand):
                 rowcount = 0
                 for row in spamreader:
                     if rowcount > 6 and row[1] != '':
-                        avg = (float(row[2]) + float(row[3]) + float(row[4]) + float(row[5]) + float(row[6]))/5
+                        if row[0] == 53:
+                            avg = (float(row[2]) + float(row[3]) + float(row[4]) + float(row[5]) + float(row[6]))
+                        else:
+                            avg = (float(row[2]) + float(row[3]) + float(row[4]) + float(row[5]) + float(row[6]))/5
                         try:
                             cd_existing = CHDeaths.objects.get(canton=canton, week=row[0])
                             print(cd_existing)
