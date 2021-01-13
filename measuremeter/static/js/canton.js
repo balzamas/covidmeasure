@@ -418,7 +418,12 @@ var data
                                 display: true,
                                 labelString: gettext('Incidence per 100k/past 7 days')
                             }
-                        }
+                        },
+                                                yAxes: [{
+                           ticks: {
+                            beginAtZero: true
+                            }
+                        }]
                     },
 
       annotation: {

@@ -260,7 +260,12 @@
                                 display: true,
                                 labelString: 'Cases/1 Mio Pop'
                             }
-                        }
+                        },
+                        yAxes: [{
+                           ticks: {
+                            beginAtZero: true
+                            }
+                        }]
                     },
       annotation: {
         events: ["click","mouseover"],
@@ -327,7 +332,12 @@
                                 display: true,
                                 labelString: 'Deaths/100k Pop'
                             }
-                        }
+                        },
+                        yAxes: [{
+                           ticks: {
+                            beginAtZero: true
+                            }
+                        }]
                     },
                 },
 
@@ -478,7 +488,12 @@
                                 display: true,
                                 labelString: 'Positive rate (Tests), past 7 days'
                             }
-                        }
+                        },
+                        yAxes: [{
+                           ticks: {
+                            beginAtZero: true
+                            }
+                        }]
                     },
                     annotation:{
                         annotations:
@@ -557,7 +572,12 @@
                                 display: true,
                                 labelString: 'Tests per 1000 population (Smoothed)'
                             }
-                        }
+                        },
+                        yAxes: [{
+                           ticks: {
+                            beginAtZero: true
+                            }
+                        }]
                     },
                 },
 
