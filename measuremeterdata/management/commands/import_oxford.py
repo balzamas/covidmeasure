@@ -68,6 +68,8 @@ class Command(BaseCommand):
 def import_oxford(url, category):
 
       with requests.Session() as s:
+        category = CountryMeasureType.objects.get(pk=category)
+
         download = s.get(url)
 
         decoded_content = download.content.decode('utf-8')
@@ -79,9 +81,6 @@ def import_oxford(url, category):
         for cntry in Country.objects.all():
             if (cntry.iso_code):
                 cntries.append(cntry.iso_code.lower())
-
-
-        category = CountryMeasureType.objects.get(pk=category)
 
         print(f"Load {category} into django")
 
