@@ -25,9 +25,9 @@ def calc_ranking_countries(countries):
             last_positivity_date = None
             last_R = None
             last_R_date = None
-            positivity_last7 = 0.0
+            positivity_last7 = None
             positivity_last7_count = 0
-            positivity_before7 = 0.0
+            positivity_before7 = None
             positivity_before7_count = 0
             pos_count = 0
             last_stringency = None
@@ -46,9 +46,13 @@ def calc_ranking_countries(countries):
 
                 if (case.positivity != None):
                     if (pos_count < 7):
+                        if not positivity_last7:
+                            positivity_last7 = 0
                         positivity_last7 += float(case.positivity)
                         positivity_last7_count += 1
                     else:
+                        if not positivity_before7:
+                            positivity_before7 = 0
                         positivity_before7 += float(case.positivity)
                         positivity_before7_count += 1
                     pos_count += 1
@@ -62,6 +66,8 @@ def calc_ranking_countries(countries):
             if (last_positivity == None):
                 positivity_last7 = 5
                 positivity_last7_count = 1
+
+            if positivity_before7 == None:
                 positivity_before7 = 5
                 positivity_before7_count = 1
 
