@@ -67,6 +67,12 @@ class CHMeasure(MotherModel):
     def __str__(self):
         return f"{self.canton} {self.type}"
 
+class CHStringency(MotherModel):
+    canton = models.ForeignKey(CHCanton, on_delete=models.CASCADE)
+    date = models.DateField(null=True,blank=True)
+    KOF_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    KOF_value_before = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    comment = RichTextField(blank=True)
 
 class CHCases(MotherModel):
     canton = models.ForeignKey(CHCanton, on_delete=models.CASCADE)

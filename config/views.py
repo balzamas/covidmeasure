@@ -25,6 +25,9 @@ def render_compare(request, country_name):
 def render_cantons(request, options):
     return render(request, 'pages/canton.html', {'items': options })
 
+def render_cantons_stringency(request, options):
+    return render(request, 'pages/canton_stringency.html', {'items': options })
+
 def international(request):
     measures = CountryMeasure.objects.all().order_by('-created')[:10]
 

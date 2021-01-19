@@ -101,6 +101,11 @@ urlpatterns += i18n_patterns(
     path("cantons/<str:options>/", views.render_cantons, name="item"
          ),
     path(
+        "cantons_stringency/", TemplateView.as_view(template_name="pages/canton_stringency.html"), name="CH measures"
+    ),
+    path("cantons_stringency/<str:options>/", views.render_cantons_stringency, name="item"
+         ),
+    path(
         "ch/", views_ranking_ch.ch, name="CH Main"
     ),
     path(

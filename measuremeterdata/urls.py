@@ -14,6 +14,7 @@ router.register(r'oxfordmeasuretypes', viewsets.OxfordMeasureTypeViewSet)
 router.register(r'measurecatgories', viewsets.MeasureCategoryViewSet)
 router.register(r'casesdeaths', viewsets.CasesDeathsViewSet)
 
+router.register(r'chstringency', viewsets.CHStringencyViewSet)
 router.register(r'chmeasures_intern', viewsets.CHMeasureViewSet)
 router.register(r'chmeasuretypes_intern', viewsets.CHMeasureTypeViewSet)
 router.register(r'chcantons', viewsets.CHCantonViewSet)

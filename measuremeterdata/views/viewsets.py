@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from measuremeterdata.models.models import Country, MeasureCategory, CasesDeaths, CountryMeasure, CountryMeasureType
-from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases, CHDeaths
+from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases, CHDeaths, CHStringency
 from rest_framework import viewsets
 from rest_framework import permissions
-from measuremeterdata.serializers.serializers_ch import CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer, CHMeasurePublicSerializer, CHMeasureTypePublicSerializer, CantonPublicSerializer, CHDeathsPublicSerializer
+from measuremeterdata.serializers.serializers_ch import CHMeasureTypeSerializer, CantonSerializer, CHMeasureSerializer, CHCasesSerializer, CHMeasurePublicSerializer, CHMeasureTypePublicSerializer, CantonPublicSerializer, CHDeathsPublicSerializer, CHStringencySerializer
 from measuremeterdata.serializers.serializers_int import MeasureSerializer, CountrySerializer, MeasureTypeSerializer, MeasureCategorySerializer,CasesDeathsSerializer, OxfordMeasureSerializer, OxfordMeasureTypeSerializer
 from django.http import HttpResponse
 from django_filters.rest_framework import DjangoFilterBackend
@@ -319,6 +319,37 @@ class CHMeasureFilter(filters.FilterSet):
             class Meta:
                 model = CountryMeasure
                 fields = ['canton', 'type', 'start', 'end', 'level']
+
+
+class CHStringencyViewSet(viewsets.ModelViewSet):
+    queryset = CHStringency.objects.order_by('canton__code','date')
+    serializer_class = CHStringencySerializer
+    http_method_names = ['get', 'head']
+
+#    filter_backends = [DjangoFilterBackend]
+#    filter_class = MeasureFilter
+
+    def get_queryset(self):
+        queryset = CHStringency.objects
+        cantons = self.request.query_params.get('canton', None)
+        start = self.request.query_params.get('start', None)
+        end = self.request.query_params.get('end', None)
+        if cantons and cantons != '':
+            print(cantons)
+            canton_params = []
+            for x in cantons.split(','):
+                if (x != ''):
+                    canton_params.append(x)
+            queryset = queryset.filter(canton__in=canton_params)
+
+        if start != None:
+            queryset = queryset.filter(Q(date__lte=start)|Q(date__isnull=True))
+
+        if end != None:
+            queryset = queryset.filter(Q(date__gte=end)|Q(date__isnull=True))
+
+        queryset = queryset.order_by('canton__code','date')
+        return queryset
 
 class CHMeasureViewSet(viewsets.ModelViewSet):
     queryset = CHMeasure.objects.filter(type__isactive=True).order_by('canton__code','type__name', 'start')

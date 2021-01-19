@@ -80,8 +80,7 @@ $( document ).ready(function() {
                 var measuretype = $('#measurechooser').dropdown('get value');
 
                 date = new Date(2020,2,5);
-                enddate_x = new Date();
-                enddate = addDays(enddate_x, 3);
+                enddate = new Date();
 
                 while (date < enddate)
                 {
@@ -95,8 +94,7 @@ $( document ).ready(function() {
                 var measuretype = $('#measurechooser').dropdown('get value');
 
                 date = new Date(2020,8,10);
-                enddate_x = new Date();
-                enddate = addDays(enddate_x, 3);
+                enddate = new Date();
 
                 while (date < enddate)
                 {

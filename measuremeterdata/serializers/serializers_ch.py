@@ -1,4 +1,4 @@
-from measuremeterdata.models.models_ch import CHCanton, CHMeasure, CHMeasureType, CHCases, CHDeaths
+from measuremeterdata.models.models_ch import CHCanton, CHMeasure, CHMeasureType, CHCases, CHDeaths, CHStringency
 from rest_framework import serializers
 
 class CantonSerializer(serializers.ModelSerializer):
@@ -18,6 +18,13 @@ class CHMeasureSerializer(serializers.ModelSerializer):
     class Meta:
         model = CHMeasure
         fields = ['canton', 'type', 'level', 'start', 'end', 'sources', 'comment', 'isregional', 'created', 'updated']
+
+class CHStringencySerializer(serializers.ModelSerializer):
+    canton = CantonSerializer()
+    class Meta:
+        model = CHStringency
+        fields = ['canton', 'date', 'KOF_value', 'KOF_value_before', 'comment']
+
 
 class CHCasesSerializer(serializers.ModelSerializer):
     canton = CantonSerializer()

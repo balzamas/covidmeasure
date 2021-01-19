@@ -4,7 +4,6 @@ import os
 import csv
 import datetime
 import requests
-import pandas as pd
 from datetime import date, datetime, timedelta
 from decimal import *
 
