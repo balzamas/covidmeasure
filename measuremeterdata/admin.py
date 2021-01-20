@@ -1,13 +1,14 @@
 from django.contrib import admin
 from django import forms
 from measuremeterdata.models.models import Country, MeasureCategory, MeasureType_old, Measure_old, Continent, CasesDeaths, CountryMeasure, CountryMeasureType
-from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases
+from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases, CHDeaths
 from measuremeterdata.models.models_bel import BELCases, BELProvince, BELAgeGroups
 
 admin.site.register(Continent)
 admin.site.register(MeasureCategory)
 admin.site.register(BELProvince)
 admin.site.register(BELAgeGroups)
+admin.site.register(CHDeaths)
 
 
 def duplicate_record(modeladmin, request, queryset):

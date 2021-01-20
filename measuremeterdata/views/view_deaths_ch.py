@@ -27,7 +27,8 @@ def canton_deaths(request):
 
         cases = CHDeaths.objects.filter(canton=canton).order_by("week")
 
-        week_values_deaths = []
+        week_values_deaths21 = []
+        week_values_deaths20 = []
         week_values_avg = []
         week_values_deaths15 = []
         week_values_deaths19 = []
@@ -45,7 +46,8 @@ def canton_deaths(request):
         for case in cases:
             print(case.week)
 
-            week_values_deaths.append(case.deaths20)
+            week_values_deaths20.append(case.deaths20)
+            week_values_deaths21.append(case.deaths21)
             week_values_avg.append(case.average_deaths_15_19)
             week_values_deaths19.append(case.deaths19)
             week_values_deaths15.append(case.deaths15)
@@ -73,7 +75,8 @@ def canton_deaths(request):
 
 
             canton_toadd = {"canton": canton,
-                                  "all": week_values_deaths,
+                            "all21": week_values_deaths21,
+                            "all20": week_values_deaths20,
                                   "all_avg": week_values_avg,
                                 "all19": week_values_deaths19,
                                 "all15": week_values_deaths15,

@@ -98,6 +98,7 @@ class CHCases(MotherModel):
 class CHDeaths(MotherModel):
     canton = models.ForeignKey(CHCanton, on_delete=models.CASCADE)
     week = models.IntegerField(null=True,blank=True)
+    deaths21 = models.IntegerField(null=True, blank=True)
     deaths20 = models.IntegerField(null=True, blank=True)
     average_deaths_15_19 = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     deaths15 = models.IntegerField(null=True,blank=True)

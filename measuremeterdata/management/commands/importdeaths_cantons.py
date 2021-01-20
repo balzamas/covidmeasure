@@ -30,46 +30,58 @@ class Command(BaseCommand):
 
         for canton in cantons:
             print("Read excel")
-            read_file = pd.read_excel(myfile.content, sheet_name=canton.code.upper())
-            print("Convert and write:")
-            read_file.to_csv('/tmp/death_ch.csv', index=None, header=True)
+            print(canton)
+            read_file = pd.read_excel(myfile.content, sheet_name=canton.code.upper(), skiprows=5)
 
-            workpath = os.path.dirname(os.path.abspath(__file__))  # Returns the Path your .py file is in
+            print(read_file.keys())
 
-            print("Load data into django")
+            for index, row in read_file.iterrows():
+                print(index)
 
-            with open('/tmp/death_ch.csv', newline='') as csvfile:
-                spamreader = csv.reader(csvfile, delimiter=',', quotechar='"')
-                rowcount = 0
-                for row in spamreader:
-                    if rowcount > 6 and row[1] != '':
-                        print(row[0])
-                        if int(row[0].split(" ")[0]) == 53:
-                            avg = (float(row[2]) + float(row[3]) + float(row[4]) + float(row[5]) + float(row[6]))
-                            print("Only one")
-                            print(avg)
-                        else:
-                            avg = (float(row[2]) + float(row[3]) + float(row[4]) + float(row[5]) + float(row[6]))/5
+                try:
+                    week = int(row['Unnamed: 0'])
 
-                        if int(float(row[2])) == 0:
-                            val19 = None
-                        else:
-                            val19 = int(float(row[2]))
+                    val15 = None
+                    val16 = None
+                    val17 = None
+                    val18 = None
+                    val19 = None
+                    val20 = None
+                    val21 = None
 
-                        try:
-                            cd_existing = CHDeaths.objects.get(canton=canton, week=row[0])
-                            print(cd_existing)
-                            cd_existing.deaths20 = int(row[1])
-                            cd_existing.deaths19 = val19
-                            cd_existing.deaths15 = int(float(row[6]))
-                            cd_existing.average_deaths_15_19 = avg
-                            cd_existing.save()
-                        except CHDeaths.DoesNotExist:
-                            cd = CHDeaths(canton=canton, deaths20=int(row[1]), deaths19=val19, deaths15=int(float(row[6])), average_deaths_15_19=avg, week=row[0])
-                            cd.save()
-                        except:
-                            print("Other error")
-                    rowcount += 1
+                    val20 = int(row["2020 2"])
+                    val15 = int(row[2015])
 
+                    if week < 53:
+                        print("......")
+                        print(row["2021 2"])
+                        if row["2021 2"] != '':
+                            print("Has 21 value")
+                            val21 = int(row["2021 2"])
 
+                        val19 = int(row[2019])
+                        val18 = int(row[2018])
+                        val17 = int(row[2017])
+                        val16 = int(row[2016])
+                        avg = (val15 + val16 + val17 + val18 + val19)/5
+                    else:
+                        avg = val15
 
+                    try:
+                        cd_existing = CHDeaths.objects.get(canton=canton, week=week)
+                        print(cd_existing)
+                        cd_existing.deaths21 = val21
+                        cd_existing.deaths20 = val20
+                        cd_existing.deaths19 = val19
+                        cd_existing.deaths15 = val15
+                        cd_existing.average_deaths_15_19 = avg
+                        cd_existing.save()
+                        print("saved")
+                    except CHDeaths.DoesNotExist:
+                        cd = CHDeaths(canton=canton, deaths21=val21, deaths20=val20, deaths19=val19, deaths15=val15, average_deaths_15_19=avg, week=week)
+                        cd.save()
+                    except:
+                        print("Other error")
+
+                except:
+                    print("error")
