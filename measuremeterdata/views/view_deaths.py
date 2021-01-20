@@ -52,24 +52,21 @@ def country_deaths(request):
 
         weeks_wdata = 0
 
-        week_stop = datetime.date(2021, 1, 3).isocalendar()[1] -2
-
         for case in cases:
             week_value_covid += case.deaths
             if case.deathstotal:
                 week_value_all += case.deathstotal
-                if week < week_stop:
-                    death_covid_week2 += case.deaths
-                    death_total_week2 += case.deathstotal
-                    if case.deathstotal_peak:
-                        if (death_peak_week2 == None):
-                            death_peak_week2 = 0
-                        death_peak_week2 += case.deathstotal_peak
+                death_covid_week2 += case.deaths
+                death_total_week2 += case.deathstotal
+                if case.deathstotal_peak:
+                    if (death_peak_week2 == None):
+                        death_peak_week2 = 0
+                    death_peak_week2 += case.deathstotal_peak
 
-                    weeks_wdata = week
-                    if week > 7:
-                        death_covid_week8 += case.deaths
-                        death_total_week12 += case.deathstotal
+                weeks_wdata = week
+                if week > 7:
+                    death_covid_week8 += case.deaths
+                    death_total_week12 += case.deathstotal
 
             if case.deathstotal_peak:
                 if week_value_peak_all == None:
