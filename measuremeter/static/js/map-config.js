@@ -268,7 +268,7 @@ function loadMapData(measuretype,filterdate) {
             return  d > 3   ? '#FE0000' :
                     d > 2   ? '#fa8173' :
                     d > 1   ? '#fecc2f' :
-                    d > 0   ? '#FED341' :
+                    d > 0   ? '#fee79b' :
                     d > -1   ? '#00ff80' :
                               '#dfdcdc';
 	    }
