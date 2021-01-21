@@ -1,234 +1,166 @@
+{% extends "base.html" %}
 {% load static i18n %}
-{# Load the tag library #}
 
-<html xmlns="http://www.w3.org/1999/html">
-  <head>
-    <title>CovidLaws // {% trans 'Coronavirus measures by canton'%} - {% trans 'Canton profiles'%}</title>
-        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by Swiss canton. Massnahmen je Kanton in der Schweiz verglicvhen mit den Fallzahlen. Entwicklung der Covid Corona Fallzahlen. Massnahmen Schweiz Zürich Waadt Genf Basel Bern Tessin St. Gallen Aarau Schaffhausen Thurgau Jura Freiburh Fribourg Wallis Luzern Uri Nidwalden Obwalden Graubünden">
-         <script src="{% url 'javascript-catalog' %}"></script>
-      <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-    <!-- Fathom - beautiful, simple website analytics -->
-    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
-    <!-- / Fathom -->
-
-    <script
-  type="text/javascript"
-  src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"
-></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
-
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/moment@2.27.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
-<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
-
-
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-       <link href="{% static 'css/project.css' %}" rel="stylesheet">
-       <link href="{% static 'css/timeline.css' %}" rel="stylesheet">
-        <script type="text/javascript" src="{% static 'js/chartjs-plugin-annotation.js' %}"></script>
-
-       <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
-       <script type="text/javascript" src="{% static 'js/ch_timeline_base.js' %}"></script>
-       <script type="text/javascript" src="{% static 'js/base_global.js' %}"></script>
-       <script type="text/javascript" src="{% static 'js/canton.js' %}"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.3/FileSaver.min.js"></script>
-
-
-	<style>
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
-		#map {
-			width: 600px;
-			height: 400px;
-		}
-	</style>
-
-	<style>#map { width: 800px; height: 700px; }
-.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
-.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
-
-
-  </head>
-  <body bgcolor="white">
-
-
-<div style="margin-left: 90;margin-top: 30;margin-right: 90;">
-
-
-      <h1>CovidLaws // {% trans 'Switzerland'%} // {% trans 'Canton profiles'%}</h1>
+{% block title %}CovidLaws // {% trans 'Coronavirus measures by canton'%} - {% trans 'Canton profiles'%}{% endblock %}
+{% block scripts %}
+    <script type="text/javascript" src="{% static 'js/canton.js' %}"></script>
+{% endblock %}
+{% block content %}
       <div id="param" type="hidden" value={{ items }}>{{ items }}</div>
-      <div id="menu_ch"></div>
 
-        <div align="center">
-                <div class="ui animated button" tabindex="0" id="btnCopyLink">
-          <div class="visible content"><i class="copy icon"></i></div>
-          <div class="hidden content">
-            Copy link<br>
-          </div>
-      </div>
-        </div>
-
-  <div class="ui active dimmer" id="dimmer">
-    <div class="ui text loader">{% trans 'Loading'%}</div>
-  </div>
-
-  <p id="grande"><b>{% trans 'Incidence and measures'%}</b></p>
-        <div class="ui placeholder segment">
-        <div class="ui two column stackable center aligned grid">
-          <div class="ui vertical divider"></div>
-          <div class="middle aligned row">
-            <div class="column">
-              <p id="grande">{% trans 'Cantons (empty=all)'%}</p>
-
-                <div class="ui multiple fluid search selection dropdown" id="cantons_dd">
-                  <i class="large flag outline icon"></i>
-                  <input type="hidden" name="cantons">
-                  <i class="dropdown icon"></i>
-                  <div class="default text">{% trans 'Cantons'%}</div>
-                  <div class="menu" id="cantons_list">
-                </div>
-              </div>
-
+         <div align="center">
+                  <div class="ui animated button" tabindex="0" id="btnCopyLink">
+            <div class="visible content"><i class="copy icon"></i></div>
+            <div class="hidden content">
+              Copy link<br>
             </div>
-            <div class="column">
-             <p id="grande">{% trans 'Measure type (empty=all)'%}</p>
-                  <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
-                    <i class="large heartbeat icon"></i>
-                    <input type="hidden" name="measuretypes">
+        </div>
+          </div>
+
+    <div class="ui active dimmer" id="dimmer">
+      <div class="ui text loader">{% trans 'Loading'%}</div>
+    </div>
+
+    <p id="grande"><b>{% trans 'Incidence and measures'%}</b></p>
+          <div class="ui placeholder segment">
+          <div class="ui two column stackable center aligned grid">
+            <div class="ui vertical divider"></div>
+            <div class="middle aligned row">
+              <div class="column">
+                <p id="grande">{% trans 'Cantons (empty=all)'%}</p>
+
+                  <div class="ui multiple fluid search selection dropdown" id="cantons_dd">
+                    <i class="large flag outline icon"></i>
+                    <input type="hidden" name="cantons">
                     <i class="dropdown icon"></i>
-                    <div class="default text">{% trans 'Measure types'%}</div>
-                    <div class="menu">
+                    <div class="default text">{% trans 'Cantons'%}</div>
+                    <div class="menu" id="cantons_list">
                   </div>
                 </div>
+
+              </div>
+              <div class="column">
+               <p id="grande">{% trans 'Measure type (empty=all)'%}</p>
+                    <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
+                      <i class="large heartbeat icon"></i>
+                      <input type="hidden" name="measuretypes">
+                      <i class="dropdown icon"></i>
+                      <div class="default text">{% trans 'Measure types'%}</div>
+                      <div class="menu">
+                    </div>
+                  </div>
+              </div>
+
             </div>
-
-          </div>
-          <div class="ui divider"></div>
-          <div class="middle aligned row">
-                        <div class="column">
-              {% trans 'From:'%}  <input style="height:60px" type="date" id="datefrom" value="2020-06-01">&nbsp;
-              {% trans 'To:'%}   <input style="height:60px" type="date" id="dateto" value="2020-07-01">
+            <div class="ui divider"></div>
+            <div class="middle aligned row">
+                          <div class="column">
+                {% trans 'From:'%}  <input style="height:60px" type="date" id="datefrom" value="2020-06-01">&nbsp;
+                {% trans 'To:'%}   <input style="height:60px" type="date" id="dateto" value="2020-07-01">
 
 
-            </div>
-            <div class="column">
-              <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
-                <div class="hidden content" >{% trans 'Load'%}</div>
-                <div class="visible content">
-                  <i class="large arrow circle down icon"></i>
+              </div>
+              <div class="column">
+                <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
+                  <div class="hidden content" >{% trans 'Load'%}</div>
+                  <div class="visible content">
+                    <i class="large arrow circle down icon"></i>
+                  </div>
                 </div>
               </div>
+
+
             </div>
 
-
           </div>
-
         </div>
-      </div>
-  <p id="grande">{% trans 'Click on lines/cantons for details.'%}</p>
+    <p id="grande">{% trans 'Click on lines/cantons for details.'%}</p>
 
 
 
-      <canvas id="compareChart">
-      </canvas>
-    <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a><br><br>
+        <canvas id="compareChart">
+        </canvas>
+      <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a><br><br>
 
-                <div class="ui vertical animated large button" tabindex="0" id="save_incidence" style="width:100px">
-                <div class="hidden content" >{% trans 'Save'%}</div>
-                <div class="visible content">
-                  <i class="save icon"></i>
+                  <div class="ui vertical animated large button" tabindex="0" id="save_incidence" style="width:100px">
+                  <div class="hidden content" >{% trans 'Save'%}</div>
+                  <div class="visible content">
+                    <i class="save icon"></i>
+                  </div>
                 </div>
-              </div>
-        <div id="dialog" title="Basic dialog">
-      </div>
-<br><br>
-        <canvas id="compareR0">
-      </canvas>
-        <div id="dialogR0" title="Basic dialog">
-      </div>
-  Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>
-  R<sub>e</sub> estimation based on confirmed cases is used. With high test positivity rates, the estimates based on the case numbers may be too low.<br>
-  This is the mean R<sub>e</sub>, for high/low, visit the <a href="https://ibz-shiny.ethz.ch/covid-19-re/" target="_blank">Dashboard</a> of ETH Zurich.<br>
-  The methods used are explained <a href="https://ibz-shiny.ethz.ch/covid-19-re/methods.pdf" target="_blank">here</a>.
+          <div id="dialog" title="Basic dialog">
+        </div>
   <br><br>
-  <div class="ui vertical animated large button" tabindex="0" id="save_r0" style="width:100px">
-                <div class="hidden content" >Save</div>
-                <div class="visible content">
-                  <i class="save icon"></i>
+          <canvas id="compareR0">
+        </canvas>
+          <div id="dialogR0" title="Basic dialog">
+        </div>
+    Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>
+    R<sub>e</sub> estimation based on confirmed cases is used. With high test positivity rates, the estimates based on the case numbers may be too low.<br>
+    This is the mean R<sub>e</sub>, for high/low, visit the <a href="https://ibz-shiny.ethz.ch/covid-19-re/" target="_blank">Dashboard</a> of ETH Zurich.<br>
+    The methods used are explained <a href="https://ibz-shiny.ethz.ch/covid-19-re/methods.pdf" target="_blank">here</a>.
+    <br><br>
+    <div class="ui vertical animated large button" tabindex="0" id="save_r0" style="width:100px">
+                  <div class="hidden content" >Save</div>
+                  <div class="visible content">
+                    <i class="save icon"></i>
+                  </div>
                 </div>
-              </div>
-  <br><br>
+    <br><br>
 
-        <canvas id="compareTendency">
-      </canvas>
-            {% trans 'Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = Cases double in a week, 0 = constant growth, < 0 cases go down.'%}<br>
-            <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a>
-<br><br>
-        <div id="dialogTendency" title="Basic dialog">
-      </div>
-                  <div class="ui vertical animated large button" tabindex="0" id="save_tendency" style="width:100px">
-                <div class="hidden content" >Save</div>
-                <div class="visible content">
-                  <i class="save icon"></i>
+          <canvas id="compareTendency">
+        </canvas>
+              {% trans 'Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = Cases double in a week, 0 = constant growth, < 0 cases go down.'%}<br>
+              <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a>
+  <br><br>
+          <div id="dialogTendency" title="Basic dialog">
+        </div>
+                    <div class="ui vertical animated large button" tabindex="0" id="save_tendency" style="width:100px">
+                  <div class="hidden content" >Save</div>
+                  <div class="visible content">
+                    <i class="save icon"></i>
+                  </div>
                 </div>
-              </div>
 
+    <br><br>
+
+          <canvas id="compareMobility">
+        </canvas>
+              {% trans 'Google data for mobility. 0 = normal mobility (baseline).'%}<br>
+              Datasource: <a href="https://www.google.com/covid19/mobility/"> Google</a><br>
+              <a href="https://support.google.com/covid19-mobility/answer/9825414">How to interpret mobility data.</a>
   <br><br>
-
-        <canvas id="compareMobility">
-      </canvas>
-            {% trans 'Google data for mobility. 0 = normal mobility (baseline).'%}<br>
-            Datasource: <a href="https://www.google.com/covid19/mobility/"> Google</a><br>
-            <a href="https://support.google.com/covid19-mobility/answer/9825414">How to interpret mobility data.</a>
-<br><br>
-        <div id="dialogMobility" title="Basic dialog">
-      </div>
-               <div class="ui vertical animated large button" tabindex="0" id="save_mobility" style="width:100px">
-                <div class="hidden content" >Save</div>
-                <div class="visible content">
-                  <i class="save icon"></i>
+          <div id="dialogMobility" title="Basic dialog">
+        </div>
+                 <div class="ui vertical animated large button" tabindex="0" id="save_mobility" style="width:100px">
+                  <div class="hidden content" >Save</div>
+                  <div class="visible content">
+                    <i class="save icon"></i>
+                  </div>
                 </div>
-              </div>
+
+    <br><br>
+
+  <!--
+
+     <br><br>
+  <p id="grande"><b>Timeline</b></p>
+                 <p id="grande">
+                  * = end of measure undefined,
+                  # = regional<br>
+                 </p>
+                    <div id="timeline"></div>
 
   <br><br>
+  To check where you can travel to from Switzerland without a quarantine, see <a href="https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-und-wohin-nicht/" target="_blank">Passportparty.ch</a>.
 
-<!--
+                <p id="grande"><b>Current active measures</b><br>For federal rules, check <a href="/country/ch">Country Profile Switzerland</a></p>
 
-   <br><br>
-<p id="grande"><b>Timeline</b></p>
-               <p id="grande">
-                * = end of measure undefined,
-                # = regional<br>
-               </p>
-                  <div id="timeline"></div>
+                 <div id="current"></div>
+  -->
 
-<br><br>
-To check where you can travel to from Switzerland without a quarantine, see <a href="https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-und-wohin-nicht/" target="_blank">Passportparty.ch</a>.
 
-              <p id="grande"><b>Current active measures</b><br>For federal rules, check <a href="/country/ch">Country Profile Switzerland</a></p>
-
-               <div id="current"></div>
--->
-
-      </div>
-<br><br>
-  </body>
-</html>
+{% endblock %}
 
 
 

@@ -1,35 +1,8 @@
+{% extends "base.html" %}
 {% load static i18n %}
-{% load static %}
 
-<html xmlns="http://www.w3.org/1999/html">
-  <head>
-    <title>CovidLaws // Switzerland Schweiz Suisse</title>
-    <meta name="description" content="Collection of measures/restrictions/policies/non-pharmaceutical interventions enacted in the fight/in response against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
-        <script src="{% url 'javascript-catalog' %}"></script>
-       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-    <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
-    <!-- Fathom - beautiful, simple website analytics -->
-    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
-    <!-- / Fathom -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
-        <link href="{% static 'css/project.css' %}" rel="stylesheet">
-       <script type="text/javascript" src="{% static 'js/base_global.js' %}"></script>
-
-  </head>
-  <body bgcolor="black">
-
-<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
-
-
-      <h1>{% trans 'CovidLaws - Coronavirus measures and data Switzerland'%}</h1>
-      <div id="menu_ch"></div>
-      <div id="title_bar"></div>
-
+{% block title %}CovidLaws - Coronavirus measures and data Switzerland{% endblock %}
+{% block content %}
 <div class="ui three column grid">
     <div class="column">
   <div class="ui fluid card" style="text-align:center">
@@ -153,11 +126,4 @@
     {% for x in measures%}
        {{x}}, {{x.created}}<br>
     {% endfor %}
-
-    </div>
-  </body>
-</html>
-
-
-
-
+{% endblock %}

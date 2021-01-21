@@ -1,0 +1,322 @@
+{% load static i18n %}
+{% load static %}
+
+<html xmlns="http://www.w3.org/1999/html">
+  <head>
+    <title>CovidLaws // Coronavirus measures by country</title>
+    <meta name="description" content="Collection of measures/restrictions/policies/non-pharmaceutical interventions enacted in the fight/in response against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+    <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
+    <!-- Fathom - beautiful, simple website analytics -->
+    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
+    <!-- / Fathom -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
+        <link href="{% static 'css/project.css' %}" rel="stylesheet">
+
+  </head>
+  <body bgcolor="black">
+<div class="ui grid">
+
+	<div class="computer only row">
+		<div class="column">
+
+
+
+      <div class="ui four item menu">
+        <a class="item" href="/">${gettext("Home")}</a>
+
+          <div class="ui simple dropdown item">
+    ${gettext("Switzerland")}
+    <i class="dropdown icon"></i>
+    <div class="menu">
+                  <a class="item" href="/cantons/">${gettext("Measures Case development")}</a>
+                  <a class="item" href="/districts7/">${gettext("Map cases Districts Cantons")}</a>
+                  <a class="item" href="/chrisk/">${gettext("Risk calculator")}</a>
+                  <a class="item" href="/ranking7/">${gettext("Ranking")}</a>
+                  <a class="item" href="/deaths_ch/">${gettext("Deaths per canton")}</a>
+    </div>
+  </div>
+          <div class="ui simple dropdown item">
+    ${gettext("World")}
+    <i class="dropdown icon"></i>
+    <div class="menu">
+      <a class="item" href="/compare/">${gettext("Compare countries")}</a>
+      <a class="item" href="/ranking_europe/">${gettext("Ranking")}</a>
+      <a class="item" href="/country/">${gettext("Country profiles")}</a>
+      <a class="item" href="/deaths/">${gettext("Deaths")}</a>
+      <a class="item" href="/euromap/">${gettext("Map")}</a>
+    </div>
+  </div>
+
+        <a class="item" href="about/">${gettext("About")}</a>
+
+
+</div>
+
+		</div>
+	</div>
+
+	 <div class="tablet mobile only row">
+
+		<div class="column">
+			<div class="ui menu">
+				<a id="mobile_item" class="item"><i class="bars icon"></i></a>
+        				<a href="/" class="item">${gettext("Home")}</a>
+        				<a href="/ch/" class="item">${gettext("Switzerland")}</a>
+        				<a href="about/" class="item">${gettext("About")}</a>
+
+			</div>
+		</div>
+	</div>
+
+</div>
+
+<div class="ui pushable segment">
+		<div class="ui sidebar vertical menu">
+      <p><b>${gettext("Switzerland")}</b></p>
+                  <a class="item" href="/cantons/">${gettext("Measures Case development")}</a>
+                  <a class="item" href="/districts7/">${gettext("Map cases Districts Cantons")}</a>
+                  <a class="item" href="/chrisk/">${gettext("Risk calculator")}</a>
+                  <a class="item" href="/ranking7/">${gettext("Ranking")}</a>
+                  <a class="item" href="/deaths_ch/">${gettext("Deaths per canton")}</a>
+      <br><p><b>${gettext("World")}</b></p>
+      <a class="item" href="/compare/">${gettext("Compare countries")}</a>
+      <a class="item" href="/ranking_europe/">${gettext("Ranking")}</a>
+      <a class="item" href="/country/">${gettext("Country profiles")}</a>
+      <a class="item" href="/deaths/">${gettext("Deaths")}</a>
+      <a class="item" href="/euromap/">${gettext("Map")}</a>
+		</div>
+		<div class="pusher">
+				<div id="content" class="ui segment">
+						Content here1111
+				</div>
+		 </div>
+</div>
+
+
+<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
+
+
+      <h1>CovidLaws - Coronavirus measures by country</h1>
+      <div id="menu"></div>
+      <div id="title_bar"></div>
+
+<div class="ui three column grid">
+  <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/compare">
+      <i class="flag icon huge"></i>
+      <i class="flag outline icon huge"></i>
+    </a>
+    <div class="content" >
+      <a class="header" href="/compare">Compare countries</a>
+      <div class="description">
+        Compare measures and countries.
+      </div>
+    </div>
+  </div>
+  </div>
+   <!-- <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/country">
+      <i class="flag outline icon huge"></i>
+      <i class="info icon huge"></i>
+    </a>
+    <div class="content" >
+      <a class="header" href="/country">Country profiles</a>
+      <div class="description">
+        All measures in a country, cases stats.
+      </div>
+    </div>
+  </div>
+    </div> -->
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/euromap">
+      <i class="globe icon huge"></i>
+      <i class="heartbeat icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/euromap">EuroMap</a>
+      <div class="description">
+        Map of Europe, by measure.
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+      <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/ranking_europe">
+      <i class="globe icon huge"></i>
+      <i class="tachometer alternate icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/ranking_europe">Ranking Europe</a>
+      <div class="description">
+        Attempt to create a 'scoring' system.
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+      <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/ranking_world">
+      <i class="globe icon huge"></i>
+      <i class="tachometer alternate icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/ranking_world">Ranking World</a>
+      <div class="description">
+        Attempt to create a 'scoring' system.
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+        <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/deaths">
+      <i class="globe icon huge"></i>
+      <i class="plus square icon outline huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/deaths">Deaths</a>
+      <div class="description">
+        Total and Covid deaths
+      </div>
+    </div>
+
+  </div>
+  </div>
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/cantons">
+      <i class="plus square icon huge"></i>
+      <i class="info icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/cantons">Measures Switzerland</a>
+      <div class="description">
+        Comparison dashboard
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/chrisk">
+      <i class="plus square icon huge"></i>
+      <i class="exclamation triangle icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/chrisk">Risk calculator</a>
+      <div class="description">
+        Switzerland
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/districts">
+      <i class="plus square icon huge"></i>
+      <i class="chart area icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/districts">Incidence map</a>
+      <div class="description">
+        Switzerland
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+
+  <!--
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/chmaps">
+      <i class="plus square icon huge"></i>
+      <i class="images icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/chmaps">Measures maps</a>
+      <div class="description">
+        Switzerland
+      </div>
+    </div>
+
+  </div>
+
+  </div>
+  -->
+
+    <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/ranking7">
+      <i class="plus square icon huge"></i>
+      <i class="tachometer alternate icon huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/ranking7">Rankings</a>
+      <div class="description">
+        Switzerland
+      </div>
+    </div>
+
+  </div>
+  </div>
+        <div class="column">
+  <div class="ui fluid card" style="text-align:center">
+    <a href="/deaths_ch">
+      <i class="plus square icon huge"></i>
+      <i class="plus square icon outline huge"></i>
+
+    </a>
+    <div class="content" >
+      <a class="header" href="/deaths_ch">{% trans 'Deaths'%}</a>
+      <div class="description">
+        {% trans 'per canton'%}
+      </div>
+    </div>
+
+  </div>
+  </div>
+</div>
+  <br>
+    <b>Last changes (Countries)</b><br>
+    {% for x in measures%}
+       {{x}}, {{x.created}}<br>
+    {% endfor %}
+
+    </div>
+  </body>
+</html>
+
+
+
+

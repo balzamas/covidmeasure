@@ -22,7 +22,7 @@ js_info_dict = {
 }
 
 urlpatterns = [
-    path("", views.international, name="home"),
+    path("", TemplateView.as_view(template_name="pages/start.html"), name="home"),
     path('openapi', get_schema_view(
                       title="Covidlaws",
                       description="API for all things …",

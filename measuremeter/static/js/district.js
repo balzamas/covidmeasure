@@ -164,6 +164,7 @@ function applyCountryBorder(map, countryname) {
 
 
         function getColor_blue(d) {
+            console.log("hans")
             return  d > 500 ? '#50504e' :
                     d > 500 ? '#1a000d' :
                     d > 350 ? '#33001a' :
@@ -184,6 +185,7 @@ function applyCountryBorder(map, countryname) {
         }
 
         function getColor(d) {
+            console.log("hans2")
             return  d > 1000 ? '#000000' :
                     d > 500 ? '#420423' :
                     d > 350 ? '#5f0332' :

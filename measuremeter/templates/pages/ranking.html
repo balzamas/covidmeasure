@@ -1,30 +1,7 @@
+{% extends "base.html" %}
 {% load static i18n %}
 
-<html xmlns="http://www.w3.org/1999/html">
-  <head>
-    <title>{% trans 'CovidLaws // Canton rankings'%}</title>
-        <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
-       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="{% url 'javascript-catalog' %}"></script>
-    <!-- Fathom - beautiful, simple website analytics -->
-    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
-    <!-- / Fathom -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/popup.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/accordion.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/card.min.css"/>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-       <link href="{% static 'css/project.css' %}" rel="stylesheet">
-       <script type="text/javascript" src="{% static 'js/base_global.js' %}"></script>
-
-       <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
-
+    {% block scripts %}
     <script>
         function searchTable() {
   // Declare variables
@@ -66,7 +43,9 @@
 ;
 });
     </script>
+    {% endblock %}
 
+    {% block styles %}
 	<style>
 #myInput {
   width: 100%; /* Full-width */
@@ -117,24 +96,10 @@ table.center {
       }
 	</style>
 
-	<style>#map { width: 800px; height: 700px; }
-.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
-.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+    {% endblock %}
 
-
-  </head>
-  <body bgcolor="black">
-
-
-<div style="margin-left: 30;margin-top: 30;margin-right: 30;">
-
-
-      <h1>{% trans 'CovidLaws // Cantons // Ranking'%}</h1>
-      <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
-      <div id="menu_ch"></div>
-
-    <h1>{% trans 'Swiss Covid Ranking 7 days' %}</h1>
-    <br><br>
+{% block title %}CovidLaws // Canton rankings{% endblock %}
+{% block content %}
     <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days' %}</a> // <a href="/ranking14">{% trans 'Ranking 14 days'%}</a>  // <a href="/ranking7all">{% trans 'Ranking 7 days Cantons & Districts' %}</a> // <a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
 
     <p id="grande">{% trans 'Graphs show development in the past 2 months.'%} {% trans 'For last update see date in graph.' %}</p>
@@ -271,13 +236,6 @@ table.center {
   {% trans 'Source cases: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
   {% trans 'Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>'%}
   </p>
+  </div>
 
-      </div>
-<br><br>
-  </body>
-</html>
-
-
-
-
-
+{% endblock %}

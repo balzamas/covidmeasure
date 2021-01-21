@@ -1,38 +1,21 @@
+{% extends "base.html" %}
 {% load static i18n %}
-{% load static %}
 
-<html>
- <head>
-   <title>Covid/Coronavirus measures by country - Europe map</title>
-       <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
-       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-
-    <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
-    <!-- Fathom - beautiful, simple website analytics -->
-    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
-    <!-- / Fathom -->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
-
-    <!-- Map -->
+    {% block scripts %}
     <script type="text/javascript" src="{% static 'js/geojson/world.js' %}"></script>
     <script src="{% static 'js/map-config.js'%}"></script>
-    <link href="{% static 'css/project.css' %}" rel="stylesheet">
-    <script type="text/javascript" src="{% static 'js/base_global.js' %}"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.js"></script>
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 
+    {% endblock %}
+
+    {% block styles %}
 	<style>
-		html, body {
-			height: 100%;
-			margin: 0;
-		}
 		#map {
 			width: 600px;
 			height: 400px;
@@ -45,15 +28,12 @@
 .legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }
 
 </style>
+    {% endblock %}
 
- </head>
-<body>
-<div style="margin-top: 30;margin-bottom: 110">
-    <div style="margin-left: 30; margin-right:30;">
-
-      <h1>CovidLaws // Map Europe</h1>
+{% block title_header %}CovidLaws // Map Europe{% endblock %}
+{% block title %}CovidLaws // Map Europe{% endblock %}
+{% block content %}
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
-      <div id="menu"></div>
 
 
       <div id="console"  class="ui placeholder segment">
@@ -130,7 +110,5 @@
 
 
           </div>
-    </div>
-</body>
 
-</html>
+{% endblock %}

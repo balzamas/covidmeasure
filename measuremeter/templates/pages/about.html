@@ -1,29 +1,8 @@
+{% extends "base.html" %}
 {% load static i18n %}
-{% load static %}
 
-<html>
- <head>
-   <title>CovidLaws // Coronavirus measures by country - About</title>
-       <meta name="description" content="Collection of measures/restrictions/policies enacted in the fight against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
-
-
-       <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-    <script type="text/javascript" src="{% static 'js/menu.js' %}"></script>
-    <!-- Fathom - beautiful, simple website analytics -->
-    <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
-      <link href="{% static 'css/project.css' %}" rel="stylesheet">
-
- </head>
- <body>
- <div style="margin-left: 30;margin-top: 30;margin-bottom: 30;margin-right: 30;">
-<h1>About/Info</h1>
-   <div id="menu"></div>
-   <div id="title_bar"></div>
+{% block title %}About/Info{% endblock %}
+{% block content %}
    <h3>Why</h3>
    I started this website in Spring 2020 to cover the rules in the different countries.<br>
    I was looking for a central source to compare how the pandemic is handled and how countries are reopening.<br>
@@ -56,6 +35,5 @@
         <p>All the Endpoints <a href="/measuremeterdata/">here</a>.<br>
           Of course it's not documented.</p>
       </p>
-   </div>
- </body>
-</html>
+{% endblock %}
+
