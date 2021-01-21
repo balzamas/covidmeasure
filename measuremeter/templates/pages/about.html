@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
+{% block title_header %}About/Info{% endblock %}
+{% block description %}XXX{% endblock %}
 {% block title %}About/Info{% endblock %}
 {% block content %}
    <h3>Why</h3>
+   <p id="grande">
    I started this website in Spring 2020 to cover the rules in the different countries.<br>
    I was looking for a central source to compare how the pandemic is handled and how countries are reopening.<br>
    It became more and more impossible to track all the rules and good sources appeared, that's why now most of the rules are imported from the Oxford University.<br>
    What's missing in the Oxford dataset are the restaurants and shops, this is still maintained by us. Please report any error to us!<br>
-
+   </p>
 
 <h3>Who am I</h3>
    <p id="grande">
@@ -20,7 +23,7 @@
    </p>
 
 <h3>Give me the data</h3>
-      <p>
+      <p id="grande">
         For Swiss measures, use this endpoint:<br>
         <a href="/measuremeterdata/chmeasures">here</a><br>
         You can use these filters:
@@ -32,7 +35,7 @@
         </ul>
         Example: all mask measures from Geneva and Zurich, starting from August 8:<br>
         measuremeterdata/chmeasures/?cantons=ge,zh&types=2&start=2020-08-08<br>
-        <p>All the Endpoints <a href="/measuremeterdata/">here</a>.<br>
+        <p id="grande">All the Endpoints <a href="/measuremeterdata/">here</a>.<br>
           Of course it's not documented.</p>
       </p>
 {% endblock %}

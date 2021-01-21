@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/html">
   <head>
     <title>{% block title_header %}{% endblock %}</title>
-    <meta name="description" content="Collection of measures/restrictions/policies/non-pharmaceutical interventions enacted in the fight/in response against the corona-virus/covid-19 pandemic by country. Visualized as timeline and map (Europe).">
+    <meta name="description" content={% block description %}{% endblock %}>
 
     <script src="{% url 'javascript-catalog' %}"></script>
 
@@ -13,10 +13,6 @@
     <!-- Fathom - beautiful, simple website analytics -->
     <script src="https://cdn.usefathom.com/3.js" site="EWPICMYO"></script>
     <!-- / Fathom -->
-
-    <script type="text/javascript"
-      src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"
-    ></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/dropdown.min.css"/>
@@ -102,10 +98,11 @@
           <a class="item" href="/country/">{% trans "Country profiles"%}</a>
           <a class="item" href="/deaths/">{% trans "Deaths"%}</a>
           <a class="item" href="/euromap/">{% trans "Map"%}</a>
+          <a class="item" href="/belrisk/">{% trans "Risk calculator Belgium"%}</a>
         </div>
       </div>
 
-            <a class="item" href="about/">{% trans "About"%}</a>
+            <a class="item" href="/about/">{% trans "About"%}</a>
 
 
     </div>
@@ -142,6 +139,7 @@
         <a class="item" href="/country/">{% trans "Country profiles"%}</a>
         <a class="item" href="/deaths/">{% trans "Deaths"%}</a>
         <a class="item" href="/euromap/">{% trans "Map"%}</a>
+        <a class="item" href="/belrisk/">{% trans "Risk calculator Belgium"%}</a>
 		</div>
 		<div class="pusher">
 				<div id="content" class="ui segment" >

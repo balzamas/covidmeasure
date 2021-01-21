@@ -2,6 +2,10 @@
 {% load static i18n %}
 
     {% block scripts %}
+    <script type="text/javascript"
+      src="https://unpkg.com/vis-timeline@latest/standalone/umd/vis-timeline-graph2d.min.js"
+    ></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -30,6 +34,8 @@
     {% block styles %}
     {% endblock %}
 
+{% block title_header %}CovidLaws // Coronavirus measures by country - Country profile{% endblock %}
+{% block description %}XXX{% endblock %}
 {% block title %}CovidLaws // Coronavirus measures by country - Country profile{% endblock %}
 {% block content %}
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>

@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load static i18n %}
 
+{% block title_header %}CovidLaws // {% trans 'Coronavirus measures by canton'%} - {% trans 'Canton profiles'%}{% endblock %}
+{% block description %}XXX{% endblock %}
 {% block title %}CovidLaws // {% trans 'Coronavirus measures by canton'%} - {% trans 'Canton profiles'%}{% endblock %}
 {% block scripts %}
     <script type="text/javascript" src="{% static 'js/canton.js' %}"></script>

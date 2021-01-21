@@ -10,12 +10,13 @@ from django.db.models import F, Func
 
 def belgium_risk(request):
     provinces = BELProvince.objects.all().order_by('name')
+    date_from = date.today()-timedelta(days=4)
     date_border = date.today()- timedelta(days=20)
     provinces_vals = []
 
     for province in provinces:
         print(province)
-        cases = BELCases.objects.filter(province=province, date__gte=date_border).order_by("-date")
+        cases = BELCases.objects.filter(province=province, date__gte=date_border, date__lte=date_from).order_by("-date")
 
 
         case_7 = {"0_9":0,"10_19":0,"20_29":0,"30_39":0,"40_49":0,"50_59":0,"60_69":0,"70_79":0,"80_89":0,"90plus":0,"Total":0}
