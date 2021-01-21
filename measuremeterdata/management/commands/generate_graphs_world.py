@@ -24,7 +24,7 @@ def write_graph(country,dates, data, suffix, ymax):
 
     figure = plt.gcf()
 
-    figure.set_size_inches(2, 1)
+    figure.set_size_inches(1.4, 0.7)
 
     frame1 = plt.gca()
     frame1.axes.get_xaxis().set_visible(False)

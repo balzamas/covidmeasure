@@ -22,45 +22,16 @@ js_info_dict = {
 }
 
 urlpatterns = [
-    path("", TemplateView.as_view(template_name="pages/start.html"), name="home"),
     path('openapi', get_schema_view(
                       title="Covidlaws",
                       description="API for all things …",
                       version="1.0.0"
                   ), name='openapi-schema'),
-    path('ranking_europe/', views_ranking_int.ranking_europe, name='ranking_europe'),
-    path('ranking_world/', views_ranking_int.ranking_world, name='ranking_world'),
-    path(
-        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
-    ),
-    path(
-                      "barrace/", TemplateView.as_view(template_name="pages/barchart.html"), name="BarChartRace"
-                  ),
-    path(
-        "euromap/", TemplateView.as_view(template_name="pages/euromap.html"), name="EuroMap"
-      ),
-    path('euromap/<str:measure_id>/', views.render_euromap, name='item'),
-    path(
-    "timeline/", TemplateView.as_view(template_name="pages/timeline.html"), name="Timeline"
-                  ),
-    path('timeline/<str:country_name>/', views.render_timeline, name='item'),
-    path("compare/", TemplateView.as_view(template_name="pages/compare.html"), name="Compare"
-                       ),
-    path("compare/<str:country_name>/", views.render_compare, name="item"
-                  ),
-    path(
-    "about/", TemplateView.as_view(template_name="pages/about.html"), name="About"
-                  ),
-    path('deaths/', view_deaths.country_deaths, name='deaths'),
 
-                  path(
-    "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
-                  ),
 
     path(
                       "test/", TemplateView.as_view(template_name="pages/test.html"), name="Test"
                   ),
-    path('country/<str:country_name>/',views.render_country, name='item'),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
@@ -77,6 +48,37 @@ urlpatterns += i18n_patterns(
                              )
 
 urlpatterns += i18n_patterns(
+    path("", TemplateView.as_view(template_name="pages/start.html"), name="home"),
+    path('country/<str:country_name>/', views.render_country, name='item'),
+
+    path('ranking_europe/', views_ranking_int.ranking_europe, name='ranking_europe'),
+    path('ranking_world/', views_ranking_int.ranking_world, name='ranking_world'),
+    path(
+        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
+    ),
+    path(
+        "barrace/", TemplateView.as_view(template_name="pages/barchart.html"), name="BarChartRace"
+    ),
+    path(
+        "euromap/", TemplateView.as_view(template_name="pages/euromap.html"), name="EuroMap"
+    ),
+    path('euromap/<str:measure_id>/', views.render_euromap, name='item'),
+    path(
+        "timeline/", TemplateView.as_view(template_name="pages/timeline.html"), name="Timeline"
+    ),
+    path('timeline/<str:country_name>/', views.render_timeline, name='item'),
+    path("compare/", TemplateView.as_view(template_name="pages/compare.html"), name="Compare"
+         ),
+    path("compare/<str:country_name>/", views.render_compare, name="item"
+         ),
+    path(
+        "about/", TemplateView.as_view(template_name="pages/about.html"), name="About"
+    ),
+    path('deaths/', view_deaths.country_deaths, name='deaths'),
+
+    path(
+        "country/", TemplateView.as_view(template_name="pages/country.html"), name="Country"
+    ),
     path(
         "madlaina/", view_madlaina.hallo_welt, name="Madlaina"
     ),
