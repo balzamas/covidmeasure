@@ -117,6 +117,7 @@ table.center {
     <p id="grande">{% trans 'Source for incidence are cantonal data, not BAG. Values can differ from official values.' %} {% trans 'Values always 2 days or older (too many errors in most recent numbers).' %}</p>
   <input type="text" id="myInput" onkeyup="searchTable()" placeholder="{% trans 'Filter table (e.g. (ZH) for all Zurich districts)' %}">
 
+<div style="overflow-x:auto;">
   <table class="ui celled table" id="ranking">
     <tr><th></th><th onclick="sortTable(1,'ranking')">{% trans 'Rank'%}</th>
       <th>{% trans 'Shift'%}</th>
@@ -233,6 +234,7 @@ table.center {
     </tr>
     {% endfor %}
   </table>
+</div>
   <br>
   <p id="grande">
   {% trans 'Source cases: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>

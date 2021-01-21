@@ -49,7 +49,6 @@
 {% block description %}XXX{% endblock %}
 {% block title %}CovidLaws // Europe rankings{% endblock %}
 {% block content %}
- <table class="ui celled table" id="ranking">
     <h1>Europe Covid Ranking</h1>
     Don't take this too serious. It's the internet.
     <br><br>
@@ -64,9 +63,13 @@
 
     <p id="grande">Click on table headers to sort.</p>
 
+<div style="overflow-x:auto;">
+ <table class="ui celled table" id="ranking" width="100%">
+<thead>
     <tr><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(3,'ranking')">Score</th><th onclick="sortTable(4,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(5,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(7,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th onclick="sortTable(8,'ranking')">R median</th><th onclick="sortTable(9,'ranking')">Stringency index</th></tr>
     {% for hans in countries %}
-
+</thead>
+   <tbody>
     <tr>
 
       <td>
@@ -152,7 +155,9 @@
       </td>
     </tr>
     {% endfor %}
+   </tbody>
   </table>
+</div>
 
 <br><br>
    <table>

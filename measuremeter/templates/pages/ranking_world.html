@@ -61,6 +61,8 @@
     <p>Countries: All European and some selected from all over the world (in general where positive rate is available).</p>
     <p id="grande"><a href="/ranking_europe">Ranking Europe</a> // <a href="/ranking_world">Ranking World</a></p>
 <p id="grande">Click on table headers to sort.</p>
+
+<div style="overflow-x:auto;">
   <table class="ui celled table" id="ranking">
     <thead>
     <tr><th></th><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(4,'ranking')">Score</th><th onclick="sortTable(5,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(7,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(8,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th onclick="sortTable(9,'ranking')">R median</th><th onclick="sortTable(10,'ranking')">Stringency index</th></tr>
@@ -164,8 +166,9 @@
       </td>
     </tr>
     {% endfor %}
+    </tbody>
   </table>
-
+</div>
 <br><br>
 
   <table>

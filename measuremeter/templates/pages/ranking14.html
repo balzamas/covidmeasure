@@ -108,6 +108,8 @@ table.center {
 
  <input type="text" id="myInput" onkeyup="searchTable()" placeholder="{% trans 'Filter table (e.g. (ZH) for all Zurich districts)' %}">
 
+<div style="overflow-x:auto;">
+
   <table class="ui celled table" id="ranking">
 
     <tr><th></th><th onclick="sortTable(1,'ranking')">{% trans 'Rank'%}</th>
@@ -200,8 +202,12 @@ table.center {
     {% endif %}
     {% endfor %}
   </table>
+</div>
   <br>
   <p id="grande">
   {% trans 'Source: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
+  {% trans 'Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>'%}
+
+
   </p>
 {% endblock %}
