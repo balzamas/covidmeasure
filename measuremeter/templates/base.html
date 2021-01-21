@@ -61,8 +61,17 @@
     {% block styles %}
     {% endblock %}
 
+    <style>
+      #outer {
+        display: flex;
+        flex-flow: column;
+        height: 100%;
+      }
+    </style>
+
   </head>
   <body bgcolor="black">
+  <div id="outer">
     <div class="ui grid">
 
       <div class="computer only row">
@@ -111,14 +120,14 @@
 				<a id="mobile_item" class="item"><i class="bars icon"></i></a>
         				<a href="/" class="item">{% trans "Home"%}</a>
         				<a href="/ch/" class="item">{% trans "Switzerland"%}</a>
-        				<a href="about/" class="item">{% trans "About"%}</a>
+        				<a href="/about/" class="item">{% trans "About"%}</a>
 			</div>
 		</div>
 	</div>
 
 </div>
 
-<div class="ui pushable segment">
+    <div class="ui pushable segment" style="flex-grow: 1;">
 		<div class="ui sidebar vertical menu">
       <p><b>{% trans "Switzerland"%}</b></p>
         <a class="item" href="/cantons/">{% trans "Measures Case development"%}</a>
@@ -128,13 +137,14 @@
         <a class="item" href="/deaths_ch/">{% trans "Deaths per canton"%}</a>
       <br><p><b>{% trans "World"%}</b></p>
         <a class="item" href="/compare/">{% trans "Compare countries"%}</a>
-        <a class="item" href="/ranking_europe/">{% trans "Ranking"%}</a>
+        <a class="item" href="/ranking_europe/">{% trans "Ranking Europe"%}</a>
+        <a class="item" href="/ranking_world/">{% trans "Ranking World"%}</a>
         <a class="item" href="/country/">{% trans "Country profiles"%}</a>
         <a class="item" href="/deaths/">{% trans "Deaths"%}</a>
         <a class="item" href="/euromap/">{% trans "Map"%}</a>
 		</div>
 		<div class="pusher">
-				<div id="content" class="ui segment">
+				<div id="content" class="ui segment" >
           {% autoescape off %}
             <h1>{% block title %}{% endblock %}</h1>
           {% block content %}
@@ -143,7 +153,7 @@
 				</div>
 		 </div>
 </div>
-
+  </div>
 
 
   </body>
