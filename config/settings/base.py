@@ -80,7 +80,6 @@ THIRD_PARTY_APPS = [
     'django_filters',
     'ckeditor',
     'corsheaders',
-    'autotranslate',
 ]
 
 LOCAL_APPS = [
