@@ -29,12 +29,28 @@ $( document ).ready(function() {
 
           measuretypes = []
 
+
+
           $.each(jsonMeasuresTypes, function(id, line) {
                  measuretypes.push({
                     name: '<font size="5em">'+line['name']+'</font>',
                     value: line['pk']
                   });
+
+                 document.getElementById('measures').innerHTML = document.getElementById('measures').innerHTML + `
+
+                          <div class="column">
+                              <div class="ui fluid card" style="text-align:center">
+                                <a href=\'/euromap/${line['pk']}\'>
+                                    <i class=\'huge ${line['icon']} \'></i>
+                                </a>
+                                <div class="content" >
+                                  <a class="header" href=\'/euromap/${line['pk']}\'>${line['name']}</a>
+                                </div>
+                              </div>
+                          </div>`
           });
+
 
           $('#measurechooser')
               .dropdown({
@@ -43,7 +59,7 @@ $( document ).ready(function() {
             ;
 
             $('#dateselect').change(function() {
-                           readloadDate();
+               readloadDate();
             });
 
            $("#measurechooser").change(function() {
