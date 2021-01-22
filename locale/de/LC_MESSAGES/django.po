@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-22 12:09+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"POT-Creation-Date: 2021-01-22 17:16+0100\n"
+"PO-Revision-Date: 2021-01-22 17:19+0100\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.3\n"
 
 #: measuremeter/static/translations/translate_districts.txt:1
 msgid "Population"
@@ -289,6 +289,8 @@ msgstr ""
 #: measuremeter/templates/pages/ch.html:53
 #: measuremeter/templates/pages/ch.html:71
 #: measuremeter/templates/pages/ch.html:87
+#: measuremeter/templates/pages/chrisk.html:30
+#: measuremeter/templates/pages/chrisk.html:32
 msgid "Switzerland"
 msgstr "Schweiz"
 
@@ -303,7 +305,7 @@ msgstr "Fallzahlen Bezirke/Kantone"
 #: measuremeter/templates/base.html:87 measuremeter/templates/base.html:133
 #: measuremeter/templates/pages/ch.html:34
 msgid "Risk calculator"
-msgstr "Risikoberechner"
+msgstr "Risikorechner"
 
 #: measuremeter/templates/base.html:88 measuremeter/templates/base.html:134
 msgid "Ranking"
@@ -338,7 +340,7 @@ msgstr "Länderprofile"
 #: measuremeter/templates/pages/ch.html:101
 #: measuremeter/templates/pages/start.html:201
 msgid "Deaths"
-msgstr "Todesfälle"
+msgstr "Todesfälle Europa"
 
 #: measuremeter/templates/base.html:101 measuremeter/templates/base.html:142
 msgid "Map measures Europe"
@@ -346,7 +348,7 @@ msgstr "Karten Massnahmen Europa"
 
 #: measuremeter/templates/base.html:102 measuremeter/templates/base.html:143
 msgid "Risk calculator Belgium"
-msgstr "Risikoberechner Belgien"
+msgstr "Risikorechner Belgien"
 
 #: measuremeter/templates/base.html:106 measuremeter/templates/base.html:121
 msgid "About"
@@ -423,6 +425,7 @@ msgstr "Bis:"
 
 #: measuremeter/templates/pages/canton.html:67
 #: measuremeter/templates/pages/canton_stringency.html:119
+#: measuremeter/templates/pages/chrisk.html:72
 #: riskcalc/templates/pages/belrisk.html:148
 msgid "Load"
 msgstr "Lade"
@@ -518,6 +521,148 @@ msgstr ""
 "Eine Übersicht wohin man von der Schweiz aus noch reisen kann gibt es auf <a "
 "href=\"https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-und-"
 "wohin-nicht/\" target=\"_blank\">Passportparty.ch</a>"
+
+#: measuremeter/templates/pages/chrisk.html:30
+#: measuremeter/templates/pages/chrisk.html:32
+msgid "Corona/Covid Risk map"
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:35
+#: riskcalc/templates/pages/belrisk.html:91
+msgid ""
+"Calculating the chance that one or more members of a group is/are infected."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:45
+#: riskcalc/templates/pages/belrisk.html:103
+msgid "Group size:"
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:51
+#: riskcalc/templates/pages/belrisk.html:110
+msgid "Base number:"
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:53
+#: measuremeter/templates/pages/chrisk.html:54
+#: measuremeter/templates/pages/chrisk.html:55
+#: riskcalc/templates/pages/belrisk.html:112
+#: riskcalc/templates/pages/belrisk.html:113
+#: riskcalc/templates/pages/belrisk.html:114
+msgid "days"
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:57
+#: riskcalc/templates/pages/belrisk.html:116
+msgid "Cases per 100k population in the past..."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:66
+#: riskcalc/templates/pages/belrisk.html:125
+msgid "Ascertainment bias: incidence is multiplied by this number."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:87
+#: riskcalc/templates/pages/belrisk.html:178
+msgid ""
+"Based on the model of the <a href=\"https://covid19risk.biosci.gatech.edu/\" "
+"target=\"_blank\">Georgia Institute of Technology</a>."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:88
+#: riskcalc/templates/pages/belrisk.html:179
+msgid ""
+"Base number: Positive tests in the past X days per 100k population. CDC "
+"recommends to use past 10 days."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:89
+msgid ""
+"As there is no recent serology data about Switzerland, it's hard to estimate "
+"how many people are infected, but untested."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:90
+msgid ""
+"One large <a href=\"https://www.thelancet.com/journals/lancet/article/"
+"PIIS0140-67362031304-0/fulltext\" target=\"_blank\">seroprevalence study</a> "
+"was performed in Geneva in April. The results showed that for one case "
+"tested, there were 11.8 untestet."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:91
+msgid ""
+"This would mean a bias of 11.8 - but the test regime was different during "
+"these times and it's difficult to set the correct value."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:92
+msgid ""
+"Also a study in Ticino performed in May resulted roughly in a 1:10 ratio."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:93
+msgid ""
+"As default, the value of three is set, which is on the lower end I assume - "
+"but I am just a programmer."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:94
+msgid ""
+"For certain categories of events (schools, nightclubs), it would be very "
+"useful to filter by age group,"
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:95
+msgid ""
+"as the distribution of the virus varies greatly between the groups. This is "
+"not implemented yet."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:97
+msgid "Formula used"
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:97
+msgid "groupsize"
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:99
+msgid ""
+"<b>Attention:</b> be aware, don't missuse it! Don't use it for your personal "
+"risk assessment!"
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:100
+#, python-format
+msgid ""
+"Oh, the chance that someone is infected at this party is only 9,3%%? Let's "
+"go and hug everybody!"
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:101
+msgid ""
+"Probabilities are tricky to understand - this tool is maybe more useful for "
+"decision makers/event organizers (keyword \"Superspreader in closed space\")."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:102
+msgid ""
+"Disclaimer: I am not an epidemologist. I'm just a random dude from the "
+"internet."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:103
+msgid ""
+"Credit for the concept goes to Gatech, I just adapted their concept for "
+"Switzerland."
+msgstr ""
+
+#: measuremeter/templates/pages/chrisk.html:104
+msgid ""
+"So: keep your distance, wash your hands, wear a mask where it's sensible, "
+"enjoy life but don't be stupid."
+msgstr ""
 
 #: measuremeter/templates/pages/district.html:30
 #: measuremeter/templates/pages/district.html:32
@@ -716,6 +861,12 @@ msgstr "Wechsle zur 14-Tage-Inzidenz"
 msgid "CovidLaws // Canton rankings"
 msgstr "Covidlaws // Rangliste Kantone"
 
+#: measuremeter/templates/pages/ranking.html:101
+#: measuremeter/templates/pages/ranking.html:103
+#| msgid "CovidLaws // Canton rankings"
+msgid "Canton rankings"
+msgstr "Rangliste Kantone"
+
 #: measuremeter/templates/pages/ranking.html:105
 #: measuremeter/templates/pages/ranking14.html:100
 msgid "Ranking 7 days"
@@ -851,6 +1002,11 @@ msgid ""
 "\" target=\"_blank\">ETH Zurich</a><br>"
 msgstr ""
 
+#: measuremeter/templates/pages/ranking14.html:96
+#: measuremeter/templates/pages/ranking14.html:98
+msgid "Swiss Covid Ranking 14 days"
+msgstr "Schweizer Covid Rangliste 14 Tage"
+
 #: measuremeter/templates/pages/ranking14.html:113
 msgid "Prevalence 14d/100k"
 msgstr "Fälle 14 Tage/100k Einw."
@@ -895,35 +1051,8 @@ msgstr "CovidLaws // Belgien // Risikokkarte"
 msgid "COVID-19 Event Risk Assessment"
 msgstr ""
 
-#: riskcalc/templates/pages/belrisk.html:91
-msgid ""
-"Calculating the chance that one or more members of a group is/are infected."
-msgstr ""
-
-#: riskcalc/templates/pages/belrisk.html:103
-msgid "Group size:"
-msgstr ""
-
-#: riskcalc/templates/pages/belrisk.html:110
-msgid "Base number:"
-msgstr ""
-
-#: riskcalc/templates/pages/belrisk.html:112
-#: riskcalc/templates/pages/belrisk.html:113
-#: riskcalc/templates/pages/belrisk.html:114
-msgid "days"
-msgstr ""
-
-#: riskcalc/templates/pages/belrisk.html:116
-msgid "Cases per 100k population in the past..."
-msgstr ""
-
 #: riskcalc/templates/pages/belrisk.html:121
 msgid "Bias:"
-msgstr ""
-
-#: riskcalc/templates/pages/belrisk.html:125
-msgid "Ascertainment bias: incidence is multiplied by this number."
 msgstr ""
 
 #: riskcalc/templates/pages/belrisk.html:131
@@ -936,18 +1065,6 @@ msgstr ""
 
 #: riskcalc/templates/pages/belrisk.html:158
 msgid "Province"
-msgstr ""
-
-#: riskcalc/templates/pages/belrisk.html:178
-msgid ""
-"Based on the model of the <a href=\"https://covid19risk.biosci.gatech.edu/\" "
-"target=\"_blank\">Georgia Institute of Technology</a>."
-msgstr ""
-
-#: riskcalc/templates/pages/belrisk.html:179
-msgid ""
-"Base number: Positive tests in the past X days per 100k population. CDC "
-"recommends to use past 10 days."
 msgstr ""
 
 #: riskcalc/templates/pages/belrisk.html:180
@@ -997,9 +1114,6 @@ msgstr ""
 
 #~ msgid "CovidLaws // Switzerland // Ranking"
 #~ msgstr "CovidLaws // Schweiz // Rangliste"
-
-#~ msgid "Swiss Covid Ranking 14 days"
-#~ msgstr "Schweizer Covid Rangliste 14 Tage"
 
 #~ msgid ""
 #~ "Please note, I am in my holidays, update for cantonal measures is "

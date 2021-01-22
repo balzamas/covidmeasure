@@ -79,7 +79,8 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'django_filters',
     'ckeditor',
-    'corsheaders'
+    'corsheaders',
+    'autotranslate',
 ]
 
 LOCAL_APPS = [

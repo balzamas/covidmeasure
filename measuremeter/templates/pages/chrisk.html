@@ -27,38 +27,12 @@
 
 {% endblock %}
 
-{% block title_header %}CovidLaws // Corona/Covid Risk map Switzerland{% endblock %}
+{% block title_header %}CovidLaws // {% trans 'Corona/Covid Risk map' %} {% trans 'Switzerland' %}{% endblock %}
 {% block description %}XXX{% endblock %}
-{% block title %}Corona/Covid Risk map Switzerland{% endblock %}
+{% block title %}{% trans 'Corona/Covid Risk map' %} {% trans 'Switzerland' %}{% endblock %}
 {% block content %}
-  <p id="grande"><b>COVID-19 Event Risk Assessment</b></p>
 
-  <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
-
-  <h4>Calculating the chance that one or more members of a group is/are infected.</h4>
-  <p id="large">Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.<br>
-  Base number: Positive tests in the past X days per 100k population. CDC recommends to use past 10 days.<br>
-    As there is no recent serology data about Switzerland, it's hard to estimate how many people are infected, but untested.<br>
-    One large <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-67362031304-0/fulltext" target="_blank">seroprevalence study</a> was performed in Geneva in April. The results showed that for one case tested, there were 11.8 untestet.<br>
-    This would mean a bias of 11.8 - but the test regime was different during these times and it's difficult to set the correct value.<br>
-    Also a study in Ticino performed in May resulted roughly in a 1:10 ratio.<br>
-    As default, the value of three is set, which is on the lower end I assume - but I am just a programmer.<br>
-    For certain categories of events (schools, nightclubs), it would be very useful to filter by age group,<br>
-    as the distribution of the virus varies greatly between the groups. This is not implemented yet.
-  </p>
-  <p id="large">Formula used: 100 - (((1-(1/(100000/(cases*bias)))) ** groupsize) * 100)</p>
-
-  <p class="red"><b>Attention:</b> be aware, don't missuse it! Don't use it for your personal risk assessment!
-    <br> "Oh, the chance that someone is infected at this party is only 9,3%? Let's go and hug everybody!"<br>
-    Probabilities are tricky to understand - this tool is maybe more useful for decision makers/event organizers (keyword "Superspreader in closed space").<br>
-    Disclaimer: I am not an epidemologist. I'm just a random dude from the internet.<br>
-    Credit for the concept goes to Gatech, I just adapted their concept for Switzerland.<br>
-    So: keep your distance, wash your hands, wear a mask where it's sensible, enjoy life but don't be stupid.
-
-  </p>
-  <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource Cases: opendata ZH</a>
-
-  <br><br>
+  <h4>{% trans 'Calculating the chance that one or more members of a group is/are infected.' %}</h4>
 
   <table>
 <colgroup>
@@ -68,19 +42,19 @@
 </colgroup>
 <tr>
     <td valign="top">
-      <h3>Group size:</h3>
+      <h3>{% trans 'Group size:' %}</h3>
       <div class="ui input" >
         <input type="number" id="groupsize" placeholder="Group size" value=15>
       </div>
     </td>
     <td valign="top">
-              <h3>Base number:</h3>
+              <h3>{% trans 'Base number:' %}</h3>
       <select class="ui dropdown" id="days">
-      <option value="10">10 days</option>
-      <option value="7">7 days</option>
-      <option value="14">14 days</option>
+      <option value="10">10 {% trans 'days' %}</option>
+      <option value="7">7 {% trans 'days' %}</option>
+      <option value="14">14 {% trans 'days' %}</option>
       </select>
-        <br>    Cases per 100k population in the past...
+        <br>    {% trans 'Cases per 100k population in the past...' %}
     </td>
 </tr>
 <tr>
@@ -89,13 +63,13 @@
         <div class="ui input" >
           <input type="number" id="bias" placeholder="Bias" value=3>
         </div>
-        <br>Ascertainment bias: incidence is multiplied by this number.
+        <br>{% trans 'Ascertainment bias: incidence is multiplied by this number.' %}
 
 
     </td>
     <td valign="bottom">
       <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
-      <div class="hidden content" >Load</div>
+      <div class="hidden content" >{% trans 'Load' %}</div>
       <div class="visible content">
         <i class="large arrow circle down icon"></i>
       </div>
@@ -109,4 +83,28 @@
   <div align="center">
     <div id='mapRisk'  style="height: 600px; width: 100%;"></div>
   </div>
+<br><br>
+  <p id="large">{% trans 'Based on the model of the <a href="https://covid19risk.biosci.gatech.edu/" target="_blank">Georgia Institute of Technology</a>.' %}<br>
+  {% trans 'Base number: Positive tests in the past X days per 100k population. CDC recommends to use past 10 days.' %}<br>
+    {% trans "As there is no recent serology data about Switzerland, it's hard to estimate how many people are infected, but untested." %}<br>
+    {% trans 'One large <a href="https://www.thelancet.com/journals/lancet/article/PIIS0140-67362031304-0/fulltext" target="_blank">seroprevalence study</a> was performed in Geneva in April. The results showed that for one case tested, there were 11.8 untestet.' %}<br>
+    {% trans "This would mean a bias of 11.8 - but the test regime was different during these times and it's difficult to set the correct value." %}<br>
+    {% trans 'Also a study in Ticino performed in May resulted roughly in a 1:10 ratio.' %}<br>
+    {% trans 'As default, the value of three is set, which is on the lower end I assume - but I am just a programmer.' %}<br>
+    {% trans 'For certain categories of events (schools, nightclubs), it would be very useful to filter by age group,' %}<br>
+    {% trans 'as the distribution of the virus varies greatly between the groups. This is not implemented yet.' %}
+  </p>
+  <p id="large">{% trans 'Formula used' %}: 100 - (((1-(1/(100000/(cases*bias)))) ** {% trans 'groupsize' %}) * 100)</p>
+
+  <p class="red">{% trans "<b>Attention:</b> be aware, don't missuse it! Don't use it for your personal risk assessment!" %}
+    <br> {% trans "Oh, the chance that someone is infected at this party is only 9,3%? Let's go and hug everybody!" %}<br>
+    {% trans 'Probabilities are tricky to understand - this tool is maybe more useful for decision makers/event organizers (keyword "Superspreader in closed space").' %}<br>
+    {% trans "Disclaimer: I am not an epidemologist. I'm just a random dude from the internet." %}<br>
+    {% trans 'Credit for the concept goes to Gatech, I just adapted their concept for Switzerland.' %}<br>
+    {% trans "So: keep your distance, wash your hands, wear a mask where it's sensible, enjoy life but don't be stupid." %}
+
+  </p>
+  <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource Cases: opendata ZH</a>
+
+
 {% endblock %}
