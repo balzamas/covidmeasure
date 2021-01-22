@@ -167,6 +167,7 @@ function loadMapData(measuretype,filterdate) {
                 var id = statesData['features'].findIndex(x => x.properties.iso_a2 === item.country.code.toUpperCase());
                 if (id > -1)
                 {
+                    statesData.features[id].properties.isregional = item.isregional;
                     statesData.features[id].properties.level = item.level;
                     statesData.features[id].properties.comment = item.comment;
              		if (item.type.text_level3 == null)
@@ -295,15 +296,31 @@ function loadMapData(measuretype,filterdate) {
 	function style(feature) {
    	    fcolor = getColor(feature.properties.level, feature.properties.levels)
 
+   	    if (feature.properties.isregional)
+   	    {
+            var myPattern = new L.StripePattern({angle:  0,      weight:  7,      color:  fcolor,      opacity:  1,});
+            myPattern.addTo(map);
+
+   	        myPattern.color = 'red'
+            return {
+                weight: 2,
+                opacity: 1,
+                color: 'white',
+                dashArray: '3',
+                fillOpacity: 1,
+                fillColor: fcolor,
+                fillPattern: myPattern, fillOpacity: 1.0,
+            };
+		}
+
+
 		return {
 			weight: 2,
 			opacity: 1,
 			color: 'white',
 			dashArray: '3',
 			fillOpacity: 1,
-			fillColor: fcolor
-
-
+			fillColor: fcolor,
 		};
 	}
 
@@ -356,14 +373,17 @@ function loadMapData(measuretype,filterdate) {
 		layer.on({
 			mouseover: highlightFeature,
 			mouseout: resetHighlight,
-			click: onMapClick
+			click: onMapClick,
 		});
 	}
+
 
 	geojson = L.geoJson(statesData, {
 		style: style,
 		onEachFeature: onEachFeature
 	}).addTo(map);
+
+
 
 	map.attributionControl.addAttribution('Source: <a href="http://covidlaws.net/">covidlaws.net</a>');
 
@@ -398,6 +418,8 @@ function loadMapData(measuretype,filterdate) {
 
         }
         div.innerHTML = labels.join('<br>');
+        //div.innerHTML += "<br>Striped: regional";
+
     return div;
     };
     legend.addTo(map);

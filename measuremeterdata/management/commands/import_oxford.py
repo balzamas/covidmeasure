@@ -9,6 +9,10 @@ from decimal import *
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+        import_oxford(
+            'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/timeseries/c8_internationaltravel.csv',
+            7
+        )
 
         import_oxford(
             'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/timeseries/h2_testing_policy.csv',
@@ -44,13 +48,6 @@ class Command(BaseCommand):
             'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/timeseries/c7_movementrestrictions.csv',
             6
         )
-
-        import_oxford(
-            'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/timeseries/c8_internationaltravel.csv,',
-            7
-        )
-
-
 
         import_oxford(
             'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/timeseries/h7_vaccination_policy.csv',

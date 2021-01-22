@@ -40,4 +40,4 @@ class OxfordMeasureSerializer(serializers.ModelSerializer):
     country = CountrySerializer()
     class Meta:
         model = CountryMeasure
-        fields = ['country', 'type', 'level', 'last_level', 'start', 'end', 'comment', 'created', 'updated']
+        fields = ['country', 'type', 'level', 'last_level', 'start', 'end', 'comment', 'isregional', 'created', 'updated']
