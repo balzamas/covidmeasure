@@ -40,7 +40,7 @@ $( document ).ready(function() {
                  document.getElementById('measures').innerHTML = document.getElementById('measures').innerHTML + `
 
                           <div class="column">
-                              <div class="ui fluid card" style="text-align:center">
+                           <div class="ui fluid card" style="text-align:center">
                                 <a href=\'/euromap/${line['pk']}\'>
                                     <i class=\'huge ${line['icon']} \'></i>
                                 </a>
