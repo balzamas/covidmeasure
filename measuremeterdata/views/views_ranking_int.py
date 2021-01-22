@@ -44,19 +44,6 @@ def calc_ranking_countries(countries):
                     last_positivity = case.positivity
                     last_positivity_date = case.date
 
-                if (case.positivity != None):
-                    if (pos_count < 7):
-                        if not positivity_last7:
-                            positivity_last7 = 0
-                        positivity_last7 += float(case.positivity)
-                        positivity_last7_count += 1
-                    else:
-                        if not positivity_before7:
-                            positivity_before7 = 0
-                        positivity_before7 += float(case.positivity)
-                        positivity_before7_count += 1
-                    pos_count += 1
-
             past_date_tocheck = last_date - timedelta(days=14)
 
             case_14days_7daysago = CasesDeaths.objects.get(country=country, date=last_date - timedelta(days=7))
@@ -64,17 +51,28 @@ def calc_ranking_countries(countries):
 
 
             if (last_positivity == None):
-                positivity_last7 = 5
-                positivity_last7_count = 1
+                last_positivity = 5
 
             if positivity_before7 == None:
                 positivity_before7 = 5
-                positivity_before7_count = 1
+
 
             try:
-                score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7 * 2) ) +  float((cases[0].deaths_past14days * 100)) + float((positivity_last7 / positivity_last7_count *50))
-                score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7 * 2)  )+ float((case_14days_7daysago.deaths_past14days * 100)) + float((positivity_before7 / positivity_before7_count * 50))
+                score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7) * float(cases[0].cases_past7days) /100) + (float(last_positivity) * float(cases[0].cases_past7days) / 50) + float((cases[0].deaths_past14days * 20))
+                score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7) * float(case_14days_7daysago.cases_past7days) /100) + (float(positivity_before7) * float(case_14days_7daysago.cases_past7days) / 50) + float((case_14days_7daysago.deaths_past14days * 20))
+
+                print(f"cases 14: {float(cases[0].cases_past14days)}")
+                print(f"cases 7: {float(cases[0].cases_past7days)}")
+                print(f"dev: {(float(cases[0].development7to7) * float(cases[0].cases_past7days))/100}")
+                print(f"pos: {(float(last_positivity) * float(cases[0].cases_past7days))/50}")
+                print(f"death: {float((cases[0].deaths_past14days * 20))}")
+                print(f"Score: {score}")
+                print(f"Score Old: {score_7days_before}")
+
+                #score_old = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7 * 2) ) +  float((cases[0].deaths_past14days * 100)) + float((positivity_last7 / positivity_last7_count *50))
+                #score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7 * 2)  )+ float((case_14days_7daysago.deaths_past14days * 100)) + float((positivity_before7 / positivity_before7_count * 50))
             except:
+                print(f"{country} failed...")
                 score = None
 
             if (score):
