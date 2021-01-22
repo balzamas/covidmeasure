@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-22 01:37+0100\n"
+"POT-Creation-Date: 2021-01-22 12:09+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -278,12 +278,12 @@ msgid ""
 "mail address</a>."
 msgstr ""
 
-#: measuremeter/templates/base.html:79 measuremeter/templates/base.html:118
+#: measuremeter/templates/base.html:79 measuremeter/templates/base.html:119
 msgid "Home"
 msgstr ""
 
-#: measuremeter/templates/base.html:82 measuremeter/templates/base.html:119
-#: measuremeter/templates/base.html:129
+#: measuremeter/templates/base.html:82 measuremeter/templates/base.html:120
+#: measuremeter/templates/base.html:130
 #: measuremeter/templates/pages/canton_stringency.html:73
 #: measuremeter/templates/pages/ch.html:36
 #: measuremeter/templates/pages/ch.html:53
@@ -292,70 +292,73 @@ msgstr ""
 msgid "Switzerland"
 msgstr "Schweiz"
 
-#: measuremeter/templates/base.html:85 measuremeter/templates/base.html:130
+#: measuremeter/templates/base.html:85
 msgid "Measures Case development"
 msgstr "Massnahmen und Entwicklung"
 
-#: measuremeter/templates/base.html:86 measuremeter/templates/base.html:131
+#: measuremeter/templates/base.html:86
 msgid "Map cases Districts Cantons"
 msgstr "Fallzahlen Bezirke/Kantone"
 
-#: measuremeter/templates/base.html:87 measuremeter/templates/base.html:132
+#: measuremeter/templates/base.html:87 measuremeter/templates/base.html:133
 #: measuremeter/templates/pages/ch.html:34
 msgid "Risk calculator"
 msgstr "Risikoberechner"
 
-#: measuremeter/templates/base.html:88 measuremeter/templates/base.html:97
-#: measuremeter/templates/base.html:133
+#: measuremeter/templates/base.html:88 measuremeter/templates/base.html:134
 msgid "Ranking"
 msgstr "Ranglisten"
 
-#: measuremeter/templates/base.html:89 measuremeter/templates/base.html:134
+#: measuremeter/templates/base.html:89 measuremeter/templates/base.html:135
 msgid "Deaths per canton"
 msgstr "Todesfälle Kantone"
 
-#: measuremeter/templates/base.html:93 measuremeter/templates/base.html:135
+#: measuremeter/templates/base.html:93 measuremeter/templates/base.html:136
 msgid "World"
 msgstr "Welt"
 
-#: measuremeter/templates/base.html:96 measuremeter/templates/base.html:136
+#: measuremeter/templates/base.html:96 measuremeter/templates/base.html:137
 msgid "Compare countries"
 msgstr "Ländervergleich"
 
+#: measuremeter/templates/base.html:97 measuremeter/templates/base.html:138
+msgid "Ranking Europe"
+msgstr "Rangliste Europa"
+
 #: measuremeter/templates/base.html:98 measuremeter/templates/base.html:139
+msgid "Ranking World"
+msgstr "Rangliste Welt"
+
+#: measuremeter/templates/base.html:99 measuremeter/templates/base.html:140
 msgid "Country profiles"
 msgstr "Länderprofile"
 
-#: measuremeter/templates/base.html:99 measuremeter/templates/base.html:140
+#: measuremeter/templates/base.html:100 measuremeter/templates/base.html:141
 #: measuremeter/templates/base_old_2.html:301
 #: measuremeter/templates/pages/ch.html:101
 #: measuremeter/templates/pages/start.html:201
 msgid "Deaths"
 msgstr "Todesfälle"
 
-#: measuremeter/templates/base.html:100
-msgid "Map measures"
-msgstr "Karten Massnahmen"
-
 #: measuremeter/templates/base.html:101 measuremeter/templates/base.html:142
+msgid "Map measures Europe"
+msgstr "Karten Massnahmen Europa"
+
+#: measuremeter/templates/base.html:102 measuremeter/templates/base.html:143
 msgid "Risk calculator Belgium"
 msgstr "Risikoberechner Belgien"
 
-#: measuremeter/templates/base.html:105 measuremeter/templates/base.html:120
+#: measuremeter/templates/base.html:106 measuremeter/templates/base.html:121
 msgid "About"
 msgstr "Über"
 
-#: measuremeter/templates/base.html:137
-msgid "Ranking Europe"
-msgstr "Rangliste Europa"
+#: measuremeter/templates/base.html:131
+msgid "Measures and case development"
+msgstr "Massnahmen und Entwicklung"
 
-#: measuremeter/templates/base.html:138
-msgid "Ranking World"
-msgstr "Rangliste Welt"
-
-#: measuremeter/templates/base.html:141
-msgid "Map"
-msgstr "Karte"
+#: measuremeter/templates/base.html:132
+msgid "Map cases Districts/Cantons"
+msgstr "Fallzahlen Bezirke/Kantone"
 
 #: measuremeter/templates/base_old.html:55
 msgid "My Profile"
@@ -515,6 +518,13 @@ msgstr ""
 "Eine Übersicht wohin man von der Schweiz aus noch reisen kann gibt es auf <a "
 "href=\"https://passportparty.ch/2020/07/22/wohin-man-derzeit-reisen-darf-und-"
 "wohin-nicht/\" target=\"_blank\">Passportparty.ch</a>"
+
+#: measuremeter/templates/pages/district.html:30
+#: measuremeter/templates/pages/district.html:32
+#: measuremeter/templates/pages/district7.html:30
+#: measuremeter/templates/pages/district7.html:32
+msgid "Incidence by canton/district"
+msgstr "Inzidenz je Kanton/Bezirk"
 
 #: measuremeter/templates/pages/district.html:34
 msgid "Incidence per 100k/past 14 days"
@@ -760,7 +770,9 @@ msgstr "Werte in Grün erfüllen die Vorgaben"
 msgid ""
 "This rule does not exist anymore! As a reference I left it active on this "
 "site."
-msgstr "Diese Regeln sind nicht mehr gültig. Als Referenz sind sie aber auf dieser Seite noch aktiv."
+msgstr ""
+"Diese Regeln sind nicht mehr gültig. Als Referenz sind sie aber auf dieser "
+"Seite noch aktiv."
 
 #: measuremeter/templates/pages/ranking.html:116
 msgid "Original regulation"
@@ -959,6 +971,9 @@ msgstr ""
 msgid "Cases data is fetched every day at 10am from Sciensano.be"
 msgstr ""
 
+#~ msgid "Map"
+#~ msgstr "Karte"
+
 #~ msgid "CovidLaws - Coronavirus measures and data Switzerland"
 #~ msgstr "CovidLaws // Corona-Massnahmen und Daten Schweiz"
 
@@ -967,9 +982,6 @@ msgstr ""
 
 #~ msgid "CovidLaws // Switzerland // Measures maps"
 #~ msgstr "CovidLaws // Schweiz // Karten Massnahmen"
-
-#~ msgid "CovidLaws // Incidence by canton/district"
-#~ msgstr "CovidLaws // Inzidenz je Kanton/Bezirk"
 
 #~ msgid "CovidLaws // Switzerland //  Districts"
 #~ msgstr "CovidLaws // Schweiz // Bezirke"

@@ -170,7 +170,7 @@
 </div>
 <br><br>
 
-  <table>
+   <table>
     <tr>
       <td>
   <b>Score</b><br>
@@ -188,20 +188,17 @@
     </tr>
     <tr>
       <td>
-        [Deaths per 100k/past 14 days * 100]
+        [Deaths per 100k/past 14 days * 20]
       </td>
     </tr>
     <tr>
       <td>
-        [Average positive rate past 7 days * 50]
-      </td>
-      <td>
-        If no positive rate is available, the average of 5% is used.
+        [Average positive rate past 7 days] * [Cases per 100k/past 14 days] /50 (If no positive rate is available, the value of 5% is used.)
       </td>
     </tr>
     <tr>
       <td>
-        [Tendency in % (Cases past week compared to week before) * 2]
+        [Tendency in % (Cases past week compared to week before)] * [Cases per 100k/past 14 days] /100
       </td>
     </tr>
 
