@@ -418,7 +418,7 @@ function loadMapData(measuretype,filterdate) {
 
         }
         div.innerHTML = labels.join('<br>');
-        //div.innerHTML += "<br>Striped: regional";
+        div.innerHTML += "<br>Striped: regional";
 
     return div;
     };

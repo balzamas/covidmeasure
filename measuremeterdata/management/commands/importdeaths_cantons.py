@@ -63,6 +63,7 @@ class Command(BaseCommand):
                         val18 = int(row[2018])
                         val17 = int(row[2017])
                         val16 = int(row[2016])
+                        val15 = int(row[2015])
                         avg = (val15 + val16 + val17 + val18 + val19)/5
                     else:
                         avg = val15
