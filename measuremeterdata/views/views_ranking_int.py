@@ -51,20 +51,20 @@ def calc_ranking_countries(countries):
 
 
             if (last_positivity == None):
-                last_positivity = 5
+                last_positivity_calc = 5
 
             if positivity_before7 == None:
                 positivity_before7 = 5
 
 
             try:
-                score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7) * float(cases[0].cases_past7days) /100) + (float(last_positivity) * float(cases[0].cases_past7days) / 50) + float((cases[0].deaths_past14days * 20))
+                score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7) * float(cases[0].cases_past7days) /100) + (float(last_positivity_calc) * float(cases[0].cases_past7days) / 50) + float((cases[0].deaths_past14days * 20))
                 score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7) * float(case_14days_7daysago.cases_past7days) /100) + (float(positivity_before7) * float(case_14days_7daysago.cases_past7days) / 50) + float((case_14days_7daysago.deaths_past14days * 20))
 
                 print(f"cases 14: {float(cases[0].cases_past14days)}")
                 print(f"cases 7: {float(cases[0].cases_past7days)}")
                 print(f"dev: {(float(cases[0].development7to7) * float(cases[0].cases_past7days))/100}")
-                print(f"pos: {(float(last_positivity) * float(cases[0].cases_past7days))/50}")
+                print(f"pos: {(float(last_positivity_calc) * float(cases[0].cases_past7days))/50}")
                 print(f"death: {float((cases[0].deaths_past14days * 20))}")
                 print(f"Score: {score}")
                 print(f"Score Old: {score_7days_before}")
