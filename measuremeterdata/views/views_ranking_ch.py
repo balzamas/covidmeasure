@@ -78,7 +78,7 @@ def ranking7_calc(cantons):
             score_14days_before = -99999
 
         if (score > -99999):
-            measures = CHMeasure.objects.filter(canton=canton).filter(Q(end__gte=date.today())|Q(end__isnull=True)).filter(Q(start__lte=date.today())).order_by("type__name")
+            measures = CHMeasure.objects.filter(canton=canton, type__isactive=True).filter(Q(end__gte=date.today())|Q(end__isnull=True)).filter(Q(start__lte=date.today())).order_by("type__name")
 
             canton_toadd = {"name": canton.name, "score": int(score),
                             "date": last_date, "code": canton.code, "level": canton.level,
