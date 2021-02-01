@@ -378,6 +378,7 @@ var data
 
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: gettext('Incidence per 100k/past 7 days'),
@@ -451,6 +452,7 @@ var data
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: [gettext('Re -  Effective reproductive number (mean)')],
@@ -541,6 +543,7 @@ var data
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: [gettext('Development past week/week before (%)')],
@@ -581,7 +584,13 @@ var data
                                 display: true,
                                 labelString: gettext('Development past week/week before (%)')
                             }
-                        }
+                        },
+                        yAxes: [{
+                           ticks: {
+                            max: 100,
+                            min: -50
+                            }
+                        }]
                     },
                     plugins: {
             zoom: {
@@ -631,6 +640,7 @@ var data
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: [gettext('Mobility')],

@@ -220,6 +220,8 @@
                     },
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
+
                     title: {
                         display: true,
                         text: 'Incidence per 100k/past 7 days',
@@ -292,6 +294,7 @@
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: 'Reported Covid-Deaths per 100k/past 7 days',
@@ -357,6 +360,8 @@
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
+
                     title: {
                         display: true,
                         text: 'Re -  Effective reproductive number (mean)',
@@ -448,6 +453,7 @@
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: 'Positive rate (Tests), past 7 days',
@@ -532,6 +538,7 @@
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: 'Tests per 1000 population (Smoothed)',
@@ -597,6 +604,7 @@
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: 'Development past week/week before (%)',
@@ -637,7 +645,13 @@
                                 display: true,
                                 labelString: 'Cases/1 Mio Pop'
                             }
-                        }
+                        },
+                        yAxes: [{
+                           ticks: {
+                            max: 100,
+                            min: -50
+                            }
+                        }]
                     },
                     plugins: {
                         zoom: {

@@ -112,7 +112,11 @@
             </div>
             <div class="content">
               <p class="transition visible">
-                    <canvas id="casesChart"></canvas></p>
+                    <div style="height: 600px">
+                    <canvas id="casesChart"></canvas>
+                   </div>
+              </p>
+
                       <div id="dialog" title="Basic dialog">
                       </div>
 
@@ -133,7 +137,11 @@
               <p id="grande"><b>Positive rate (Tests), past 7 days</b></p>
             </div>
             <div class="content">
-              <p class="transition visible"><canvas id="positivityChart"></canvas></p>
+              <p class="transition visible">
+                      <div style="height: 600px">
+                        <canvas id="positivityChart"></canvas>
+                      </div>
+              </p>
                   Source Positivity: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a>
                    <div class="ui vertical animated large button" tabindex="0" id="save_positivity" style="width:100px">
                 <div class="hidden content" >Save</div>
@@ -153,7 +161,11 @@
             <div class="content">
               Rise/Fall total cases past 7 days compared to one week ago.
               <b>BETA!</b>
-              <p class="transition visible"><canvas id="tendencyChart"></canvas></p>
+              <p class="transition visible">
+                      <div style="height: 600px">
+                        <canvas id="tendencyChart"></canvas>
+                      </div>
+              </p>
                                            <div class="ui vertical animated large button" tabindex="0" id="save_tendency" style="width:100px">
                 <div class="hidden content" >Save</div>
                 <div class="visible content">
@@ -184,7 +196,9 @@
 
                 <div id="lineChartDeaths"></div>
                 <p id="grande">
+                        <div style="height: 600px">
   <canvas id="deathChart"></canvas>
+             </div>
 
    <div id="source_death"></div>
       Source Covvid deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>

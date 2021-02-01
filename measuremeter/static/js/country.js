@@ -259,6 +259,7 @@
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: 'Positive tests',
@@ -348,6 +349,7 @@
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: 'Positive rate, past 7 days',
@@ -430,6 +432,7 @@
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: 'Development past week/week before (%)',
@@ -470,7 +473,13 @@
                                 display: true,
                                 labelString: 'Development past week/week before (%)'
                             }
-                        }
+                        },
+                        yAxes: [{
+                           ticks: {
+                            max: 150,
+                            min: -50
+                            }
+                        }]
                     },
                     plugins: {
             zoom: {
@@ -550,6 +559,7 @@
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: 'Deaths per day',

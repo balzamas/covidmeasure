@@ -79,9 +79,12 @@
     <p id="grande">{% trans 'Click on lines/cantons for details.'%}</p>
 
 
-
+      <div style="height: 600px">
         <canvas id="compareChart">
         </canvas>
+      </div>
+
+
       <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a><br><br>
 
                   <div class="ui vertical animated large button" tabindex="0" id="save_incidence" style="width:100px">
@@ -93,8 +96,13 @@
           <div id="dialog" title="Basic dialog">
         </div>
   <br><br>
+
+
+
+      <div style="height: 600px">
           <canvas id="compareR0">
         </canvas>
+      </div>
           <div id="dialogR0" title="Basic dialog">
         </div>
     Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>
@@ -110,8 +118,11 @@
                 </div>
     <br><br>
 
+
+      <div style="height: 600px">
           <canvas id="compareTendency">
         </canvas>
+      </div>
               {% trans 'Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = Cases double in a week, 0 = constant growth, < 0 cases go down.'%}<br>
               <a href="https://raw.githubusercontent.com/openZH/covid_19/master/COVID19_Fallzahlen_CH_total_v2.csv">Datasource OpenData ZH</a>
   <br><br>
@@ -126,8 +137,10 @@
 
     <br><br>
 
+      <div style="height: 600px">
           <canvas id="compareMobility">
         </canvas>
+      </div>
               {% trans 'Google data for mobility. 0 = normal mobility (baseline).'%}<br>
               Datasource: <a href="https://www.google.com/covid19/mobility/"> Google</a><br>
               <a href="https://support.google.com/covid19-mobility/answer/9825414">How to interpret mobility data.</a>
