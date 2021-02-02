@@ -9,9 +9,12 @@ import requests
 import pandas as pd
 from datetime import date, timedelta
 import measuremeterdata.tasks
+from measuremeterdata.tasks.tweet_district_ranking import tweet
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
+
+        has_new_data = False
 
         districts = CHCanton.objects.filter(code="so", level=1)
 
@@ -20,11 +23,18 @@ class Command(BaseCommand):
         df = pd.read_csv(io.StringIO(s.decode('utf-8')))
 
         for district in districts:
-          load_district(df, district)
+          has_new_data = load_district(df, district)
+
+        if has_new_data:
+            canton_code = "so"
+            canton = CHCanton.objects.filter(level=0, code=canton_code)[0]
+            tweet(canton)
 
 def load_district(df, district):
     df_filtered = df[df['DistrictId'] == int(district.swisstopo_id)]
     df_filtered.set_index('Date')
+
+    has_new_dataX = False
 
     for index, row in df_filtered.iterrows():
 
@@ -72,5 +82,10 @@ def load_district(df, district):
             cd_existing.development7to7 = development7to7
             cd_existing.save()
         except CHCases.DoesNotExist:
+            has_new_dataX = True
             cd = CHCases(canton=district, incidence_past14days=ftdays, incidence_past7days=sdays, development7to7=development7to7, date=date_now)
             cd.save()
+
+    return has_new_dataX
+
+

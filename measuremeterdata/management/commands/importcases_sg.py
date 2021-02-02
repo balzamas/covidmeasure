@@ -6,13 +6,18 @@ import datetime
 import requests
 import pandas as pd
 from datetime import date, timedelta
+from measuremeterdata.tasks.tweet_district_ranking import tweet
+
 
 #Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863
+
 
 def set_incidence(last_numbers, bezirk, date, cases_today):
     total = 0
     total7 = 0
     count = 0
+    has_new_dataX = False
+
     for cases in last_numbers:
         total += cases
         if (count > 6):
@@ -35,9 +40,10 @@ def set_incidence(last_numbers, bezirk, date, cases_today):
         cd_existing.cases = cases_today
         cd_existing.save()
     except CHCases.DoesNotExist:
+        has_new_dataX = True
         cd = CHCases(canton=bezirk, incidence_past14days=ftdays, incidence_past7days=sdays, cases=cases_today, development7to7=development7to7, date=date)
         cd.save()
-    return 0
+    return has_new_dataX
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -49,6 +55,8 @@ class Command(BaseCommand):
           download = s.get(url)
 
           decoded_content = download.content.decode('latin-1')
+
+          has_new_data = False
 
           cr = csv.reader(decoded_content.splitlines(), delimiter=';')
           my_list = list(cr)
@@ -79,7 +87,7 @@ class Command(BaseCommand):
                 bezirk = CHCanton.objects.get(swisstopo_id=1722)
                 last_numbers_rorschach.append(int(row[6]))
                 last_numbers_rorschach.pop(0)
-                set_incidence(last_numbers_rorschach, bezirk, date_tosave, int(row[6]))
+                has_new_data = set_incidence(last_numbers_rorschach, bezirk, date_tosave, int(row[6]))
 
                 # Rheintal
                 bezirk = CHCanton.objects.get(swisstopo_id=1723)
@@ -118,3 +126,8 @@ class Command(BaseCommand):
                 set_incidence(last_numbers_wil, bezirk, date_tosave, int(row[18]))
 
               count += 1
+
+          if has_new_data:
+              canton_code = "sg"
+              canton = CHCanton.objects.filter(level=0, code=canton_code)[0]
+              tweet(canton)
