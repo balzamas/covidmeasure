@@ -22,3 +22,7 @@ django-cors-headers
 bs4
 matplotlib
 pydeepl
+tweepy
+freeze
+imgkit
+wkhtmltopdf

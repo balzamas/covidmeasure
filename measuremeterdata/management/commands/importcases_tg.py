@@ -7,6 +7,7 @@ import requests
 import pandas as pd
 from datetime import date, timedelta
 from measuremeterdata.tasks import import_helper
+from measuremeterdata.tasks.tweet_district_ranking import tweet
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -26,6 +27,8 @@ class Command(BaseCommand):
         count = 0
         old_bezirk = -1
         last_7days = -1
+
+        has_new_data = False
 
         for row in my_list:
             if (count > 1):
@@ -57,9 +60,15 @@ class Command(BaseCommand):
                         except CHCases.DoesNotExist:
                             cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, development7to7=development7to7, date=date)
                             cd.save()
+                            has_new_data = True
 
                         old_bezirk = int(row[0])
                         last_7days = int(row[8])
 
             count += 1
+
+        if has_new_data:
+            canton_code = "tg"
+            canton = CHCanton.objects.filter(level=0, code=canton_code)[0]
+            tweet(canton)
 

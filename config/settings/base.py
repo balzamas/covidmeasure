@@ -285,3 +285,9 @@ SOCIALACCOUNT_ADAPTER = "measuremeter.users.adapters.SocialAccountAdapter"
 
 CORS_ORIGIN_ALLOW_ALL = False
 CORS_ORIGIN_WHITELIST = ( 'http://www.dontsniff.co.uk', 'https://www.dontsniff.co.uk', 'http://dontsniff.co.uk', 'https://dontsniff.co.uk', 'http://www.passportparty.ch', 'http://passportparty.ch', 'https://www.passportparty.ch', 'https://passportparty.ch')
+
+#Twitter
+TWITTER_API_KEY = env("TWITTER_API_KEY")
+TWITTER_SECRET_KEY = env("TWITTER_SECRET_KEY")
+TWITTER_ACCESS_TOKEN = env("TWITTER_ACCESS_TOKEN")
+TWITTER_ACCESS_TOKEN_SECRET = env("TWITTER_ACCESS_TOKEN_SECRET")

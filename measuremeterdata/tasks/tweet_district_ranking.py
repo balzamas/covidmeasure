@@ -1,0 +1,109 @@
+from measuremeterdata.models.models_ch import CHCases, CHCanton
+import os
+import csv
+import datetime
+import requests
+import pandas as pd
+from datetime import date, timedelta, datetime
+import tweepy
+from django.conf import settings
+import imgkit
+
+
+def tweet(canton):
+    auth = tweepy.OAuthHandler(settings.TWITTER_API_KEY, settings.TWITTER_SECRET_KEY)
+    auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_ACCESS_TOKEN_SECRET)
+
+    # Create API object
+    api = tweepy.API(auth)
+
+    try:
+        api.verify_credentials()
+        print("Authentication OK")
+    except:
+        print("Error during authentication")
+
+    districts = CHCanton.objects.filter(level=1, code=canton.code)
+    last_date = create_image(districts, canton)
+
+    media = api.media_upload("/tmp/out_image.jpg")
+    api.update_status(
+        status=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n#{canton.name}\n\n Ganze Rangliste: https://covidlaws.net/ranking7all/",
+        media_ids=[media.media_id_string])
+
+
+def create_image(districts, canton):
+    canton_vals = []
+
+    html = f'<html><head><meta charset="UTF-8" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script></head>' \
+           '<body><div style="margin-top: 20px;margin-bottom: 20px;margin-left: 150px;margin-right: 150px;">' \
+           f'<h1><img src = https://covidlaws.net/static/images/flags_ch/{canton.code}_circle.png>&nbsp;&nbsp;&nbsp;{canton.name}</h1>' \
+           '<table class="ui celled table">' \
+           '<tr><th>Rang</th>' \
+           '<th>Veränderung</th>' \
+           '<th>Bezirk</th>' \
+           '<th>Inzidenz 7T/100k</th>' \
+           '<th>Entwicklung Woche/Vorwoche</th>' \
+           '</tr>'
+
+    for district in districts:
+        date_tocheck = date.today()
+
+        cases = CHCases.objects.filter(canton=district,
+                                       date__range=[date_tocheck - timedelta(days=25), date_tocheck]).order_by(
+            "-date")
+        last_date = cases[0].date
+        last_prev7 = cases[0].incidence_past7days
+        last_prev14 = cases[0].incidence_past14days
+        last_tendency = cases[0].development7to7
+
+        past_date_tocheck = last_date - timedelta(days=7)
+
+        case_7days_before = CHCases.objects.get(canton=district, date=past_date_tocheck)
+
+        score = 0 - cases[0].incidence_past7days - (last_tendency * 2)
+
+        canton_toadd = {"name": district.name, "score": int(score),
+                        "date": last_date, "code": district.code, "level": district.level,
+                        "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": last_tendency,
+                        "cur_prev7": case_7days_before.incidence_past7days, "id": district.swisstopo_id,
+                        "level": district.level}
+
+        canton_vals.append(canton_toadd)
+
+    scores = sorted(canton_vals, key=lambda i: i['cur_prev7'], reverse=False)
+    rank = 1
+    for score in scores:
+        score["rank_old"] = rank
+        rank += 1
+
+    scores = sorted(scores, key=lambda i: i['cur_prev'], reverse=False)
+    rank = 1
+    for score in scores:
+        score["rank"] = rank
+        score["rank_diff"] = score["rank_old"] - rank
+        rank += 1
+        if (score["rank"] < score["rank_old"]):
+            score["rank_icon"] = "arrow circle up green"
+        elif (score["rank"] == score["rank_old"]):
+            score["rank_icon"] = "arrow circle left orange"
+        else:
+            score["rank_icon"] = "arrow circle down red"
+
+        html += f'<tr>' \
+                f'<td>{score["rank"]}</td>' \
+                f'<td><i class ="{score["rank_icon"]} icon" > </i>{score["rank_diff"]}</td>' \
+                f'<td><b>{score["name"]}</b></td>' \
+                f'<td><div class ="centered"> {score["cur_prev"]}</div></td>' \
+                f'<td><div class ="centered">{score["tendency"]}</div></td>' \
+                '</tr>'
+
+    html += f'</table><b>Stand: {last_date}</b>' \
+            "// covidlaws.net // Quelle: @OpenDataZH & der Kanton" \
+            '</div>' \
+            '</body></html>'
+
+    options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+
+    return last_date

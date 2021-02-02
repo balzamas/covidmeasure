@@ -236,7 +236,6 @@ def ranking14_all(request):
 
 def ranking7(request):
     cantons = CHCanton.objects.filter(level=0)
-    #    cantons = CHCanton.objects.all()
     context = ranking7_calc(cantons)
     template = loader.get_template('pages/ranking.html')
 
@@ -245,7 +244,6 @@ def ranking7(request):
 
 def ranking7_all(request):
     cantons = CHCanton.objects.all()
-    #    cantons = CHCanton.objects.all()
     context = ranking7_calc(cantons)
     template = loader.get_template('pages/ranking.html')
 

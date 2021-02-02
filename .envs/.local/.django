@@ -1,5 +1,0 @@
-# General
-# ------------------------------------------------------------------------------
-USE_DOCKER=yes
-IPYTHONDIR=/app/.ipython
-DJANGO_ALLOWED_HOSTS=coronameasures.ch

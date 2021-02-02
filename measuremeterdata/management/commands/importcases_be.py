@@ -27,6 +27,8 @@ class Command(BaseCommand):
         old_bezirk = -1
         last_7days = -1
 
+        has_new_data = False
+
         for row in my_list:
             if (count > 0):
                 if row[4] != '':
@@ -56,6 +58,7 @@ class Command(BaseCommand):
                             cd_existing.development7to7 = development7to7
                             cd_existing.save()
                         except CHCases.DoesNotExist:
+                            has_new_data = True
                             cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, development7to7=development7to7, date=date)
                             cd.save()
 
@@ -64,3 +67,7 @@ class Command(BaseCommand):
 
             count += 1
 
+        if has_new_data:
+            canton_code = "be"
+            canton = CHCanton.objects.filter(level=0, code=canton_code)[0]
+            tweet(canton)

@@ -27,6 +27,8 @@ class Command(BaseCommand):
 
         last_days = 0
 
+        has_new_data = False
+
         for row in my_list:
             if (count > 0):
                 date = import_helper.get_start_end_dates(int(row[5]), int(row[4]))[1]
@@ -56,6 +58,7 @@ class Command(BaseCommand):
                             cd_existing.incidence_past14days = ftdays
                         cd_existing.save()
                     except CHCases.DoesNotExist:
+                        has_new_data = True
                         if (ftdays):
                             cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, development7to7=development7to7, date=date)
                         else:
@@ -65,4 +68,9 @@ class Command(BaseCommand):
                     last_days = int(row[8])
 
             count += 1
+
+        if has_new_data:
+            canton_code = "vs"
+            canton = CHCanton.objects.filter(level=0, code=canton_code)[0]
+            tweet(canton)
 
