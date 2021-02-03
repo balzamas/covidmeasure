@@ -10,6 +10,7 @@ from django.conf import settings
 import imgkit
 import facebook
 import telepot
+from PIL import Image, ImageChops
 
 def tweet(canton):
 
@@ -35,7 +36,6 @@ def tweet(canton):
     auth = tweepy.OAuthHandler(settings.TWITTER_API_KEY, settings.TWITTER_SECRET_KEY)
     auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_ACCESS_TOKEN_SECRET)
 
-    # Create API object
     api = tweepy.API(auth)
 
     try:
@@ -54,15 +54,26 @@ def tweet(canton):
 def create_image(districts, canton):
     canton_vals = []
 
-    html = f'<html><head><meta charset="UTF-8" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script></head>' \
-           '<body><div style="margin-top: 20px;margin-bottom: 20px;margin-left: 150px;margin-right: 150px;">' \
-           f'<h1><img src = https://covidlaws.net/static/images/flags_ch/{canton.code}_circle.png>&nbsp;&nbsp;&nbsp;{canton.name}</h1>' \
-           '<table class="ui celled table">' \
+    #'#container_2 { -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -o-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg);}' \
+
+    html = f'<html><head><meta charset="UTF-8" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>' \
+           '<style>table, th, td { padding: 10px; font-size: 14; }' \
+            '.columnl { float: left; width: 80px; } .columnr { float: left; width: 1000px; }/* Clear floats after the columns */ .row:after {   content: "";   display: table;   clear: both; }' \
+            '#rotate-text { width: 45px; transform: rotate(90deg); }' \
+            '</style>' \
+           f'</head>' \
+           '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;margin-left: 150px;margin-right: 150px;">' \
+           '<table>' \
+           '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right">' \
+           f'<img src = https://covidlaws.net/static/images/flags_ch/{canton.code}_circle.png><br><br>' \
+           f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{canton.name}</h1></div>' \
+            '</td><td>' \
+           '<table class="ui celled table" style="width: 800px;">' \
            '<tr><th>Rang</th>' \
-           '<th>Veränderung</th>' \
+           '<th>Veränderung<br>zur Vorwoche</th>' \
            '<th>Bezirk</th>' \
            '<th>Inzidenz 7T/100k</th>' \
-           '<th>Entwicklung Woche/Vorwoche</th>' \
+           '<th>Entwicklung<br>Woche/Vorwoche</th>' \
            '</tr>'
 
     for district in districts:
@@ -113,16 +124,37 @@ def create_image(districts, canton):
                 f'<td>{score["rank"]}</td>' \
                 f'<td><i class ="{score["rank_icon"]} icon" > </i>{score["rank_diff"]}</td>' \
                 f'<td><b>{score["name"]}</b></td>' \
-                f'<td><div class ="centered"> {score["cur_prev"]}</div></td>' \
-                f'<td><div class ="centered">{score["tendency"]}</div></td>' \
+                f'<td><div class ="centered"> {score["cur_prev"]}</div></td>'
+
+        if score["tendency"] < 0:
+            html += f'<td class="positive"><div class ="centered">{score["tendency"]}</div></td>' \
+                '</tr>'
+        else:
+            html += f'<td class="negative"><div class ="centered">{score["tendency"]}</div></td>' \
                 '</tr>'
 
+
     html += f'</table><b>Stand: {last_date}</b>' \
-            "// covidlaws.net // Quelle: @OpenDataZH & der Kanton" \
+            "// covidlaws.net // Quelle: @OpenDataZH & der Kanton</td></tr></table>" \
             '</div>' \
             '</body></html>'
 
+    print(html)
+
     options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    imgkit.from_string(html, "out_image.jpg", options=options)
+
+    im = Image.open("out_image.jpg")
+    im = trim(im)
+    im.save("out2.jpg")
 
     return last_date
+
+
+def trim(im):
+        bg = Image.new(im.mode, im.size, im.getpixel((0, 0)))
+        diff = ImageChops.difference(im, bg)
+        diff = ImageChops.add(diff, diff, 5.0, -100)
+        bbox = diff.getbbox()
+        if bbox:
+            return im.crop(bbox)
