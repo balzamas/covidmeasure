@@ -68,8 +68,11 @@ def getdata(country):
                         else:
                             week_str = week
 
+
                         try:
-                            value_peak = int(row[f"{country.peak_year}W{week_str} "])
+                            value_peak = int(
+                                row[f"{country.peak_year}W{week_str} "].replace('p', '').replace('e', '').replace(' ',
+                                                                                                                  ''))
                             avg_peak = value_peak / 7
                         except:
                             avg_peak = -1
