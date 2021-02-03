@@ -142,19 +142,6 @@ def create_image(districts, canton):
     print(html)
 
     options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
-
-    im = Image.open("out_image.jpg")
-    im = trim(im)
-    im.save("out2.jpg")
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
     return last_date
-
-
-def trim(im):
-        bg = Image.new(im.mode, im.size, im.getpixel((0, 0)))
-        diff = ImageChops.difference(im, bg)
-        diff = ImageChops.add(diff, diff, 5.0, -100)
-        bbox = diff.getbbox()
-        if bbox:
-            return im.crop(bbox)
