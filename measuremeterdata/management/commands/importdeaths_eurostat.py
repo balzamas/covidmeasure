@@ -7,101 +7,86 @@ from datetime import timedelta
 import requests
 import pandas as pd
 from io import BytesIO
+import io
 import gzip
 from urllib.request import urlopen
 from measuremeterdata.tasks import import_helper
+import shutil
+import fileinput
 
 def getdata(country):
     print(country)
+
+    url = 'https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/demo_r_mwk_ts.tsv.gz'
     resp = urlopen(
         'https://ec.europa.eu/eurostat/estat-navtree-portlet-prod/BulkDownloadListing?file=data/demo_r_mwk_ts.tsv.gz')
 
-    import gzip
-    nr = 0
-    with gzip.open(resp, 'rt') as f:
-        file_content = f.read()
+    r = requests.get(url, allow_redirects=True)
 
-        weeks = []
+    open('/tmp/deaths.csv.gz', 'wb').write(r.content)
 
-        head = file_content.splitlines()[0]
+    with gzip.open('/tmp/deaths.csv.gz', 'rb') as f_in:
+        with open('/tmp/deaths.csv', 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
 
-        col_nr_15 = -1
-        col_nr_16 = -1
-        col_nr_17 = -1
-        col_nr_18 = -1
-        col_nr_19 = -1
+    # Read in the file
+    with open('/tmp/deaths.csv', 'r') as file:
+        filedata = file.read()
 
-        col_cnt = 0
+    # Replace the target string
+    filedata = filedata.replace('geo\\time', 'geo')
 
-        for header_col in head.split('\t'):
-            if ("W" in header_col and header_col.split('W')[0] == '2020' and "99" not in header_col):
-                weeks.append(import_helper.get_start_end_dates(int(header_col.split('W')[0]), int(header_col.split('W')[1])))
+    # Write the file out again
+    with open('/tmp/deaths.csv', 'w') as file:
+        file.write(filedata)
 
-            if (str(country.peak_year)+"W"+str(len(weeks)-1) in header_col):
-                peak_col_nr = col_cnt-3
-            col_cnt += 1
+    df = pd.read_csv('/tmp/deaths.csv', sep='\t')
 
-        week = -1;
-        for line in file_content.splitlines():
-            if (line.split('\t')[0].split(',')[0] == 'T'):
-                if (country.code.lower() == 'gb'):
-                    code ='uk'
-                elif (country.code.lower() == 'gr'):
-                        code = 'el'
-                else:
-                    code = country.code.lower()
-                if (line.split('\t')[0].split(',')[2].lower() == code):
-                    columns = line.split('\t')
-                    col_cnt = 0
-                    for col in columns:
+    if (country.code.lower() == 'gb'):
+        code = 'UK'
+    elif (country.code.lower() == 'gr'):
+        code = 'EL'
+    else:
+        code = country.code.upper()
 
-                        if (col_cnt > peak_col_nr):
-                            if ("NR" not in col and ':' not in col and week < len(weeks)):
-                                value = int(col.replace('p', '').replace('e', '').replace(' ', ''))
-                                avg = value / 7
+    for index_row, row in df.iterrows():
+        if row['sex,unit,geo'] == f'T,NR,{code}':
+            index_column = 0
+            for col in row:
+                if "W" in df.columns[index_column] and "99" not in df.columns[index_column] and ":" not in col:
 
-                                savedate = weeks[week][0]
+                    year = int(df.columns[index_column].split('W')[0])
+                    week = int(df.columns[index_column].split('W')[1])
 
-                                for number in range(1, 8):
-                                    try:
-                                        cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
-                                        cd_existing.deathstotal_peak = avg
-                                        cd_existing.save()
-                                    except CasesDeaths.DoesNotExist:
-                                        cd = CasesDeaths(country=country, deathstotal_peak=avg,
-                                                                           date=savedate)
-                                        cd.save()
+                    if year > 2019:
+                        savedate = import_helper.get_start_end_dates(year, week)[0]
+                        value = int(col.replace('p', '').replace('e', '').replace(' ', ''))
+                        avg = value / 7
 
-                                    savedate += timedelta(days=1)
-                                week += 1
+                        if week < 10:
+                            week_str = "0" + str(week)
+                        else:
+                            week_str = week
 
-                        elif ("NR" not in col and ':' not in col and week < len(weeks)):
+                        try:
+                            value_peak = int(row[f"{country.peak_year}W{week_str} "])
+                            avg_peak = value_peak / 7
+                        except:
+                            avg_peak = -1
 
-                            value = int(col.replace('p', '').replace('e', '').replace(' ', ''))
+                        for number in range(1, 8):
+                            try:
+                                cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
+                                cd_existing.deathstotal = avg
+                                cd_existing.deathstotal_peak = avg_peak
+                                cd_existing.save()
+                            except CasesDeaths.DoesNotExist:
+                                cd = CasesDeaths(country=country, deathstotal=avg, deathstotal_peak=avg_peak, date=savedate)
+                                cd.save()
 
-                            avg = value / 7
+                            savedate += timedelta(days=1)
 
-                            savedate = weeks[week][0]
-
-                            for number in range(1, 8):
-                                try:
-                                    cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
-                                    cd_existing.deathstotal = avg
-                                    cd_existing.save()
-                                except CasesDeaths.DoesNotExist:
-                                    cd = CasesDeaths(country=country, deathstotal=avg,date=savedate)
-                                    cd.save()
-
-                                savedate += timedelta(days=1)
-
-                            week += 1
-                        elif ':' in col:
-                            week += 1
-
-                        if (col_cnt == peak_col_nr):
-                            week = -1
-
-                        col_cnt += 1
+                index_column += 1
 
 class Command(BaseCommand):
 

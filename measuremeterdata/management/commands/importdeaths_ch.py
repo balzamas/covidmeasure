@@ -7,10 +7,6 @@ from datetime import timedelta
 import requests
 import pandas as pd
 
-def CalcCaesesPer100k(cases, population):
-    casespm = int(cases) *100000 / (int(population))
-    return casespm
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
 

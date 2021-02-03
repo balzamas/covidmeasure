@@ -22,32 +22,18 @@
 
                 label_array.push("Woche " + (parseInt(property) + 1))
 
-                if ((parseInt(property) + 1) > temp_start)
-                {
-                    dataset_data_deaths.push(null);
-                    dataset_data_deaths_temp.push(obj_deaths.split(",")[property])
-                }
-                else if ((parseInt(property) + 1) == temp_start)
-                {
-                    dataset_data_deaths.push(obj_deaths.split(",")[property]);
-                    dataset_data_deaths_temp.push(obj_deaths.split(",")[property])
-                }
-                else
-                {
-                    dataset_data_deaths.push(obj_deaths.split(",")[property]);
-                    dataset_data_deaths_temp.push(null)
-                }
+                dataset_data_deaths.push(obj_deaths.split(",")[property]);
+
                 dataset_data_deaths21.push(obj_deaths21.split(",")[property]);
                 dataset_data_deaths_avg.push(parseFloat(obj_deaths_avg.split(",")[property].replace('Decimal(&#x27;','').replace('&#x27;','')));
                 dataset_data_deaths15.push(obj_deaths15.split(",")[property]);
                 dataset_data_deaths19.push(obj_deaths19.split(",")[property]);
         }
 
-        color = '#ff6644'
+        color = '#ff0000'
         dataset_deaths.push({"label": "2021", borderDash: [3,3],lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths21})
         color = '#ff6600'
         dataset_deaths.push({"label": "2020", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths})
-        dataset_deaths.push({"label": "2020", borderDash: [3,3],lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths_temp})
         color = '#0000ff'
         dataset_deaths.push({"label": "Ø 15-19", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, data: dataset_data_deaths_avg})
         color = '#faec93'
