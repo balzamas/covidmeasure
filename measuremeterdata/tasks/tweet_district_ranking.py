@@ -127,10 +127,10 @@ def create_image(districts, canton):
                 f'<td><div class ="centered"> {score["cur_prev"]}</div></td>'
 
         if score["tendency"] < 0:
-            html += f'<td class="positive"><div class ="centered">{score["tendency"]}</div></td>' \
+            html += f'<td class="positive"><div class ="centered">{score["tendency"]} %</div></td>' \
                 '</tr>'
         else:
-            html += f'<td class="negative"><div class ="centered">{score["tendency"]}</div></td>' \
+            html += f'<td class="negative"><div class ="centered">{score["tendency"]} %</div></td>' \
                 '</tr>'
 
 
