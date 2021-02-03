@@ -82,17 +82,13 @@ def country_deaths(request):
                     week_values_alldeaths[week] = int(week_value_all)
                 if week_value_peak_all:
                     week_values_alldeaths_peak[week] = int(week_value_peak_all)
-                if case.date < datetime.date(2021, 1, 4):
-                    week_values_coviddeaths20[week] = week_value_covid
-                    if case.deathstotal_average:
-                        week_values_avg[week] = int(case.deathstotal_average * 7)
-                        week_values_avg_and_covid[week] = int((case.deathstotal_average * 7) + week_value_covid)
-                    else:
-                        week_values_avg[week] = int(country.average_death_per_day * 7)
-                        week_values_avg_and_covid[week] = int((country.average_death_per_day * 7) + week_value_covid)
-                elif case.date > datetime.date(2021, 1, 3):
-                    print("Year 21")
-                    week_values_coviddeaths21[case.date.isocalendar()[1]] = week_value_covid
+                week_values_coviddeaths20[week] = week_value_covid
+                if case.deathstotal_average:
+                    week_values_avg[week] = int(case.deathstotal_average * 7)
+                    week_values_avg_and_covid[week] = int((case.deathstotal_average * 7) + week_value_covid)
+                else:
+                    week_values_avg[week] = int(country.average_death_per_day * 7)
+                    week_values_avg_and_covid[week] = int((country.average_death_per_day * 7) + week_value_covid)
 
 
                 weekday = 1

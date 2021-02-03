@@ -18,7 +18,16 @@
 
         for (const property in deaths_covid20) {
 
-                label_array.push("Week " + property)
+                if (property > 53)
+                {
+                    property21 = property-53
+                    label_array.push("Week " + property21 + " 21")
+                }
+                else
+                {
+                     label_array.push("Week " + property + " 20")
+                }
+
 
                 dataset_data_deaths20.push(deaths_covid20[property]);
                 dataset_data_deaths21.push(deaths_covid21[property]);
