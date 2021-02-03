@@ -77,14 +77,28 @@ def getdata(country):
                         except:
                             avg_peak = -1
 
+                        avg_1519 = None
+                        if country.code == "de":
+                            if week < 53:
+                                avg_1519 = (int(row[f"2016W{week_str} "].replace('p', '').replace('e', '').replace(' ','')) + int(row[f"2017W{week_str} "].replace('p', '').replace('e', '').replace(' ','')) + int(row[f"2018W{week_str} "].replace('p', '').replace('e', '').replace(' ','')) + int(row[f"2019W{week_str} "].replace('p', '').replace('e', '').replace(' ',''))) / 4
+                        else:
+                            if week < 53:
+                                avg_1519 = (int(row[f"2015W{week_str} "].replace('p', '').replace('e', '').replace(' ','')) + int(row[f"2016W{week_str} "].replace('p', '').replace('e', '').replace(' ','')) + int(row[f"2017W{week_str} "].replace('p', '').replace('e', '').replace(' ','')) + int(row[f"2018W{week_str} "].replace('p', '').replace('e', '').replace(' ','')) + int(row[f"2019W{week_str} "].replace('p', '').replace('e', '').replace(' ',''))) / 5
+                            else:
+                                avg_1519 = int(row[f"2015W{week_str} "].replace('p', '').replace('e', '').replace(' ',''))
+
+                        if avg_1519:
+                            avg_1519 = avg_1519 / 7
+
                         for number in range(1, 8):
                             try:
                                 cd_existing = CasesDeaths.objects.get(country=country, date=savedate)
                                 cd_existing.deathstotal = avg
                                 cd_existing.deathstotal_peak = avg_peak
+                                cd_existing.deathstotal_average = avg_1519
                                 cd_existing.save()
                             except CasesDeaths.DoesNotExist:
-                                cd = CasesDeaths(country=country, deathstotal=avg, deathstotal_peak=avg_peak, date=savedate)
+                                cd = CasesDeaths(country=country, deathstotal=avg, deathstotal_peak=avg_peak, deathstotal_average=avg_1519, date=savedate)
                                 cd.save()
 
                             savedate += timedelta(days=1)
