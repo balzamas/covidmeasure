@@ -46,7 +46,7 @@ def tweet(canton):
 
     media = api.media_upload("/tmp/out_image.jpg")
     api.update_status(
-       status=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n Ganze Rangliste: https://covidlaws.net/ranking7all/",
+       status=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n #CoronaInfoCH\n\n Ganze Rangliste: https://covidlaws.net/ranking7all/",
        media_ids=[media.media_id_string])
 
 

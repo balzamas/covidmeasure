@@ -40,6 +40,8 @@ def LoadR0(country):
                             cd = CasesDeaths(country=country, r0median = row[6], r0peak = row[7],
                                          r0low = row[8], date=date_tosave)
                             cd.save()
+                        except:
+                                print("this is pure hell")
                 elif country.code == "gb":
                             if row[0] == "United Kingdom" and row[3] == 'Confirmed cases' and row[4] == 'Cori_slidingWindow':
                                 date_tosave = date.fromisoformat(row[5])
@@ -54,10 +56,11 @@ def LoadR0(country):
                                     cd = CasesDeaths(country=country, r0median=row[6], r0peak=row[7],
                                                      r0low=row[8], date=date_tosave)
                                     cd.save()
+                                except:
+                                    print("this is pure hell")
                 else:
                     if (row[3] == 'Confirmed cases' and row[4] == 'Cori_slidingWindow'):
                         date_tosave = date.fromisoformat(row[5])
-
                         try:
                             cd_existing = CasesDeaths.objects.get(country=country, date=date_tosave)
                             cd_existing.r0peak = row[7]
@@ -65,9 +68,12 @@ def LoadR0(country):
                             cd_existing.r0median = row[6]
                             cd_existing.save()
                         except CasesDeaths.DoesNotExist:
-                            cd = CasesDeaths(country=country, r0median = row[6], r0peak = row[7],
-                                         r0low = row[8], date=date_tosave)
-                            cd.save()
+                                cd = CasesDeaths(country=country, r0median = row[6], r0peak = row[7],
+                                             r0low = row[8], date=date_tosave)
+                                cd.save()
+                        except:
+                                    print("this is pure hell")
+
 
 class Command(BaseCommand):
     def handle(self, *args, **options):

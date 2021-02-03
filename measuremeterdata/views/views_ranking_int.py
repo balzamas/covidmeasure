@@ -25,11 +25,7 @@ def calc_ranking_countries(countries):
             last_positivity_date = None
             last_R = None
             last_R_date = None
-            positivity_last7 = None
-            positivity_last7_count = 0
             positivity_before7 = None
-            positivity_before7_count = 0
-            pos_count = 0
             last_stringency = None
             for case in cases:
                 if (case.stringency_index != None and last_stringency == None):
@@ -42,6 +38,7 @@ def calc_ranking_countries(countries):
 
                 if (case.positivity != None and last_positivity == None):
                     last_positivity = case.positivity
+                    last_positivity_calc = last_positivity
                     last_positivity_date = case.date
 
             past_date_tocheck = last_date - timedelta(days=14)
@@ -69,8 +66,6 @@ def calc_ranking_countries(countries):
                 print(f"Score: {score}")
                 print(f"Score Old: {score_7days_before}")
 
-                #score_old = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7 * 2) ) +  float((cases[0].deaths_past14days * 100)) + float((positivity_last7 / positivity_last7_count *50))
-                #score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7 * 2)  )+ float((case_14days_7daysago.deaths_past14days * 100)) + float((positivity_before7 / positivity_before7_count * 50))
             except:
                 print(f"{country} failed...")
                 score = None
