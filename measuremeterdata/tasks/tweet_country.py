@@ -50,27 +50,39 @@ def create_messages(scores, type):
         #Tendency bad
         scores = sorted(scores, key=lambda i: i['tendency'],reverse=True)
         message_twitter = "Euro Stats\nHöchste Zunahme Fälle im Vergleich zur Vorwoche in %\n\n"
-        message_twitter += generate_list(scores, "tendency")
+        gen_message, countries = generate_list(scores, "tendency")
+        message_twitter += gen_message
 
     if type == 2:
         #Tendency good
         scores = sorted(scores, key=lambda i: i['tendency'],reverse=False)
         message_twitter = "Euro Stats\nHöchste Rückgänge Fälle im Vergleich zur Vorwoche in %\n"
-        message_twitter += generate_list(scores, "tendency")
+        gen_message, countries = generate_list(scores, "tendency")
+        message_twitter += gen_message
 
     if type == 3:
         #deaths bad
         scores = sorted(scores, key=lambda i: i['deaths'],reverse=True)
         message_twitter = emoji.emojize('Euro Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (worst)\n')
-        message_twitter += generate_list(scores, "deaths")
+        gen_message, countries = generate_list(scores, "deaths")
+        message_twitter += gen_message
 
     if type == 4:
         #Tendency good
         scores = sorted(scores, key=lambda i: i['deaths'],reverse=False)
         message_twitter = emoji.emojize("Euro Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (best)\n")
-        message_twitter += generate_list(scores, "deaths")
+        gen_message, countries = generate_list(scores, "deaths")
+        message_twitter += gen_message
 
-    message_twitter += "\n\nhttps://covidlaws.net/ranking_europe"
+    cntry_list = ""
+    for country in countries:
+       cntry_list+=str(country)+","
+
+    end_date = datetime.now()
+    start_date =  end_date - timedelta(days=62)
+
+    message_twitter += "\n\ncovidlaws.net/ranking_europe\n"
+    message_twitter += f"covidlaws.net/compare/{cntry_list}&1,2,5&{start_date.strftime('%Y-%m-%d')}&{end_date.strftime('%Y-%m-%d')}"
     return message_twitter
 
 def send_tweet(message):
@@ -166,7 +178,7 @@ def create_list(countries):
                 peak_positivity = positivity_ds[0].positivity
                 peak_positivity_date = positivity_ds[0].date
 
-                canton_toadd = {"name": country.name, "score": int(score), "score_before": int(score_7days_before),
+                canton_toadd = {"name": country.name, "pk": country.pk, "score": int(score), "score_before": int(score_7days_before),
                                 "date": last_date, "code": country.code,
                                 "cur_prev14": last_prev14, "tendency": last_tendency,
                                 "cur_prev7": case_14days_14daysago.cases_past7days,
@@ -207,15 +219,17 @@ def create_list(countries):
 
 def generate_list(scores, field):
     count = 0
+    countries = []
 
     list = ""
 
     for score in scores:
         if (count < 7):
-            list += str(score[field]) + " " + flag.flag(score["code"]) + " " + score["name"] + "\n"
+            list += str(score[field]) + " " + flag.flag(score["code"]) + " " + score["name"] +"\n"
+            countries.append(score["pk"])
         count += 1
 
-    return list
+    return list, countries
 
 
 def create_image(countries):
