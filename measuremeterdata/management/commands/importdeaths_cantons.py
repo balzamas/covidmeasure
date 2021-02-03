@@ -9,13 +9,6 @@ import pandas as pd
 from datetime import date, timedelta
 from django.db.models import Q
 
-
-#Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863
-
-def daterange(start_date, end_date):
-    for n in range(int ((end_date - start_date).days)):
-        yield start_date + timedelta(n)
-
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
@@ -55,7 +48,7 @@ class Command(BaseCommand):
                     if week < 53:
                         print("......")
                         print(row["2021 2"])
-                        if row["2021 2"] != '':
+                        if pd.notna(row["2021 2"]) and row["2021 2"] != '':
                             print("Has 21 value")
                             val21 = int(row["2021 2"])
 
