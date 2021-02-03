@@ -99,11 +99,11 @@ table.center {
     {% endblock %}
 
 {% block title_header %}CovidLaws // {% trans 'Canton rankings' %}{% endblock %}
-{% block description %}XXX{% endblock %}
+{% block description %}CovidLaws // {% trans 'Canton rankings' %}{% endblock %}
 {% block title %}{% trans 'Canton rankings' %}{% endblock %}
 {% block content %}
     <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days' %}</a> // <a href="/ranking14">{% trans 'Ranking 14 days'%}</a>  // <a href="/ranking7all">{% trans 'Ranking 7 days Cantons & Districts' %}</a> // <a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
-
+    <p id="grande">{% trans 'You can follow the Bot on' %} <a href="https://twitter.com/CovidlawsStats">Twitter</a> {% trans 'or' %} <a href="https://t.me/covidlaws">Telegram</a> {% trans 'for updates on district data.' %}</p>
     <p id="grande">{% trans 'Graphs show development in the past 2 months.'%} {% trans 'For last update see date in graph.' %}</p>
     <p id="grande"><b>{% trans 'Relaxations' %}</b><br>{% trans 'Cantons can relax regulations when:' %}</p>
      <ul>

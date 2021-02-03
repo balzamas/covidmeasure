@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-22 17:16+0100\n"
+"POT-Creation-Date: 2021-02-03 17:24+0100\n"
 "PO-Revision-Date: 2021-01-22 17:19+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 2.3\n"
 
 #: measuremeter/static/translations/translate_districts.txt:1
@@ -129,8 +129,12 @@ msgid ""
 msgstr ""
 
 #: measuremeter/templates/account/login.html:26
+#: measuremeter/templates/pages/district.html:36
+#: measuremeter/templates/pages/district7.html:36
+#: measuremeter/templates/pages/ranking.html:106
+#: measuremeter/templates/pages/ranking14.html:101
 msgid "or"
-msgstr ""
+msgstr "oder"
 
 #: measuremeter/templates/account/login.html:33
 #, python-format
@@ -435,12 +439,12 @@ msgstr "Lade"
 msgid "Click on lines/cantons for details."
 msgstr "Klicke auf Linie/Kanton für Details."
 
-#: measuremeter/templates/pages/canton.html:88
+#: measuremeter/templates/pages/canton.html:91
 #: measuremeter/templates/pages/canton_stringency.html:140
 msgid "Save"
 msgstr "Speichern"
 
-#: measuremeter/templates/pages/canton.html:115
+#: measuremeter/templates/pages/canton.html:126
 #: measuremeter/templates/pages/canton_stringency.html:167
 msgid ""
 "Rise/Fall total cases past 7 days compared to one week ago. Value > 100 = "
@@ -450,7 +454,7 @@ msgstr ""
 "100 = neue Fälle verdoppeln sich jede Woche, 0 = konstantes Wachstum, <0 "
 "Fälle gehen runter."
 
-#: measuremeter/templates/pages/canton.html:131
+#: measuremeter/templates/pages/canton.html:144
 #: measuremeter/templates/pages/canton_stringency.html:183
 msgid "Google data for mobility. 0 = normal mobility (baseline)."
 msgstr "Daten Mobilität: Google. 0 = normale Mobilität."
@@ -679,8 +683,22 @@ msgstr "Fälle pro 100k Einw./verg. 14 Tage (Inzidenz)"
 msgid "Switch to 7 day incidence."
 msgstr "Wechsle zur 7-Tages-Inzidenz"
 
-#: measuremeter/templates/pages/district.html:37
+#: measuremeter/templates/pages/district.html:36
 #: measuremeter/templates/pages/district7.html:36
+#: measuremeter/templates/pages/ranking.html:106
+#: measuremeter/templates/pages/ranking14.html:101
+msgid "You can follow the Bot on"
+msgstr "Folge dem Bot auf"
+
+#: measuremeter/templates/pages/district.html:36
+#: measuremeter/templates/pages/district7.html:36
+#: measuremeter/templates/pages/ranking.html:106
+#: measuremeter/templates/pages/ranking14.html:101
+msgid "for updates on district data."
+msgstr "für Updates (Bezirks-Daten)."
+
+#: measuremeter/templates/pages/district.html:38
+#: measuremeter/templates/pages/district7.html:38
 msgid ""
 "Including neighbouring districts from Italy, Germany, France (data since May "
 "13), Austria (data since March 25)"
@@ -688,164 +706,164 @@ msgstr ""
 "Inklusive benachbarte Bezirke von Italien, Deutschland, Frankreich (Daten "
 "seit 13. Mai), Österreich (Daten seit 25. März)"
 
-#: measuremeter/templates/pages/district.html:38
-#: measuremeter/templates/pages/district7.html:37
+#: measuremeter/templates/pages/district.html:39
+#: measuremeter/templates/pages/district7.html:39
 msgid "Note: Numbers are updated at different dates, see below for details."
 msgstr ""
 "Hinweis: Die Zahlen in den Bezirken/Kantonen werden zu verschiedenen Zeiten "
 "nachgetragen. Für Details siehe unten."
 
-#: measuremeter/templates/pages/district.html:39
-#: measuremeter/templates/pages/district7.html:38
+#: measuremeter/templates/pages/district.html:40
+#: measuremeter/templates/pages/district7.html:40
 msgid "Note: Graph with development of past 2 months is generated every night."
 msgstr ""
 "Hinweis: Die Grafik mit der Entwicklung der letzten 2 Monaten wird jede "
 "Nacht neu generiert. Sie kann daher um einige Tage abweichen."
 
-#: measuremeter/templates/pages/district.html:45
-#: measuremeter/templates/pages/district7.html:44
+#: measuremeter/templates/pages/district.html:46
+#: measuremeter/templates/pages/district7.html:46
 msgid "Switch date"
 msgstr "Datum wechseln"
 
-#: measuremeter/templates/pages/district.html:47
-#: measuremeter/templates/pages/district7.html:46
+#: measuremeter/templates/pages/district.html:48
+#: measuremeter/templates/pages/district7.html:48
 msgid "- 1 week"
 msgstr "- 1 Woche"
 
-#: measuremeter/templates/pages/district.html:54
-#: measuremeter/templates/pages/district7.html:53
+#: measuremeter/templates/pages/district.html:55
+#: measuremeter/templates/pages/district7.html:55
 msgid "- 1 day"
 msgstr "- 1 Tag"
 
-#: measuremeter/templates/pages/district.html:61
-#: measuremeter/templates/pages/district7.html:60
+#: measuremeter/templates/pages/district.html:62
+#: measuremeter/templates/pages/district7.html:62
 msgid "+ 1 day"
 msgstr "+ 1 Tag"
 
-#: measuremeter/templates/pages/district.html:68
-#: measuremeter/templates/pages/district7.html:67
+#: measuremeter/templates/pages/district.html:69
+#: measuremeter/templates/pages/district7.html:69
 msgid "+ 1 week"
 msgstr "+ 1 Woche"
 
-#: measuremeter/templates/pages/district.html:74
-#: measuremeter/templates/pages/district7.html:73
+#: measuremeter/templates/pages/district.html:75
+#: measuremeter/templates/pages/district7.html:75
 msgid "Timelapse"
 msgstr "Zeitraffer"
 
-#: measuremeter/templates/pages/district.html:75
-#: measuremeter/templates/pages/district7.html:74
+#: measuremeter/templates/pages/district.html:76
+#: measuremeter/templates/pages/district7.html:76
 msgid "Push button to play."
 msgstr "Knopf drücken zum abspielen."
 
-#: measuremeter/templates/pages/district.html:77
-#: measuremeter/templates/pages/district7.html:76
+#: measuremeter/templates/pages/district.html:78
+#: measuremeter/templates/pages/district7.html:78
 msgid "since Sep 6"
 msgstr "seit 6. Sept."
 
-#: measuremeter/templates/pages/district.html:79
-#: measuremeter/templates/pages/district7.html:78
+#: measuremeter/templates/pages/district.html:80
+#: measuremeter/templates/pages/district7.html:80
 msgid "September"
 msgstr "September"
 
-#: measuremeter/templates/pages/district.html:84
-#: measuremeter/templates/pages/district7.html:83
+#: measuremeter/templates/pages/district.html:85
+#: measuremeter/templates/pages/district7.html:85
 msgid "since June 15"
 msgstr "seit 15. Juni"
 
-#: measuremeter/templates/pages/district.html:86
-#: measuremeter/templates/pages/district7.html:85
+#: measuremeter/templates/pages/district.html:87
+#: measuremeter/templates/pages/district7.html:87
 msgid "June"
 msgstr "Juni"
 
-#: measuremeter/templates/pages/district.html:92
-#: measuremeter/templates/pages/district7.html:91
+#: measuremeter/templates/pages/district.html:93
+#: measuremeter/templates/pages/district7.html:93
 msgid "since Feb 24"
 msgstr "seit 24. Februar"
 
-#: measuremeter/templates/pages/district.html:101
-#: measuremeter/templates/pages/district7.html:100
+#: measuremeter/templates/pages/district.html:102
+#: measuremeter/templates/pages/district7.html:102
 msgid "Further information Switzerland"
 msgstr "Weitere Informationen zur Schweiz"
 
-#: measuremeter/templates/pages/district.html:102
-#: measuremeter/templates/pages/district7.html:101
+#: measuremeter/templates/pages/district.html:103
+#: measuremeter/templates/pages/district7.html:103
 msgid "The ultimate Switzerland data page for Corona related stats:"
 msgstr "Die ultimative Daten-Seite zu Corona in der Schweiz:"
 
-#: measuremeter/templates/pages/district.html:103
-#: measuremeter/templates/pages/district7.html:102
+#: measuremeter/templates/pages/district.html:104
+#: measuremeter/templates/pages/district7.html:104
 msgid "Excellent visualization of cantonal case/hospitalization/death data:"
 msgstr "Gute Visualisierung der kantonalen Fall/Hospitalisations-Daten:"
 
-#: measuremeter/templates/pages/district.html:104
-#: measuremeter/templates/pages/district7.html:103
+#: measuremeter/templates/pages/district.html:105
+#: measuremeter/templates/pages/district7.html:105
 msgid "Wonderful maps from and to where travel is still possible:"
 msgstr ""
 "Schöne Karten mit der Frage: von wo und wohin sind Reisen noch möglich?"
 
-#: measuremeter/templates/pages/district.html:105
-#: measuremeter/templates/pages/district7.html:104
+#: measuremeter/templates/pages/district.html:106
+#: measuremeter/templates/pages/district7.html:106
 msgid "Monitoring of current ICU capacities in Switzerland:"
 msgstr "Monitoring der aktuellen Kapazitäten an Notfallbetten in der Schweiz"
 
-#: measuremeter/templates/pages/district.html:110
-#: measuremeter/templates/pages/district7.html:109
+#: measuremeter/templates/pages/district.html:111
+#: measuremeter/templates/pages/district7.html:111
 msgid "Sources"
 msgstr "Quellen"
 
-#: measuremeter/templates/pages/district.html:112
-#: measuremeter/templates/pages/district7.html:111
+#: measuremeter/templates/pages/district.html:113
+#: measuremeter/templates/pages/district7.html:113
 msgid "Cantons (daily to weekly)"
 msgstr "Kantone (täglich bis wöchentlich)"
 
-#: measuremeter/templates/pages/district.html:113
-#: measuremeter/templates/pages/district7.html:112
+#: measuremeter/templates/pages/district.html:114
+#: measuremeter/templates/pages/district7.html:114
 msgid "Sources districts:"
 msgstr "Quellen Bezirke"
 
-#: measuremeter/templates/pages/district.html:114
-#: measuremeter/templates/pages/district.html:117
-#: measuremeter/templates/pages/district.html:121
+#: measuremeter/templates/pages/district.html:115
+#: measuremeter/templates/pages/district.html:118
 #: measuremeter/templates/pages/district.html:122
-#: measuremeter/templates/pages/district7.html:113
-#: measuremeter/templates/pages/district7.html:116
-#: measuremeter/templates/pages/district7.html:120
-#: measuremeter/templates/pages/district7.html:121
+#: measuremeter/templates/pages/district.html:123
+#: measuremeter/templates/pages/district7.html:115
+#: measuremeter/templates/pages/district7.html:118
+#: measuremeter/templates/pages/district7.html:122
+#: measuremeter/templates/pages/district7.html:123
 msgid "monday"
 msgstr "Montag"
 
-#: measuremeter/templates/pages/district.html:115
-#: measuremeter/templates/pages/district7.html:114
+#: measuremeter/templates/pages/district.html:116
+#: measuremeter/templates/pages/district7.html:116
 msgid "daily/workdays"
 msgstr "täglich"
 
-#: measuremeter/templates/pages/district.html:116
-#: measuremeter/templates/pages/district.html:118
+#: measuremeter/templates/pages/district.html:117
 #: measuremeter/templates/pages/district.html:119
-#: measuremeter/templates/pages/district7.html:115
+#: measuremeter/templates/pages/district.html:120
 #: measuremeter/templates/pages/district7.html:117
-#: measuremeter/templates/pages/district7.html:118
+#: measuremeter/templates/pages/district7.html:119
+#: measuremeter/templates/pages/district7.html:120
 msgid "daily"
 msgstr "täglich"
 
-#: measuremeter/templates/pages/district.html:117
-#: measuremeter/templates/pages/district.html:120
+#: measuremeter/templates/pages/district.html:118
 #: measuremeter/templates/pages/district.html:121
 #: measuremeter/templates/pages/district.html:122
-#: measuremeter/templates/pages/district7.html:116
-#: measuremeter/templates/pages/district7.html:119
-#: measuremeter/templates/pages/district7.html:120
+#: measuremeter/templates/pages/district.html:123
+#: measuremeter/templates/pages/district7.html:118
 #: measuremeter/templates/pages/district7.html:121
+#: measuremeter/templates/pages/district7.html:122
+#: measuremeter/templates/pages/district7.html:123
 msgid "since Week"
 msgstr "seit Woche"
 
-#: measuremeter/templates/pages/district.html:120
-#: measuremeter/templates/pages/district7.html:119
+#: measuremeter/templates/pages/district.html:121
+#: measuremeter/templates/pages/district7.html:121
 msgid "wednesday"
 msgstr "Mittwoch"
 
-#: measuremeter/templates/pages/district.html:124
-#: measuremeter/templates/pages/district7.html:123
+#: measuremeter/templates/pages/district.html:125
+#: measuremeter/templates/pages/district7.html:125
 msgid "When district data is missing, the values of the canton are used."
 msgstr "Bei fehlenden Bezirksdaten werden die Zahlen des Kantons verwendet."
 
@@ -862,8 +880,8 @@ msgid "CovidLaws // Canton rankings"
 msgstr "Covidlaws // Rangliste Kantone"
 
 #: measuremeter/templates/pages/ranking.html:101
+#: measuremeter/templates/pages/ranking.html:102
 #: measuremeter/templates/pages/ranking.html:103
-#| msgid "CovidLaws // Canton rankings"
 msgid "Canton rankings"
 msgstr "Rangliste Kantone"
 
@@ -1003,6 +1021,7 @@ msgid ""
 msgstr ""
 
 #: measuremeter/templates/pages/ranking14.html:96
+#: measuremeter/templates/pages/ranking14.html:97
 #: measuremeter/templates/pages/ranking14.html:98
 msgid "Swiss Covid Ranking 14 days"
 msgstr "Schweizer Covid Rangliste 14 Tage"
