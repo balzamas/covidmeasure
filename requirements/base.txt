@@ -26,3 +26,5 @@ freeze
 imgkit
 wkhtmltopdf
 openpyxl
+facebook-sdk
+telepot

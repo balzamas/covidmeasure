@@ -8,9 +8,30 @@ from datetime import date, timedelta, datetime
 import tweepy
 from django.conf import settings
 import imgkit
-
+import facebook
+import telepot
 
 def tweet(canton):
+
+    districts = CHCanton.objects.filter(level=1, code=canton.code)
+    last_date = create_image(districts, canton)
+
+#    page_access_token = settings.FACEBOOK_ACCESS_TOKEN
+#    graph = facebook.GraphAPI(page_access_token)
+#    facebook_page_id = settings.FACEBOOK_PAGE_ID
+#    graph.put_object(facebook_page_id, "feed", message='test message')
+
+
+    #Telegram
+
+    bot = telepot.Bot(settings.TELEGRAM_TOKEN)
+    print(bot.getMe())
+    bot.sendMessage(settings.TELEGRAM_CHATID, f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\nGanze Rangliste: https://covidlaws.net/ranking7all/")
+    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
+
+
+    #Twitter
+
     auth = tweepy.OAuthHandler(settings.TWITTER_API_KEY, settings.TWITTER_SECRET_KEY)
     auth.set_access_token(settings.TWITTER_ACCESS_TOKEN, settings.TWITTER_ACCESS_TOKEN_SECRET)
 
@@ -23,13 +44,13 @@ def tweet(canton):
     except:
         print("Error during authentication")
 
-    districts = CHCanton.objects.filter(level=1, code=canton.code)
-    last_date = create_image(districts, canton)
+    message_text=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n#{canton.name}\n\n Ganze Rangliste: https://covidlaws.net/ranking7all/",
 
     media = api.media_upload("/tmp/out_image.jpg")
     api.update_status(
-        status=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n#{canton.name}\n\n Ganze Rangliste: https://covidlaws.net/ranking7all/",
-        media_ids=[media.media_id_string])
+       status=message_text,
+       media_ids=[media.media_id_string])
+
 
 
 def create_image(districts, canton):
