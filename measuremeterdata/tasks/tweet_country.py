@@ -15,17 +15,12 @@ from django.db.models import F, Func
 import emoji
 import flag
 
-def tweet():
+def tweet(type):
 
     countries = Country.objects.filter(continent=1,isactive=True)
     scores = create_list(countries)
 
-    message = create_messages(scores, 1)
-    print("Tweet:")
-    print(message)
-    send_tweet(message)
-
-    message = create_messages(scores, 2)
+    message = create_messages(scores, type)
     print("Tweet:")
     print(message)
     send_tweet(message)
@@ -46,6 +41,37 @@ def tweet():
     # bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
     #
     #
+
+def create_messages(scores, type):
+
+    message_twitter = ""
+
+    if type == 1:
+        #Tendency bad
+        scores = sorted(scores, key=lambda i: i['tendency'],reverse=True)
+        message_twitter = "Euro Stats\nHöchste Zunahme Fälle im Vergleich zur Vorwoche in %\n\n"
+        message_twitter += generate_list(scores, "tendency")
+
+    if type == 2:
+        #Tendency good
+        scores = sorted(scores, key=lambda i: i['tendency'],reverse=False)
+        message_twitter = "Euro Stats\nHöchste Rückgänge Fälle im Vergleich zur Vorwoche in %\n"
+        message_twitter += generate_list(scores, "tendency")
+
+    if type == 3:
+        #deaths bad
+        scores = sorted(scores, key=lambda i: i['deaths'],reverse=True)
+        message_twitter = emoji.emojize('Euro Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (worst)\n')
+        message_twitter += generate_list(scores, "deaths")
+
+    if type == 4:
+        #Tendency good
+        scores = sorted(scores, key=lambda i: i['deaths'],reverse=False)
+        message_twitter = emoji.emojize("Euro Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (best)\n")
+        message_twitter += generate_list(scores, "deaths")
+
+    message_twitter += "\n\nhttps://covidlaws.net/ranking_europe"
+    return message_twitter
 
 def send_tweet(message):
     # #Twitter
@@ -176,22 +202,7 @@ def create_list(countries):
 
     return scores
 
-def create_messages(scores, type):
 
-    if type == 1:
-        #Tendency bad
-        scores = sorted(scores, key=lambda i: i['tendency'],reverse=True)
-        message_twitter = "Euro Stats\nHöchste Zunahme an Fällen im Vergleich zur Vorwoche in %\n\n"
-        message_twitter += generate_list(scores, "tendency")
-
-    if type == 2:
-        #Tendency good
-        scores = sorted(scores, key=lambda i: i['tendency'],reverse=False)
-        message_twitter = "Euro Stats\nHöchste Rückgänge an Fällen im Vergleich zur Vorwoche in %\n\n"
-        message_twitter += generate_list(scores, "tendency")
-
-    message_twitter += "\n\nKomplette Liste: https://covidlaws.net/ranking_europe"
-    return message_twitter
 
 
 def generate_list(scores, field):
@@ -201,7 +212,7 @@ def generate_list(scores, field):
 
     for score in scores:
         if (count < 7):
-            list += str(score[field]) + " " + flag.flag(score["code"]) + " " + score["name"] +"\n"
+            list += str(score[field]) + " " + flag.flag(score["code"]) + " " + score["name"] + "\n"
         count += 1
 
     return list
