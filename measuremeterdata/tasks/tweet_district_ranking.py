@@ -64,7 +64,7 @@ def create_image(districts, canton):
            f'</head>' \
            '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;margin-left: 150px;margin-right: 150px;">' \
            '<table>' \
-           '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right">' \
+           '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right" nowrap>' \
            f'<img src = https://covidlaws.net/static/images/flags_ch/{canton.code}_circle.png><br><br>' \
            f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{canton.name}</h1></div>' \
             '</td><td>' \
