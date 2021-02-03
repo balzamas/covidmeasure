@@ -44,11 +44,9 @@ def tweet(canton):
     except:
         print("Error during authentication")
 
-    message_text=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n#{canton.name}\n\n Ganze Rangliste: https://covidlaws.net/ranking7all/",
-
     media = api.media_upload("/tmp/out_image.jpg")
     api.update_status(
-       status=message_text,
+       status=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n Ganze Rangliste: https://covidlaws.net/ranking7all/",
        media_ids=[media.media_id_string])
 
 
