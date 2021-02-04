@@ -26,9 +26,9 @@ class Command(BaseCommand):
         savedate21 = datetime.date(2021, 1, 4)
 
         for index, row in read_file.iterrows():
-                print(index)
+            print(index)
 
-            #try:
+            try:
                 if row['Unnamed: 0'] != "Woche ":
                     week = int(row['Unnamed: 0'])
 
@@ -88,8 +88,8 @@ class Command(BaseCommand):
 
                         savedate20 += timedelta(days=1)
 
-            #except:
-            #    print("error")
+            except:
+                print("error")
 
 
     def handleX(self, *args, **options):
