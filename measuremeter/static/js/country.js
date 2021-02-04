@@ -24,15 +24,15 @@
           LoadMeasures(country_id);
 
 
-          document.getElementById('worldometer').innerHTML = '<p id="large"><a href= "' + jsonData[0].link_worldometer + '" target="_blank">Link World-o-meter</a></p>';
-          document.getElementById('gov').innerHTML = '<p id="large"><a href="' + jsonData[0].link_gov + '" target="_blank">Link Government</a></p>' ;
+          document.getElementById('worldometer').innerHTML = '<p id="grande"><a href= "' + jsonData[0].link_worldometer + '" target="_blank">Link World-o-meter</a></p>';
+          document.getElementById('gov').innerHTML = '<p id="grande"><a href="' + jsonData[0].link_gov + '" target="_blank">Link Government</a></p>' ;
           if (Number(jsonData[0].average_death_per_day)>0)
           {
             $('#source_death').show();
             $('#deaths_description').show();
             avg_desc = "Deaths Average: " + jsonData[0].avg_desc +"";
             avg_peak_desc = "Deaths Peak: " + jsonData[0].avg_peak_desc+"";
-            document.getElementById('source_death').innerHTML = "<p id='large'>Source total deaths: <a href='" + jsonData[0].source_death +"'> Link</a></p>";
+            document.getElementById('source_death').innerHTML = "<p>Source total deaths: <a href='" + jsonData[0].source_death +"'> Link</a></p>";
 
           }
           else
@@ -187,6 +187,9 @@
         var dataset_data_avg = new Array()
         var dataset_data_peak = new Array()
 
+        var dataset_r0 = new Array()
+        var dataset_r0_data = new Array()
+
         rowsCases = new Array();
         rowsDeaths = new Array();
 
@@ -197,6 +200,7 @@
             dataset_data_cases.push(line['cases']);
             dataset_data_positivity.push(line['positivity']);
             dataset_data_tendency.push(line['development7to7']);
+            dataset_r0_data.push(line['r0median']);
 
               if (Number(avg_values[0] > -1))
               {
@@ -217,6 +221,7 @@
         dataset_cases.push({"label": "Cases", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_cases})
         dataset_positivity.push({"label": "Positive rate, past 7 days", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderWidth: border_width, borderColor: color, data: dataset_data_positivity})
         dataset_tendency.push({"label": "Development past week/week before (%)", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_tendency})
+        dataset_r0.push({"label": "Re - Effective reproduction number (mean)", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
 
         color = '#ff6600'
         dataset_deaths.push({"label": "Covid", lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_data_deaths})
@@ -234,6 +239,7 @@
 
         annotations = LoadMeasure(country, '', startdate, lastdate_x)
         annotations_zero = $.extend( true, [], annotations );
+        annotations_one = $.extend( true, [], annotations );
 
         annotations_zero.push({
 						type: 'line',
@@ -244,6 +250,14 @@
 						borderWidth: 2,
 						})
 
+        annotations_one.unshift({
+						type: 'line',
+						mode: 'horizontal',
+						scaleID: 'y-axis-0',
+						value: 1,
+						borderColor: 'green',
+						borderWidth: 2,
+						})
 
             config_cases = {
                 type: 'line',
@@ -514,6 +528,98 @@
                     }
                     }
 
+            config_r0 = {
+                type: 'line',
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
+                data: {
+                    labels: label_array,
+                    datasets: dataset_r0
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    maintainAspectRatio: false,
+
+                    title: {
+                        display: true,
+                        text: 'Re -  Effective reproductive number (mean)',
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Re -  Effective reproductive number (mean)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        zoom: {
+                            // Container for pan options
+                            pan: {
+                                // Boolean to enable panning
+                                enabled: true,
+
+                                // Panning directions. Remove the appropriate direction to disable
+                                // Eg. 'y' would only allow panning in the y direction
+                                mode: 'y'
+                            },
+
+                            // Container for zoom options
+                            zoom: {
+                                // Boolean to enable zooming
+                                enabled: true,
+
+                                // Zooming directions. Remove the appropriate direction to disable
+                                // Eg. 'y' would only allow zooming in the y direction
+                                mode: 'y',
+                            }
+                        }
+        },
+      annotation: {
+        events: ["click","mouseover"],
+        annotations: annotations_one
+
+
+
+          }
+                },
+
+            };
+
             annotations = new Array();
             if (avg_values[0] > 0)
             {
@@ -642,6 +748,9 @@
 
   			    var ctx = document.getElementById('tendencyChart').getContext('2d');
 			    window.myLineTendency = new Chart(ctx, config_tendency);
+
+  			    var ctx = document.getElementById('RChart').getContext('2d');
+			    window.myLineTendency = new Chart(ctx, config_r0);
              }
       }
 
@@ -656,6 +765,10 @@
 
             $("#save_tendency").click(function(){
                             save_image("tendencyChart")
+            });
+
+            $("#save_r").click(function(){
+                            save_image("RChart")
             });
 
             $("#save_deaths").click(function(){

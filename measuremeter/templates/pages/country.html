@@ -40,7 +40,6 @@
 {% block content %}
       <div id="param" type="hidden" value={{ item.pk }}>{{ item.pk }}</div>
 
-<div class="ui placeholder segment">
   <div class="ui one column stackable center aligned grid">
     <div class="middle aligned row">
       <div class="column">
@@ -56,8 +55,7 @@
       </div>
     </div>
   </div>
-</div>
-
+<br>
        <div class="container-fluid" >
   <div class="row justify-content-md-center">
     <div class="col-md-auto">
@@ -69,19 +67,14 @@
     </div>
   </div>
        </div>
- <br> Click to expand.
-           <div class="ui accordion">
-            <div class="title">
-              <i class="dropdown icon"></i>
-                  <p id="grande"><b>Current active measures</b></p>
-                 </div>
-             <div class="content">
-                  <div id="current"></div>
-             </div>
+<br>
+               <p id="grande"><b>Current active measures</b></p>
+               <div id="current"></div>
+<br>
+<p>
               Source Measures: <a href="https://github.com/OxCGRT/covid-policy-tracker/blob/master/documentation/codebook.md#containment-and-closure-policies">Oxford Covid-19 Government Response Tracker</a><br>
-             Source Gastronomy and Non-essential shops: covidlaws.net - we give our best do keep things updated for Europe, please report us any mistake.</p>
-
-           </div>
+             Source Gastronomy and Non-essential shops: covidlaws.net - we give our best do keep things updated for Europe, please report us any mistake.
+</p>
 
 
       <div id="bycountry">
@@ -91,134 +84,111 @@
               <p id="grande"><b>Timeline</b></p>
                  </div>
              <div class="content">
-               <p id="grande">
+               <p>
                 * = end of measure undefined,
                 # = regional<br>
                 Dark: Full closure // Light: Partial closure/with restrictions // White: Revoked/Never introduced
                </p>
                <div id="timeline"></div>
-             </div>
+               <p>
              Source Measures: <a href="https://github.com/OxCGRT/covid-policy-tracker/blob/master/documentation/codebook.md#containment-and-closure-policies">Oxford Covid-19 Government Response Tracker</a><br>
-             Source Gastronomy and Non-essential shops: covidlaws.net - we give our best do keep things updated for Europe, please report us any mistake.</p>
+             Source Gastronomy and Non-essential shops: covidlaws.net - we give our best do keep things updated for Europe, please report us any mistake.
+               </p>
+             </div>
+
 
            </div>
       </div>
 
   <br><br>
-          <div class="ui accordion">
-            <div class="title">
-              <i class="dropdown icon"></i>
-              <p id="grande"><b>Reported new cases</b></p>
-            </div>
-            <div class="content">
-              <p class="transition visible">
+            <p id="grande"><b>Reported new cases</b></p>
                     <div style="height: 600px">
                     <canvas id="casesChart"></canvas>
                    </div>
-              </p>
-
-                      <div id="dialog" title="Basic dialog">
-                      </div>
 
                    Source Cases: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+                  <p>
                    <div class="ui vertical animated large button" tabindex="0" id="save_cases" style="width:100px">
                 <div class="hidden content" >Save</div>
                 <div class="visible content">
                   <i class="save icon"></i>
                 </div>
               </div>
-                       </div>
-         </div>
-
+                </p>
 <br><br>
-          <div class="ui accordion">
-            <div class="title">
-              <i class="dropdown icon"></i>
               <p id="grande"><b>Positive rate (Tests), past 7 days</b></p>
-            </div>
-            <div class="content">
-              <p class="transition visible">
                       <div style="height: 600px">
                         <canvas id="positivityChart"></canvas>
                       </div>
-              </p>
                   Source Positivity: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a>
+                <p>
                    <div class="ui vertical animated large button" tabindex="0" id="save_positivity" style="width:100px">
                 <div class="hidden content" >Save</div>
                 <div class="visible content">
                   <i class="save icon"></i>
                 </div>
               </div>
-                       </div>
-          </div>
+                </p>
 
     <br><br>
-          <div class="ui accordion">
-            <div class="title">
-              <i class="dropdown icon"></i>
-              <p id="grande"><b>Development past week/week before (%)</b></p>
-            </div>
-            <div class="content">
-              Rise/Fall total cases past 7 days compared to one week ago.
-              <b>BETA!</b>
-              <p class="transition visible">
+             <p id="grande"><b>Re - Effective reproduction number (mean)</b></p>
+
                       <div style="height: 600px">
-                        <canvas id="tendencyChart"></canvas>
+                        <canvas id="RChart"></canvas>
                       </div>
-              </p>
-                                           <div class="ui vertical animated large button" tabindex="0" id="save_tendency" style="width:100px">
+  Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>
+  R<sub>e</sub> estimation based on confirmed cases is used. With high test positivity rates, the estimates based on the case numbers may be too low.<br>
+  This is the mean R<sub>e</sub>, for high/low, visit the <a href="https://ibz-shiny.ethz.ch/covid-19-re/" target="_blank">Dashboard</a> of ETH Zurich.<br>
+  The methods used are explained <a href="https://ibz-shiny.ethz.ch/covid-19-re/methods.pdf" target="_blank">here</a>.
+                  <p>
+
+                 <div class="ui vertical animated large button" tabindex="0" id="save_r" style="width:100px">
                 <div class="hidden content" >Save</div>
                 <div class="visible content">
                   <i class="save icon"></i>
                 </div>
               </div>
-
-                       </div>
-
-          </div>
-
-
-<br><br>
-           <div class="ui accordion">
-            <div class="title">
-              <i class="dropdown icon"></i>
-              <p id="grande"><b>Death statistics </b></p>
-                 </div>
-             <div class="content">
-                           <p id="grande">
-
-                <div id="avg_desc"></div>
-                <div id="avg_peak_desc"></div>
               </p>
-                <div id="legenddeaths"></div>
 
+    <br><br>
+             <p id="grande"><b>Development past week/week before (%)</b></p>
+              Rise/Fall total cases past 7 days compared to one week ago.
 
-
-                <div id="lineChartDeaths"></div>
-                <p id="grande">
+                      <div style="height: 600px">
+                        <canvas id="tendencyChart"></canvas>
+                      </div>
+                  <p>
+                 <div class="ui vertical animated large button" tabindex="0" id="save_tendency" style="width:100px">
+                <div class="hidden content" >Save</div>
+                <div class="visible content">
+                  <i class="save icon"></i>
+                </div>
+              </div>
+              </p>
+<br><br>
+              <p id="grande"><b>Death statistics </b></p>
                         <div style="height: 600px">
   <canvas id="deathChart"></canvas>
              </div>
 
    <div id="source_death"></div>
-      Source Covvid deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
+      Source Covid deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a>
 
   <div id="deaths_description">
-                    <p id="grande">Note: some countries provide daily total death numbers, others weekly/other formats. If not daily we calculated the per day value for the period.
+                    <p>Note: some countries provide daily total death numbers, others weekly/other formats. If not daily we calculated the per day value for the period.
                   <br><font color="red">Important</font>: the numbers for 2020 are in most cases incomplete! The closer the date, the larger the error margin! Please refer to the original source.
                       <br>Also keep in mind that in all countries, the outbreaks where regional - while some regions had significant more deaths, others had usual or lower death numbers.</p>
-                  <p id="grande">As a comparison, you see the daily average in the past years and the daily average in the highest week in the past years. See explanation above the chart.</p>
+                  <p>As a comparison, you see the daily average in the past years and the daily average in the highest week in the past years. See explanation above the chart.</p>
                   </div>
-                                  <div class="ui vertical animated large button" tabindex="0" id="save_deaths" style="width:100px">
+                    <p>
+                  <div class="ui vertical animated large button" tabindex="0" id="save_deaths" style="width:100px">
                 <div class="hidden content" >Save</div>
                 <div class="visible content">
                   <i class="save icon"></i>
                 </div>
               </div>
-             </div>
-           </div>
-
                 </p>
+
 
 
 
