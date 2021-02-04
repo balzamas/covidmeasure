@@ -22,18 +22,20 @@ def tweet(canton):
 #    facebook_page_id = settings.FACEBOOK_PAGE_ID
 #    graph.put_object(facebook_page_id, "feed", message='test message')
 
+    send_telegram(canton, last_date)
+    send_tweet(canton, last_date)
 
-def send_telegram():
+def send_telegram(canton, last_date):
     #Telegram
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
-    bot.sendMessage(settings.TELEGRAM_CHATID, f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\nGanze Rangliste: https://covidlaws.net/ranking7all/\nKartenansicht:https://covidlaws.net/districts/")
+    bot.sendMessage(settings.TELEGRAM_CHATID, f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\nGanze Rangliste: https://covidlaws.net/ranking7all/\nKartenansicht: https://covidlaws.net/districts/")
     bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image_tg.jpg", 'rb'))
 
 
 
-def send_tweet():
+def send_tweet(canton, last_date):
     #Twitter
 
     auth = tweepy.OAuthHandler(settings.TWITTER_API_KEY, settings.TWITTER_SECRET_KEY)
@@ -49,7 +51,7 @@ def send_tweet():
 
     media = api.media_upload("/tmp/out_image.jpg")
     api.update_status(
-       status=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n #CoronaInfoCH\n\n Ganze Rangliste: https://covidlaws.net/ranking7all/\nKartenansicht:https://covidlaws.net/districts/",
+       status=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n #CoronaInfoCH\n\n Ganze Rangliste: https://covidlaws.net/ranking7all/\nKartenansicht: https://covidlaws.net/districts/",
        media_ids=[media.media_id_string])
 
 
