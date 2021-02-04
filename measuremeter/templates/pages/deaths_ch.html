@@ -10,7 +10,7 @@
                 var content = document.getElementById('content');
                 var div = document.createElement('div');
                 div.id = '{{canton.canton.code}}' + 'Chart';
-                div.innerHTML =   '<table><tr><td><div class="chart-container"><canvas id="'+ '{{canton.canton.code}}' +'deathChart"></canvas></div></td></tr></table>\
+                div.innerHTML =   '<div style="height: 500px"><canvas id="'+ '{{canton.canton.code}}' +'deathChart"></canvas></div>\
                 <table><tr>\
                 <td><img src=/static/images/flags_ch/{{ canton.canton.code  }}_circle.png></td>\
                 <td>&nbsp;</td>\
@@ -41,9 +41,6 @@
 
     {% block styles %}
 	<style>
-  .chart-container {
-      width: 1000px;
-      height:500px
   }
 
 	</style>

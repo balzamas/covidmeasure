@@ -55,6 +55,7 @@
                 options: {
                     legend:{display: true,labels:{fontSize:20}},
                     responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
                         text: canton +' // Todesfälle pro Woche',

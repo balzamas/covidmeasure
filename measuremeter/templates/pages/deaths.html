@@ -10,7 +10,7 @@
                 var content = document.getElementById('content');
                 var div = document.createElement('div');
                 div.id = '{{country.country.code}}' + 'Chart';
-                div.innerHTML =   '<table><tr><td><div class="chart-container"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div></td></tr></table><br><p><b>Week 1 - Week {{country.weeks_wdata}}</b> // Covid 2020: {{country.death_covid_week2}} // All 2020: {{country.death_total_week2}} // All {{country.country.peak_year}}: {{country.death_peak_week2|floatformat:0}} // Diff to average: {{country.diff_week2}} // Diff to {{country.country.peak_year}}: {{country.diff_peak}} <br>Difference to average: <b>{{country.percent_week2|floatformat:1}}%</b><br>Difference to {{country.country.peak_year}}: <b>{{country.percent_peak|floatformat:1}}%</b></p><p><a href="{{country.country.source_death}}" target="_blank">Source</a> // <a href="/country/{{country.country.code}}">Country Details</a> (Cases, Positive rate etc.)</p><br>'
+                div.innerHTML =   '<div style="height: 500px"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div><br><p><b>Week 1 - Week {{country.weeks_wdata}}</b> // Covid 2020: {{country.death_covid_week2}} // All 2020: {{country.death_total_week2}} // All {{country.country.peak_year}}: {{country.death_peak_week2|floatformat:0}} // Diff to average: {{country.diff_week2}} // Diff to {{country.country.peak_year}}: {{country.diff_peak}} <br>Difference to average: <b>{{country.percent_week2|floatformat:1}}%</b><br>Difference to {{country.country.peak_year}}: <b>{{country.percent_peak|floatformat:1}}%</b></p><p><a href="{{country.country.source_death}}" target="_blank">Source</a> // <a href="/country/{{country.country.code}}">Country Details</a> (Cases, Positive rate etc.)</p><br>'
                 <!-- <p><b>Week 8 - Week {{country.weeks_wdata}}</b><br>Covid: {{country.death_covid_week8}}<br>All: {{country.death_total_week8}}<br>Diff to average: {{country.diff_week8}}<br>%: {{country.percent_week8|floatformat:1}}</p> -->
                 content.appendChild(div);
                 drawLineChart('{{country.country.average_death_per_day_peak}}', {{country.week_values_avg}}, {{country.all}}, {{country.covid20}}, {{country.covid21}}, {{country.all_peak}}, {{country.avg_and_covid}}, '{{country.country.name}}', '{{country.country.code}}', '{{country.country.avg_desc}}', '{{country.country.avg_peak_desc}}', '{{country.country.peak_year}}')
@@ -26,11 +26,6 @@
 
 {% block styles %}
 	<style>
-  .chart-container {
-      width: 1000px;
-      height:500px
-  }
-
 	</style>
 {% endblock %}
 
@@ -39,8 +34,6 @@
 {% block title %}COVID-19 and other deaths{% endblock %}
 {% block content %}
 
-    <h1>COVID-19 and other deaths</h1>
-
     <h2>How to interpret</h2>
     The following data is compared on this site:
     <ul>
@@ -48,14 +41,16 @@
       <li>Official deaths Covid-19 - orange line</li>
       <li>Average deaths 2015-2019 - green line</li>
       <li>Week with the highest death number (usually record week from the past 5 years) - red line.</li>
-      <li>Year with the highest death number (from the past 5 years) - light blue line</li>
+      <li>The year 2015 (in most countries the year with the highest mortality in the past years) - light blue line</li>
       <li>Average deaths 2015-2019 and official deaths Covid-19 - to recognize pattern of possible underreporting - yellow dotted line</li>
 
     </ul>
     <p>Usually, the death excess is calculated with the expected deaths in a time period as base. To simplify, the average of the past years is taken as a comparison. This does not into acount the seasonal fluctuation, but it's easier to compare between countries.</p>
           <p>The other line with the record week is to set the current numbers into relation. To say it simply: when the 2020 numbers are way off the record or over a longer time, then there was a serious problem.</p>
           <p>The sharp decline of the numbers in most countries show, that the measures had an effect and quickly brang down the numbers.</p>
-          <p>Last but not least, there is more to look at in this pandemic as just the deaths. Also those who survived had to be saved by people working hard over long periods. And not everybody who comes out of this alive is just the same person as before health wise.</p>
+          <p>Last but not least, there is more to look at in this pandemic as just the deaths. Also those who survived had to be saved by people working hard over long periods. And not everybody who comes out of this alive is healthy like nothing happened.</p>
+
+<!--
           <h2>Regionality of the pandemic</h2>
     <p>When it comes to Covid-19 deaths, in most cases the overall deaths nationwide are compared. This can be misleading, as in spring the pandemic was regional. This was widely discussed about Italy, where the north was heavily affected while in the south the death toll was low.</p>
     <p>But the same is true for most countries. People reduced their movement, hindering the spread of the virus through the country. So if the death rates of spring are compared to other years, this regionality has to be taken into account. </p>
@@ -91,8 +86,9 @@
         </ul></p>
     <p>Raw death numbers compared with averages and peaks.</p>
     <p>Numbers for 2020 are provisional. To calculate the differences, the last two weeks are ignored because they are in many countries superprovisional.</p>
+-->
 
     <div id="content"></div>
- </div>
+    </div>
 
 {% endblock %}
