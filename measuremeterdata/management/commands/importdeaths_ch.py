@@ -26,9 +26,9 @@ class Command(BaseCommand):
         savedate21 = datetime.date(2021, 1, 4)
 
         for index, row in read_file.iterrows():
-            print(index)
+                print(index)
 
-            try:
+            #try:
                 if row['Unnamed: 0'] != "Woche ":
                     week = int(row['Unnamed: 0'])
 
@@ -36,10 +36,20 @@ class Command(BaseCommand):
                     val20 = None
                     val21 = None
 
+
+
                     val20 = int(row["2020 2"])
                     val15 = int(row[2015])
+
+                    if week < 53:
+                        avg_1519 = (int(row[2015]) + int(row[2016]) + int(row[2017]) + int(row[2018]) + int(
+                            row[2019])) / 5
+                    else:
+                        avg_1519 = int(row[2015])
+
+                    avg_1519 = avg_1519 / 7
+
                     if  pd.notna(row["2021 2"]) and row["2021 2"]:
-                        print("Has 21 value")
                         val21 = int(row["2021 2"])
 
                         avg21 = int(val21)/7
@@ -51,9 +61,10 @@ class Command(BaseCommand):
                                 print(cd_existing)
                                 cd_existing.deathstotal = avg21
                                 cd_existing.deathstotal_peak = avg_peak21
+                                cd_existing.deathstotal_average = avg_1519
                                 cd_existing.save()
                             except CasesDeaths.DoesNotExist:
-                                cd = CasesDeaths(country=country, deathstotal=avg21, deathstotal_peak=avg_peak21, date=savedate21)
+                                cd = CasesDeaths(country=country, deathstotal=avg21, deathstotal_peak=avg_peak21, deathstotal_average = avg_1519, date=savedate21)
                                 cd.save()
 
                             savedate21 += timedelta(days=1)
@@ -68,16 +79,17 @@ class Command(BaseCommand):
                             print(cd_existing)
                             cd_existing.deathstotal = avg20
                             cd_existing.deathstotal_peak = avg_peak20
+                            cd_existing.deathstotal_average = avg_1519
                             cd_existing.save()
                         except CasesDeaths.DoesNotExist:
-                            cd = CasesDeaths(country=country, deathstotal=avg20, deathstotal_peak=avg_peak20,
+                            cd = CasesDeaths(country=country, deathstotal=avg20, deathstotal_peak=avg_peak20, deathstotal_average = avg_1519,
                                              date=savedate20)
                             cd.save()
 
                         savedate20 += timedelta(days=1)
 
-            except:
-                print("error")
+            #except:
+            #    print("error")
 
 
     def handleX(self, *args, **options):
