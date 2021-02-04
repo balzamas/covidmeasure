@@ -23,14 +23,17 @@ def tweet(canton):
 #    graph.put_object(facebook_page_id, "feed", message='test message')
 
 
+def send_telegram():
     #Telegram
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
     bot.sendMessage(settings.TELEGRAM_CHATID, f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\nGanze Rangliste: https://covidlaws.net/ranking7all/")
-    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
+    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image_tg.jpg", 'rb'))
 
 
+
+def send_tweet():
     #Twitter
 
     auth = tweepy.OAuthHandler(settings.TWITTER_API_KEY, settings.TWITTER_SECRET_KEY)
@@ -50,7 +53,6 @@ def tweet(canton):
        media_ids=[media.media_id_string])
 
 
-
 def create_image(districts, canton):
     canton_vals = []
 
@@ -62,13 +64,20 @@ def create_image(districts, canton):
             '#rotate-text { width: 45px; transform: rotate(90deg); }' \
             '</style>' \
            f'</head>' \
-           '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;margin-left: 150px;margin-right: 150px;">' \
-           '<table>' \
+           '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;">' \
+           '<table style="margin-left: auto;margin-right: auto;">' \
            '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right" nowrap>' \
            f'<img src = https://covidlaws.net/static/images/flags_ch/{canton.code}_circle.png><br><br>' \
            f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{canton.name}</h1></div>' \
             '</td><td>' \
-           '<table class="ui celled table" style="width: 800px;">' \
+           '<table class="ui celled table" style="width: 670px;table-layout:fixed">' \
+            '<colgroup>' \
+            '<col style="width: 30px;">' \
+            '<col style="width: 60px">' \
+            '<col style="width: 150px">' \
+            '<col style="width: 45px">' \
+            '<col style="width: 65px">' \
+            '</colgroup>' \
            '<tr><th>Rang</th>' \
            '<th>Veränderung<br>zur Vorwoche</th>' \
            '<th>Bezirk</th>' \
@@ -142,6 +151,8 @@ def create_image(districts, canton):
     print(html)
 
     options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
+    options_tg = {'width': '850', 'height': '675', 'encoding': "UTF-8", }
     imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    imgkit.from_string(html, "/tmp/out_image_tg.jpg", options=options_tg)
 
     return last_date
