@@ -24,6 +24,7 @@ def tweet(type):
     print("Tweet:")
     print(message)
     send_tweet(message)
+    send_telegram(message)
 
  #   last_date = create_image(countries)
 
@@ -31,16 +32,6 @@ def tweet(type):
 #    graph = facebook.GraphAPI(page_access_token)
 #    facebook_page_id = settings.FACEBOOK_PAGE_ID
 #    graph.put_object(facebook_page_id, "feed", message='test message')
-
-
-    # #Telegram
-    #
-    # bot = telepot.Bot(settings.TELEGRAM_TOKEN)
-    # print(bot.getMe())
-    # bot.sendMessage(settings.TELEGRAM_CHATID, f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\nGanze Rangliste: https://covidlaws.net/ranking7all/")
-    # bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
-    #
-    #
 
 def create_messages(scores, type):
 
@@ -84,6 +75,12 @@ def create_messages(scores, type):
     message_twitter += "\n\ncovidlaws.net/ranking_europe\n"
     message_twitter += f"covidlaws.net/compare/{cntry_list}&1,2,5&{start_date.strftime('%Y-%m-%d')}&{end_date.strftime('%Y-%m-%d')}"
     return message_twitter
+
+def send_telegram(message):
+    #Telegram
+
+    bot = telepot.Bot(settings.TELEGRAM_TOKEN)
+    bot.sendMessage(settings.TELEGRAM_CHATID, message)
 
 def send_tweet(message):
     # #Twitter
