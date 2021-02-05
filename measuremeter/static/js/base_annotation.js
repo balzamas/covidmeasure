@@ -48,7 +48,13 @@
                             tendency = "&#11014;"
                            }
 
-                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ tendency +'<br>Measure: '+line["type"]["name"]+'<br>Level: '+status +'<br>End: '+endtime+"<br>"+line["comment"]+"</p>";
+                            source=""
+                           if (line['source'] != '')
+                           {
+                                source = '<p><a href="'+line['source']+'">Source</a></p>'
+                           }
+
+                            htmlLine = '<p><i class="'+line['country']['code'] +' flag"/>'+ line['country']['name'] + "  "+ str_level+ tendency +'<br>Measure: '+line["type"]["name"]+'<br>Level: '+status +'<br>End: '+endtime+"<br>"+line["comment"]+source+"</p>";
 
          return htmlLine;
      }
