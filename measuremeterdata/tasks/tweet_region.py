@@ -49,7 +49,20 @@ def tweet(type):
 #    facebook_page_id = settings.FACEBOOK_PAGE_ID
 #    graph.put_object(facebook_page_id, "feed", message='test message')
 
+
+
     if text:
+        cntry_list = ""
+
+        for country in countries:
+            cntry_list += str(country.pk) + ","
+
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=62)
+
+        text += "\n\nLändervergleich:\n"
+        text += f"covidlaws.net/compare/{cntry_list}&1,2,5&{start_date.strftime('%Y-%m-%d')}&{end_date.strftime('%Y-%m-%d')}"
+
         print(text)
         send_telegram(text)
         send_tweet(text)
@@ -60,7 +73,7 @@ def send_telegram(message):
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
     bot.sendMessage(settings.TELEGRAM_CHATID, f"{message}")
-    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image_tg.jpg", 'rb'))
+    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
 
 
 
@@ -173,8 +186,7 @@ def create_image(region, scores):
 
     options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
     options_tg = {'width': '850', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
-    imgkit.from_string(html, "/tmp/out_image_tg.jpg", options=options_tg)
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
     return f"Regionalvergleich\n\n{region}"
 
