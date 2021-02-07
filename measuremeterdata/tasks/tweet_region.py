@@ -190,9 +190,10 @@ def create_image(region, scores):
         html += "<td>"
         if score["stringency"] != None:
           html += f'<div class="container">' \
-            f'<img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_stringency.png height="70px">' \
-            f'<div class="centered">{"{:10.2f}".format(score["stringency"])}%</div>' \
-            '</div>'
+                  f'<div class="centered">{"{:10.2f}".format(score["stringency"])}</div>' \
+                  '</div>'
+          #    f'<img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_stringency.png height="70px">' \
+
         html += "</td>"
 
         html += '</tr>'
