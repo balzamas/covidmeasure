@@ -116,9 +116,9 @@ def create_image(region, scores):
            '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right" nowrap>' \
            f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{region}</h1></div>' \
             '</td><td>' \
-           '<table class="ui celled table" style="width: 1000px;table-layout:fixed">' \
+           '<table class="ui celled table" style="width: 900px;table-layout:fixed">' \
             '<colgroup>' \
-            '<col style="width: 190px;">' \
+            '<col style="width: 150px;">' \
             '<col style="width: 150px">' \
             '<col style="width: 150px">' \
             '<col style="width: 150px">' \
@@ -180,11 +180,9 @@ def create_image(region, scores):
             '</div>' \
             '</body></html>'
 
-    print(html)
-
     options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
     options_tg = {'width': '850', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    imgkit.from_string(html, "out_image.jpg", options=options)
 
     return f"Regionalvergleich\n\n{region}"
 
