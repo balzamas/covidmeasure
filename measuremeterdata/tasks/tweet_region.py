@@ -44,6 +44,24 @@ def tweet(type):
         scores = create_list(countries)
         text = create_image(region, scores)
 
+    if type == 5:
+        region = "Eastern Africa"
+        countries = Country.objects.filter(pk__in=[5,89,98,88])
+        scores = create_list(countries)
+        text = create_image(region, scores)
+
+    if type == 6:
+        region = "Southern Africa"
+        countries = Country.objects.filter(pk__in=[90,97,102,103,104])
+        scores = create_list(countries)
+        text = create_image(region, scores)
+
+    if type == 7:
+        region = "Western Africa"
+        countries = Country.objects.filter(pk__in=[55,91,95,92,96])
+        scores = create_list(countries)
+        text = create_image(region, scores)
+
 #    page_access_token = settings.FACEBOOK_ACCESS_TOKEN
 #    graph = facebook.GraphAPI(page_access_token)
 #    facebook_page_id = settings.FACEBOOK_PAGE_ID
