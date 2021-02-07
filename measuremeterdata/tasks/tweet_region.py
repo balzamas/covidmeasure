@@ -129,7 +129,6 @@ def create_image(region, scores):
            '<th>Deaths per 100k<br>Last 14 days</th>' \
            '<th>Positive rate<br>7 days avg. @ Date</th>' \
            '<th>Development<br>Week over week</th>' \
-           '<th>R median</th>'           \
            '<th>Stringency index</th>' \
            '</tr>'
 
@@ -170,7 +169,6 @@ def create_image(region, scores):
         else:
             html += f'<td class="negative" nowrap><div class="container"><div class ="centered">{score["tendency"]} %</div></div></td>'
 
-        html += f'<td><div class="container"><div class ="centered">{"{:10.2f}".format(score["R"])}</div></div></td>'
         html += f'<td><div class="container"><div class ="centered">{"{:10.2f}".format(score["stringency"])}</div></div></td>'
 
 
