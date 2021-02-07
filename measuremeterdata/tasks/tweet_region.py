@@ -134,7 +134,7 @@ def create_image(region, scores):
            '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right" nowrap>' \
            f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{region}</h1></div>' \
             '</td><td>' \
-           '<table class="ui celled table" style="width: 900px;table-layout:fixed">' \
+           '<table class="ui celled table" style="width: 950px;table-layout:fixed">' \
             '<colgroup>' \
             '<col style="width: 150px;">' \
             '<col style="width: 150px">' \
@@ -187,8 +187,13 @@ def create_image(region, scores):
         else:
             html += f'<td class="negative" nowrap><div class="container"><div class ="centered">{score["tendency"]} %</div></div></td>'
 
-        html += f'<td><div class="container"><div class ="centered">{"{:10.2f}".format(score["stringency"])}</div></div></td>'
-
+        html += "<td>"
+        if score["stringency"] != None:
+          html += f'<div class="container">' \
+            f'<img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_stringency.png height="70px">' \
+            f'<div class="centered">{"{:10.2f}".format(score["stringency"])}%</div>' \
+            '</div>'
+        html += "</td>"
 
         html += '</tr>'
 
@@ -199,8 +204,7 @@ def create_image(region, scores):
             '</body></html>'
 
     options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
-    options_tg = {'width': '850', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
     return f"Regionalvergleich\n\n{region}"
 
