@@ -192,6 +192,7 @@ def create_image(region, scores):
           html += f'<div class="container">' \
                   f'<img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_stringency.png height="70px">' \
                   f'<div class="centered">{"{:10.2f}".format(score["stringency"])}</div>' \
+                  f'<div class="bottomed">{score["stringency_date"]}</div>' \
                   '</div>'
 
         html += "</td>"
