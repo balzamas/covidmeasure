@@ -299,3 +299,8 @@ FACEBOOK_PAGE_ID = env("FACEBOOK_PAGE_ID")
 #Telegram
 TELEGRAM_TOKEN = env("TELEGRAM_TOKEN")
 TELEGRAM_CHATID = env("TELEGRAM_CHATID")
+
+
+CRONJOBS = [
+    ('*/5 * * * *', 'measuremeterdata.tasks.importer.ch.generate_graphs_districts.generate')
+]

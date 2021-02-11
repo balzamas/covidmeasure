@@ -9,7 +9,7 @@ import requests
 import pandas as pd
 from datetime import date, timedelta
 import measuremeterdata.tasks
-from measuremeterdata.tasks.tweet_district_ranking import tweet
+from measuremeterdata.tasks.socialmedia.tweet_district_ranking import tweet
 
 class Command(BaseCommand):
     def handle(self, *args, **options):

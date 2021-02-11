@@ -6,7 +6,7 @@ import datetime
 import requests
 import pandas as pd
 from datetime import date, timedelta
-from measuremeterdata.tasks.tweet_district_ranking import tweet
+from measuremeterdata.tasks.socialmedia.tweet_district_ranking import tweet
 
 
 

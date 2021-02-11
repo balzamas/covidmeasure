@@ -6,7 +6,7 @@ import datetime
 import requests
 import pandas as pd
 from datetime import date, timedelta
-from measuremeterdata.tasks.tweet_district_ranking import tweet
+from measuremeterdata.tasks.socialmedia.tweet_district_ranking import tweet
 
 
 #Source: https://data.europa.eu/euodp/en/data/dataset/covid-19-coronavirus-data/resource/55e8f966-d5c8-438e-85bc-c7a5a26f4863

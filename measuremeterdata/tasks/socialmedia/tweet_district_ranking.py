@@ -30,7 +30,7 @@ def send_telegram(canton, last_date):
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
-    bot.sendMessage(settings.TELEGRAM_CHATID, f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\nGanze Rangliste: https://covidlaws.net/ranking7all/\nKartenansicht: https://covidlaws.net/districts/")
+    bot.sendMessage(settings.TELEGRAM_CHATID, f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\nGanze Rangliste: https://covidlaws.net/ranking7all/\nKartenansicht: https://covidlaws.net/districts7/")
     bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image_tg.jpg", 'rb'))
 
 
@@ -51,7 +51,7 @@ def send_tweet(canton, last_date):
 
     media = api.media_upload("/tmp/out_image.jpg")
     api.update_status(
-       status=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n#CoronaInfoCH\n\nGanze Rangliste: https://covidlaws.net/ranking7all/\nKartenansicht: https://covidlaws.net/districts/",
+       status=f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\n#CoronaInfoCH\n\nGanze Rangliste: https://covidlaws.net/ranking7all/\nKartenansicht: https://covidlaws.net/districts7/",
        media_ids=[media.media_id_string])
 
 
