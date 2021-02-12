@@ -9,6 +9,126 @@
       }
     });
 
+	function getColor(d, levels) {
+	    if (levels == 2)
+	    {
+      		return  d > 1   ? '#FE0000' :
+				d > 0   ? '#FED341' :
+				d > -1   ? '#00ff80' :
+						  '#dfdcdc';
+	    }
+	    else if (levels == 3)
+	    {
+      		return  d > 2   ? '#FE0000' :
+		        d > 1   ? '#ff7c1b' :
+				d > 0   ? '#FED341' :
+				d > -1   ? '#00ff80' :
+						  '#dfdcdc';
+	    }
+	    else if (levels == 4)
+	    {
+            return  d > 3   ? '#FE0000' :
+                    d > 2   ? '#fa8173' :
+                    d > 1   ? '#fecc2f' :
+                    d > 0   ? '#fee79b' :
+                    d > -1   ? '#00ff80' :
+                              '#dfdcdc';
+	    }
+
+	}
+
+
+
+    function LoadCountryMeasures(countries)
+    {
+        console.log("Hello World")
+
+        current_content='<table class="ui very basic collapsing celled table">'
+        current_content+='<tr><th>All measures compared</th><th style="text-align:center">Max.</th>'
+
+        var country_data = $.ajax({
+          url: "/measuremeterdata/countries/?pk="+countries,
+          dataType: "json",
+          async: false
+          }).responseText;
+          var country_jsonData = JSON.parse(country_data);
+
+           $.each(country_jsonData, function(id, line) {
+             current_content += '<th style="text-align:center"><i class="'+line.code+' flag"></i>' + line.code + '</th>'
+             console.log(line)
+           });
+
+           current_content += '</tr>'
+
+          var dataMeasuresTypes = $.ajax({
+          url: "/measuremeterdata/oxfordmeasuretypes/",
+          dataType: "json",
+          async: false
+          }).responseText;
+
+          var jsonMeasuresTypes = JSON.parse(dataMeasuresTypes);
+           $.each(jsonMeasuresTypes, function(id, line) {
+           console.log(line)
+             max = 0
+             if (line.text_level4)
+                max = 4
+             else if (line.text_level3)
+                max = 3
+             else if (line.text_level2)
+                max = 2
+             else if (line.text_level1)
+                max = 1
+
+
+
+
+             current_content += '<tr><td>' + line.name + '</td><td style="text-align:center">' + max +'</td>'
+                        $.each(country_jsonData, function(id, line_cntry) {
+                             current_content += '<td id='+ line.pk +'_'+ line_cntry.pk +' style="text-align:center"></td>'
+                        });
+             current_content += '</tr>'
+           });
+
+           current_content += '</table>'
+
+          document.getElementById('measures').innerHTML = current_content
+
+
+            var d = new Date();
+            today = formatDate(d);
+
+
+          var data = $.ajax({
+          url: "/measuremeterdata/measures/?country="+countries+"&start="+today.replace('-', '\-')+"&end="+today.replace('-', '\-'),
+          dataType: "json",
+          async: false
+          }).responseText;
+          var jsonData = JSON.parse(data);
+
+           $.each(jsonData, function(id, line) {
+                         max = 0
+                         if (line.type.text_level4)
+                            max = 4
+                         else if (line.type.text_level3)
+                            max = 3
+                         else if (line.type.text_level2)
+                            max = 2
+                         else if (line.type.text_level1)
+                            max = 1
+
+                        color = getColor(line.level, max)
+                        console.log(color)
+
+                        value = line.level
+                        if (line.isregional)
+                            {
+                                value += "*"
+                            }
+                       document.getElementById(line.type.pk +'_' +  line.country.pk).innerHTML = value
+                       document.getElementById(line.type.pk +'_' +  line.country.pk).style.backgroundColor = color
+                });
+    }
+
     function LoadCountries()
     {
                  //-----------------------------Load countries----------------------
@@ -727,6 +847,7 @@
 
 
                 LoadData($('#countries_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'),datefrom_real,dateto_real);
+                LoadCountryMeasures($('#countries_dd').dropdown('get value'))
     			window.myLine = new Chart(ctx, config);
     			window.myLineDeath = new Chart(ctx_death, config_death);
     			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
@@ -778,6 +899,8 @@
                 $('#countries_dd').dropdown('set selected', cntries)
                 $('#measuretypes_dd').dropdown('set selected', msures)
                 LoadData(params[0], params[1],datefrom,dateto);
+                LoadCountryMeasures(params[0])
+
             }
             else
             {
@@ -790,6 +913,8 @@
                 $('#countries_dd').dropdown('set selected', ['1','6','13','14','33','34','35'])
                 $('#measuretypes_dd').dropdown('set selected', ['1','5','2'])
                 LoadData("1,6,13,14,33,34,35", "1,5,2",real_startdate,real_enddate);
+                LoadCountryMeasures($('#countries_dd').dropdown('get value'))
+
             }
 
             Chart.plugins.register({
