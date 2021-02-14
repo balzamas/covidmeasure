@@ -2,6 +2,7 @@
 		var config_death;
 		var config_positivity;
 		var config_tendency;
+		var jsonData_cases;
 
     moment.updateLocale('en', {
       week: {
@@ -41,10 +42,8 @@
 
     function LoadCountryMeasures(countries)
     {
-        console.log("Hello World")
-
-        current_content='<table class="ui very basic collapsing celled table">'
-        current_content+='<tr><th>All measures compared</th><th style="text-align:center">Max.</th>'
+        current_content='<table class="ui collapsing celled table">'
+        current_content+='<tr style="height:50px"><th>All measures compared</th><th style="text-align:center;width: 100px">Max.</th>'
 
         var country_data = $.ajax({
           url: "/measuremeterdata/countries/?pk="+countries,
@@ -54,10 +53,15 @@
           var country_jsonData = JSON.parse(country_data);
 
            $.each(country_jsonData, function(id, line) {
-             current_content += '<th style="text-align:center"><i class="'+line.code+' flag"></i>' + line.code + '</th>'
-             console.log(line)
+             current_content += '<th style="text-align:center;width: 100px"><a href="http://www.covidlaws.net/country/'+line.code +'"><i class="'+line.code+' flag"></i><b>' + line.code + '</b></a></th>'
            });
 
+           current_content += '</tr>'
+
+           current_content += '<tr><td><b>Stringency Index</b></td><td></td>'
+                        $.each(country_jsonData, function(id, line_cntry) {
+                             current_content += '<td id=stringency_'+ line_cntry.pk +' style="text-align:center"></td>'
+                        });
            current_content += '</tr>'
 
           var dataMeasuresTypes = $.ajax({
@@ -68,7 +72,6 @@
 
           var jsonMeasuresTypes = JSON.parse(dataMeasuresTypes);
            $.each(jsonMeasuresTypes, function(id, line) {
-           console.log(line)
              max = 0
              if (line.text_level4)
                 max = 4
@@ -92,6 +95,12 @@
            current_content += '</table>'
 
           document.getElementById('measures').innerHTML = current_content
+
+          console.log(jsonData_cases)
+        //  $.each(jsonData_cases, function(id, line) {
+
+
+        //  }
 
 
             var d = new Date();
@@ -117,13 +126,13 @@
                             max = 1
 
                         color = getColor(line.level, max)
-                        console.log(color)
 
                         value = line.level
                         if (line.isregional)
                             {
                                 value += "*"
                             }
+
                        document.getElementById(line.type.pk +'_' +  line.country.pk).innerHTML = value
                        document.getElementById(line.type.pk +'_' +  line.country.pk).style.backgroundColor = color
                 });
@@ -201,7 +210,7 @@
           dataType: "json",
           async: false
           }).responseText;
-          var jsonData = JSON.parse(data);
+          jsonData_cases = JSON.parse(data);
 
         ctry_count = countries.split(',').length;
         var row = new Array()
@@ -240,7 +249,9 @@
         has_total_death = false;
         border_width = 4
 
-        $.each(jsonData, function(id, line) {
+        stringency = null
+
+        $.each(jsonData_cases, function(id, line) {
 
            if (country_pk != line["country"]["pk"] && country_pk != -1)
            {
@@ -270,8 +281,18 @@
               dataset_r0_data = new Array()
               dataset_tendency_data = new Array()
 
+              console.log(stringency)
+              document.getElementById('stringency_' +  country_pk).innerHTML = Number(stringency).toFixed(2)
+              stringency = null
+
               has_total_death = false
            }
+
+
+            if (line['stringency_index'])
+            {
+                stringency = line['stringency_index']
+            }
             country_pk = line["country"]["pk"]
             country_name = line['country']['name']
             country_code = line['country']['code']
@@ -301,6 +322,7 @@
         dataset_tests.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tests_data})
         dataset_r0.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
         dataset_tendency.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
+        document.getElementById('stringency_' +  country_pk).innerHTML = Number(stringency).toFixed(2)
 
         annotations = LoadMeasure(countries, measures, startdate, enddate)
         annotations_zero = $.extend( true, [], annotations );
@@ -846,8 +868,8 @@
                 var dateto_real = new Date(parts2[0], parts2[1] - 1, parts2[2]);
 
 
-                LoadData($('#countries_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'),datefrom_real,dateto_real);
                 LoadCountryMeasures($('#countries_dd').dropdown('get value'))
+                LoadData($('#countries_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'),datefrom_real,dateto_real);
     			window.myLine = new Chart(ctx, config);
     			window.myLineDeath = new Chart(ctx_death, config_death);
     			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
@@ -898,8 +920,8 @@
 
                 $('#countries_dd').dropdown('set selected', cntries)
                 $('#measuretypes_dd').dropdown('set selected', msures)
-                LoadData(params[0], params[1],datefrom,dateto);
                 LoadCountryMeasures(params[0])
+                LoadData(params[0], params[1],datefrom,dateto);
 
             }
             else
@@ -912,14 +934,13 @@
 
                 $('#countries_dd').dropdown('set selected', ['1','6','13','14','33','34','35'])
                 $('#measuretypes_dd').dropdown('set selected', ['1','5','2'])
-                LoadData("1,6,13,14,33,34,35", "1,5,2",real_startdate,real_enddate);
                 LoadCountryMeasures($('#countries_dd').dropdown('get value'))
+                LoadData("1,6,13,14,33,34,35", "1,5,2",real_startdate,real_enddate);
 
             }
 
             Chart.plugins.register({
                 afterRender: function(c) {
-                    console.log("afterRender called");
                     var ctx = c.chart.ctx;
                     ctx.save();
                     // This line is apparently essential to getting the
