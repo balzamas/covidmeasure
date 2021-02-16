@@ -893,8 +893,24 @@ var data
 
                 cntries = params[0].split(",")
                 msures = params[1].split(",")
-                datefrom = new Date(params[2])
-                dateto = new Date(params[3])
+                if (params[2])
+                {
+                    datefrom = new Date(params[2])
+                }
+                else
+                {
+                    datefrom = addDays(new Date(), -60)
+                }
+
+                if (params[2])
+                {
+                    dateto = new Date(params[3])
+                }
+                else
+                {
+                    dateto = new Date()
+                }
+
 
                 document.getElementById("datefrom").value = formatDate(datefrom)
                 document.getElementById("dateto").value = formatDate(dateto)

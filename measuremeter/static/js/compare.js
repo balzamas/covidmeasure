@@ -43,7 +43,7 @@
     function LoadCountryMeasures(countries)
     {
         current_content='<table class="ui collapsing celled table">'
-        current_content+='<tr style="height:50px"><th>All measures compared</th><th style="text-align:center;width: 100px">Max.</th>'
+        current_content+='<tr style="height:50px"><th></th><th style="text-align:center;width: 100px"></th>'
 
         var country_data = $.ajax({
           url: "/measuremeterdata/countries/?pk="+countries,
@@ -58,9 +58,46 @@
 
            current_content += '</tr>'
 
+
+           current_content += '<tr><td><b>Cases 7d/100k</b></td><td></td>'
+                        $.each(country_jsonData, function(id, line_cntry) {
+                             current_content += '<td id=cases_'+ line_cntry.pk +' style="text-align:center"></td>'
+                        });
+           current_content += '</tr>'
+
+           current_content += '<tr><td><b>Deaths 7d/100k</b></td><td></td>'
+                        $.each(country_jsonData, function(id, line_cntry) {
+                             current_content += '<td id=deaths_'+ line_cntry.pk +' style="text-align:center"></td>'
+                        });
+           current_content += '</tr>'
+
+           current_content += '<tr><td><b>Dev. week over week</b></td><td></td>'
+                        $.each(country_jsonData, function(id, line_cntry) {
+                             current_content += '<td id=dev_'+ line_cntry.pk +' style="text-align:center"></td>'
+                        });
+           current_content += '</tr>'
+
+           current_content += '<tr><td><b>Positivity</b></td><td></td>'
+                        $.each(country_jsonData, function(id, line_cntry) {
+                             current_content += '<td id=positivity_'+ line_cntry.pk +' style="text-align:center"></td>'
+                        });
+           current_content += '</tr>'
+
+           current_content += '<tr><td><b>Tests per 1000 pop.</b></td><td></td>'
+                        $.each(country_jsonData, function(id, line_cntry) {
+                             current_content += '<td id=tests_'+ line_cntry.pk +' style="text-align:center"></td>'
+                        });
+           current_content += '</tr>'
+
            current_content += '<tr><td><b>Stringency Index</b></td><td></td>'
                         $.each(country_jsonData, function(id, line_cntry) {
                              current_content += '<td id=stringency_'+ line_cntry.pk +' style="text-align:center"></td>'
+                        });
+           current_content += '</tr>'
+
+                      current_content += '<tr><td><b>All measures compared</b></td><td style="text-align:center;width: 100px">Max.</td>'
+                        $.each(country_jsonData, function(id, line_cntry) {
+                             current_content += '<td style="text-align:center"></td>'
                         });
            current_content += '</tr>'
 
@@ -249,7 +286,12 @@
         has_total_death = false;
         border_width = 4
 
-        stringency = null
+              stringency = null
+              deaths = null
+              cases = null
+              positivity = null
+              tests = null
+              dev = null
 
         $.each(jsonData_cases, function(id, line) {
 
@@ -273,6 +315,14 @@
               dataset_tests.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tests_data})
               dataset_r0.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
 
+              console.log(stringency)
+              document.getElementById('deaths_' +  country_pk).innerHTML = Number(deaths).toFixed(2)
+              document.getElementById('stringency_' +  country_pk).innerHTML = Number(stringency).toFixed(2)
+              document.getElementById('cases_' +  country_pk).innerHTML = Number(cases).toFixed(2)
+              document.getElementById('positivity_' +  country_pk).innerHTML = Number(positivity).toFixed(2)
+              document.getElementById('tests_' +  country_pk).innerHTML = Number(tests).toFixed(2)
+              document.getElementById('dev_' +  country_pk).innerHTML = Number(dev).toFixed(2)
+
               dataset_data = new Array()
               dataset_death_data = new Array()
               dataset_death_total_data = new Array()
@@ -281,9 +331,15 @@
               dataset_r0_data = new Array()
               dataset_tendency_data = new Array()
 
-              console.log(stringency)
-              document.getElementById('stringency_' +  country_pk).innerHTML = Number(stringency).toFixed(2)
+
+
               stringency = null
+              deaths = null
+              cases = null
+              positivity = null
+              tests = null
+              dev = null
+
 
               has_total_death = false
            }
@@ -293,6 +349,32 @@
             {
                 stringency = line['stringency_index']
             }
+
+            if (line['deaths_past7days'])
+            {
+                deaths = line['deaths_past7days']
+            }
+
+            if (line['cases_past7days'])
+            {
+                cases = line['cases_past7days']
+            }
+
+            if (line['positivity'])
+            {
+                positivity = line['positivity']
+            }
+
+            if (line['tests_smoothed_per_thousand'])
+            {
+                tests = line['tests_smoothed_per_thousand']
+            }
+
+            if (line['development7to7'])
+            {
+                dev = line['development7to7']
+            }
+
             country_pk = line["country"]["pk"]
             country_name = line['country']['name']
             country_code = line['country']['code']
@@ -322,7 +404,13 @@
         dataset_tests.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tests_data})
         dataset_r0.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
         dataset_tendency.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
+
+        document.getElementById('deaths_' +  country_pk).innerHTML = Number(deaths).toFixed(2)
         document.getElementById('stringency_' +  country_pk).innerHTML = Number(stringency).toFixed(2)
+        document.getElementById('cases_' +  country_pk).innerHTML = Number(cases).toFixed(2)
+        document.getElementById('positivity_' +  country_pk).innerHTML = Number(positivity).toFixed(2)
+        document.getElementById('tests_' +  country_pk).innerHTML = Number(tests).toFixed(2)
+        document.getElementById('dev_' +  country_pk).innerHTML = Number(dev).toFixed(2)
 
         annotations = LoadMeasure(countries, measures, startdate, enddate)
         annotations_zero = $.extend( true, [], annotations );
@@ -848,8 +936,6 @@
                    window.myLineTests.destroy();
                 }
 
-
-
                 if(window.myLineR0 && window.myLineR0 !== null){
                    window.myLineR0.destroy();
                 }
@@ -912,8 +998,23 @@
 
                 cntries = params[0].split(",")
                 msures = params[1].split(",")
-                datefrom = new Date(params[2])
-                dateto = new Date(params[3])
+                if (params[2])
+                {
+                    datefrom = new Date(params[2])
+                }
+                else
+                {
+                    datefrom = addDays(new Date(), -60)
+                }
+
+                if (params[3])
+                {
+                    dateto = new Date(params[3])
+                }
+                else
+                {
+                    dateto = new Date();
+                }
 
                 document.getElementById("datefrom").value = formatDate(datefrom)
                 document.getElementById("dateto").value = formatDate(dateto)
