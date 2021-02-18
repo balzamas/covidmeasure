@@ -62,6 +62,18 @@ def tweet(type):
         scores = create_list(countries)
         text = create_image(region, scores)
 
+    if type == 8:
+        region = "Postsoviet"
+        countries = Country.objects.filter(pk__in=[27,50,21,46,47,45])
+        scores = create_list(countries)
+        text = create_image(region, scores)
+
+    if type == 9:
+        region = "Eastern Balkans"
+        countries = Country.objects.filter(pk__in=[30,32,42,40,39,38])
+        scores = create_list(countries)
+        text = create_image(region, scores)
+
 #    page_access_token = settings.FACEBOOK_ACCESS_TOKEN
 #    graph = facebook.GraphAPI(page_access_token)
 #    facebook_page_id = settings.FACEBOOK_PAGE_ID
