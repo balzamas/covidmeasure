@@ -63,7 +63,7 @@ def tweet(type):
         text = create_image(region, scores)
 
     if type == 8:
-        region = "Postsoviet"
+        region = "Postsoviet space"
         countries = Country.objects.filter(pk__in=[27,50,21,46,47,45])
         scores = create_list(countries)
         text = create_image(region, scores)
