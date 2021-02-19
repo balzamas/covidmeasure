@@ -19,14 +19,14 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         resp = urlopen(
-            'https://www.covid19.admin.ch/api/data/20210218-thfu5buu/downloads/sources-csv.zip')
+            'https://www.covid19.admin.ch/api/data/20210219-4389xau5/downloads/sources-csv.zip')
 
         zf = zipfile.ZipFile(BytesIO(resp.read()), 'r')
 
         df_occupancy = pd.read_csv(zf.open('data/COVID19HospCapacity_geoRegion.csv'))
-        cov19_patients = df_occupancy.tail(1)['ICU_Covid19Patients'].item()
-        capacity = df_occupancy.tail(1)['ICU_Capacity'].item()
-        date = df_occupancy.tail(1)['date'].item()
+        hosp_cov19_patients = df_occupancy.tail(1)['ICU_Covid19Patients'].item()
+        hosp_capacity = df_occupancy.tail(1)['ICU_Capacity'].item()
+        hosp_date = df_occupancy.tail(1)['date'].item()
 
         df_positivity = pd.read_csv(zf.open('data/COVID19Test_geoRegion_all.csv'))
 
@@ -36,16 +36,22 @@ class Command(BaseCommand):
 
 
         df_r = pd.read_csv(zf.open('data/COVID19Re_geoRegion.csv'))
-        ch_only_r = df_r['geoRegion']=='CH'
-        past7_r = df_r[ch_only_r].median_R_mean.notnull().tail(7)
-        for index, value in past7_r.items():
-            print(past7_r[index])
-        print("....")
-        print(past7_r)
-        for index_row, row in past7_r.iterrows():
+        ch_only_filter = df_r['geoRegion']=='CH'
+        ch_only = df_r[ch_only_filter]
+        empty_filter = ch_only.median_R_mean.notnull()
+        r_final = ch_only[empty_filter].tail(7)
+
+        for index_row, row in r_final.iterrows():
             print(row['median_R_mean'])
             print(row['date'])
 
+        df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'))
+        df_incidence_ch_only = df_incidence['geoRegion']=='CH'
 
+        incidence_mar1 = 200
+        incidence_now = df_incidence[df_incidence_ch_only].tail(1)['inzsum14d'].item()
+        incidence_date = df_incidence[df_incidence_ch_only].tail(1)['datum'].item()
 
-
+        print(".....")
+        print(incidence_now)
+        print(incidence_date)

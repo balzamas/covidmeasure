@@ -8,6 +8,26 @@ class MotherModel(models.Model):
     class Meta:
         abstract = True
 
+class DoomsdayClock(MotherModel):
+    hosp_cov19_patients = models.IntegerField(null=True, blank=True)
+    hosp_capacity = models.IntegerField(null=True, blank=True)
+    hosp_date = models.DateField(null=True,blank=True)
+    positivity = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    positivity_date = models.DateField(null=True,blank=True)
+    r1_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    r1_date = models.DateField(null=True,blank=True)
+    r2_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    r2_date = models.DateField(null=True,blank=True)
+    r3_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    r3_date = models.DateField(null=True,blank=True)
+    r4_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    r4_date = models.DateField(null=True,blank=True)
+    r5_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    r5_date = models.DateField(null=True,blank=True)
+    incidence_mar1 = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    incidence_latest = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    incidence_latest_date = models.DateField(null=True,blank=True)
+
 class CHCanton(MotherModel):
     LEVEL_CHOICES=[
         (0, 'Canton'),
