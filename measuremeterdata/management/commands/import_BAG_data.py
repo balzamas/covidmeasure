@@ -50,7 +50,7 @@ class Command(BaseCommand):
         df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'))
         df_incidence_ch_only = df_incidence['geoRegion']=='CH'
 
-        incidence_mar1 = 200
+        incidence_mar1 = 160
         incidence_latest = df_incidence[df_incidence_ch_only].tail(1)['inzsum14d'].item()
         incidence_latest_date = df_incidence[df_incidence_ch_only].tail(1)['datum'].item()
 
