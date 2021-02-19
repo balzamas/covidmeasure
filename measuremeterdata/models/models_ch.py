@@ -9,6 +9,7 @@ class MotherModel(models.Model):
         abstract = True
 
 class DoomsdayClock(MotherModel):
+    name = models.CharField(max_length=200)
     hosp_cov19_patients = models.IntegerField(null=True, blank=True)
     hosp_capacity = models.IntegerField(null=True, blank=True)
     hosp_date = models.DateField(null=True,blank=True)
@@ -24,6 +25,7 @@ class DoomsdayClock(MotherModel):
     r4_date = models.DateField(null=True,blank=True)
     r5_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     r5_date = models.DateField(null=True,blank=True)
+    r_okay = models.BooleanField(default= False)
     incidence_mar1 = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     incidence_latest = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     incidence_latest_date = models.DateField(null=True,blank=True)
