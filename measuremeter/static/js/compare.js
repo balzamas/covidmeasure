@@ -133,13 +133,6 @@
 
           document.getElementById('measures').innerHTML = current_content
 
-          console.log(jsonData_cases)
-        //  $.each(jsonData_cases, function(id, line) {
-
-
-        //  }
-
-
             var d = new Date();
             today = formatDate(d);
 
@@ -315,12 +308,21 @@
               dataset_tests.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tests_data})
               dataset_r0.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
 
-              console.log(stringency)
+
               document.getElementById('deaths_' +  country_pk).innerHTML = Number(deaths).toFixed(2)
-              document.getElementById('stringency_' +  country_pk).innerHTML = Number(stringency).toFixed(2)
+              if (stringency)
+              {
+                document.getElementById('stringency_' +  country_pk).innerHTML = Number(stringency).toFixed(2)
+              }
               document.getElementById('cases_' +  country_pk).innerHTML = Number(cases).toFixed(2)
-              document.getElementById('positivity_' +  country_pk).innerHTML = Number(positivity).toFixed(2)
-              document.getElementById('tests_' +  country_pk).innerHTML = Number(tests).toFixed(2)
+              if (positivity)
+              {
+                document.getElementById('positivity_' +  country_pk).innerHTML = Number(positivity).toFixed(2)
+              }
+              if (tests)
+              {
+                  document.getElementById('tests_' +  country_pk).innerHTML = Number(tests).toFixed(2)
+              }
               document.getElementById('dev_' +  country_pk).innerHTML = Number(dev).toFixed(2)
 
               dataset_data = new Array()
