@@ -97,7 +97,7 @@
 
                       current_content += '<tr><td><b>All measures compared</b></td><td style="text-align:center;width: 100px">Max.</td>'
                         $.each(country_jsonData, function(id, line_cntry) {
-                             current_content += '<td style="text-align:center"></td>'
+                             current_content += '<th style="text-align:center;width: 100px"><a href="http://www.covidlaws.net/country/'+line_cntry.code +'"><i class="'+line_cntry.code+' flag"></i><b>' + line_cntry.code + '</b></a></th>'
                         });
            current_content += '</tr>'
 
