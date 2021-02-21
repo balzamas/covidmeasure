@@ -29,7 +29,7 @@ def render_cantons_stringency(request, options):
     return render(request, 'pages/canton_stringency.html', {'items': options })
 
 def international(request):
-    measures = CountryMeasure.objects.all().order_by('-created')[:10]
+    measures = CountryMeasure.objects.all().order_by('-created')[:15]
 
     template = loader.get_template('pages/start.html')
     context = {
