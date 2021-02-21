@@ -146,19 +146,22 @@ def create_image(region, scores):
            '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right" nowrap>' \
            f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{region}</h1></div>' \
             '</td><td>' \
-           '<table class="ui celled table" style="width: 950px;table-layout:fixed">' \
+           '<table class="ui celled table" style="width: 930px;table-layout:fixed">' \
             '<colgroup>' \
             '<col style="width: 150px;">' \
             '<col style="width: 150px">' \
             '<col style="width: 150px">' \
             '<col style="width: 150px">' \
             '<col style="width: 150px">' \
-            '</colgroup>' \
+            '<col style="width: 90px">' \
+           '<col style="width: 150px">'\
+           '</colgroup>' \
            '<tr><th></th>' \
            '<th>Pos. Tests per 100k<br>Last 14 days</th>' \
            '<th>Deaths per 100k<br>Last 14 days</th>' \
            '<th>Positive rate<br>7 days avg. @ Date</th>' \
            '<th>Development<br>Week over week</th>' \
+           '<th>Tests per<br>1000 pop.</th>' \
            '<th>Stringency index</th>' \
            '</tr>'
 
@@ -168,14 +171,14 @@ def create_image(region, scores):
         html += f'<tr>' \
                 f'<td nowrap><b style="font-size: 18">{score["name"]}</b></td>'
 
-        html += f'<td>'
+        html += f'<td nowrap>'
         html += f'<div class="container"> \
           <img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_cases.png height="70px"> \
           <div class="centered">{score["cur_prev14"]}</div> \
         </div> \
         </td>'
 
-        html += '<td>'
+        html += '<td nowrap>'
         html += f'<div class="container"> \
           <img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_cases.png height="70px"> \
           <div class="centered">{score["deaths"]}</div> \
@@ -183,7 +186,7 @@ def create_image(region, scores):
         html += '</td>'
 
 
-        html += "<td>"
+        html += "<td nowrap>"
         if score["positivity"] != None:
           html += f'<div class="container">' \
             f'<img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_positivity.png height="70px">' \
@@ -199,14 +202,22 @@ def create_image(region, scores):
         else:
             html += f'<td class="negative" nowrap><div class="container"><div class ="centered">{score["tendency"]} %</div></div></td>'
 
-        html += "<td>"
+
+        html += "<td nowrap>"
+        if score["tests"] != None:
+            html += f'<div class="container">' \
+                    f'<div class="centered">{"{:10.2f}".format(score["tests"])}</div>' \
+                    f'<div class="bottomed">{score["tests_date"]}</div>' \
+                    '</div>'
+        html += "</td>"
+
+        html += "<td nowrap>"
         if score["stringency"] != None:
           html += f'<div class="container">' \
                   f'<img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_stringency.png height="70px">' \
                   f'<div class="centered">{"{:10.2f}".format(score["stringency"])}</div>' \
                   f'<div class="bottomed">{score["stringency_date"]}</div>' \
                   '</div>'
-
         html += "</td>"
 
         html += '</tr>'
@@ -218,7 +229,7 @@ def create_image(region, scores):
             '</body></html>'
 
     options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    imgkit.from_string(html, "out_image.jpg", options=options)
 
     return f"Regionalvergleich\n\n{region}"
 
@@ -245,6 +256,9 @@ def create_list(countries):
             last_R_date = None
             positivity_before7 = None
             last_stringency = None
+            last_tests = None
+            last_tests_date = None
+
             for case in cases:
                 if (case.stringency_index != None and last_stringency == None):
                     last_stringency = case.stringency_index
@@ -258,6 +272,10 @@ def create_list(countries):
                     last_positivity = case.positivity
                     last_positivity_calc = last_positivity
                     last_positivity_date = case.date
+
+                if (case.tests_smoothed_per_thousand):
+                    last_tests = case.tests_smoothed_per_thousand
+                    last_tests_date = case.date
 
             past_date_tocheck = last_date - timedelta(days=14)
 
@@ -308,7 +326,8 @@ def create_list(countries):
                                 "peak_cases": peak_cases, "peak_cases_date": peak_cases_date,
                                 "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
                                 "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date,
-                                "R": last_R, "R_date": last_R_date, "stringency": last_stringency, "stringency_date": last_stringency_date
+                                "R": last_R, "R_date": last_R_date, "stringency": last_stringency, "stringency_date": last_stringency_date,
+                                "tests": last_tests, "tests_date": last_tests_date
                                 }
 
                 country_vals.append(canton_toadd)
