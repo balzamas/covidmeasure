@@ -50,7 +50,7 @@ class Command(BaseCommand):
         df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'))
         df_incidence_ch_only = df_incidence['geoRegion']=='CH'
 
-        incidence_mar1 = 160
+        incidence_mar1 = 190
         incidence_latest = df_incidence[df_incidence_ch_only].tail(1)['inzsum14d'].item()
         incidence_latest_date = df_incidence[df_incidence_ch_only].tail(1)['datum'].item()
 
@@ -65,14 +65,14 @@ class Command(BaseCommand):
             cd_existing.r_okay = r_okay
             cd_existing.r1_value = r_final.iloc[0].median_R_mean
             cd_existing.r1_date = r_final.iloc[0].date
-            cd_existing.r1_value = r_final.iloc[0].median_R_mean
-            cd_existing.r1_date = r_final.iloc[0].date
-            cd_existing.r1_value = r_final.iloc[0].median_R_mean
-            cd_existing.r1_date = r_final.iloc[0].date
-            cd_existing.r1_value = r_final.iloc[0].median_R_mean
-            cd_existing.r1_date = r_final.iloc[0].date
-            cd_existing.r1_value = r_final.iloc[0].median_R_mean
-            cd_existing.r1_date = r_final.iloc[0].date
+            cd_existing.r2_value = r_final.iloc[1].median_R_mean
+            cd_existing.r2_date = r_final.iloc[1].date
+            cd_existing.r3_value = r_final.iloc[2].median_R_mean
+            cd_existing.r3_date = r_final.iloc[2].date
+            cd_existing.r4_value = r_final.iloc[3].median_R_mean
+            cd_existing.r4_date = r_final.iloc[3].date
+            cd_existing.r5_value = r_final.iloc[4].median_R_mean
+            cd_existing.r5_date = r_final.iloc[4].date
             cd_existing.incidence_mar1 = incidence_mar1
             cd_existing.incidence_latest = incidence_latest
             cd_existing.incidence_latest_date = incidence_latest_date
@@ -87,14 +87,14 @@ class Command(BaseCommand):
                         r_okay = r_okay,
                         r1_value = r_final.iloc[0].median_R_mean,
                         r1_date = r_final.iloc[0].date,
-                        r2_value = r_final.iloc[0].median_R_mean,
-                        r2_date = r_final.iloc[0].date,
-                        r3_value = r_final.iloc[0].median_R_mean,
-                        r3_date = r_final.iloc[0].date,
-                        r4_value = r_final.iloc[0].median_R_mean,
-                        r4_date = r_final.iloc[0].date,
-                        r5_value = r_final.iloc[0].median_R_mean,
-                        r5_date = r_final.iloc[0].date,
+                        r2_value = r_final.iloc[1].median_R_mean,
+                        r2_date = r_final.iloc[1].date,
+                        r3_value = r_final.iloc[2].median_R_mean,
+                        r3_date = r_final.iloc[2].date,
+                        r4_value = r_final.iloc[3].median_R_mean,
+                        r4_date = r_final.iloc[3].date,
+                        r5_value = r_final.iloc[4].median_R_mean,
+                        r5_date = r_final.iloc[4].date,
                         incidence_mar1 = incidence_mar1,
                         incidence_latest = incidence_latest,
                         incidence_latest_date = incidence_latest_date)
