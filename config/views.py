@@ -31,7 +31,7 @@ def render_cantons_stringency(request, options):
 def international(request):
     measures = CountryMeasure.objects.all().order_by('-created')[:10]
 
-    template = loader.get_template('pages/home.html')
+    template = loader.get_template('pages/start.html')
     context = {
         'measures': measures,
     }

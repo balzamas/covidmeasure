@@ -48,7 +48,7 @@ urlpatterns += i18n_patterns(
                              )
 
 urlpatterns += i18n_patterns(
-    path("", TemplateView.as_view(template_name="pages/start.html"), name="home"),
+    path("", views.international, name="home"),
     path('country/<str:country_name>/', views.render_country, name='item'),
 
     path('ranking_europe/', views_ranking_int.ranking_europe, name='ranking_europe'),
