@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+    {% block scripts %}
+    <script src="{% static 'js/world_measures.js'%}"></script>
+<script>
+		window.onload = function() {
+		    $("#load_data").click(function(){
+		        window.open("/measures_int/" + $('#countries_dd').dropdown('get value') + ',/' + $('#measuretypes_dd').dropdown('get value') + ",","_self")
+            });
+
+		    LoadMeasureTypes();
+		    LoadCountries();
+
+        ar_countries = []
+        ar_measuretypes = []
+
+        var str_countries = '{{countries}}'.split(',');
+
+        for(var i = 0; i < str_countries.length; i++) {
+          ar_countries.push(str_countries[i])
+        }
+
+        var str_measuretypes = '{{measuretypes}}'.split(',');
+
+        for(var i = 0; i < str_measuretypes.length; i++) {
+          ar_measuretypes.push(str_measuretypes[i])
+        }
+
+         $('#countries_dd').dropdown('set selected', ar_countries)
+         $('#measuretypes_dd').dropdown('set selected', ar_measuretypes)
+
+			$("#btnCopyLink").click(async function(){
+                copyToClipboard("/measures_int/" + $('#countries_dd').dropdown('get value') + ",/" + $('#measuretypes_dd').dropdown('get value') + ",");
+            });
+
+
+		}
+
+function downloadCSV(csv, filename) {
+    var csvFile;
+    var downloadLink;
+
+    // CSV file
+    csvFile = new Blob([csv], {type: "text/csv"});
+
+    // Download link
+    downloadLink = document.createElement("a");
+
+    // File name
+    downloadLink.download = filename;
+
+    // Create a link to the file
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+
+    // Hide download link
+    downloadLink.style.display = "none";
+
+    // Add the link to DOM
+    document.body.appendChild(downloadLink);
+
+    // Click download link
+    downloadLink.click();
+}
+
+function exportTableToCSV(filename) {
+    var csv = [];
+    var rows = document.querySelectorAll("table tr");
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = [], cols = rows[i].querySelectorAll("td, th");
+
+        for (var j = 0; j < cols.length; j++)
+            row.push(cols[j].innerText);
+
+        csv.push(row.join(";"));
+    }
+
+    // Download CSV file
+    downloadCSV(csv.join("\n"), filename);
+}
+</script>
+    {% endblock %}
+
+    {% block styles %}
+	<style>
+  table, th, td {
+    padding: 10px;
+    font-size: 18;
+  }
+  table.center {
+    margin-left: auto;
+    margin-right: auto;
+  }
+		.peak {
+		      text-align: center;
+        font-size: 10;
+
+		}
+
+    .container {
+      position: relative;
+      text-align: center;
+      color: white;
+      }
+      /* Centered text */
+      .centered {
+        position: absolute;
+        color: black;
+        font-size: 18;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+            .bottomed {
+        position: absolute;
+        color: black;
+        font-size: 10;
+        bottom: 1px;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+  </style>
+    {% endblock %}
+
+{% block title_header %}CovidLaws // Measure analysis{% endblock %}
+{% block description %}CovidLaws // Measure analysis{% endblock %}
+{% block title %}Measure analysis{% endblock %}
+{% block content %}
+        <div align="center">
+                <div class="ui animated button" tabindex="0" id="btnCopyLink">
+          <div class="visible content"><i class="copy icon"></i></div>
+          <div class="hidden content">
+            Copy link<br>
+          </div>
+      </div>
+      <div align="center">
+      </div>
+        <br><br>
+      <div class="ui placeholder segment">
+        <div class="ui two column stackable center aligned grid">
+          <div class="ui vertical divider"></div>
+          <div class="middle aligned row">
+            <div class="column">
+              <h2>Countries</h2>
+
+                <div class="ui multiple fluid search selection dropdown" id="countries_dd">
+                  <i class="large flag outline icon"></i>
+                  <input type="hidden" name="countries">
+                  <i class="dropdown icon"></i>
+                  <div class="default text">Countries</div>
+                  <div class="menu" id="countries_list">
+                </div>
+              </div>
+
+            </div>
+            <div class="column">
+             <h2>Measures</h2>
+                  <div class="ui multiple fluid search selection dropdown" id="measuretypes_dd">
+                    <i class="large heartbeat icon"></i>
+                    <input type="hidden" name="measuretypes">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Measure types</div>
+                    <div class="menu">
+                  </div>
+                </div>
+            </div>
+          </div>
+          <div class="ui divider"></div>
+          <div class="middle aligned row">
+            <div class="column">
+              <div class="ui vertical animated large button" tabindex="0" id="load_data" style="width:200px">
+                <div class="hidden content" >Load</div>
+                <div class="visible content">
+                  <i class="large arrow circle down icon"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+
+
+
+<br><br>
+Missing:
+<ul>
+  <li>Measures introduced in the same period (or simply changes in Oxford stringency index?)</li>
+  <li>Error margin in R in period (low/peak range)</li>
+  <li>+/- 3 weeks?</li>
+</ul>
+
+<button onclick="exportTableToCSV('measures.csv')">Export HTML Table To CSV File</button>
+    <table class="ui celled table">
+      <tr>
+        <th>Country</th>
+        <th>Measure type</th>
+        <th>Is regional</th>
+        <th>Measure introduced at</th>
+        <th>Level</th>
+        <th>Last Level</th>
+        <th>R -2 weeks</th>
+        <th>Change in %</th>
+        <th>R -1 week</th>
+        <th>Change in %</th>
+        <th>R Introduction</th>
+        <th>Change in %</th>
+        <th>R +1 week</th>
+        <th>Change in %</th>
+        <th>R +2 weeks</th>
+      </tr>
+        {% for measure in measures %}
+          <tr>
+            <td>{{measure.measure.country.code}} <i class="{{measure.measure.country.code}} flag"></i></td>
+            <td>{{measure.measure.type}}</td>
+            <td>{{measure.measure.isregional}}</td>
+            <td>{{measure.measure.start}}</td>
+            <td>
+              {{measure.measure.level}}
+              {% if measure.measure.level > measure.measure.last_level %}
+                <i class="red arrow alternate circle up icon"></i>
+              {% elif measure.measure.level < measure.measure.last_level %}
+                <i class="green arrow alternate circle down icon"></i>
+              {% else %}
+                <i class="orange arrow alternate circle left icon"></i>
+              {% endif %}
+            </td>
+            <td>{{measure.measure.last_level}}</td>
+            <td>{{measure.data_2week_before|floatformat:3}}</td>
+            {% if measure.diff_2week_before > 0 %}
+            <td class="negative">
+            {% else %}
+            <td class="positive">
+            {% endif %}
+              {{measure.diff_2week_before|floatformat:1}}
+            </td>
+            <td>{{measure.data_1week_before|floatformat:3}}</td>
+            {% if measure.diff_1week_before > 0 %}
+            <td class="negative">
+            {% else %}
+            <td class="positive">
+            {% endif %}
+              {{measure.diff_1week_before|floatformat:1}}
+            </td>
+            <td>{{measure.data_during|floatformat:3}}</td>
+            {% if measure.diff_during > 0 %}
+            <td class="negative">
+            {% else %}
+            <td class="positive">
+            {% endif %}
+              {{measure.diff_during|floatformat:1}}
+            </td>
+            <td>{{measure.data_1week_later|floatformat:3}}</td>
+            {% if measure.diff_1week_later > 0 %}
+            <td class="negative">
+            {% else %}
+            <td class="positive">
+            {% endif %}
+              {{measure.diff_1week_later|floatformat:1}}
+            </td>
+            <td>{{measure.data_2week_later|floatformat:3}}</td>
+          </tr>
+
+        {% endfor %}
+      </table>
+
+{% endblock %}
