@@ -55,7 +55,9 @@ class Command(BaseCommand):
             df_incidence_ch_only = df_incidence['geoRegion']=='CH'
 
             incidence_mar1 = 666
-            incidence_latest = df_incidence[df_incidence_ch_only].tail(1)['inzsum14d'].item()
+            cases_14d = df_incidence[df_incidence_ch_only].tail(1)['sum14d'].item()
+
+            incidence_latest = 100000*cases_14d/8570146
             incidence_latest_date = df_incidence[df_incidence_ch_only].tail(1)['datum'].item()
 
 
