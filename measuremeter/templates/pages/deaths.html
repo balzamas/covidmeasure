@@ -10,10 +10,22 @@
                 var content = document.getElementById('content');
                 var div = document.createElement('div');
                 div.id = '{{country.country.code}}' + 'Chart';
-                div.innerHTML =   '<div style="height: 500px"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div><br><p><b>Week 1 - Week {{country.weeks_wdata}}</b> // Covid 2020: {{country.death_covid_week2}} // All 2020: {{country.death_total_week2}} // All {{country.country.peak_year}}: {{country.death_peak_week2|floatformat:0}} // Diff to average: {{country.diff_week2}} // Diff to {{country.country.peak_year}}: {{country.diff_peak}} <br>Difference to average: <b>{{country.percent_week2|floatformat:1}}%</b><br>Difference to {{country.country.peak_year}}: <b>{{country.percent_peak|floatformat:1}}%</b></p><p><a href="{{country.country.source_death}}" target="_blank">Source</a> // <a href="/country/{{country.country.code}}">Country Details</a> (Cases, Positive rate etc.)</p><br>'
-                <!-- <p><b>Week 8 - Week {{country.weeks_wdata}}</b><br>Covid: {{country.death_covid_week8}}<br>All: {{country.death_total_week8}}<br>Diff to average: {{country.diff_week8}}<br>%: {{country.percent_week8|floatformat:1}}</p> -->
+
+                diff_11_32 = ({{country.now20_11_32}} * 100 / {{country.avg_11_32}}) - 100
+                diff_33_53 = ({{country.now20_33_53}} * 100 / {{country.avg_33_53}}) - 100
+                diff_1 = ({{country.now21_1}} * 100 / {{country.avg_1}}) - 100
+
+                innerHTML = '<div style="height: 500px"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div><br>'
+                innerHTML += '<table class="ui celled table">'
+                innerHTML += '<tr><td><b>Week 11 - Week 32</b></td><td>2020: {{country.now20_11_32}}</td><td>Average 15-19: {{country.avg_11_32}}</td><td>' + diff_11_32.toFixed(1) + '%</td></tr>'
+                innerHTML += '<tr><td><b>Week 33 - Week {{country.last_week20}}</b></td><td>2020: {{country.now20_33_53}}</td><td>Average 15-19: {{country.avg_33_53}}</td><td>' + diff_33_53.toFixed(1) + '%</td></tr>'
+                innerHTML += '<tr><td><b>Week 1 - Week {{country.last_week21}}</b></td><td>2021: {{country.now21_1}}</td><td>Average 15-19: {{country.avg_1}}</td><td>' + diff_1.toFixed(1) + '%</td></tr>'
+                innerHTML += '</table><br><br>'
+
+                div.innerHTML = innerHTML;
+
                 content.appendChild(div);
-                drawLineChart('{{country.country.average_death_per_day_peak}}', {{country.week_values_avg}}, {{country.all}}, {{country.covid20}}, {{country.covid21}}, {{country.all_peak}}, {{country.avg_and_covid}}, '{{country.country.name}}', '{{country.country.code}}', '{{country.country.avg_desc}}', '{{country.country.avg_peak_desc}}', '{{country.country.peak_year}}')
+                drawLineChart('{{country.country.average_death_per_day_peak}}', {{country.week_values_avg}}, {{country.all}}, {{country.covid20}}, {{country.all_peak}}, {{country.avg_and_covid}}, '{{country.country.name}}', '{{country.country.code}}', '{{country.country.avg_desc}}', '{{country.country.avg_peak_desc}}', '{{country.country.peak_year}}')
 
           {% endfor %}
 

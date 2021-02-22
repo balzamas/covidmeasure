@@ -1,4 +1,4 @@
-      function drawLineChart(avg_peak, avg_15_19, deaths_all, deaths_covid20, deaths_covid21, deaths_all_peak, avg_and_covid, country, code, avg_desc, avg_peak_desc, peak_year)
+      function drawLineChart(avg_peak, avg_15_19, deaths_all, deaths_covid20, deaths_all_peak, avg_and_covid, country, code, avg_desc, avg_peak_desc, peak_year)
       {
         week_avg_peak = Math.round(parseFloat(avg_peak.replace(",", ".")) * 7)
 

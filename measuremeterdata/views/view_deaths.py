@@ -29,13 +29,11 @@ def country_deaths(request):
         cases = CasesDeaths.objects.filter(country=country, date__gte=startdate).order_by("date")
 
         week_values_coviddeaths20 = {}
-        week_values_coviddeaths21 = {}
         week_values_alldeaths = {}
         week_values_alldeaths_peak = {}
         week_values_avg_and_covid = {}
         week_values_avg = {}
 
-        #week = 8
         week = 1
         weekday = 1
         week_value_covid = 0
@@ -51,6 +49,16 @@ def country_deaths(request):
         death_covid_week8 = 0
 
         weeks_wdata = 0
+
+        now20_11_32 = 0
+        now20_33_53 = 0
+        now21_1 = 0
+        avg_11_32 = 0
+        avg_33_53 = 0
+        avg_1 = 0
+
+        last_week20 = None
+        last_week21 = None
 
         for case in cases:
             week_value_covid += case.deaths
@@ -76,8 +84,12 @@ def country_deaths(request):
             weekday += 1
             if weekday == 8:
                 print(case.date)
+                print(".....")
+                print(case.date.isocalendar()[1])
+                print(case.date.year)
                 print(week)
                 print(week_value_all)
+
                 if week_value_all > -1:
                     week_values_alldeaths[week] = int(week_value_all)
                 if week_value_peak_all:
@@ -89,6 +101,22 @@ def country_deaths(request):
                 else:
                     week_values_avg[week] = int(country.average_death_per_day * 7)
                     week_values_avg_and_covid[week] = int((country.average_death_per_day * 7) + week_value_covid)
+
+                if week_value_all > -1 and case.date.year == 2020 and case.date.isocalendar()[1] > 10 and case.date.isocalendar()[1] < 33:
+                    now20_11_32 += week_values_alldeaths[week]
+                    avg_11_32 += week_values_avg[week]
+                elif week_value_all > -1 and case.date.year == 2020 and case.date.isocalendar()[1] > 32:
+                    now20_33_53 += week_values_alldeaths[week]
+                    avg_33_53 += week_values_avg[week]
+                    last_week20 = week
+                elif week_value_all > -1 and case.date.year == 2021 and case.date.isocalendar()[1] == 53:
+                    now20_33_53 += week_values_alldeaths[week]
+                    avg_33_53 += week_values_avg[week]
+                    last_week20 = week
+                elif week_value_all > -1 and case.date.year == 2021:
+                    now21_1 += week_values_alldeaths[week]
+                    avg_1 += week_values_avg[week]
+                    last_week21 = week - 53
 
 
                 weekday = 1
@@ -117,29 +145,22 @@ def country_deaths(request):
         if (death_peak_week2):
             percent_peak = (100 * diff_week2_peak / death_peak_week2)
 
-        print(week_values_coviddeaths21)
-
         countr_toadd = {"country": country,
                           "covid20": week_values_coviddeaths20,
-                          "covid21": week_values_coviddeaths21,
                           "all": week_values_alldeaths,
                           "all_peak": week_values_alldeaths_peak,
                           "avg_and_covid": week_values_avg_and_covid,
                            "week_values_avg": week_values_avg,
+                        "now20_11_32": now20_11_32,
+                        "now20_33_53": now20_33_53,
+                        "now21_1": now21_1,
+                        "avg_11_32": avg_11_32,
+                        "avg_33_53": avg_33_53,
+                        "avg_1": avg_1,
+                        "last_week20": last_week20,
+                        "last_week21": last_week21
 
-                        "death_covid_week2": int(death_covid_week2),
-                        "death_total_week2" : int(death_total_week2),
-                        "death_peak_week2" : death_peak_week2,
-                        "death_covid_week12": int(death_covid_week8),
-                        "death_total_week12": int(death_total_week12),
-                        "diff_peak": diff_week2_peak,
-                        "diff_week2": diff_week2,
-                        "diff_week8": diff_week12,
-                        "percent_week2": (100 * diff_week2 / death_total_week2),
-                        "percent_peak": percent_peak,
-                        "percent_week8": (100 * diff_week12 / death_total_week12),
-                        "weeks_wdata" : weeks_wdata
-                       }
+                        }
         countries_values.append(countr_toadd)
 
     template = loader.get_template('pages/deaths.html')
