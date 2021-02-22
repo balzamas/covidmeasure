@@ -19,7 +19,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         resp = urlopen(
-            'https://www.covid19.admin.ch/api/data/20210219-4389xau5/downloads/sources-csv.zip')
+            'https://www.covid19.admin.ch/api/data/20210222-q89becuz/downloads/sources-csv.zip')
 
         zf = zipfile.ZipFile(BytesIO(resp.read()), 'r')
 
@@ -50,7 +50,7 @@ class Command(BaseCommand):
         df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'))
         df_incidence_ch_only = df_incidence['geoRegion']=='CH'
 
-        incidence_mar1 = 190
+        incidence_mar1 = 666
         incidence_latest = df_incidence[df_incidence_ch_only].tail(1)['inzsum14d'].item()
         incidence_latest_date = df_incidence[df_incidence_ch_only].tail(1)['datum'].item()
 
