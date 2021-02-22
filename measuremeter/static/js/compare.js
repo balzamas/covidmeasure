@@ -362,12 +362,22 @@
                 cases = line['cases_past7days']
             }
 
-            if (line['positivity'])
+            console.log(line['date'])
+            now = new Date(line['date']);
+            tday = new Date();
+            // To calculate the time difference of two dates
+            var Difference_In_Time = tday.getTime() - now.getTime();
+
+            // To calculate the no. of days between two dates
+            var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+            console.log(Difference_In_Days)
+
+            if (line['positivity'] && Difference_In_Days < 15)
             {
                 positivity = line['positivity']
             }
 
-            if (line['tests_smoothed_per_thousand'])
+            if (line['tests_smoothed_per_thousand'] && Difference_In_Days < 15)
             {
                 tests = line['tests_smoothed_per_thousand']
             }
