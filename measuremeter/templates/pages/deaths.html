@@ -14,9 +14,13 @@
                 diff_11_32 = ({{country.now20_11_32}} * 100 / {{country.avg_11_32}}) - 100
                 diff_33_53 = ({{country.now20_33_53}} * 100 / {{country.avg_33_53}}) - 100
                 diff_1 = ({{country.now21_1}} * 100 / {{country.avg_1}}) - 100
+                diff_all21 = (({{country.now20_11_32}} + {{country.now20_33_53}}) * 100 / ({{country.avg_11_32}} + {{country.avg_33_53}})) - 100
+                all_21 = {{country.now20_11_32}} + {{country.now20_33_53}}
+                all_avg =  ({{country.avg_11_32}} + {{country.avg_33_53}}
 
                 innerHTML = '<div style="height: 500px"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div><br>'
                 innerHTML += '<table class="ui celled table">'
+                innerHTML += '<tr><td><b>Week 1 - Week {{country.last_week20}}</b></td><td>2020:' + all_21 + '</td><td>Average 15-19: ' + all_avg + '</td><td>' + diff_all21.toFixed(1) + '%</td></tr>'
                 innerHTML += '<tr><td><b>Week 11 - Week 32</b></td><td>2020: {{country.now20_11_32}}</td><td>Average 15-19: {{country.avg_11_32}}</td><td>' + diff_11_32.toFixed(1) + '%</td></tr>'
                 innerHTML += '<tr><td><b>Week 33 - Week {{country.last_week20}}</b></td><td>2020: {{country.now20_33_53}}</td><td>Average 15-19: {{country.avg_33_53}}</td><td>' + diff_33_53.toFixed(1) + '%</td></tr>'
                 innerHTML += '<tr><td><b>Week 1 - Week {{country.last_week21}}</b></td><td>2021: {{country.now21_1}}</td><td>Average 15-19: {{country.avg_1}}</td><td>' + diff_1.toFixed(1) + '%</td></tr>'
@@ -59,9 +63,8 @@
     </ul>
     <p>Usually, the death excess is calculated with the expected deaths in a time period as base. To simplify, the average of the past years is taken as a comparison. This does not into acount the seasonal fluctuation, but it's easier to compare between countries.</p>
           <p>The other line with the record week is to set the current numbers into relation. To say it simply: when the 2020 numbers are way off the record or over a longer time, then there was a serious problem.</p>
-          <p>The sharp decline of the numbers in most countries show, that the measures had an effect and quickly brang down the numbers.</p>
           <p>Last but not least, there is more to look at in this pandemic as just the deaths. Also those who survived had to be saved by people working hard over long periods. And not everybody who comes out of this alive is healthy like nothing happened.</p>
-
+          <p><b>Please note: the most recent two or three weeks are in many countries incomplete!</b>></p>
 <!--
           <h2>Regionality of the pandemic</h2>
     <p>When it comes to Covid-19 deaths, in most cases the overall deaths nationwide are compared. This can be misleading, as in spring the pandemic was regional. This was widely discussed about Italy, where the north was heavily affected while in the south the death toll was low.</p>
