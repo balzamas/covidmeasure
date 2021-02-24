@@ -17,7 +17,7 @@ from django.db.models import F, Func
 def tweet():
         create_image()
 
-        text = "Öffnungs-o-meter #CoronaInfoCH"
+        text = "Öffnungs-o-meter\n\nhttps://covidlaws.net/doomsdayclock/\n\n #CoronaInfoCH"
 
         send_telegram(text)
         send_tweet(text)
@@ -27,7 +27,6 @@ def send_telegram(message):
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
-    bot.sendMessage(settings.TELEGRAM_CHATID, f"{message}")
     bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
 
 
@@ -175,6 +174,7 @@ def create_image():
            </td>
        </tr>
      </table>
+     Bei Erfüllung der Zielvorgaben sollen am 22. März weitere Öffnungsschritte eingeleitet werden.
            '</body></html>'
 
     '''
