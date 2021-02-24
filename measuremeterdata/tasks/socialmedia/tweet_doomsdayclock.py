@@ -1,4 +1,4 @@
-from measuremeterdata.models.models import Country, CasesDeaths
+from measuremeterdata.models.models_ch import DoomsdayClock
 import os
 import csv
 import datetime
@@ -15,7 +15,9 @@ from django.db.models import F, Func
 
 
 def tweet():
-        text = create_image()
+        create_image()
+
+        text = "Öffnungs-o-meter #CoronaInfoCH"
 
         send_telegram(text)
         send_tweet(text)
@@ -51,7 +53,23 @@ def send_tweet(message):
 
 
 def create_image():
-    canton_vals = []
+    doom_clock = DoomsdayClock.objects.get(name="Master")
+
+    quota = doom_clock.hosp_cov19_patients * 100 / doom_clock.hosp_capacity
+
+    value = 0
+
+    if doom_clock.positivity < 5:
+        value += 1
+
+    if doom_clock.hosp_cov19_patients < 250:
+        value += 1
+
+    if doom_clock.r_okay:
+        value += 1
+
+    if doom_clock.incidence_mar1 >= doom_clock.incidence_latest:
+        value += 1
 
     #'#container_2 { -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -o-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg);}' \
 
@@ -64,197 +82,104 @@ def create_image():
        '.bottomed { position: absolute; color: black; font-size: 10; bottom: 1px; left: 50%; transform: translate(-50%, -50%); }' \
             '</style>' \
            f'</head>' \
-           '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;">' \
-           '<table style="margin-left: auto;margin-right: auto;">' \
-           '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right" nowrap>' \
-           f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{region}</h1></div>' \
-            '</td><td>' \
-           '<table class="ui celled table" style="width: 930px;table-layout:fixed">' \
-            '<colgroup>' \
-            '<col style="width: 150px;">' \
-            '<col style="width: 150px">' \
-            '<col style="width: 150px">' \
-            '<col style="width: 150px">' \
-            '<col style="width: 150px">' \
-            '<col style="width: 90px">' \
-           '<col style="width: 150px">'\
-           '</colgroup>' \
-           '<tr><th></th>' \
-           '<th>Pos. Tests per 100k<br>Last 14 days</th>' \
-           '<th>Deaths per 100k<br>Last 14 days</th>' \
-           '<th>Positive rate<br>7 days avg. @ Date</th>' \
-           '<th>Development<br>Week over week</th>' \
-           '<th>Tests per<br>1000 pop.</th>' \
-           '<th>Stringency index</th>' \
-           '</tr>'
+           '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;margin-left: 30px;margin-right: 30px">'
+
+    html += f'<div align="center"><h2>Öffnungs-o-meter</h2><p><img src="https://covidlaws.net/static/images/clock/{value}.png"></p><table class="ui celled table"><tr  class="center aligned">'
+    if doom_clock.hosp_cov19_patients < 250:
+        html += '<td class ="positive">'
+    else:
+        html += '<td class ="negative" >'
+
+    html += f'''
+           Anzahl Covid-Patienten in Intensivpflege < 250
+         </td>
+       </tr>
+       <tr  class="center aligned">
+         <td>
+          Covid-Patienten in IPS: {doom_clock.hosp_cov19_patients} // Gesamtkapazität IPS: {doom_clock.hosp_capacity} // Quote: {quota} // Stand: {doom_clock.hosp_date}
+         </td>
+       </tr>
+     </table>
+
+     <table class="ui celled table">
+       <tr  class="center aligned">
+    '''
+
+    if doom_clock.positivity < 5:
+        html += '<td class ="positive">'
+    else:
+        html += '<td class ="negative" >'
+
+    html += f'''
+               Positivitätsrate < 5%
+         </td>
+       </tr>
+       <tr  class="center aligned">
+         <td>
+          Positivitätsrate: {doom_clock.positivity}% (Durchschnitt d. letzten 7 Tage) // Stand: {doom_clock.positivity_date}
+         </td>
+       </tr>
+     </table>
+
+          <table class="ui celled table">
+       <tr  class="center aligned">
+
+    '''
+
+    if doom_clock.r_okay:
+        html += '<td class ="positive" colspan="5">'
+    else:
+        html += '<td class ="negative" colspan="5">'
+
+    html += f'''
+               Letzten 5 R-Werte unter 1
+         </td>
+       </tr>
+       <tr  class="center aligned">
+         <td>
+        {doom_clock.r1_date}: {doom_clock.r1_value}
+           </td>
+         <td>
+        {doom_clock.r2_date}: {doom_clock.r2_value}
+           </td>
+         <td>
+        {doom_clock.r3_date}: {doom_clock.r3_value}
+           </td>
+         <td>
+        {doom_clock.r4_date}: {doom_clock.r4_value}
+           </td>
+         <td>
+        {doom_clock.r5_date}: {doom_clock.r5_value}
+           </td>
+         </td>
+       </tr>
+     </table>
+
+               <table class="ui celled table" width="500px">
+       <tr  class="center aligned">
+    '''
+
+    if doom_clock.incidence_mar1 >=  doom_clock.incidence_latest:
+        html += '<td class ="positive">'
+    else:
+        html += '<td class ="negative" >'
 
 
+    html += f'''
+               14-Tage Inzidenz unter Wert 1. März
+         </td>
+       </tr>
+       <tr  class="center aligned">
+         <td>
+           Wert 1. März: {doom_clock.incidence_mar1} // Wert Aktuell: {doom_clock.incidence_latest} // Stand: {doom_clock.incidence_latest_date}
+           </td>
+       </tr>
+     </table>
+           '</body></html>'
 
-    for score in scores:
-        html += f'<tr>' \
-                f'<td nowrap><b style="font-size: 18">{score["name"]}</b></td>'
+    '''
 
-        html += f'<td nowrap>'
-        html += f'<div class="container"> \
-          <img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_cases.png height="70px"> \
-          <div class="centered">{score["cur_prev14"]}</div> \
-        </div> \
-        </td>'
-
-        html += '<td nowrap>'
-        html += f'<div class="container"> \
-          <img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_cases.png height="70px"> \
-          <div class="centered">{score["deaths"]}</div> \
-        </div> '
-        html += '</td>'
-
-
-        html += "<td nowrap>"
-        if score["positivity"] != None:
-          html += f'<div class="container">' \
-            f'<img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_positivity.png height="70px">' \
-            f'<div class="centered">{"{:10.2f}".format(score["positivity"])}%</div>' \
-            f'<div class="bottomed">{score["positivity_date"]}</div>' \
-            '</div>'
-        html += "</td>"
-
-
-
-        if score["tendency"] < 0:
-            html += f'<td class="positive" nowrap><div class="container"><div class ="centered">{score["tendency"]} %</div></div></td>'
-        else:
-            html += f'<td class="negative" nowrap><div class="container"><div class ="centered">{score["tendency"]} %</div></div></td>'
-
-
-        html += "<td nowrap>"
-        if score["tests"] != None:
-            html += f'<div class="container">' \
-                    f'<div class="centered">{"{:10.2f}".format(score["tests"])}</div>' \
-                    f'<div class="bottomed">{score["tests_date"]}</div>' \
-                    '</div>'
-        html += "</td>"
-
-        html += "<td nowrap>"
-        if score["stringency"] != None:
-          html += f'<div class="container">' \
-                  f'<img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_stringency.png height="70px">' \
-                  f'<div class="centered">{"{:10.2f}".format(score["stringency"])}</div>' \
-                  f'<div class="bottomed">{score["stringency_date"]}</div>' \
-                  '</div>'
-        html += "</td>"
-
-        html += '</tr>'
-
-
-    html += f'</table>' \
-            "<br>covidlaws.net // Quellen: JHU/Our world in data/Oxford University/ETH Zürich</td></tr></table>" \
-            '</div>' \
-            '</body></html>'
 
     options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
     imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
-    return f"Regionalvergleich\n\n{region}"
-
-
-def create_list(countries):
-    country_vals = []
-
-    for country in countries:
-
-        #skip Noth Korea, it only makes problems
-        if country.pk != 11:
-            date_tocheck = date.today()
-            print(country)
-
-            cases = CasesDeaths.objects.filter(country=country, date__range=[date_tocheck - timedelta(days=60), date_tocheck]).order_by("-date")
-
-            last_date = cases[0].date
-            last_prev14 = cases[0].cases_past14days
-            last_deaths14 = cases[0].deaths_past14days
-            last_tendency = cases[0].development7to7
-            last_positivity = None
-            last_positivity_date = None
-            last_R = None
-            last_R_date = None
-            positivity_before7 = None
-            last_stringency = None
-            last_tests = None
-            last_tests_date = None
-
-            for case in cases:
-                if (case.stringency_index != None and last_stringency == None):
-                    last_stringency = case.stringency_index
-                    last_stringency_date = case.date
-
-                if (case.r0median != None and last_R == None):
-                    last_R = case.r0median
-                    last_R_date = case.date
-
-                if (case.positivity != None and last_positivity == None):
-                    last_positivity = case.positivity
-                    last_positivity_calc = last_positivity
-                    last_positivity_date = case.date
-
-                if (case.tests_smoothed_per_thousand):
-                    last_tests = case.tests_smoothed_per_thousand
-                    last_tests_date = case.date
-
-            past_date_tocheck = last_date - timedelta(days=14)
-
-            case_14days_7daysago = CasesDeaths.objects.get(country=country, date=last_date - timedelta(days=7))
-            case_14days_14daysago = CasesDeaths.objects.get(country=country, date=past_date_tocheck)
-
-
-            if (last_positivity == None):
-                last_positivity_calc = 5
-
-            if positivity_before7 == None:
-                positivity_before7 = 5
-
-
-#            try:
-            score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7) * float(cases[0].cases_past7days) /100) + (float(last_positivity_calc) * float(cases[0].cases_past7days) / 50) + float((cases[0].deaths_past14days * 20))
-            score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7) * float(case_14days_7daysago.cases_past7days) /100) + (float(positivity_before7) * float(case_14days_7daysago.cases_past7days) / 50) + float((case_14days_7daysago.deaths_past14days * 20))
-#            except:
-#                print(f"{country} failed...")
-#                score = None
-
-            if (score):
-                if (score > score_7days_before):
-                    arrow = "arrow circle up red"
-                elif (score == score_7days_before):
-                    arrow = "arrow circle left orange"
-                else:
-                    arrow = "arrow circle down green"
-
-                peak_cases_ds = CasesDeaths.objects.filter(country=country).order_by("-cases_past14days")
-                peak_cases = peak_cases_ds[0].cases_past14days
-                peak_cases_date = peak_cases_ds[0].date
-
-                peak_deaths_ds = CasesDeaths.objects.filter(country=country).order_by("-deaths_past14days")
-                peak_deaths = peak_deaths_ds[0].deaths_past14days
-                peak_deaths_date = peak_deaths_ds[0].date
-
-                positivity_ds = CasesDeaths.objects.filter(country=country).order_by(F('positivity').desc(nulls_last=True))
-                peak_positivity = positivity_ds[0].positivity
-                peak_positivity_date = positivity_ds[0].date
-
-                canton_toadd = {"name": country.name, "pk": country.pk, "score": int(score), "score_before": int(score_7days_before),
-                                "date": last_date, "code": country.code,
-                                "cur_prev14": last_prev14, "tendency": last_tendency,
-                                "cur_prev7": case_14days_14daysago.cases_past7days,
-                                "positivity": last_positivity, "positivity_date":last_positivity_date, "deaths": last_deaths14,
-                                "has_measures": country.has_measures, "continent": country.continent.pk, "icon": arrow,
-                                "peak_cases": peak_cases, "peak_cases_date": peak_cases_date,
-                                "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
-                                "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date,
-                                "R": last_R, "R_date": last_R_date, "stringency": last_stringency, "stringency_date": last_stringency_date,
-                                "tests": last_tests, "tests_date": last_tests_date
-                                }
-
-                country_vals.append(canton_toadd)
-
-    scores = sorted(country_vals, key=lambda i: i['cur_prev14'],reverse=False)
-
-    return scores
