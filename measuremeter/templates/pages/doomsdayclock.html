@@ -38,12 +38,12 @@
 
      <table class="ui celled table">
        <tr  class="center aligned">
-         {% if hosp_quota < 25 %}
+         {% if hosp_cov19_patients < 250 %}
            <td class="positive">
          {% else %}
            <td class="negative">
          {% endif %}
-           Anteil Covid-Patienten an Gesamtkapazität IPS < 25%
+           Anzahl Covid-Patienten in Intensivpflege < 250
          </td>
        </tr>
        <tr  class="center aligned">
@@ -65,7 +65,7 @@
        </tr>
        <tr  class="center aligned">
          <td>
-          Positivitätsrate: {{positivity}}% // Stand: {{positivity_date}}
+          Positivitätsrate: {{positivity}}% (Durchschnitt d. letzten 7 Tage) // Stand: {{positivity_date}}
          </td>
        </tr>
      </table>
@@ -118,6 +118,8 @@
        </tr>
      </table>
 
+    <br><br>
+     Quelle Daten: <a href="https://www.covid19.admin.ch/" target="_blank">BAG</a>
    </div>
 
 {% endblock %}

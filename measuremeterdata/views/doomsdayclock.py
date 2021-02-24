@@ -16,7 +16,7 @@ def load_data(request):
     if doom_clock.positivity < 5:
         value += 1
 
-    if quota < 25:
+    if doom_clock.hosp_cov19_patients < 250:
         value += 1
 
     if doom_clock.r_okay:

@@ -35,7 +35,12 @@ class Command(BaseCommand):
             df_positivity = pd.read_csv(zf.open('data/COVID19Test_geoRegion_all.csv'))
 
             ch_only = df_positivity['geoRegion']=='CH'
-            positivity = df_positivity[ch_only].tail(1)['pos_anteil'].item()
+            pos_7days = df_positivity[ch_only].tail(7)
+            total_pos_sum = 0
+            for index_row, row in pos_7days.iterrows():
+                total_pos_sum += row['pos_anteil']
+
+            positivity = total_pos_sum / 7
             positivity_date = df_positivity[ch_only].tail(1)['datum'].item()
 
 
@@ -55,10 +60,10 @@ class Command(BaseCommand):
             df_incidence_ch_only = df_incidence['geoRegion']=='CH'
 
             incidence_mar1 = 666
-            cases_14d = df_incidence[df_incidence_ch_only].tail(1)['sum14d'].item()
+            cases_14d = df_incidence[df_incidence_ch_only].tail(2).iloc[0]['sumTotal_last14d']
 
             incidence_latest = 100000*cases_14d/8570146
-            incidence_latest_date = df_incidence[df_incidence_ch_only].tail(1)['datum'].item()
+            incidence_latest_date = df_incidence[df_incidence_ch_only].tail(2).iloc[0]['datum']
 
 
             try:
