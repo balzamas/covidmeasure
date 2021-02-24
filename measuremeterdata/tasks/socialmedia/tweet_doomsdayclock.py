@@ -55,7 +55,7 @@ def create_image():
     doom_clock = DoomsdayClock.objects.get(name="Master")
 
     quota = doom_clock.hosp_cov19_patients * 100 / doom_clock.hosp_capacity
-
+    quota_str = "{0:.2f}".format(quota)
     value = 0
 
     if doom_clock.positivity < 5:
@@ -95,7 +95,7 @@ def create_image():
        </tr>
        <tr  class="center aligned">
          <td>
-          Covid-Patienten in IPS: {doom_clock.hosp_cov19_patients} // Gesamtkapazität IPS: {doom_clock.hosp_capacity} // Quote: {quota} // Stand: {doom_clock.hosp_date}
+          Covid-Patienten in IPS: {doom_clock.hosp_cov19_patients} // Gesamtkapazität IPS: {doom_clock.hosp_capacity} // Quote: {quota_str}% // Stand: {doom_clock.hosp_date}
          </td>
        </tr>
      </table>
@@ -173,9 +173,8 @@ def create_image():
            Wert 1. März: {doom_clock.incidence_mar1} // Wert Aktuell: {doom_clock.incidence_latest} // Stand: {doom_clock.incidence_latest_date}
            </td>
        </tr>
-     </table><br>
-     Bei Erfüllung der Zielvorgaben sollen am 22. März weitere Öffnungsschritte eingeleitet werden.
-           '</body></html>'
+     </table>
+    </body></html>
 
     '''
 
