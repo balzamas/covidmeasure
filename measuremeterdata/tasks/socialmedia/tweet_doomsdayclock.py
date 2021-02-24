@@ -173,7 +173,7 @@ def create_image():
            Wert 1. März: {doom_clock.incidence_mar1} // Wert Aktuell: {doom_clock.incidence_latest} // Stand: {doom_clock.incidence_latest_date}
            </td>
        </tr>
-     </table>
+     </table><br>
      Bei Erfüllung der Zielvorgaben sollen am 22. März weitere Öffnungsschritte eingeleitet werden.
            '</body></html>'
 
