@@ -67,7 +67,7 @@ def create_image():
     if doom_clock.r_okay:
         value += 1
 
-    if doom_clock.incidence_mar1 >= doom_clock.incidence_latest:
+    if doom_clock.incidence_mar1 > doom_clock.incidence_latest:
         value += 1
 
     #'#container_2 { -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -o-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg);}' \
@@ -158,7 +158,7 @@ def create_image():
        <tr  class="center aligned">
     '''
 
-    if doom_clock.incidence_mar1 >=  doom_clock.incidence_latest:
+    if doom_clock.incidence_mar1 >  doom_clock.incidence_latest:
         html += '<td class ="positive">'
     else:
         html += '<td class ="negative" >'

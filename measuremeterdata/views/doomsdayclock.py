@@ -22,7 +22,7 @@ def load_data(request):
     if doom_clock.r_okay:
         value += 1
 
-    if doom_clock.incidence_mar1 >= doom_clock.incidence_latest:
+    if doom_clock.incidence_mar1 > doom_clock.incidence_latest:
         value += 1
 
     context = {

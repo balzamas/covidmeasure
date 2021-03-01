@@ -59,7 +59,7 @@ class Command(BaseCommand):
             df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'))
             df_incidence_ch_only = df_incidence['geoRegion']=='CH'
 
-            incidence_mar1 = 666
+            incidence_mar1 = 163.35
             cases_14d = df_incidence[df_incidence_ch_only].tail(2).iloc[0]['sumTotal_last14d']
 
             incidence_latest = 100000*cases_14d/8570146
