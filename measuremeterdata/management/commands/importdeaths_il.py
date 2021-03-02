@@ -11,6 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        #https://ourworldindata.org/excess-mortality-covid#excess-mortality-statistics-will-only-be-available-for-a-minority-of-countries
         country = Country.objects.get(pk=48)
 
         print("Load data into django")
