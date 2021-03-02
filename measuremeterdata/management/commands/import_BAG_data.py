@@ -50,11 +50,17 @@ class Command(BaseCommand):
             empty_filter = ch_only.median_R_mean.notnull()
             r_final = ch_only[empty_filter].tail(7)
 
-            r_okay = True
+            r_okay = False
+
+            r_sum = 0
 
             for index_row, row in r_final.iterrows():
-                if row['median_R_mean'] > 1:
-                    r_okay = False
+                r_sum += row['median_R_mean']
+
+            r_average = r_sum / 7
+
+            if r_sum < 1:
+                r_okay = True
 
             df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'))
             df_incidence_ch_only = df_incidence['geoRegion']=='CH'
@@ -74,6 +80,7 @@ class Command(BaseCommand):
                 cd_existing.positivity = positivity
                 cd_existing.positivity_date = positivity_date
                 cd_existing.r_okay = r_okay
+                cd_existing.r_average = r_average
                 cd_existing.r1_value = r_final.iloc[0].median_R_mean
                 cd_existing.r1_date = r_final.iloc[0].date
                 cd_existing.r2_value = r_final.iloc[1].median_R_mean
@@ -84,6 +91,10 @@ class Command(BaseCommand):
                 cd_existing.r4_date = r_final.iloc[3].date
                 cd_existing.r5_value = r_final.iloc[4].median_R_mean
                 cd_existing.r5_date = r_final.iloc[4].date
+                cd_existing.r6_value = r_final.iloc[5].median_R_mean
+                cd_existing.r6_date = r_final.iloc[5].date
+                cd_existing.r7_value = r_final.iloc[6].median_R_mean
+                cd_existing.r7_date = r_final.iloc[6].date
                 cd_existing.incidence_mar1 = incidence_mar1
                 cd_existing.incidence_latest = incidence_latest
                 cd_existing.incidence_latest_date = incidence_latest_date
@@ -96,6 +107,7 @@ class Command(BaseCommand):
                             positivity = positivity,
                             positivity_date = positivity_date,
                             r_okay = r_okay,
+                            r_average = r_average,
                             r1_value = r_final.iloc[0].median_R_mean,
                             r1_date = r_final.iloc[0].date,
                             r2_value = r_final.iloc[1].median_R_mean,
@@ -106,6 +118,10 @@ class Command(BaseCommand):
                             r4_date = r_final.iloc[3].date,
                             r5_value = r_final.iloc[4].median_R_mean,
                             r5_date = r_final.iloc[4].date,
+                            r6_value=r_final.iloc[5].median_R_mean,
+                            r6_date=r_final.iloc[5].date,
+                            r7_value=r_final.iloc[6].median_R_mean,
+                            r7_date=r_final.iloc[6].date,
                             incidence_mar1 = incidence_mar1,
                             incidence_latest = incidence_latest,
                             incidence_latest_date = incidence_latest_date)

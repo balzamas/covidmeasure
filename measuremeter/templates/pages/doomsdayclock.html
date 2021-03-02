@@ -73,14 +73,19 @@
           <table class="ui celled table">
        <tr  class="center aligned">
          {% if r_okay %}
-           <td class="positive" colspan="5">
+           <td class="positive" colspan="7">
          {% else %}
-           <td class="negative" colspan="5">
+           <td class="negative" colspan="7">
          {% endif %}
 
-           Letzten 5 R-Werte unter 1
+           Durchschnitt der letzten 7 R-Werte unter 1
          </td>
        </tr>
+              <tr  class="center aligned">
+                <td colspan="7">
+                  R: {{r_average}}
+                </td>
+              </tr>
        <tr  class="center aligned">
          <td>
         {{r1_date}}: {{r1_value}}
@@ -96,6 +101,12 @@
            </td>
          <td>
         {{r5_date}}: {{r5_value}}
+           </td>
+         <td>
+        {{r6_date}}: {{r6_value}}
+           </td>
+                  <td>
+        {{r7_date}}: {{r7_value}}
            </td>
          </td>
        </tr>

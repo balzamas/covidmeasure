@@ -126,14 +126,19 @@ def create_image():
     '''
 
     if doom_clock.r_okay:
-        html += '<td class ="positive" colspan="5">'
+        html += '<td class ="positive" colspan="7">'
     else:
-        html += '<td class ="negative" colspan="5">'
+        html += '<td class ="negative" colspan="7">'
 
     html += f'''
-               Letzten 5 R-Werte unter 1
+               Durchschnitt der letzten 7 R-Werte unter 1
          </td>
        </tr>
+              <tr  class="center aligned">
+                <td colspan="7">
+                  R: {doom_clock.r_average}
+                </td>
+              </tr>
        <tr  class="center aligned">
          <td>
         {doom_clock.r1_date}: {doom_clock.r1_value}
@@ -149,6 +154,12 @@ def create_image():
            </td>
          <td>
         {doom_clock.r5_date}: {doom_clock.r5_value}
+           </td>
+         <td>
+        {doom_clock.r6_date}: {doom_clock.r6_value}
+           </td>
+         <td>
+        {doom_clock.r7_date}: {doom_clock.r7_value}
            </td>
          </td>
        </tr>
