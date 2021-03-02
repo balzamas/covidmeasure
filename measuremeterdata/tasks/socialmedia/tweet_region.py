@@ -273,7 +273,7 @@ def create_list(countries):
                     last_positivity_calc = last_positivity
                     last_positivity_date = case.date
 
-                if (case.tests_smoothed_per_thousand):
+                if (case.tests_smoothed_per_thousand and last_tests == None):
                     last_tests = case.tests_smoothed_per_thousand
                     last_tests_date = case.date
 
