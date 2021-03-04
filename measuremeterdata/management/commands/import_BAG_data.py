@@ -129,5 +129,5 @@ class Command(BaseCommand):
                             incidence_latest_date = incidence_latest_date)
                 cd.save()
 
-            if old_date != cd_existing.incidence_latest_date:
+            if old_date.isoformat() != cd_existing.incidence_latest_date:
                 tweet()
