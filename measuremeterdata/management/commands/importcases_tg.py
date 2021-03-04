@@ -67,8 +67,8 @@ class Command(BaseCommand):
 
             count += 1
 
-        if has_new_data:
-            canton_code = "tg"
-            canton = CHCanton.objects.filter(level=0, code=canton_code)[0]
-            tweet(canton)
+        # if has_new_data:
+        #     canton_code = "tg"
+        #     canton = CHCanton.objects.filter(level=0, code=canton_code)[0]
+        #     tweet(canton)
 
