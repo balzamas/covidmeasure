@@ -2,12 +2,6 @@
 {% load static i18n %}
 
 {% block scripts %}
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-
-    <script type="text/javascript" src="{% static 'js/geojson/switzerland_districts.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/district.js' %}"></script>
-
 {% endblock %}
 {% block styles %}
 	<style>
@@ -27,11 +21,11 @@
 
 {% endblock %}
 
-{% block title_header %}CovidLaws // Öffnungs-o-meter{% endblock %}
-{% block description %}Öffnungs-o-meter{% endblock %}
+{% block title_header %}CovidLaws // {% trans 'Open-o-meter' %}{% endblock %}
+{% block description %}{% trans 'Open-o-meter' %}{% endblock %}
 {% block content %}
    <div align="center">
-     <h2>Öffnungs-o-meter</h2>
+     <h2>{% trans 'Open-o-meter' %}</h2>
      <p>
            <img src="/static/images/clock/{{value}}.png">
      </p>
@@ -43,12 +37,12 @@
          {% else %}
            <td class="negative">
          {% endif %}
-           Anzahl Covid-Patienten in Intensivpflege < 250
+           {% trans 'Number of Covid patients in intensive care < 250' %}
          </td>
        </tr>
        <tr  class="center aligned">
          <td>
-          Covid-Patienten in IPS: {{hosp_cov19_patients}} // Gesamtkapazität IPS: {{hosp_capacity}} // Quote: {{hosp_quota|floatformat:1}} // Stand: {{hosp_date}}
+          {% trans 'Covid patiens in ICU' %}: {{hosp_cov19_patients}} // {% trans 'Full capacity ICU' %}: {{hosp_capacity}} // {% trans 'Proportion' %}: {{hosp_quota|floatformat:1}} // {% trans 'Date' %}: {{hosp_date}}
          </td>
        </tr>
      </table>
@@ -60,12 +54,12 @@
          {% else %}
            <td class="negative">
          {% endif %}
-           Positivitätsrate < 5%
+           {% trans 'Percent Positive' %} < 5%
          </td>
        </tr>
        <tr  class="center aligned">
          <td>
-          Positivitätsrate: {{positivity}}% (Durchschnitt d. letzten 7 Tage) // Stand: {{positivity_date}}
+          {% trans 'Percent Positive' %}: {{positivity}}% ({% trans 'Average past 7 days' %}) // {% trans 'Date' %}: {{positivity_date}}
          </td>
        </tr>
      </table>
@@ -78,7 +72,7 @@
            <td class="negative" colspan="7">
          {% endif %}
 
-           Durchschnitt der letzten 7 R-Werte unter 1
+           {% trans 'Average of past 7 R values under 1' %}
          </td>
        </tr>
               <tr  class="center aligned">
@@ -119,19 +113,19 @@
          {% else %}
            <td class="negative">
          {% endif %}
-           14-Tage Inzidenz unter Wert 1. März
+           {% trans '14 day incidence lower then on March 1st.' %}
          </td>
        </tr>
        <tr  class="center aligned">
          <td>
-           Wert 1. März: {{incidence_mar1}} // Wert Aktuell: {{incidence_latest}} // Stand: {{incidence_latest_date}}
+           {% trans 'Incidence March 1st' %}: {{incidence_mar1}} // {% trans 'Current incidence' %}: {{incidence_latest}} // {% trans 'Date' %}: {{incidence_latest_date}}
            </td>
        </tr>
      </table>
 
     <br><br>
-     Bei Erfüllung der Zielvorgaben sollen am 22. März weitere Öffnungsschritte eingeleitet werden (<a href="https://www.bag.admin.ch/bag/de/home/das-bag/aktuell/medienmitteilungen.msg-id-82462.html" target="_blank">Medienmitteilung BAG</a>).<br>
-     Quelle Daten: <a href="https://www.covid19.admin.ch/" target="_blank">BAG</a>
+     {% trans 'If all four criterias are fullfilled, there should be less restrictions from March 22 on:' %} (<a href="https://www.bag.admin.ch/bag/de/home/das-bag/aktuell/medienmitteilungen.msg-id-82462.html" target="_blank">{% trans 'Press release FOPH' %}</a>).<br>
+     {% trans 'Source data:' %} <a href="https://www.covid19.admin.ch/" target="_blank">{% trans 'FOPH' %}</a>
    </div>
 
 {% endblock %}
