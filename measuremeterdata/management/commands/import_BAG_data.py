@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 from measuremeterdata.models.models_ch import CHCanton, CHCases, DoomsdayClock
+from measuremeterdata.tasks.socialmedia.tweet_doomsdayclock import tweet
 import os
 import csv
 import datetime
@@ -74,6 +75,7 @@ class Command(BaseCommand):
 
             try:
                 cd_existing = DoomsdayClock.objects.get(name="Master")
+                old_date = cd_existing.incidence_latest_date
                 cd_existing.hosp_cov19_patients = hosp_cov19_patients
                 cd_existing.hosp_capacity = hosp_capacity
                 cd_existing.hosp_date = hosp_date
@@ -126,3 +128,6 @@ class Command(BaseCommand):
                             incidence_latest = incidence_latest,
                             incidence_latest_date = incidence_latest_date)
                 cd.save()
+
+            if old_date != cd_existing.incidence_latest_date:
+                tweet()
