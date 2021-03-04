@@ -34,17 +34,17 @@ class Command(BaseCommand):
                 except:
                     print("Does not exist")
                 if canton:
-                    date_tosave = date.fromisoformat(j[7])
+                    date_tosave = date.fromisoformat(j[8])
 
                     try:
                         cd_existing = CHCases.objects.get(canton=canton, date=date_tosave)
-                        cd_existing.mobility_recreation = j[8]
-                        cd_existing.mobility_workplace = j[12]
-                        cd_existing.mobility_transit = j[11]
+                        cd_existing.mobility_recreation = j[9]
+                        cd_existing.mobility_workplace = j[13]
+                        cd_existing.mobility_transit = j[12]
                         cd_existing.save()
                     except CHCases.DoesNotExist:
-                        cd = CHCases(canton=canton, mobility_recreation=j[8], mobility_workplace=j[12],
-                                     mobility_transit=j[11], date=date_tosave)
+                        cd = CHCases(canton=canton, mobility_recreation=j[9], mobility_workplace=j[13],
+                                     mobility_transit=j[12], date=date_tosave)
                         cd.save()
 
                     print(canton_code)
