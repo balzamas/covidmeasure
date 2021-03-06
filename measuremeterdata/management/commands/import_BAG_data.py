@@ -44,26 +44,25 @@ class Command(BaseCommand):
             positivity = total_pos_sum / 7
             positivity_date = df_positivity[ch_only].tail(1)['datum'].item()
 
-            try:
-                df_r = pd.read_csv(zf.open('data/COVID19Re_geoRegion.csv'), error_bad_lines=False)
-                ch_only_filter = df_r['geoRegion']=='CH'
-                ch_only = df_r[ch_only_filter]
-                empty_filter = ch_only.median_R_mean.notnull()
-                r_final = ch_only[empty_filter].tail(7)
 
-                r_okay = False
+            df_r = pd.read_csv(zf.open('data/COVID19Re_geoRegion.csv'), error_bad_lines=False)
+            ch_only_filter = df_r['geoRegion']=='CH'
+            ch_only = df_r[ch_only_filter]
+            empty_filter = ch_only.median_R_mean.notnull()
+            r_final = ch_only[empty_filter].tail(7)
 
-                r_sum = 0
+            r_okay = False
 
-                for index_row, row in r_final.iterrows():
-                    r_sum += row['median_R_mean']
+            r_sum = 0
 
-                r_average = r_sum / 7
+            for index_row, row in r_final.iterrows():
+                r_sum += row['median_R_mean']
 
-                if r_sum < 1:
-                    r_okay = True
-            except:
-                r_final = None
+            r_average = r_sum / 7
+
+            if r_sum < 1:
+                r_okay = True
+
 
             df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'), error_bad_lines=False)
             df_incidence_ch_only = df_incidence['geoRegion']=='CH'
@@ -83,23 +82,22 @@ class Command(BaseCommand):
                 cd_existing.hosp_date = hosp_date
                 cd_existing.positivity = positivity
                 cd_existing.positivity_date = positivity_date
-                if r_final:
-                    cd_existing.r_okay = r_okay
-                    cd_existing.r_average = r_average
-                    cd_existing.r1_value = r_final.iloc[0].median_R_mean
-                    cd_existing.r1_date = r_final.iloc[0].date
-                    cd_existing.r2_value = r_final.iloc[1].median_R_mean
-                    cd_existing.r2_date = r_final.iloc[1].date
-                    cd_existing.r3_value = r_final.iloc[2].median_R_mean
-                    cd_existing.r3_date = r_final.iloc[2].date
-                    cd_existing.r4_value = r_final.iloc[3].median_R_mean
-                    cd_existing.r4_date = r_final.iloc[3].date
-                    cd_existing.r5_value = r_final.iloc[4].median_R_mean
-                    cd_existing.r5_date = r_final.iloc[4].date
-                    cd_existing.r6_value = r_final.iloc[5].median_R_mean
-                    cd_existing.r6_date = r_final.iloc[5].date
-                    cd_existing.r7_value = r_final.iloc[6].median_R_mean
-                    cd_existing.r7_date = r_final.iloc[6].date
+                cd_existing.r_okay = r_okay
+                cd_existing.r_average = r_average
+                cd_existing.r1_value = r_final.iloc[0].median_R_mean
+                cd_existing.r1_date = r_final.iloc[0].date
+                cd_existing.r2_value = r_final.iloc[1].median_R_mean
+                cd_existing.r2_date = r_final.iloc[1].date
+                cd_existing.r3_value = r_final.iloc[2].median_R_mean
+                cd_existing.r3_date = r_final.iloc[2].date
+                cd_existing.r4_value = r_final.iloc[3].median_R_mean
+                cd_existing.r4_date = r_final.iloc[3].date
+                cd_existing.r5_value = r_final.iloc[4].median_R_mean
+                cd_existing.r5_date = r_final.iloc[4].date
+                cd_existing.r6_value = r_final.iloc[5].median_R_mean
+                cd_existing.r6_date = r_final.iloc[5].date
+                cd_existing.r7_value = r_final.iloc[6].median_R_mean
+                cd_existing.r7_date = r_final.iloc[6].date
                 cd_existing.incidence_mar1 = incidence_mar1
                 cd_existing.incidence_latest = incidence_latest
                 cd_existing.incidence_latest_date = incidence_latest_date
