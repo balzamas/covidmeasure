@@ -1,5 +1,5 @@
 from measuremeterdata.models.models import Country, CasesDeaths
-import os
+import os, random
 import csv
 import datetime
 import requests
@@ -15,13 +15,15 @@ from django.db.models import F, Func
 
 
 def tweet():
-    send_telegram(text)
+    send_telegram()
 
-def send_telegram(message):
+def send_telegram():
     #Telegram
+
+    img = random.choice(os.listdir("/app/measuremeter/static/images/love"))
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN_LOVE)
     print(bot.getMe())
-    #bot.sendMessage(settings.TELEGRAM_CHATID_LOVE, f"{message}")
-    bot.sendPhoto(settings.TELEGRAM_CHATID_LOVE, photo=open("/tmp/out_image.jpg", 'rb'))
+    #bot.sendMessage(settings.TELEGRAM_CHATID_LOVE, f"Hoi du")
+    bot.sendPhoto(settings.TELEGRAM_CHATID_LOVE, photo=open("/app/measuremeter/static/images/love/" + img, 'rb'))
 
