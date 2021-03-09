@@ -367,7 +367,6 @@
                 cases = line['cases_past7days']
             }
 
-            console.log(line['date'])
             now = new Date(line['date']);
             tday = new Date();
             // To calculate the time difference of two dates
@@ -375,7 +374,6 @@
 
             // To calculate the no. of days between two dates
             var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-            console.log(Difference_In_Days)
 
             if (line['positivity'] && Difference_In_Days < 15)
             {
