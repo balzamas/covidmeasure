@@ -1076,7 +1076,7 @@
             });
 
             $("#save_deathstests").click(function(){
-                            save_image("compareChartDeathsTests")
+                            save_image("compareChartDeathsCases")
             });
 
             $("#save_r0").click(function(){
