@@ -264,6 +264,9 @@
         var dataset_tests = new Array()
         var dataset_tests_data = new Array()
 
+        var dataset_deathstests = new Array()
+        var dataset_deathstests_data = new Array()
+
         var dataset_death_total = new Array()
         var dataset_death_total_data = new Array()
 
@@ -306,6 +309,7 @@
                }
               dataset_positivity.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
               dataset_tests.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tests_data})
+              dataset_deathstests.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_deathstests_data})
               dataset_r0.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
 
 
@@ -330,6 +334,7 @@
               dataset_death_total_data = new Array()
               dataset_positivity_data = new Array()
               dataset_tests_data = new Array()
+              dataset_deathstests_data = new Array()
               dataset_r0_data = new Array()
               dataset_tendency_data = new Array()
 
@@ -393,6 +398,7 @@
             dataset_data.push(line['cases_past7days'])
             dataset_positivity_data.push(line['positivity'])
             dataset_tests_data.push(line['tests_smoothed_per_thousand'])
+            dataset_deathstests_data.push(line['death_to_cases'])
             dataset_r0_data.push(line['r0median'])
             dataset_tendency_data.push(line['development7to7'])
             dataset_death_data.push(line['deaths_past7days'])
@@ -414,6 +420,7 @@
               }
         dataset_positivity.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_positivity_data})
         dataset_tests.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tests_data})
+        dataset_deathstests.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_deathstests_data})
         dataset_r0.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_r0_data})
         dataset_tendency.push({"label": country_code.toUpperCase(), lineTension: 0, fill: false, pointRadius: 0.1, backgroundColor: color, borderColor: color, borderWidth: border_width, data: dataset_tendency_data})
 
@@ -832,6 +839,72 @@
 
             };
 
+            config_deathstests = {
+                type: 'line',
+                    elements: {
+                        point:{
+                            radius: 0
+                        }
+                    },
+                data: {
+                    labels: label_array,
+                    datasets: dataset_deathstests
+                },
+                options: {
+                    legend:{display: true,labels:{fontSize:20}},
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    title: {
+                        display: true,
+                        text: 'Deaths to Cases',
+                        fontSize: 25
+
+                    },
+                    tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: 'nearest',
+                        intersect: true
+                    },
+                    scales: {
+                         xAxes: [{
+                         isoWeekday: true,
+                         type: 'time',
+                         unitStepSize: 1,
+                         time: {
+                           displayFormats: {
+                             'week': 'MMM DD ddd'
+                           },
+                           unit: 'week',
+                         },
+
+                        }],
+                        x: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Day'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Deaths to Cases'
+                            }
+                        },
+                        yAxes: [{
+                           ticks: {
+                            beginAtZero: true
+                            }
+                        }]
+                    },
+                },
+
+            };
+
             config_tendency = {
                 type: 'line',
                     elements: {
@@ -972,6 +1045,7 @@
     			window.myLineDeath = new Chart(ctx_death, config_death);
     			window.myLinePositivity = new Chart(ctx_positivity, config_positivity);
     			window.myLineTests = new Chart(ctx_tests, config_tests);
+    			window.myLineDeathsTests = new Chart(ctx_deathstests, config_deathstests);
     			window.myLineR0 = new Chart(ctx_r0, config_r0);
     			window.myLineTendency = new Chart(ctx_tendency, config_tendency);
 
@@ -995,6 +1069,10 @@
 
             $("#save_tests").click(function(){
                             save_image("compareChartTests")
+            });
+
+            $("#save_deathstests").click(function(){
+                            save_image("compareChartDeathsTests")
             });
 
             $("#save_r0").click(function(){
@@ -1078,6 +1156,9 @@
 
 			var ctx_tests = document.getElementById('compareChartTests').getContext('2d');
 			window.myLineTests = new Chart(ctx_tests, config_tests);
+
+			var ctx_deathstests = document.getElementById('compareChartDeathsCases').getContext('2d');
+			window.myLineDeathsTests = new Chart(ctx_deathstests, config_deathstests);
 
 			var ctx_r0 = document.getElementById('compareChartR0').getContext('2d');
 			window.myLineR0 = new Chart(ctx_r0, config_r0);

@@ -100,6 +100,7 @@ class CasesDeaths(MotherModel):
     tests = models.IntegerField(blank=True,null=True)
     tests_smoothed_per_thousand = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
     stringency_index = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
+    death_to_cases = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
 
     ordering = ['country__pk', 'date', 'cases', 'deaths']
 

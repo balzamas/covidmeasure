@@ -84,8 +84,13 @@ class Command(BaseCommand):
                             fourteen_avg_death = tot_death * 100000 / country.population
                             seven_avg = seven_tot * 100000 / country.population
 
+
                             day.deaths_past14days = fourteen_avg_death
                             day.deaths_past7days = seven_avg
+
+                            if day.date > datetime.date(2020, 6, 1):
+                                cases = CasesDeaths.objects.get(country=country, date=(day.date-timedelta(14)))
+                                day.death_to_cases = cases.cases_past7days / seven_avg
 
                             day.save()
 
