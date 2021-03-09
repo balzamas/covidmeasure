@@ -1021,6 +1021,10 @@
                    window.myLineTests.destroy();
                 }
 
+                if(window.myLineDeathsTests && window.myLineDeathsTests !== null){
+                   window.myLineDeathsTests.destroy();
+                }
+
                 if(window.myLineR0 && window.myLineR0 !== null){
                    window.myLineR0.destroy();
                 }
