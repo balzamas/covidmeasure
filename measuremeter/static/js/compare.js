@@ -854,7 +854,7 @@
                     maintainAspectRatio: false,
                     title: {
                         display: true,
-                        text: 'Deaths to Cases',
+                        text: 'Cases per Death',
                         fontSize: 25
 
                     },
@@ -890,7 +890,7 @@
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Deaths to Cases'
+                                labelString: 'Cases per Death'
                             }
                         },
                         yAxes: [{
