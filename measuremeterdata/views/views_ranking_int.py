@@ -25,6 +25,8 @@ def calc_ranking_countries(countries):
             last_positivity_date = None
             last_R = None
             last_R_date = None
+            last_vaccinated = None
+            last_vaccinated_date = None
             positivity_before7 = None
             last_stringency = None
             for case in cases:
@@ -40,6 +42,10 @@ def calc_ranking_countries(countries):
                     last_positivity = case.positivity
                     last_positivity_calc = last_positivity
                     last_positivity_date = case.date
+
+                if (case.people_vaccinated_per_hundred != None and last_vaccinated == None):
+                    last_vaccinated = case.people_vaccinated_per_hundred
+                    last_vaccinated_date = case.date
 
             past_date_tocheck = last_date - timedelta(days=14)
 
@@ -98,7 +104,8 @@ def calc_ranking_countries(countries):
                                 "peak_cases": peak_cases, "peak_cases_date": peak_cases_date,
                                 "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
                                 "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date,
-                                "R": last_R, "R_date": last_R_date, "stringency": last_stringency, "stringency_date": last_stringency_date
+                                "R": last_R, "R_date": last_R_date, "stringency": last_stringency, "stringency_date": last_stringency_date,
+                                "vaccinated": last_vaccinated, "vaccinated_date": last_vaccinated_date
                                 }
 
                 country_vals.append(canton_toadd)

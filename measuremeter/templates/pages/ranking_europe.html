@@ -65,7 +65,7 @@
 <div style="overflow-x:auto;">
  <table class="ui celled table" id="ranking" width="100%">
 <thead>
-    <tr><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(3,'ranking')">Score</th><th onclick="sortTable(4,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(5,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(7,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th onclick="sortTable(8,'ranking')">R median</th><th onclick="sortTable(9,'ranking')">Stringency index</th></tr>
+    <tr><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(3,'ranking')">Score</th><th onclick="sortTable(4,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(5,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(7,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th onclick="sortTable(8,'ranking')">Vaccination:<br>per 100 pop.*</th><th onclick="sortTable(9,'ranking')">Stringency index</th></tr>
     {% for hans in countries %}
 </thead>
    <tbody>
@@ -136,7 +136,7 @@
             </div>
         </div>
       </td>
-      {% if hans.R < 1 %}
+  <!---    {% if hans.R < 1 %}
             <td class="positive" nowrap>
       {% else %}
             <td class="negative" nowrap>
@@ -144,6 +144,12 @@
        <div hidden>{{ hans.R|floatformat:2 }}</div>
         <div class="container">
             <div class="centered">{{ hans.R|floatformat:2 }}<br><font size=1px>{{ hans.R_date }}</font></div>
+        </div>
+      </td> -->
+      <td nowrap>
+       <div hidden>{{ hans.vaccinated|floatformat:2 }}</div>
+        <div class="container">
+            <div class="centered">{{ hans.vaccinated|floatformat:2 }}<br><font size=1px>{{ hans.vaccinated_date }}</font></div>
         </div>
       </td>
       <td nowrap>
@@ -163,7 +169,8 @@
    </tbody>
   </table>
 </div>
-
+<br><br>
+* Vaccination: People who received at least one shot per 100.
 <br><br>
    <table>
     <tr>
@@ -205,7 +212,7 @@
       <p>
       <b>Sources</b><br>
          Cases/Deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a><br>
-        Positive rate: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a><br>
+        Positive rate, Vaccination: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a><br>
         Reproduction Rate R: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>
           <p>Stringency Index: <a href="https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker">Oxford Covid-19 Government Response Tracker</a>
       </p>

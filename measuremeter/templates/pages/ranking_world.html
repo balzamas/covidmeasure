@@ -64,7 +64,7 @@
 <div style="overflow-x:auto;">
   <table class="ui celled table" id="ranking">
     <thead>
-    <tr><th></th><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(4,'ranking')">Score</th><th onclick="sortTable(5,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(7,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(8,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th onclick="sortTable(9,'ranking')">R median</th><th onclick="sortTable(10,'ranking')">Stringency index</th></tr>
+    <tr><th></th><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(4,'ranking')">Score</th><th onclick="sortTable(5,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(7,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(8,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th onclick="sortTable(9,'ranking')">Vaccination:<br>per 100 pop.*</th><th onclick="sortTable(10,'ranking')">Stringency index</th></tr>
     </thead>
     <tbody>
     {% for hans in countries %}
@@ -147,14 +147,10 @@
             </div>
         </div>
       </td>
-{% if hans.R < 1 %}
-            <td class="positive" nowrap>
-      {% else %}
-            <td class="negative" nowrap>
-      {% endif %}
-       <div hidden>{{ hans.R|floatformat:2 }}</div>
+      <td nowrap>
+       <div hidden>{{ hans.vaccinated|floatformat:2 }}</div>
         <div class="container">
-            <div class="centered">{{ hans.R|floatformat:2 }}<br><font size=1px>{{ hans.R_date }}</font></div>
+            <div class="centered">{{ hans.vaccinated|floatformat:2 }}<br><font size=1px>{{ hans.vaccinated_date }}</font></div>
         </div>
       </td>
       <td nowrap>
@@ -174,6 +170,8 @@
     </tbody>
   </table>
 </div>
+<br><br>
+* Vaccination: People who received at least one shot per 100.
 <br><br>
 
    <table>
