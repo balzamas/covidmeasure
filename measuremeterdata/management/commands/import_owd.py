@@ -33,6 +33,7 @@ class Command(BaseCommand):
         col_positivity = -1
         col_tests = -1
         col_tests_per_p = -1
+        col_people_vaccinated_per_hundred = -1
 
         for row in cr:
             if row_count == 0:
@@ -43,6 +44,8 @@ class Command(BaseCommand):
                         col_tests_per_p = col_count
                     if col == "new_tests":
                         col_tests = col_count
+                    if col == "people_vaccinated_per_hundred":
+                        col_people_vaccinated_per_hundred = col_count
                     col_count += 1
             row_count += 1
 
@@ -62,6 +65,11 @@ class Command(BaseCommand):
                 else:
                     tests = None
 
+                if row[col_people_vaccinated_per_hundred]:
+                    people_vaccinated_per_hundred = Decimal(row[col_people_vaccinated_per_hundred])
+                else:
+                    people_vaccinated_per_hundred = None
+
                 date_tosave = date.fromisoformat(row[3])
 
                 country = Country.objects.get(iso_code = row[0])
@@ -71,6 +79,7 @@ class Command(BaseCommand):
                     cd_existing.positivity = pos
                     cd_existing.tests_smoothed_per_thousand = tests_per_p
                     cd_existing.tests = tests
+                    cd_existing.people_vaccinated_per_hundred = people_vaccinated_per_hundred
                     cd_existing.save()
                 except:
                     print("Day record does not exist yet")

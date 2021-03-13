@@ -43,6 +43,8 @@
                   <a class="item" href="/chrisk/">${gettext("Risk calculator")}</a>
                   <a class="item" href="/ranking7/">${gettext("Ranking")}</a>
                   <a class="item" href="/deaths_ch/">${gettext("Deaths per canton")}</a>
+                  <a class="item" href="/doomsdayclock/">${gettext("Open-o-meter")}</a>
+
     </div>
   </div>
           <div class="ui simple dropdown item">
@@ -88,6 +90,8 @@
                   <a class="item" href="/chrisk/">${gettext("Risk calculator")}</a>
                   <a class="item" href="/ranking7/">${gettext("Ranking")}</a>
                   <a class="item" href="/deaths_ch/">${gettext("Deaths per canton")}</a>
+                  <a class="item" href="/doomsdayclock/">${gettext("Open-o-meter")}</a>
+
       <br><p><b>${gettext("World")}</b></p>
       <a class="item" href="/compare/">${gettext("Compare countries")}</a>
       <a class="item" href="/ranking_europe/">${gettext("Ranking")}</a>
@@ -112,6 +116,7 @@
                   <a class="item" href="/ranking7/">${gettext("Ranking")}</a>
                   <a class="item" href="/chmaps/">${gettext("Maps measures")}</a>
                   <a class="item" href="/deaths_ch/">${gettext("Deaths per canton")}</a>
+                  <a class="item" href="/doomsdayclock/">${gettext("Open-o-meter")}</a>
                   <a class="item" href="/">${gettext("Europe") }</a>
                   </div>
                 </div> `
