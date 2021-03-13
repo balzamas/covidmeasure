@@ -152,7 +152,7 @@ def create_image(region, scores):
             '<col style="width: 150px">' \
             '<col style="width: 150px">' \
             '<col style="width: 150px">' \
-            '<col style="width: 150px">' \
+            '<col style="width: 130px">' \
            '<col style="width: 90px">'\
            '<col style="width: 90px">' \
            '<col style="width: 150px">'\
@@ -236,12 +236,13 @@ def create_image(region, scores):
 
 
     html += f'</table>' \
-            "<br>covidlaws.net // Quellen: JHU/Our world in data/Oxford University/ETH Zürich</td></tr></table>" \
+            "* Vaccination: People who received at least one shot per 100.<br>" \
+            "covidlaws.net // Quellen: JHU/Our world in data/Oxford University/ETH Zürich</td></tr></table>" \
             '</div>' \
             '</body></html>'
 
     options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
     return f"Regionalvergleich\n\n{region}"
 
@@ -291,7 +292,7 @@ def create_list(countries):
                     last_tests = case.tests_smoothed_per_thousand
                     last_tests_date = case.date
 
-                if (case.people_vaccinated_per_hundred and last_tests == None):
+                if (case.people_vaccinated_per_hundred and last_vaccination == None):
                     last_vaccination = case.people_vaccinated_per_hundred
                     last_vaccination_date = case.date
 
