@@ -153,7 +153,8 @@ def create_image(region, scores):
             '<col style="width: 150px">' \
             '<col style="width: 150px">' \
             '<col style="width: 150px">' \
-            '<col style="width: 90px">' \
+           '<col style="width: 90px">'\
+           '<col style="width: 90px">' \
            '<col style="width: 150px">'\
            '</colgroup>' \
            '<tr><th></th>' \
@@ -161,6 +162,7 @@ def create_image(region, scores):
            '<th>Deaths per 100k<br>Last 14 days</th>' \
            '<th>Positive rate<br>7 days avg. @ Date</th>' \
            '<th>Development<br>Week over week</th>' \
+           '<th>Vacc. per<br>100 pop.*</th>' \
            '<th>Tests per<br>1000 pop.</th>' \
            '<th>Stringency index</th>' \
            '</tr>'
@@ -204,12 +206,22 @@ def create_image(region, scores):
 
 
         html += "<td nowrap>"
+        if score["vaccination"] != None:
+            html += f'<div class="container">' \
+                    f'<div class="centered">{"{:10.2f}".format(score["vaccination"])}</div>' \
+                    f'<div class="bottomed">{score["vaccination_date"]}</div>' \
+                    '</div>'
+        html += "</td>"
+
+        html += "<td nowrap>"
         if score["tests"] != None:
             html += f'<div class="container">' \
                     f'<div class="centered">{"{:10.2f}".format(score["tests"])}</div>' \
                     f'<div class="bottomed">{score["tests_date"]}</div>' \
                     '</div>'
         html += "</td>"
+
+
 
         html += "<td nowrap>"
         if score["stringency"] != None:
@@ -229,7 +241,7 @@ def create_image(region, scores):
             '</body></html>'
 
     options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    imgkit.from_string(html, "out_image.jpg", options=options)
 
     return f"Regionalvergleich\n\n{region}"
 
@@ -258,6 +270,8 @@ def create_list(countries):
             last_stringency = None
             last_tests = None
             last_tests_date = None
+            last_vaccination = None
+            last_vaccination_date = None
 
             for case in cases:
                 if (case.stringency_index != None and last_stringency == None):
@@ -276,6 +290,10 @@ def create_list(countries):
                 if (case.tests_smoothed_per_thousand and last_tests == None):
                     last_tests = case.tests_smoothed_per_thousand
                     last_tests_date = case.date
+
+                if (case.people_vaccinated_per_hundred and last_tests == None):
+                    last_vaccination = case.people_vaccinated_per_hundred
+                    last_vaccination_date = case.date
 
             past_date_tocheck = last_date - timedelta(days=14)
 
@@ -327,7 +345,8 @@ def create_list(countries):
                                 "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
                                 "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date,
                                 "R": last_R, "R_date": last_R_date, "stringency": last_stringency, "stringency_date": last_stringency_date,
-                                "tests": last_tests, "tests_date": last_tests_date
+                                "tests": last_tests, "tests_date": last_tests_date,
+                                "vaccination": last_vaccination, "vaccination_date": last_vaccination_date
                                 }
 
                 country_vals.append(canton_toadd)
