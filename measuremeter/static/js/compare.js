@@ -862,7 +862,7 @@
                     maintainAspectRatio: false,
                     title: {
                         display: true,
-                        text: 'Vaccination:People who received at least one shot per 100',
+                        text: 'Vaccination: People who received at least one shot per 100',
                         fontSize: 25
 
                     },
@@ -898,7 +898,7 @@
                             display: true,
                             scaleLabel: {
                                 display: true,
-                                labelString: 'Vaccination:People who received at least one shot per 100'
+                                labelString: 'Vaccination: People who received at least one shot per 100'
                             }
                         },
                         yAxes: [{
