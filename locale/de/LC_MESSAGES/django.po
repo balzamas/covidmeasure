@@ -884,7 +884,7 @@ msgstr "Öffnungs-o-meter"
 
 #: measuremeter/templates/pages/doomsdayclock.html:40
 msgid "Number of Covid patients in intensive care < 250"
-msgstr ""
+msgstr " Intensivplätze mit Covid-19-Patienten < 250"
 
 #: measuremeter/templates/pages/doomsdayclock.html:45
 msgid "Covid patiens in ICU"

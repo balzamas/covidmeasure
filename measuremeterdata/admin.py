@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django import forms
 from measuremeterdata.models.models import Country, MeasureCategory, MeasureType_old, Measure_old, Continent, CasesDeaths, CountryMeasure, CountryMeasureType
-from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases, CHDeaths
+from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases, CHDeaths, DoomsdayClock
 from measuremeterdata.models.models_bel import BELCases, BELProvince, BELAgeGroups
 
 admin.site.register(Continent)
@@ -22,6 +22,8 @@ class MeasureTypeAdmin(admin.ModelAdmin):
     ordering = ['name']
     search_fields = ['name']
 admin.site.register(CountryMeasureType, MeasureTypeAdmin)
+
+admin.site.register(DoomsdayClock)
 
 class MeasureAdmin(admin.ModelAdmin):
     list_display = ['country', 'type', 'level', 'last_level','comment', 'start', 'end']
