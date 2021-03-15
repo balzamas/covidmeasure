@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-04 10:41+0100\n"
+"POT-Creation-Date: 2021-03-15 20:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -282,12 +282,12 @@ msgid ""
 "mail address</a>."
 msgstr ""
 
-#: measuremeter/templates/base.html:79 measuremeter/templates/base.html:121
+#: measuremeter/templates/base.html:79 measuremeter/templates/base.html:123
 msgid "Home"
 msgstr ""
 
-#: measuremeter/templates/base.html:82 measuremeter/templates/base.html:122
-#: measuremeter/templates/base.html:134
+#: measuremeter/templates/base.html:82 measuremeter/templates/base.html:124
+#: measuremeter/templates/base.html:136
 #: measuremeter/templates/pages/canton_stringency.html:73
 #: measuremeter/templates/pages/ch.html:36
 #: measuremeter/templates/pages/ch.html:53
@@ -306,63 +306,70 @@ msgstr ""
 msgid "Map cases Districts Cantons"
 msgstr ""
 
-#: measuremeter/templates/base.html:87 measuremeter/templates/base.html:137
+#: measuremeter/templates/base.html:87 measuremeter/templates/base.html:139
 #: measuremeter/templates/pages/ch.html:34
 msgid "Risk calculator"
 msgstr ""
 
-#: measuremeter/templates/base.html:88 measuremeter/templates/base.html:138
+#: measuremeter/templates/base.html:88 measuremeter/templates/base.html:140
 msgid "Ranking"
 msgstr ""
 
-#: measuremeter/templates/base.html:89 measuremeter/templates/base.html:139
+#: measuremeter/templates/base.html:89 measuremeter/templates/base.html:141
 msgid "Deaths per canton"
 msgstr ""
 
-#: measuremeter/templates/base.html:93 measuremeter/templates/base.html:140
+#: measuremeter/templates/base.html:90 measuremeter/templates/base.html:142
+#: measuremeter/templates/pages/doomsdayclock.html:24
+#: measuremeter/templates/pages/doomsdayclock.html:25
+#: measuremeter/templates/pages/doomsdayclock.html:28
+msgid "Open-o-meter"
+msgstr ""
+
+#: measuremeter/templates/base.html:95 measuremeter/templates/base.html:143
 msgid "World"
 msgstr ""
 
-#: measuremeter/templates/base.html:96 measuremeter/templates/base.html:141
+#: measuremeter/templates/base.html:98 measuremeter/templates/base.html:144
 msgid "Compare countries"
 msgstr ""
 
-#: measuremeter/templates/base.html:97 measuremeter/templates/base.html:142
+#: measuremeter/templates/base.html:99 measuremeter/templates/base.html:145
 msgid "Ranking Europe"
 msgstr ""
 
-#: measuremeter/templates/base.html:98 measuremeter/templates/base.html:143
+#: measuremeter/templates/base.html:100 measuremeter/templates/base.html:146
 msgid "Ranking World"
 msgstr ""
 
-#: measuremeter/templates/base.html:99 measuremeter/templates/base.html:144
+#: measuremeter/templates/base.html:101 measuremeter/templates/base.html:147
 msgid "Country profiles"
 msgstr ""
 
-#: measuremeter/templates/base.html:100 measuremeter/templates/base.html:145
+#: measuremeter/templates/base.html:102 measuremeter/templates/base.html:148
 #: measuremeter/templates/base_old_2.html:301
 #: measuremeter/templates/pages/ch.html:101
 #: measuremeter/templates/pages/start.html:201
 msgid "Deaths"
 msgstr ""
 
-#: measuremeter/templates/base.html:101 measuremeter/templates/base.html:146
+#: measuremeter/templates/base.html:103 measuremeter/templates/base.html:149
 msgid "Map measures Europe"
 msgstr ""
 
-#: measuremeter/templates/base.html:102 measuremeter/templates/base.html:147
+#: measuremeter/templates/base.html:104 measuremeter/templates/base.html:150
 msgid "Risk calculator Belgium"
 msgstr ""
 
-#: measuremeter/templates/base.html:106 measuremeter/templates/base.html:123
+#: measuremeter/templates/base.html:108 measuremeter/templates/base.html:125
 msgid "About"
 msgstr ""
 
-#: measuremeter/templates/base.html:135
+#: measuremeter/templates/base.html:137
 msgid "Measures and case development"
 msgstr ""
 
-#: measuremeter/templates/base.html:136
+#: measuremeter/templates/base.html:138
 msgid "Map cases Districts/Cantons"
 msgstr ""
 
@@ -873,12 +880,6 @@ msgstr ""
 
 #: measuremeter/templates/pages/district7.html:35
 msgid "Switch to 14 day incidence."
-msgstr ""
-
-#: measuremeter/templates/pages/doomsdayclock.html:24
-#: measuremeter/templates/pages/doomsdayclock.html:25
-#: measuremeter/templates/pages/doomsdayclock.html:28
-msgid "Open-o-meter"
 msgstr ""
 
 #: measuremeter/templates/pages/doomsdayclock.html:40
