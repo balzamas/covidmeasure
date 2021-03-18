@@ -102,9 +102,8 @@ def create_image(districts, canton):
 
         case_7days_before = CHCases.objects.get(canton=district, date=past_date_tocheck)
 
-        score = 0 - cases[0].incidence_past7days - (last_tendency * 2)
 
-        canton_toadd = {"name": district.name, "score": int(score),
+        canton_toadd = {"name": district.name,
                         "date": last_date, "code": district.code, "level": district.level,
                         "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": last_tendency,
                         "cur_prev7": case_7days_before.incidence_past7days, "id": district.swisstopo_id,
