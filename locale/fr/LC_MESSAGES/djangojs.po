@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-22 15:31+0100\n"
+"POT-Creation-Date: 2021-03-24 13:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,35 +18,35 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: measuremeter/static/js/canton.js:383 measuremeter/static/js/canton.js:419
+#: measuremeter/static/js/canton.js:384 measuremeter/static/js/canton.js:420
 #: measuremeter/static/js/canton_stringency.js:296
 #: measuremeter/static/js/canton_stringency.js:332
 msgid "Incidence per 100k/past 7 days"
 msgstr ""
 
-#: measuremeter/static/js/canton.js:456 measuremeter/static/js/canton.js:492
+#: measuremeter/static/js/canton.js:458 measuremeter/static/js/canton.js:494
 #: measuremeter/static/js/canton_stringency.js:369
 #: measuremeter/static/js/canton_stringency.js:405
 msgid "Re -  Effective reproductive number (mean)"
 msgstr ""
 
-#: measuremeter/static/js/canton.js:485 measuremeter/static/js/canton.js:575
-#: measuremeter/static/js/canton.js:665
+#: measuremeter/static/js/canton.js:487 measuremeter/static/js/canton.js:578
+#: measuremeter/static/js/canton.js:675
 #: measuremeter/static/js/canton_stringency.js:398
 #: measuremeter/static/js/canton_stringency.js:488
 #: measuremeter/static/js/canton_stringency.js:578
 msgid "Day"
 msgstr ""
 
-#: measuremeter/static/js/canton.js:546 measuremeter/static/js/canton.js:582
-#: measuremeter/static/js/canton.js:672
+#: measuremeter/static/js/canton.js:549 measuremeter/static/js/canton.js:585
+#: measuremeter/static/js/canton.js:682
 #: measuremeter/static/js/canton_stringency.js:459
 #: measuremeter/static/js/canton_stringency.js:495
 #: measuremeter/static/js/canton_stringency.js:585
 msgid "Development past week/week before (%)"
 msgstr ""
 
-#: measuremeter/static/js/canton.js:636
+#: measuremeter/static/js/canton.js:646
 #: measuremeter/static/js/canton_stringency.js:549
 msgid "Mobility"
 msgstr ""
@@ -85,44 +85,49 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: measuremeter/static/js/menu.js:41 measuremeter/static/js/menu.js:86
+#: measuremeter/static/js/menu.js:41 measuremeter/static/js/menu.js:89
 msgid "Measures Case development"
 msgstr ""
 
-#: measuremeter/static/js/menu.js:43 measuremeter/static/js/menu.js:88
+#: measuremeter/static/js/menu.js:43 measuremeter/static/js/menu.js:91
 msgid "Risk calculator"
 msgstr ""
 
-#: measuremeter/static/js/menu.js:45 measuremeter/static/js/menu.js:90
-#: measuremeter/static/js/menu.js:114
+#: measuremeter/static/js/menu.js:45 measuremeter/static/js/menu.js:93
+#: measuremeter/static/js/menu.js:120
 msgid "Deaths per canton"
 msgstr ""
 
-#: measuremeter/static/js/menu.js:52
+#: measuremeter/static/js/menu.js:47 measuremeter/static/js/menu.js:95
+#: measuremeter/static/js/menu.js:122
+msgid "Open-o-meter"
+msgstr ""
+
+#: measuremeter/static/js/menu.js:55
 msgid "Compare countries"
 msgstr ""
 
-#: measuremeter/static/js/menu.js:54
+#: measuremeter/static/js/menu.js:57
 msgid "Country profiles"
 msgstr ""
 
-#: measuremeter/static/js/menu.js:56
+#: measuremeter/static/js/menu.js:59
 msgid "Map"
 msgstr ""
 
-#: measuremeter/static/js/menu.js:74 measuremeter/static/js/menu.js:85
+#: measuremeter/static/js/menu.js:77 measuremeter/static/js/menu.js:88
 msgid "Switzerland"
 msgstr ""
 
-#: measuremeter/static/js/menu.js:93 measuremeter/static/js/menu.js:112
+#: measuremeter/static/js/menu.js:99 measuremeter/static/js/menu.js:118
 msgid "Ranking"
 msgstr ""
 
-#: measuremeter/static/js/menu.js:95
+#: measuremeter/static/js/menu.js:101
 msgid "Deaths"
 msgstr ""
 
-#: measuremeter/static/js/menu.js:110
+#: measuremeter/static/js/menu.js:116
 msgid "Map cases Districts Cantons"
 msgstr ""
 

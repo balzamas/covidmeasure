@@ -21,23 +21,23 @@
 
 {% endblock %}
 
-{% block title_header %}CovidLaws // {% trans 'Open-o-meter' %}{% endblock %}
-{% block description %}{% trans 'Open-o-meter' %}{% endblock %}
+{% block title_header %}CovidLaws // {% trans 'Close-o-meter' %}{% endblock %}
+{% block description %}{% trans 'Close-o-meter' %}{% endblock %}
 {% block content %}
    <div align="center">
-     <h2>{% trans 'Open-o-meter' %}</h2>
+     <h2>{% trans 'Close-o-meter' %}</h2>
      <p>
            <img src="/static/images/clock/{{value}}.png">
      </p>
 
      <table class="ui celled table">
        <tr  class="center aligned">
-         {% if hosp_cov19_patients < 250 %}
+         {% if hosp_cov19_patients < 300 %}
            <td class="positive">
          {% else %}
            <td class="negative">
          {% endif %}
-           {% trans 'Number of Covid patients in intensive care < 250' %}
+           {% trans 'Number of Covid patients in intensive care < 300' %}
          </td>
        </tr>
        <tr  class="center aligned">
@@ -47,19 +47,44 @@
        </tr>
      </table>
 
-     <table class="ui celled table">
+          <table class="ui celled table">
        <tr  class="center aligned">
-         {% if positivity < 5 %}
-           <td class="positive">
+         {% if hosp_average < 80 %}
+           <td class="positive" colspan="7">
          {% else %}
-           <td class="negative">
+           <td class="negative" colspan="7">
          {% endif %}
-           {% trans 'Percent Positive' %} < 5%
+
+           {% trans 'New hospital entries lower then 80 (7-day-average).' %}
          </td>
        </tr>
+              <tr  class="center aligned">
+                <td colspan="7">
+                  {% trans 'New entries' %}: {{hosp_average|floatformat:0}}
+                </td>
+              </tr>
        <tr  class="center aligned">
          <td>
-          {% trans 'Percent Positive' %}: {{positivity}}% ({% trans 'Average past 7 days' %}) // {% trans 'Date' %}: {{positivity_date}}
+        {{hosp1_date}}: {{hosp1_value|floatformat:0}}
+           </td>
+         <td>
+        {{hosp2_date}}: {{hosp2_value|floatformat:0}}
+           </td>
+         <td>
+        {{hosp3_date}}: {{hosp3_value|floatformat:0}}
+           </td>
+         <td>
+        {{hosp4_date}}: {{hosp4_value|floatformat:0}}
+           </td>
+         <td>
+        {{hosp5_date}}: {{hosp5_value|floatformat:0}}
+           </td>
+         <td>
+        {{hosp6_date}}: {{hosp6_value|floatformat:0}}
+           </td>
+                  <td>
+        {{hosp7_date}}: {{hosp7_value|floatformat:0}}
+           </td>
          </td>
        </tr>
      </table>
@@ -72,7 +97,7 @@
            <td class="negative" colspan="7">
          {% endif %}
 
-           {% trans 'Average of past 7 R values under 1' %}
+           {% trans 'Average of past 7 R values under 1.15' %}
          </td>
        </tr>
               <tr  class="center aligned">
@@ -106,30 +131,25 @@
        </tr>
      </table>
 
-               <table class="ui celled table" width="500px">
+     <table class="ui celled table" width="500px">
        <tr  class="center aligned">
-         {% if incidence_mar1 >  incidence_latest%}
+         {% if 350 >  incidence_latest%}
            <td class="positive">
          {% else %}
            <td class="negative">
          {% endif %}
-           {% trans '14 day incidence lower then on March 1st.' %}
+           {% trans '14 day incidence lower then 350.' %}
          </td>
        </tr>
        <tr  class="center aligned">
          <td>
-           {% trans 'Incidence March 1st' %}: {{incidence_mar1}} // {% trans 'Current incidence' %}: {{incidence_latest}} // {% trans 'Date' %}: {{incidence_latest_date}}
+           {% trans 'Current incidence' %}: {{incidence_latest}} // {% trans 'Date' %}: {{incidence_latest_date}}
            </td>
        </tr>
      </table>
 
     <br><br>
-     <b>{% trans 'Three of four criterias were not fulfilled - we keep this here as legacy...' %}</b>
-
-     <br><br>
-
-
-     {% trans 'If all four criterias are fullfilled, there should be less restrictions from March 22 on:' %} (<a href="https://www.bag.admin.ch/bag/de/home/das-bag/aktuell/medienmitteilungen.msg-id-82462.html" target="_blank">{% trans 'Press release FOPH' %}</a>).<br>
+     {% trans 'Using these criterias, the government will decide if further restrictions will be introduced' %} (<a href="https://www.bag.admin.ch/bag/de/home/krankheiten/ausbrueche-epidemien-pandemien/aktuelle-ausbrueche-epidemien/novel-cov/massnahmen-des-bundes.html" target="_blank">{% trans 'Source FOPH' %}</a>).<br>
      {% trans 'Source data:' %} <a href="https://www.covid19.admin.ch/" target="_blank">{% trans 'FOPH' %}</a>
    </div>
 

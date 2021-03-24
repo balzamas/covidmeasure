@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-15 20:52+0100\n"
+"POT-Creation-Date: 2021-03-24 13:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -282,12 +282,12 @@ msgid ""
 "mail address</a>."
 msgstr ""
 
-#: measuremeter/templates/base.html:79 measuremeter/templates/base.html:123
+#: measuremeter/templates/base.html:79 measuremeter/templates/base.html:124
 msgid "Home"
 msgstr ""
 
-#: measuremeter/templates/base.html:82 measuremeter/templates/base.html:124
-#: measuremeter/templates/base.html:136
+#: measuremeter/templates/base.html:82 measuremeter/templates/base.html:125
+#: measuremeter/templates/base.html:137
 #: measuremeter/templates/pages/canton_stringency.html:73
 #: measuremeter/templates/pages/ch.html:36
 #: measuremeter/templates/pages/ch.html:53
@@ -306,70 +306,77 @@ msgstr ""
 msgid "Map cases Districts Cantons"
 msgstr ""
 
-#: measuremeter/templates/base.html:87 measuremeter/templates/base.html:139
+#: measuremeter/templates/base.html:87 measuremeter/templates/base.html:140
 #: measuremeter/templates/pages/ch.html:34
 msgid "Risk calculator"
 msgstr ""
 
-#: measuremeter/templates/base.html:88 measuremeter/templates/base.html:140
+#: measuremeter/templates/base.html:88 measuremeter/templates/base.html:141
 msgid "Ranking"
 msgstr ""
 
-#: measuremeter/templates/base.html:89 measuremeter/templates/base.html:141
+#: measuremeter/templates/base.html:89 measuremeter/templates/base.html:142
 msgid "Deaths per canton"
 msgstr ""
 
-#: measuremeter/templates/base.html:90 measuremeter/templates/base.html:142
+#: measuremeter/templates/base.html:90 measuremeter/templates/base.html:143
+#: measuremeter/templates/pages/closeometer.html:24
+#: measuremeter/templates/pages/closeometer.html:25
+#: measuremeter/templates/pages/closeometer.html:28
+msgid "Close-o-meter"
+msgstr ""
+
+#: measuremeter/templates/base.html:91 measuremeter/templates/base.html:144
 #: measuremeter/templates/pages/doomsdayclock.html:24
 #: measuremeter/templates/pages/doomsdayclock.html:25
 #: measuremeter/templates/pages/doomsdayclock.html:28
 msgid "Open-o-meter"
 msgstr ""
 
-#: measuremeter/templates/base.html:95 measuremeter/templates/base.html:143
+#: measuremeter/templates/base.html:96 measuremeter/templates/base.html:145
 msgid "World"
 msgstr ""
 
-#: measuremeter/templates/base.html:98 measuremeter/templates/base.html:144
+#: measuremeter/templates/base.html:99 measuremeter/templates/base.html:146
 msgid "Compare countries"
 msgstr ""
 
-#: measuremeter/templates/base.html:99 measuremeter/templates/base.html:145
+#: measuremeter/templates/base.html:100 measuremeter/templates/base.html:147
 msgid "Ranking Europe"
 msgstr ""
 
-#: measuremeter/templates/base.html:100 measuremeter/templates/base.html:146
+#: measuremeter/templates/base.html:101 measuremeter/templates/base.html:148
 msgid "Ranking World"
 msgstr ""
 
-#: measuremeter/templates/base.html:101 measuremeter/templates/base.html:147
+#: measuremeter/templates/base.html:102 measuremeter/templates/base.html:149
 msgid "Country profiles"
 msgstr ""
 
-#: measuremeter/templates/base.html:102 measuremeter/templates/base.html:148
+#: measuremeter/templates/base.html:103 measuremeter/templates/base.html:150
 #: measuremeter/templates/base_old_2.html:301
 #: measuremeter/templates/pages/ch.html:101
 #: measuremeter/templates/pages/start.html:201
 msgid "Deaths"
 msgstr ""
 
-#: measuremeter/templates/base.html:103 measuremeter/templates/base.html:149
+#: measuremeter/templates/base.html:104 measuremeter/templates/base.html:151
 msgid "Map measures Europe"
 msgstr ""
 
-#: measuremeter/templates/base.html:104 measuremeter/templates/base.html:150
+#: measuremeter/templates/base.html:105 measuremeter/templates/base.html:152
 msgid "Risk calculator Belgium"
 msgstr ""
 
-#: measuremeter/templates/base.html:108 measuremeter/templates/base.html:125
+#: measuremeter/templates/base.html:109 measuremeter/templates/base.html:126
 msgid "About"
 msgstr ""
 
-#: measuremeter/templates/base.html:137
+#: measuremeter/templates/base.html:138
 msgid "Measures and case development"
 msgstr ""
 
-#: measuremeter/templates/base.html:138
+#: measuremeter/templates/base.html:139
 msgid "Map cases Districts/Cantons"
 msgstr ""
 
@@ -682,6 +689,74 @@ msgid ""
 "enjoy life but don't be stupid."
 msgstr ""
 
+#: measuremeter/templates/pages/closeometer.html:40
+msgid "Number of Covid patients in intensive care < 300"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:45
+#: measuremeter/templates/pages/doomsdayclock.html:45
+msgid "Covid patiens in ICU"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:45
+#: measuremeter/templates/pages/doomsdayclock.html:45
+msgid "Full capacity ICU"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:45
+#: measuremeter/templates/pages/doomsdayclock.html:45
+msgid "Proportion"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:45
+#: measuremeter/templates/pages/closeometer.html:146
+#: measuremeter/templates/pages/doomsdayclock.html:45
+#: measuremeter/templates/pages/doomsdayclock.html:62
+#: measuremeter/templates/pages/doomsdayclock.html:121
+msgid "Date"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:58
+msgid "New hospital entries lower then 80 (7-day-average)."
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:63
+msgid "New entries"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:100
+msgid "Average of past 7 R values under 1.15"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:141
+msgid "14 day incidence lower then 350."
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:146
+#: measuremeter/templates/pages/doomsdayclock.html:121
+msgid "Current incidence"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:152
+msgid ""
+"Using these criterias, the government will decide if further restrictions "
+"will be introduced"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:152
+msgid "Source FOPH"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:153
+#: measuremeter/templates/pages/doomsdayclock.html:133
+msgid "Source data:"
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:153
+#: measuremeter/templates/pages/doomsdayclock.html:133
+msgid "FOPH"
+msgstr ""
+
 #: measuremeter/templates/pages/district.html:30
 #: measuremeter/templates/pages/district.html:32
 #: measuremeter/templates/pages/district7.html:30
@@ -887,24 +962,6 @@ msgstr ""
 msgid "Number of Covid patients in intensive care < 250"
 msgstr ""
 
-#: measuremeter/templates/pages/doomsdayclock.html:45
-msgid "Covid patiens in ICU"
-msgstr ""
-
-#: measuremeter/templates/pages/doomsdayclock.html:45
-msgid "Full capacity ICU"
-msgstr ""
-
-#: measuremeter/templates/pages/doomsdayclock.html:45
-msgid "Proportion"
-msgstr ""
-
-#: measuremeter/templates/pages/doomsdayclock.html:45
-#: measuremeter/templates/pages/doomsdayclock.html:62
-#: measuremeter/templates/pages/doomsdayclock.html:121
-msgid "Date"
-msgstr ""
-
 #: measuremeter/templates/pages/doomsdayclock.html:57
 #: measuremeter/templates/pages/doomsdayclock.html:62
 msgid "Percent Positive"
@@ -926,26 +983,19 @@ msgstr ""
 msgid "Incidence March 1st"
 msgstr ""
 
-#: measuremeter/templates/pages/doomsdayclock.html:121
-msgid "Current incidence"
+#: measuremeter/templates/pages/doomsdayclock.html:127
+msgid ""
+"Three of four criterias were not fulfilled - we keep this here as legacy..."
 msgstr ""
 
-#: measuremeter/templates/pages/doomsdayclock.html:127
+#: measuremeter/templates/pages/doomsdayclock.html:132
 msgid ""
 "If all four criterias are fullfilled, there should be less restrictions from "
 "March 22 on:"
 msgstr ""
 
-#: measuremeter/templates/pages/doomsdayclock.html:127
+#: measuremeter/templates/pages/doomsdayclock.html:132
 msgid "Press release FOPH"
-msgstr ""
-
-#: measuremeter/templates/pages/doomsdayclock.html:128
-msgid "Source data:"
-msgstr ""
-
-#: measuremeter/templates/pages/doomsdayclock.html:128
-msgid "FOPH"
 msgstr ""
 
 #: measuremeter/templates/pages/madlaina.html:5

@@ -43,6 +43,7 @@
                   <a class="item" href="/chrisk/">${gettext("Risk calculator")}</a>
                   <a class="item" href="/ranking7/">${gettext("Ranking")}</a>
                   <a class="item" href="/deaths_ch/">${gettext("Deaths per canton")}</a>
+                  <a class="item" href="/closeometer/">${gettext("Close-o-meter")}</a>
                   <a class="item" href="/doomsdayclock/">${gettext("Open-o-meter")}</a>
 
     </div>
@@ -90,6 +91,7 @@
                   <a class="item" href="/chrisk/">${gettext("Risk calculator")}</a>
                   <a class="item" href="/ranking7/">${gettext("Ranking")}</a>
                   <a class="item" href="/deaths_ch/">${gettext("Deaths per canton")}</a>
+                  <a class="item" href="/closeometer/">${gettext("Close-o-meter")}</a>
                   <a class="item" href="/doomsdayclock/">${gettext("Open-o-meter")}</a>
 
       <br><p><b>${gettext("World")}</b></p>
@@ -116,6 +118,7 @@
                   <a class="item" href="/ranking7/">${gettext("Ranking")}</a>
                   <a class="item" href="/chmaps/">${gettext("Maps measures")}</a>
                   <a class="item" href="/deaths_ch/">${gettext("Deaths per canton")}</a>
+                  <a class="item" href="/closeometer/">${gettext("Close-o-meter")}</a>
                   <a class="item" href="/doomsdayclock/">${gettext("Open-o-meter")}</a>
                   <a class="item" href="/">${gettext("Europe") }</a>
                   </div>

@@ -14,7 +14,7 @@ from measuremeterdata.tasks import import_helper
 import pandas as pd
 import zipfile
 import urllib.request, json
-
+from decimal import *
 class Command(BaseCommand):
 
 
@@ -64,6 +64,19 @@ class Command(BaseCommand):
                 r_okay = True
 
 
+            df_hosp = pd.read_csv(zf.open('data/COVID19Hosp_geoRegion.csv'), error_bad_lines=False)
+            ch_only_filter = df_hosp['geoRegion']=='CH'
+            ch_only = df_hosp[ch_only_filter]
+            empty_filter = ch_only.entries.notnull()
+            hosp_final = ch_only[empty_filter].tail(8)
+
+            hosp_sum = 0
+
+            for index_row, row in hosp_final.iterrows():
+                hosp_sum += row['entries']
+
+            hosp_average = hosp_sum / 7
+
             df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'), error_bad_lines=False)
             df_incidence_ch_only = df_incidence['geoRegion']=='CH'
 
@@ -98,6 +111,21 @@ class Command(BaseCommand):
                 cd_existing.r6_date = r_final.iloc[5].date
                 cd_existing.r7_value = r_final.iloc[6].median_R_mean
                 cd_existing.r7_date = r_final.iloc[6].date
+                cd_existing.hosp_average = hosp_average
+                cd_existing.hosp1_value = Decimal(hosp_final.iloc[0].entries.item())
+                cd_existing.hosp1_date = hosp_final.iloc[0].datum
+                cd_existing.hosp2_value = Decimal(hosp_final.iloc[1].entries.item())
+                cd_existing.hosp2_date = hosp_final.iloc[1].datum
+                cd_existing.hosp3_value = Decimal(hosp_final.iloc[2].entries.item())
+                cd_existing.hosp3_date = hosp_final.iloc[2].datum
+                cd_existing.hosp4_value = Decimal(hosp_final.iloc[3].entries.item())
+                cd_existing.hosp4_date = hosp_final.iloc[3].datum
+                cd_existing.hosp5_value = Decimal(hosp_final.iloc[4].entries.item())
+                cd_existing.hosp5_date = hosp_final.iloc[4].datum
+                cd_existing.hosp6_value = Decimal(hosp_final.iloc[5].entries.item())
+                cd_existing.hosp6_date = hosp_final.iloc[5].datum
+                cd_existing.hosp7_value = Decimal(hosp_final.iloc[6].entries.item())
+                cd_existing.hosp7_date = hosp_final.iloc[6].datum
                 cd_existing.incidence_mar1 = incidence_mar1
                 cd_existing.incidence_latest = incidence_latest
                 cd_existing.incidence_latest_date = incidence_latest_date
@@ -130,5 +158,5 @@ class Command(BaseCommand):
                             incidence_latest_date = incidence_latest_date)
                 cd.save()
 
-            if old_date.isoformat() != cd_existing.incidence_latest_date:
-                tweet()
+#            if old_date.isoformat() != cd_existing.incidence_latest_date:
+#                tweet()
