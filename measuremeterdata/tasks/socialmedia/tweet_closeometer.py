@@ -195,7 +195,7 @@ def create_image():
        <tr  class="center aligned">
     '''
 
-    if doom_clock.incidence_mar1 >  doom_clock.incidence_latest:
+    if 350 >  doom_clock.incidence_latest:
         html += '<td class ="positive">'
     else:
         html += '<td class ="negative" >'
