@@ -68,7 +68,7 @@ class Command(BaseCommand):
             ch_only_filter = df_hosp['geoRegion']=='CH'
             ch_only = df_hosp[ch_only_filter]
             empty_filter = ch_only.entries.notnull()
-            hosp_final = ch_only[empty_filter].tail(11)
+            hosp_final = ch_only[empty_filter].tail(13)
 
             hosp_sum = 0
 
