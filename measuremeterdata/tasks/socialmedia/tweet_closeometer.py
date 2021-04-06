@@ -91,7 +91,7 @@ def create_image():
         html += '<td class ="negative" >'
 
     html += f'''
-           Anzahl Covid-Patienten in Intensivpflege < 350
+           Anzahl Covid-Patienten in Intensivpflege < 300
          </td>
        </tr>
        <tr  class="center aligned">
