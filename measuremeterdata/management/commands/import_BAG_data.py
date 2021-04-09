@@ -30,6 +30,7 @@ class Command(BaseCommand):
 
             df_occupancy = pd.read_csv(zf.open('data/COVID19HospCapacity_geoRegion.csv'), error_bad_lines=False)
             hosp_cov19_patients = df_occupancy.tail(1)['ICU_Covid19Patients'].item()
+            hosp_cov19_patients_7d = df_occupancy.tail(8).head(1)['ICU_Covid19Patients'].item()
             hosp_capacity = df_occupancy.tail(1)['ICU_Capacity'].item()
             hosp_date = df_occupancy.tail(1)['date'].item()
 
@@ -60,6 +61,12 @@ class Command(BaseCommand):
 
             r_average = r_sum / 7
 
+            r_sum_7d = 0
+            r_final_7d = ch_only[empty_filter].tail(14).head(7)
+            for index_row, row in r_final_7d.iterrows():
+                r_sum_7d += row['median_R_mean']
+            r_average_7d = r_sum_7d / 7
+
             if r_sum < 1:
                 r_okay = True
 
@@ -75,7 +82,19 @@ class Command(BaseCommand):
             for index_row, row in hosp_final.iterrows():
                 hosp_sum += row['entries']
 
+            print(hosp_sum)
             hosp_average = hosp_sum / 7
+
+            hosp_final_7d = ch_only[empty_filter].tail(20).head(7)
+
+            hosp_sum_7d = 0
+
+            for index_row, row in hosp_final_7d.iterrows():
+                print(row['entries'])
+                hosp_sum_7d += row['entries']
+
+            print(hosp_sum_7d)
+            hosp_average_7d = hosp_sum_7d / 7
 
             df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'), error_bad_lines=False)
             df_incidence_ch_only = df_incidence['geoRegion']=='CH'
@@ -86,17 +105,27 @@ class Command(BaseCommand):
             incidence_latest = 100000*cases_14d/8570146
             incidence_latest_date = df_incidence[df_incidence_ch_only].tail(2).iloc[0]['datum']
 
+            cases_14d_7d = df_incidence[df_incidence_ch_only].tail(9).iloc[0]['sum14d']
+            incidence_latest_7d = 100000*cases_14d_7d/8570146
+
+            print(df_incidence[df_incidence_ch_only].tail(2).iloc[0]['sumTotal_last14d'])
+            print( df_incidence[df_incidence_ch_only].tail(2).iloc[0]['datum'])
+
+            print(df_incidence[df_incidence_ch_only].tail(9).iloc[0]['sum14d'])
+            print( df_incidence[df_incidence_ch_only].tail(9).iloc[0]['datum'])
 
             try:
                 cd_existing = DoomsdayClock.objects.get(name="Master")
                 old_date = cd_existing.incidence_latest_date
                 cd_existing.hosp_cov19_patients = hosp_cov19_patients
+                cd_existing.hosp_cov19_patients_7d = hosp_cov19_patients_7d
                 cd_existing.hosp_capacity = hosp_capacity
                 cd_existing.hosp_date = hosp_date
                 cd_existing.positivity = positivity
                 cd_existing.positivity_date = positivity_date
                 cd_existing.r_okay = r_okay
                 cd_existing.r_average = r_average
+                cd_existing.r_average_7d = r_average_7d
                 cd_existing.r1_value = r_final.iloc[0].median_R_mean
                 cd_existing.r1_date = r_final.iloc[0].date
                 cd_existing.r2_value = r_final.iloc[1].median_R_mean
@@ -112,6 +141,7 @@ class Command(BaseCommand):
                 cd_existing.r7_value = r_final.iloc[6].median_R_mean
                 cd_existing.r7_date = r_final.iloc[6].date
                 cd_existing.hosp_average = hosp_average
+                cd_existing.hosp_average_7d = hosp_average_7d
                 cd_existing.hosp1_value = Decimal(hosp_final.iloc[0].entries.item())
                 cd_existing.hosp1_date = hosp_final.iloc[0].datum
                 cd_existing.hosp2_value = Decimal(hosp_final.iloc[1].entries.item())
@@ -128,6 +158,7 @@ class Command(BaseCommand):
                 cd_existing.hosp7_date = hosp_final.iloc[6].datum
                 cd_existing.incidence_mar1 = incidence_mar1
                 cd_existing.incidence_latest = incidence_latest
+                cd_existing.incidence_latest_7d = incidence_latest_7d
                 cd_existing.incidence_latest_date = incidence_latest_date
                 cd_existing.save()
             except DoomsdayClock.DoesNotExist:

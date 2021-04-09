@@ -42,7 +42,7 @@
        </tr>
        <tr  class="center aligned">
          <td>
-          {% trans 'Covid patiens in ICU' %}: {{hosp_cov19_patients}} // {% trans 'Full capacity ICU' %}: {{hosp_capacity}} // {% trans 'Proportion' %}: {{hosp_quota|floatformat:1}} // {% trans 'Date' %}: {{hosp_date}}
+          {% trans 'Covid patients in ICU' %}: {{hosp_cov19_patients}} ({{hosp_cov19_patients_7d}} {% if hosp_cov19_patients_7d > hosp_cov19_patients %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Full capacity ICU' %}: {{hosp_capacity}} // {% trans 'Proportion' %}: {{hosp_quota|floatformat:1}} // {% trans 'Date' %}: {{hosp_date}}
          </td>
        </tr>
      </table>
@@ -60,7 +60,7 @@
        </tr>
               <tr  class="center aligned">
                 <td colspan="7">
-                  {% trans 'New entries' %}: {{hosp_average|floatformat:0}}
+                  {% trans 'New entries' %}: {{hosp_average|floatformat:0}} ({{hosp_average_7d|floatformat:0}} {% if hosp_average_7d > hosp_average %} &#9989; {% else %} &#128308; {% endif %})
                 </td>
               </tr>
        <tr  class="center aligned">
@@ -102,7 +102,7 @@
        </tr>
               <tr  class="center aligned">
                 <td colspan="7">
-                  R: {{r_average}}
+                  R: {{r_average}} ({{r_average_7d}} {% if r_average_7d > r_average %} &#9989; {% else %} &#128308; {% endif %})
                 </td>
               </tr>
        <tr  class="center aligned">
@@ -143,12 +143,15 @@
        </tr>
        <tr  class="center aligned">
          <td>
-           {% trans 'Current incidence' %}: {{incidence_latest}} // {% trans 'Date' %}: {{incidence_latest_date}}
+           {% trans 'Current incidence' %}: {{incidence_latest}} ({{incidence_latest_7d}} {% if incidence_latest_7d > incidence_latest %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Date' %}: {{incidence_latest_date}}
            </td>
        </tr>
      </table>
 
-    <br><br>
+    <br>
+     {% trans 'Numbers in brackets: Value a week before current value.' %}&nbsp;
+     {% trans 'Past and current values can change due updates.' %}
+     <br>
      {% trans 'Using these criterias, the government will decide if further restrictions will be introduced' %} (<a href="https://www.bag.admin.ch/bag/de/home/krankheiten/ausbrueche-epidemien-pandemien/aktuelle-ausbrueche-epidemien/novel-cov/massnahmen-des-bundes.html" target="_blank">{% trans 'Source FOPH' %}</a>).<br>
      {% trans 'Source data:' %} <a href="https://www.covid19.admin.ch/" target="_blank">{% trans 'FOPH' %}</a>
    </div>

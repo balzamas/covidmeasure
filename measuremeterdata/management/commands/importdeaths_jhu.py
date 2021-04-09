@@ -90,7 +90,7 @@ class Command(BaseCommand):
 
                             past_date = date(2020, 6, 1)
                             if day.date > past_date:
-                                cases = CasesDeaths.objects.get(country=country, date=(day.date-timedelta(21)))
+                                cases = CasesDeaths.objects.get(country=country, date=(day.date-timedelta(14)))
                                 if seven_avg > 0 and cases.cases_past7days > 0:
                                     day.death_to_cases = float(cases.cases_past7days) / float(seven_avg)
                                 else:

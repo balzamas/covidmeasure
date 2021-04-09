@@ -30,6 +30,7 @@ def load_data(request):
 
     context = {
         'hosp_cov19_patients' : doom_clock.hosp_cov19_patients,
+        'hosp_cov19_patients_7d': doom_clock.hosp_cov19_patients_7d,
         'hosp_capacity' : doom_clock.hosp_capacity ,
         'hosp_date' : doom_clock.hosp_date,
         'hosp_quota': quota,
@@ -50,6 +51,7 @@ def load_data(request):
         'r7_value': doom_clock.r7_value,
         'r7_date': doom_clock.r7_date,
         'r_average': doom_clock.r_average,
+        'r_average_7d': doom_clock.r_average_7d,
         'r_okay' : r_okay,
         'hosp1_value': doom_clock.hosp1_value,
         'hosp1_date': doom_clock.hosp1_date,
@@ -66,8 +68,10 @@ def load_data(request):
         'hosp7_value': doom_clock.hosp7_value,
         'hosp7_date': doom_clock.hosp7_date,
         'hosp_average': doom_clock.hosp_average,
+        'hosp_average_7d': doom_clock.hosp_average_7d,
         'incidence_mar1' : doom_clock.incidence_mar1,
         'incidence_latest' : doom_clock.incidence_latest,
+        'incidence_latest_7d': doom_clock.incidence_latest_7d,
         'incidence_latest_date' : doom_clock.incidence_latest_date,
         "value": value
     }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-24 13:40+0100\n"
+"POT-Creation-Date: 2021-04-09 15:34+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -694,8 +694,7 @@ msgid "Number of Covid patients in intensive care < 300"
 msgstr ""
 
 #: measuremeter/templates/pages/closeometer.html:45
-#: measuremeter/templates/pages/doomsdayclock.html:45
-msgid "Covid patiens in ICU"
+msgid "Covid patients in ICU"
 msgstr ""
 
 #: measuremeter/templates/pages/closeometer.html:45
@@ -738,21 +737,29 @@ msgid "Current incidence"
 msgstr ""
 
 #: measuremeter/templates/pages/closeometer.html:152
+msgid "Numbers in brackets: Value a week before current value."
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:153
+msgid "Past and current values can change due updates."
+msgstr ""
+
+#: measuremeter/templates/pages/closeometer.html:155
 msgid ""
 "Using these criterias, the government will decide if further restrictions "
 "will be introduced"
 msgstr ""
 
-#: measuremeter/templates/pages/closeometer.html:152
+#: measuremeter/templates/pages/closeometer.html:155
 msgid "Source FOPH"
 msgstr ""
 
-#: measuremeter/templates/pages/closeometer.html:153
+#: measuremeter/templates/pages/closeometer.html:156
 #: measuremeter/templates/pages/doomsdayclock.html:133
 msgid "Source data:"
 msgstr ""
 
-#: measuremeter/templates/pages/closeometer.html:153
+#: measuremeter/templates/pages/closeometer.html:156
 #: measuremeter/templates/pages/doomsdayclock.html:133
 msgid "FOPH"
 msgstr ""
@@ -960,6 +967,10 @@ msgstr ""
 
 #: measuremeter/templates/pages/doomsdayclock.html:40
 msgid "Number of Covid patients in intensive care < 250"
+msgstr ""
+
+#: measuremeter/templates/pages/doomsdayclock.html:45
+msgid "Covid patiens in ICU"
 msgstr ""
 
 #: measuremeter/templates/pages/doomsdayclock.html:57

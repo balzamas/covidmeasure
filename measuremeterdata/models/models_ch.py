@@ -11,11 +11,13 @@ class MotherModel(models.Model):
 class DoomsdayClock(MotherModel):
     name = models.CharField(max_length=200)
     hosp_cov19_patients = models.IntegerField(null=True, blank=True)
+    hosp_cov19_patients_7d = models.IntegerField(null=True, blank=True)
     hosp_capacity = models.IntegerField(null=True, blank=True)
     hosp_date = models.DateField(null=True,blank=True)
     positivity = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     positivity_date = models.DateField(null=True,blank=True)
     r_average = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    r_average_7d = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     r1_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     r1_date = models.DateField(null=True,blank=True)
     r2_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
@@ -32,6 +34,7 @@ class DoomsdayClock(MotherModel):
     r7_date = models.DateField(null=True, blank=True)
     r_okay = models.BooleanField(default= False)
     hosp_average = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    hosp_average_7d = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     hosp1_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     hosp1_date = models.DateField(null=True,blank=True)
     hosp2_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
@@ -48,6 +51,7 @@ class DoomsdayClock(MotherModel):
     hosp7_date = models.DateField(null=True, blank=True)
     incidence_mar1 = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     incidence_latest = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    incidence_latest_7d = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     incidence_latest_date = models.DateField(null=True,blank=True)
 
 class CHCanton(MotherModel):

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-24 13:40+0100\n"
+"POT-Creation-Date: 2021-04-09 15:34+0200\n"
 "PO-Revision-Date: 2021-01-22 17:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -687,8 +687,7 @@ msgid "Number of Covid patients in intensive care < 300"
 msgstr " Intensivplätze mit Covid-19-Patienten < 300"
 
 #: measuremeter/templates/pages/closeometer.html:45
-#: measuremeter/templates/pages/doomsdayclock.html:45
-msgid "Covid patiens in ICU"
+msgid "Covid patients in ICU"
 msgstr "Covid-Patienten in IPS"
 
 #: measuremeter/templates/pages/closeometer.html:45
@@ -731,6 +730,14 @@ msgid "Current incidence"
 msgstr "Wert Aktuell"
 
 #: measuremeter/templates/pages/closeometer.html:152
+msgid "Numbers in brackets: Value a week before current value."
+msgstr "Zahlen in Klammern: Wert eine Woche vor aktuellem Wert."
+
+#: measuremeter/templates/pages/closeometer.html:153
+msgid "Past and current values can change due updates."
+msgstr "Aktuelle und vergangene Zahlen können ändern aufgrund von Nachmeldungen."
+
+#: measuremeter/templates/pages/closeometer.html:155
 msgid ""
 "Using these criterias, the government will decide if further restrictions "
 "will be introduced"
@@ -738,16 +745,16 @@ msgstr ""
 "Mittels dieser Indikatoren entscheidet der Bundesrat über weitere "
 "Verschärfungen (kein Automatismus!)"
 
-#: measuremeter/templates/pages/closeometer.html:152
+#: measuremeter/templates/pages/closeometer.html:155
 msgid "Source FOPH"
 msgstr "Quellen BAG"
 
-#: measuremeter/templates/pages/closeometer.html:153
+#: measuremeter/templates/pages/closeometer.html:156
 #: measuremeter/templates/pages/doomsdayclock.html:133
 msgid "Source data:"
 msgstr "Quelle Daten:"
 
-#: measuremeter/templates/pages/closeometer.html:153
+#: measuremeter/templates/pages/closeometer.html:156
 #: measuremeter/templates/pages/doomsdayclock.html:133
 msgid "FOPH"
 msgstr "BAG"
@@ -963,6 +970,10 @@ msgstr "Wechsle zur 14-Tage-Inzidenz"
 #: measuremeter/templates/pages/doomsdayclock.html:40
 msgid "Number of Covid patients in intensive care < 250"
 msgstr " Intensivplätze mit Covid-19-Patienten < 250"
+
+#: measuremeter/templates/pages/doomsdayclock.html:45
+msgid "Covid patiens in ICU"
+msgstr "Covid-Patienten in IPS"
 
 #: measuremeter/templates/pages/doomsdayclock.html:57
 #: measuremeter/templates/pages/doomsdayclock.html:62
