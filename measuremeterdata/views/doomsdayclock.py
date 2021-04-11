@@ -19,7 +19,7 @@ def load_data(request):
     if doom_clock.hosp_cov19_patients < 250:
         value += 1
 
-    if doom_clock.r_okay:
+    if doom_clock.r_average < 1:
         value += 1
 
     if doom_clock.incidence_mar1 > doom_clock.incidence_latest:
