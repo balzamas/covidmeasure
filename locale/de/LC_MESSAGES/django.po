@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-09 15:34+0200\n"
+"POT-Creation-Date: 2021-04-11 19:18+0200\n"
 "PO-Revision-Date: 2021-01-22 17:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -735,7 +735,8 @@ msgstr "Zahlen in Klammern: Wert eine Woche vor aktuellem Wert."
 
 #: measuremeter/templates/pages/closeometer.html:153
 msgid "Past and current values can change due updates."
-msgstr "Aktuelle und vergangene Zahlen können ändern aufgrund von Nachmeldungen."
+msgstr ""
+"Aktuelle und vergangene Zahlen können ändern aufgrund von Nachmeldungen."
 
 #: measuremeter/templates/pages/closeometer.html:155
 msgid ""
@@ -1137,11 +1138,15 @@ msgid "R median"
 msgstr "R median"
 
 #: measuremeter/templates/pages/ranking.html:129
+msgid "Vacc. per 100k<br>Past 7 days"
+msgstr "Impf. pro 100k<br>verg. 7 Tage"
+
+#: measuremeter/templates/pages/ranking.html:131
 #: measuremeter/templates/pages/ranking14.html:115
 msgid "Measures"
 msgstr "Massnahmen"
 
-#: measuremeter/templates/pages/ranking.html:241
+#: measuremeter/templates/pages/ranking.html:255
 msgid ""
 "Source cases: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
 "\">OpenData ZH</a> and others, see <a href=\"/districts\">here for more "
@@ -1151,12 +1156,19 @@ msgstr ""
 "\">OpenData ZH</a> und andere, siehe <a href=\"/districts\">hier für mehr "
 "Informationen.</a>"
 
-#: measuremeter/templates/pages/ranking.html:242
+#: measuremeter/templates/pages/ranking.html:256
 #: measuremeter/templates/pages/ranking14.html:204
 msgid ""
 "Source R<sub>e</sub>: <a href=\"https://github.com/covid-19-Re/dailyRe-Data"
 "\" target=\"_blank\">ETH Zurich</a><br>"
 msgstr ""
+
+#: measuremeter/templates/pages/ranking.html:257
+msgid ""
+"Source Vaccinations: <a href=\"https://www.covid19.admin.ch/api/data/context"
+"\" target=\"_blank\">BAG</a><br>"
+msgstr "Quelle Impfungen: <a href=\"https://www.covid19.admin.ch/api/data/context"
+"\" target=\"_blank\">BAG</a><br>"
 
 #: measuremeter/templates/pages/ranking14.html:96
 #: measuremeter/templates/pages/ranking14.html:97

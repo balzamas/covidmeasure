@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-09 15:34+0200\n"
+"POT-Creation-Date: 2021-04-11 19:18+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1128,22 +1128,32 @@ msgid "R median"
 msgstr ""
 
 #: measuremeter/templates/pages/ranking.html:129
+msgid "Vacc. per 100k<br>Past 7 days"
+msgstr ""
+
+#: measuremeter/templates/pages/ranking.html:131
 #: measuremeter/templates/pages/ranking14.html:115
 msgid "Measures"
 msgstr ""
 
-#: measuremeter/templates/pages/ranking.html:241
+#: measuremeter/templates/pages/ranking.html:255
 msgid ""
 "Source cases: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
 "\">OpenData ZH</a> and others, see <a href=\"/districts\">here for more "
 "information.</a>"
 msgstr ""
 
-#: measuremeter/templates/pages/ranking.html:242
+#: measuremeter/templates/pages/ranking.html:256
 #: measuremeter/templates/pages/ranking14.html:204
 msgid ""
 "Source R<sub>e</sub>: <a href=\"https://github.com/covid-19-Re/dailyRe-Data"
 "\" target=\"_blank\">ETH Zurich</a><br>"
+msgstr ""
+
+#: measuremeter/templates/pages/ranking.html:257
+msgid ""
+"Source Vaccinations: <a href=\"https://www.covid19.admin.ch/api/data/context"
+"\" target=\"_blank\">BAG</a><br>"
 msgstr ""
 
 #: measuremeter/templates/pages/ranking14.html:96

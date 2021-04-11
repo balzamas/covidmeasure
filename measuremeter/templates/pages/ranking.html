@@ -126,6 +126,8 @@ table.center {
       <th align="center" onclick="sortTable(4,'ranking')">{% trans 'Prevalence 7d/100k'%}</th>
       <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
       <th onclick="sortTable(6, 'ranking')" nowrap>{% trans 'R median'%}</th>
+      <th onclick="sortTable(7, 'ranking')" nowrap>{% trans 'Vacc. per 100k<br>Past 7 days'%}</th>
+
       <th>{% trans 'Measures'%}</th>
     </tr>
     {% for hans in cantons %}
@@ -198,6 +200,18 @@ table.center {
           </div>
         {% endif %}
       </td>
+
+      <td nowrap>
+
+        <div hidden>{{ hans.vacc }}</div>
+        {% if hans.level == 0 %}
+          <div class="container">
+            <div class="centered">
+              {{ hans.vacc|floatformat:2 }}<br><font size=2px>{{ hans.vacc_date }}</font>
+            </div>
+          </div>
+        {% endif %}
+      </td>
       <td>
                 <div class="sample-container">
 
@@ -240,6 +254,7 @@ table.center {
   <p id="grande">
   {% trans 'Source cases: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
   {% trans 'Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>'%}
+    {% trans 'Source Vaccinations: <a href="https://www.covid19.admin.ch/api/data/context" target="_blank">BAG</a><br>'%}
   </p>
   </div>
 

@@ -26,7 +26,13 @@ def ranking7_calc(cantons):
                 r0_date = date.today()
                 r_count = 0
                 r_under_one = True
+
+                vacc = None
+                vacc_date = None
                 for case in cases:
+                    if case.vacc_perpop_7d and not vacc:
+                        vacc = case.vacc_perpop_7d
+                        vacc_date = case.date
                     if case.r0median:
                         if r_count == 0:
                             r0 = case.r0median
@@ -85,7 +91,8 @@ def ranking7_calc(cantons):
                             "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": last_tendency,
                             "cur_prev7": case_7days_before.incidence_past7days, "id": canton.swisstopo_id,
                             "level": canton.level, "measures": measures, "incidence_below_ch": incidence_below_ch,
-                            "r0":r0, "r0_date":r0_date, "r_under_one":r_under_one}
+                            "r0":r0, "r0_date":r0_date, "r_under_one":r_under_one,
+                            "vacc": vacc, "vacc_date": vacc_date}
 
             canton_vals.append(canton_toadd)
 
