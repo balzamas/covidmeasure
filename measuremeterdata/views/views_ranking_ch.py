@@ -20,6 +20,8 @@ def ranking7_calc(cantons):
         r0 = False
         r0_date = False
         r_under_one = False
+        vacc = None
+        vacc_date = None
         try:
             if canton.level == 0:
                 r0 = 0
@@ -27,8 +29,6 @@ def ranking7_calc(cantons):
                 r_count = 0
                 r_under_one = True
 
-                vacc = None
-                vacc_date = None
                 for case in cases:
                     if case.vacc_perpop_7d and not vacc:
                         vacc = case.vacc_perpop_7d
