@@ -29,8 +29,17 @@ class Command(BaseCommand):
             zf = zipfile.ZipFile(BytesIO(resp.read()), 'r')
 
             df_occupancy = pd.read_csv(zf.open('data/COVID19HospCapacity_geoRegion.csv'), error_bad_lines=False)
-            hosp_cov19_patients = df_occupancy.tail(1)['ICU_Covid19Patients'].item()
-            hosp_cov19_patients_7d = df_occupancy.tail(8).head(1)['ICU_Covid19Patients'].item()
+
+            hosp_final = 0
+            for index_row, row in df_occupancy.tail(15).iterrows():
+                hosp_final += row['ICU_Covid19Patients']
+            hosp_cov19_patients = hosp_final/15
+
+            hosp_final = 0
+            for index_row, row in df_occupancy.tail(22).head(15).iterrows():
+                hosp_final += row['ICU_Covid19Patients']
+            hosp_cov19_patients_7d = hosp_final/15
+
             hosp_capacity = df_occupancy.tail(1)['ICU_Capacity'].item()
             hosp_date = df_occupancy.tail(1)['date'].item()
 
@@ -75,7 +84,7 @@ class Command(BaseCommand):
             ch_only_filter = df_hosp['geoRegion']=='CH'
             ch_only = df_hosp[ch_only_filter]
             empty_filter = ch_only.entries.notnull()
-            hosp_final = ch_only[empty_filter].tail(13).head(7)
+            hosp_final = ch_only[empty_filter].tail(10).head(7)
 
             hosp_sum = 0
 
@@ -85,7 +94,7 @@ class Command(BaseCommand):
             print(hosp_sum)
             hosp_average = hosp_sum / 7
 
-            hosp_final_7d = ch_only[empty_filter].tail(20).head(7)
+            hosp_final_7d = ch_only[empty_filter].tail(17).head(7)
 
             hosp_sum_7d = 0
 

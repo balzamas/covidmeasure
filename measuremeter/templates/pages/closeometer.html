@@ -37,7 +37,7 @@
          {% else %}
            <td class="negative">
          {% endif %}
-           {% trans 'Number of Covid patients in intensive care < 300' %}
+           {% trans 'Number of Covid patients in intensive care (15-days-average) < 300' %}
          </td>
        </tr>
        <tr  class="center aligned">
@@ -97,12 +97,12 @@
            <td class="negative" colspan="7">
          {% endif %}
 
-           {% trans 'Average of past 7 R values under 1.15' %}
+           {% trans 'Most recent R value under 1.15' %}
          </td>
        </tr>
               <tr  class="center aligned">
                 <td colspan="7">
-                  R: {{r_average}} ({{r_average_7d}} {% if r_average_7d > r_average %} &#9989; {% else %} &#128308; {% endif %})
+                  R: {{r7_value}} ({{r1_value}} {% if r1_value > r7_value %} &#9989; {% else %} &#128308; {% endif %})
                 </td>
               </tr>
        <tr  class="center aligned">
