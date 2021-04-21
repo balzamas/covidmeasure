@@ -43,6 +43,21 @@ class Command(BaseCommand):
             hosp_capacity = df_occupancy.tail(1)['ICU_Capacity'].item()
             hosp_date = df_occupancy.tail(1)['date'].item()
 
+            df_death = pd.read_csv(zf.open('data/COVID19Death_geoRegion.csv'), error_bad_lines=False)
+            ch_only = df_death['geoRegion'] == 'CH'
+            death_7days = df_death[ch_only].tail(2).head(1)['sum7d'].item()
+            death_7days_7d = df_death[ch_only].tail(9).head(1)['sum7d'].item()
+
+            df_vacc = pd.read_csv(zf.open('data/COVID19VaccDosesAdministered.csv'), error_bad_lines=False)
+            ch_only = df_vacc['geoRegion'] == 'CH'
+            now = df_vacc[ch_only].tail(1)['sumTotal'].item()
+            bef7d = df_vacc[ch_only].tail(8).head(1)['sumTotal'].item()
+            bef14d = df_vacc[ch_only].tail(15).head(1)['sumTotal'].item()
+
+            vacc_value = (now - bef7d) * 100000 / 8500000
+            vacc_value_7d = (bef7d - bef14d) * 100000 / 8500000
+            vacc_date = df_vacc[ch_only].tail(1)['date'].item()
+
             df_positivity = pd.read_csv(zf.open('data/COVID19Test_geoRegion_all.csv'), error_bad_lines=False)
 
             ch_only = df_positivity['geoRegion']=='CH'
@@ -51,7 +66,14 @@ class Command(BaseCommand):
             for index_row, row in pos_7days.iterrows():
                 total_pos_sum += row['pos_anteil']
 
+            pos_7days_7d = df_positivity[ch_only].tail(14).head(7)
+            total_pos_sum_7d = 0
+            for index_row, row in pos_7days_7d.iterrows():
+                total_pos_sum_7d += row['pos_anteil']
+
             positivity = total_pos_sum / 7
+            positivity_7d = total_pos_sum_7d / 7
+
             positivity_date = df_positivity[ch_only].tail(1)['datum'].item()
 
 
@@ -84,7 +106,7 @@ class Command(BaseCommand):
             ch_only_filter = df_hosp['geoRegion']=='CH'
             ch_only = df_hosp[ch_only_filter]
             empty_filter = ch_only.entries.notnull()
-            hosp_final = ch_only[empty_filter].tail(10).head(7)
+            hosp_final = ch_only[empty_filter].tail(12).head(7)
 
             hosp_sum = 0
 
@@ -94,7 +116,7 @@ class Command(BaseCommand):
             print(hosp_sum)
             hosp_average = hosp_sum / 7
 
-            hosp_final_7d = ch_only[empty_filter].tail(17).head(7)
+            hosp_final_7d = ch_only[empty_filter].tail(19).head(7)
 
             hosp_sum_7d = 0
 
@@ -131,6 +153,7 @@ class Command(BaseCommand):
                 cd_existing.hosp_capacity = hosp_capacity
                 cd_existing.hosp_date = hosp_date
                 cd_existing.positivity = positivity
+                cd_existing.positivity_7d = positivity_7d
                 cd_existing.positivity_date = positivity_date
                 cd_existing.r_okay = r_okay
                 cd_existing.r_average = r_average
@@ -169,6 +192,11 @@ class Command(BaseCommand):
                 cd_existing.incidence_latest = incidence_latest
                 cd_existing.incidence_latest_7d = incidence_latest_7d
                 cd_existing.incidence_latest_date = incidence_latest_date
+                cd_existing.deaths_value = death_7days
+                cd_existing.deaths_value_7d = death_7days_7d
+                cd_existing.vacc_value = vacc_value
+                cd_existing.vacc_value_7d = vacc_value_7d
+                cd_existing.vacc_date = vacc_date
                 cd_existing.save()
             except DoomsdayClock.DoesNotExist:
                 cd = DoomsdayClock(name="Master",
@@ -198,5 +226,5 @@ class Command(BaseCommand):
                             incidence_latest_date = incidence_latest_date)
                 cd.save()
 
-            if old_date.isoformat() != cd_existing.incidence_latest_date:
-                tweet()
+ #           if old_date.isoformat() != cd_existing.incidence_latest_date:
+ #               tweet()

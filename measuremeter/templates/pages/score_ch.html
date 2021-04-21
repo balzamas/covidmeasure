@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block scripts %}
+{% endblock %}
+{% block styles %}
+	<style>
+		#map {
+			width: 600px;
+			height: 400px;
+
+      .map_center{
+      text-align:center;
+      }
+		}
+		#circle-red {
+            width: 120px;
+            height: 120px;
+            -webkit-border-radius: 60px;
+            -moz-border-radius: 60px;
+            border-radius: 60px;
+            background: red;
+         }
+		#circle-orange {
+            width: 120px;
+            height: 120px;
+            -webkit-border-radius: 60px;
+            -moz-border-radius: 60px;
+            border-radius: 60px;
+            background: orange;
+         }
+		#circle-green {
+            width: 120px;
+            height: 120px;
+            -webkit-border-radius: 60px;
+            -moz-border-radius: 60px;
+            border-radius: 60px;
+            background: green;
+         }
+	</style>
+
+	<style>#map { width: 800px; height: 700px; }
+.info { padding: 6px 8px; font: 14px/16px Arial, Helvetica, sans-serif; background: white; background: rgba(255,255,255,0.8); box-shadow: 0 0 15px rgba(0,0,0,0.2); border-radius: 5px; } .info h4 { margin: 0 0 5px; color: #777; }
+.legend { text-align: left; line-height: 18px; color: #555; } .legend i { width: 18px; height: 18px; float: left; margin-right: 8px; opacity: 0.7; }</style>
+
+{% endblock %}
+
+{% block title_header %}CovidLaws // {% trans 'Close-o-meter' %}{% endblock %}
+{% block description %}{% trans 'Close-o-meter' %}{% endblock %}
+{% block content %}
+   <div align="center">
+     <h2>{% trans 'Covidmeter' %}</h2>
+     <h3>Prototype</h3>
+     <h2>Score (max: 21):</h2>
+      {% if value < 8 %}
+        <div id="circle-red">
+          {% elif value < 15 %}
+                <div id="circle-orange">
+                  {% else %}
+                                  <div id="circle-green">
+         {% endif %}
+
+
+        <div style="padding: 30px 30px 0 30px;"><h1 style="color:White;">{{value}}</h1></div></div>
+
+     <table class="ui celled table">
+                     <thead>
+
+       <tr  class="center aligned">
+          <th>
+           {% trans 'Number of Covid patients in intensive care (15-days-average)' %}
+         </th>
+       </tr>
+                     </thead>
+
+       <tr  class="center aligned">
+         <td>
+          {% trans 'Covid patients in ICU' %}: {{hosp_cov19_patients}} ({{hosp_cov19_patients_7d}} {% if hosp_cov19_patients_7d > hosp_cov19_patients %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Full capacity ICU' %}: {{hosp_capacity}} // {% trans 'Proportion' %}: {{hosp_quota|floatformat:1}} // {% trans 'Date' %}: {{hosp_date}}
+         </td>
+       </tr>
+       <tr class="center aligned">
+         <td style="font-size: 15px;"> >300: 0P, >180: 1P, >50: 2P, <=50: 3P</td>
+       </tr>
+     </table>
+
+          <table class="ui celled table">
+                          <thead>
+
+       <tr  class="center aligned">
+          <th colspan="7">
+           {% trans 'New hospital entries (7-day-average).' %}
+         </th>
+       </tr>
+                     </thead>
+
+              <tr  class="center aligned">
+                <td colspan="7">
+                  {% trans 'New entries' %}: {{hosp_average|floatformat:0}} ({{hosp_average_7d|floatformat:0}} {% if hosp_average_7d > hosp_average %} &#9989; {% else %} &#128308; {% endif %})
+                </td>
+              </tr>
+       <tr  class="center aligned">
+         <td>
+        {{hosp1_date}}: {{hosp1_value|floatformat:0}}
+           </td>
+         <td>
+        {{hosp2_date}}: {{hosp2_value|floatformat:0}}
+           </td>
+         <td>
+        {{hosp3_date}}: {{hosp3_value|floatformat:0}}
+           </td>
+         <td>
+        {{hosp4_date}}: {{hosp4_value|floatformat:0}}
+           </td>
+         <td>
+        {{hosp5_date}}: {{hosp5_value|floatformat:0}}
+           </td>
+         <td>
+        {{hosp6_date}}: {{hosp6_value|floatformat:0}}
+           </td>
+                  <td>
+        {{hosp7_date}}: {{hosp7_value|floatformat:0}}
+           </td>
+         </td>
+       </tr>
+       <tr class="center aligned">
+         <td style="font-size: 15px;" colspan="7"> >80: 0P, >50: 1P, >20: 2P, <=20: 3P</td>
+       </tr>
+     </table>
+
+          <table class="ui celled table">
+              <thead>
+       <tr  class="center aligned">
+          <th colspan="7">
+            {% trans 'Most recent R value' %}
+         </th>
+       </tr>
+         </thead>
+              <tr  class="center aligned">
+                <td colspan="7">
+                  R: {{r7_value}} ({{r1_value}} {% if r1_value > r7_value %} &#9989; {% else %} &#128308; {% endif %})
+                </td>
+              </tr>
+       <tr  class="center aligned">
+         <td>
+        {{r1_date}}: {{r1_value}}
+           </td>
+         <td>
+        {{r2_date}}: {{r2_value}}
+           </td>
+         <td>
+        {{r3_date}}: {{r3_value}}
+           </td>
+         <td>
+        {{r4_date}}: {{r4_value}}
+           </td>
+         <td>
+        {{r5_date}}: {{r5_value}}
+           </td>
+         <td>
+        {{r6_date}}: {{r6_value}}
+           </td>
+                  <td>
+        {{r7_date}}: {{r7_value}}
+           </td>
+         </td>
+       </tr>
+       <tr class="center aligned">
+         <td style="font-size: 15px;" colspan="7"> >1.15: 0P, >1: 1P, >0.9: 2P, <=0.9: 3P</td>
+       </tr>
+     </table>
+
+     <table class="ui celled table" width="500px">
+                     <thead>
+
+       <tr  class="center aligned">
+          <th>
+
+           {% trans '14 day incidence.' %}
+         </th>
+       </tr>
+                     </thead>
+
+       <tr  class="center aligned">
+         <td>
+           {% trans 'Current incidence' %}: {{incidence_latest}} ({{incidence_latest_7d}} {% if incidence_latest_7d > incidence_latest %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Date' %}: {{incidence_latest_date}}
+           </td>
+       </tr>
+       <tr class="center aligned">
+         <td style="font-size: 15px;"> >350: 0P, >160: 1P, >80: 2P, >40: 3P, <=40: 4P</td>
+       </tr>
+     </table>
+
+     <table class="ui celled table" width="500px">
+                     <thead>
+
+       <tr  class="center aligned">
+          <th>
+
+           {% trans 'Deaths past 7 days.' %}
+         </th>
+       </tr>
+                     </thead>
+
+       <tr  class="center aligned">
+         <td>
+           {% trans 'Deaths' %}: {{deaths_value|floatformat:0}} ({{deaths_value_7d|floatformat:0}} {% if deaths_value_7d > deaths_value %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Date' %}: {{incidence_latest_date}}
+           </td>
+       </tr>
+              <tr class="center aligned">
+         <td style="font-size: 15px;"> >100: 0P, >50: 1P, >20: 2P, <=20: 2P</td>
+       </tr>
+     </table>
+
+     <table class="ui celled table" width="500px">
+                     <thead>
+
+       <tr  class="center aligned">
+          <th>
+
+           {% trans 'Positivity' %}
+         </th>
+       </tr>
+                     </thead>
+
+       <tr  class="center aligned">
+         <td>
+           {% trans 'Current positivity' %}: {{positivity}} ({{positivity_7d}} {% if positivity_7d > positivity %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Date' %}: {{incidence_latest_date}}
+           </td>
+       </tr>
+                     <tr class="center aligned">
+         <td style="font-size: 15px;"> >5: 0P, >2: 1P,  <=2: 3P</td>
+       </tr>
+     </table>
+
+       <table class="ui celled table" width="500px">
+                       <thead>
+
+       <tr  class="center aligned">
+          <th>
+
+           {% trans 'Vaccinations per 100k past 7 days' %}
+         </th>
+       </tr>
+                     </thead>
+
+       <tr  class="center aligned">
+         <td>
+           {% trans 'Vaccination incidence' %}: {{vacc_value}} ({{vacc_value_7d}} {% if vacc_value_7d < vacc_value %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Date' %}: {{vacc_date}}
+           </td>
+       </tr>
+                       <tr class="center aligned">
+         <td style="font-size: 15px;"> >6500: 3P, >3000: 2P, >1600: 1P, <=1600: 0P</td>
+       </tr>
+     </table>
+
+    <br>
+     {% trans 'Numbers in brackets: Value a week before current value.' %}&nbsp;
+     {% trans 'Past and current values can change due updates.' %}
+     <br>
+
+     {% trans 'Source data:' %} <a href="https://www.covid19.admin.ch/" target="_blank">{% trans 'FOPH' %}</a>
+   </div>
+
+{% endblock %}
+
+
+
+
+

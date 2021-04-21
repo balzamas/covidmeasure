@@ -16,6 +16,7 @@ class DoomsdayClock(MotherModel):
     hosp_date = models.DateField(null=True,blank=True)
     positivity = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     positivity_date = models.DateField(null=True,blank=True)
+    positivity_7d = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     r_average = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     r_average_7d = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     r1_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
@@ -53,6 +54,11 @@ class DoomsdayClock(MotherModel):
     incidence_latest = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     incidence_latest_7d = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     incidence_latest_date = models.DateField(null=True,blank=True)
+    deaths_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    deaths_value_7d = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    vacc_value = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    vacc_value_7d = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
+    vacc_date = models.DateField(null=True, blank=True)
 
 class CHCanton(MotherModel):
     LEVEL_CHOICES=[
