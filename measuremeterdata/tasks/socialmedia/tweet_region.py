@@ -182,7 +182,7 @@ def create_image(region, scores):
 
         html += '<td nowrap>'
         html += f'<div class="container"> \
-          <img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_cases.png height="70px"> \
+          <img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_deaths.png height="70px"> \
           <div class="centered">{score["deaths"]}</div> \
         </div> '
         html += '</td>'
