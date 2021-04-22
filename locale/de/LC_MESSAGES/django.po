@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-11 19:18+0200\n"
+"POT-Creation-Date: 2021-04-22 13:25+0200\n"
 "PO-Revision-Date: 2021-01-22 17:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -282,12 +282,12 @@ msgid ""
 "mail address</a>."
 msgstr ""
 
-#: measuremeter/templates/base.html:79 measuremeter/templates/base.html:124
+#: measuremeter/templates/base.html:79 measuremeter/templates/base.html:122
 msgid "Home"
 msgstr ""
 
-#: measuremeter/templates/base.html:82 measuremeter/templates/base.html:125
-#: measuremeter/templates/base.html:137
+#: measuremeter/templates/base.html:82 measuremeter/templates/base.html:123
+#: measuremeter/templates/base.html:135
 #: measuremeter/templates/pages/canton_stringency.html:73
 #: measuremeter/templates/pages/ch.html:36
 #: measuremeter/templates/pages/ch.html:53
@@ -306,77 +306,64 @@ msgstr "Massnahmen und Entwicklung"
 msgid "Map cases Districts Cantons"
 msgstr "Fallzahlen Bezirke/Kantone"
 
-#: measuremeter/templates/base.html:87 measuremeter/templates/base.html:140
+#: measuremeter/templates/base.html:87 measuremeter/templates/base.html:138
 #: measuremeter/templates/pages/ch.html:34
 msgid "Risk calculator"
 msgstr "Risikorechner"
 
-#: measuremeter/templates/base.html:88 measuremeter/templates/base.html:141
+#: measuremeter/templates/base.html:88 measuremeter/templates/base.html:139
 msgid "Ranking"
 msgstr "Ranglisten"
 
-#: measuremeter/templates/base.html:89 measuremeter/templates/base.html:142
+#: measuremeter/templates/base.html:89 measuremeter/templates/base.html:140
 msgid "Deaths per canton"
 msgstr "Todesfälle Kantone"
 
-#: measuremeter/templates/base.html:90 measuremeter/templates/base.html:143
-#: measuremeter/templates/pages/closeometer.html:24
-#: measuremeter/templates/pages/closeometer.html:25
-#: measuremeter/templates/pages/closeometer.html:28
-msgid "Close-o-meter"
-msgstr "Schliess-o-meter"
-
-#: measuremeter/templates/base.html:91 measuremeter/templates/base.html:144
-#: measuremeter/templates/pages/doomsdayclock.html:24
-#: measuremeter/templates/pages/doomsdayclock.html:25
-#: measuremeter/templates/pages/doomsdayclock.html:28
-msgid "Open-o-meter"
-msgstr "Öffnungs-o-meter"
-
-#: measuremeter/templates/base.html:96 measuremeter/templates/base.html:145
+#: measuremeter/templates/base.html:94 measuremeter/templates/base.html:141
 msgid "World"
 msgstr "Welt"
 
-#: measuremeter/templates/base.html:99 measuremeter/templates/base.html:146
+#: measuremeter/templates/base.html:97 measuremeter/templates/base.html:142
 msgid "Compare countries"
 msgstr "Ländervergleich"
 
-#: measuremeter/templates/base.html:100 measuremeter/templates/base.html:147
+#: measuremeter/templates/base.html:98 measuremeter/templates/base.html:143
 msgid "Ranking Europe"
 msgstr "Rangliste Europa"
 
-#: measuremeter/templates/base.html:101 measuremeter/templates/base.html:148
+#: measuremeter/templates/base.html:99 measuremeter/templates/base.html:144
 msgid "Ranking World"
 msgstr "Rangliste Welt"
 
-#: measuremeter/templates/base.html:102 measuremeter/templates/base.html:149
+#: measuremeter/templates/base.html:100 measuremeter/templates/base.html:145
 msgid "Country profiles"
 msgstr "Länderprofile"
 
-#: measuremeter/templates/base.html:103 measuremeter/templates/base.html:150
+#: measuremeter/templates/base.html:101 measuremeter/templates/base.html:146
 #: measuremeter/templates/base_old_2.html:301
 #: measuremeter/templates/pages/ch.html:101
+#: measuremeter/templates/pages/score_ch.html:246
 #: measuremeter/templates/pages/start.html:201
 msgid "Deaths"
-msgstr "Todesfälle Europa"
+msgstr "Todesfälle"
 
-#: measuremeter/templates/base.html:104 measuremeter/templates/base.html:151
+#: measuremeter/templates/base.html:102 measuremeter/templates/base.html:147
 msgid "Map measures Europe"
 msgstr "Karten Massnahmen Europa"
 
-#: measuremeter/templates/base.html:105 measuremeter/templates/base.html:152
+#: measuremeter/templates/base.html:103 measuremeter/templates/base.html:148
 msgid "Risk calculator Belgium"
 msgstr "Risikorechner Belgien"
 
-#: measuremeter/templates/base.html:109 measuremeter/templates/base.html:126
+#: measuremeter/templates/base.html:107 measuremeter/templates/base.html:124
 msgid "About"
 msgstr "Über"
 
-#: measuremeter/templates/base.html:138
+#: measuremeter/templates/base.html:136
 msgid "Measures and case development"
 msgstr "Massnahmen und Entwicklung"
 
-#: measuremeter/templates/base.html:139
+#: measuremeter/templates/base.html:137
 msgid "Map cases Districts/Cantons"
 msgstr "Fallzahlen Bezirke/Kantone"
 
@@ -564,11 +551,13 @@ msgstr ""
 #: measuremeter/templates/pages/chrisk.html:53
 #: measuremeter/templates/pages/chrisk.html:54
 #: measuremeter/templates/pages/chrisk.html:55
+#: measuremeter/templates/pages/score_ch.html:90
+#: measuremeter/templates/pages/score_ch.html:120
 #: riskcalc/templates/pages/belrisk.html:112
 #: riskcalc/templates/pages/belrisk.html:113
 #: riskcalc/templates/pages/belrisk.html:114
 msgid "days"
-msgstr ""
+msgstr "Tage"
 
 #: measuremeter/templates/pages/chrisk.html:57
 #: riskcalc/templates/pages/belrisk.html:116
@@ -682,21 +671,32 @@ msgid ""
 "enjoy life but don't be stupid."
 msgstr ""
 
+#: measuremeter/templates/pages/closeometer.html:24
+#: measuremeter/templates/pages/closeometer.html:25
+#: measuremeter/templates/pages/closeometer.html:28
+msgid "Close-o-meter"
+msgstr "Schliess-o-meter"
+
 #: measuremeter/templates/pages/closeometer.html:40
-msgid "Number of Covid patients in intensive care < 300"
+#, fuzzy
+#| msgid "Number of Covid patients in intensive care < 300"
+msgid "Number of Covid patients in intensive care (15-days-average) < 300"
 msgstr " Intensivplätze mit Covid-19-Patienten < 300"
 
 #: measuremeter/templates/pages/closeometer.html:45
+#: measuremeter/templates/pages/score_ch.html:83
 msgid "Covid patients in ICU"
 msgstr "Covid-Patienten in IPS"
 
 #: measuremeter/templates/pages/closeometer.html:45
 #: measuremeter/templates/pages/doomsdayclock.html:45
+#: measuremeter/templates/pages/score_ch.html:90
 msgid "Full capacity ICU"
 msgstr "Gesamtkapazität IPS"
 
 #: measuremeter/templates/pages/closeometer.html:45
 #: measuremeter/templates/pages/doomsdayclock.html:45
+#: measuremeter/templates/pages/score_ch.html:90
 msgid "Proportion"
 msgstr "Quote"
 
@@ -705,6 +705,11 @@ msgstr "Quote"
 #: measuremeter/templates/pages/doomsdayclock.html:45
 #: measuremeter/templates/pages/doomsdayclock.html:62
 #: measuremeter/templates/pages/doomsdayclock.html:121
+#: measuremeter/templates/pages/score_ch.html:90
+#: measuremeter/templates/pages/score_ch.html:223
+#: measuremeter/templates/pages/score_ch.html:253
+#: measuremeter/templates/pages/score_ch.html:280
+#: measuremeter/templates/pages/score_ch.html:309
 msgid "Date"
 msgstr "Stand"
 
@@ -717,7 +722,9 @@ msgid "New entries"
 msgstr "Neue Eintritte"
 
 #: measuremeter/templates/pages/closeometer.html:100
-msgid "Average of past 7 R values under 1.15"
+#, fuzzy
+#| msgid "Average of past 7 R values under 1.15"
+msgid "Most recent R value under 1.15"
 msgstr "Durchschnitt der letzten 7 R-Werte unter 1.15"
 
 #: measuremeter/templates/pages/closeometer.html:141
@@ -730,10 +737,12 @@ msgid "Current incidence"
 msgstr "Wert Aktuell"
 
 #: measuremeter/templates/pages/closeometer.html:152
+#: measuremeter/templates/pages/score_ch.html:318
 msgid "Numbers in brackets: Value a week before current value."
 msgstr "Zahlen in Klammern: Wert eine Woche vor aktuellem Wert."
 
 #: measuremeter/templates/pages/closeometer.html:153
+#: measuremeter/templates/pages/score_ch.html:319
 msgid "Past and current values can change due updates."
 msgstr ""
 "Aktuelle und vergangene Zahlen können ändern aufgrund von Nachmeldungen."
@@ -752,11 +761,13 @@ msgstr "Quellen BAG"
 
 #: measuremeter/templates/pages/closeometer.html:156
 #: measuremeter/templates/pages/doomsdayclock.html:133
+#: measuremeter/templates/pages/score_ch.html:322
 msgid "Source data:"
 msgstr "Quelle Daten:"
 
 #: measuremeter/templates/pages/closeometer.html:156
 #: measuremeter/templates/pages/doomsdayclock.html:133
+#: measuremeter/templates/pages/score_ch.html:322
 msgid "FOPH"
 msgstr "BAG"
 
@@ -968,6 +979,12 @@ msgstr "Fälle pro 100k Einw./verg. 7 Tage (Inzidenz)"
 msgid "Switch to 14 day incidence."
 msgstr "Wechsle zur 14-Tage-Inzidenz"
 
+#: measuremeter/templates/pages/doomsdayclock.html:24
+#: measuremeter/templates/pages/doomsdayclock.html:25
+#: measuremeter/templates/pages/doomsdayclock.html:28
+msgid "Open-o-meter"
+msgstr "Öffnungs-o-meter"
+
 #: measuremeter/templates/pages/doomsdayclock.html:40
 msgid "Number of Covid patients in intensive care < 250"
 msgstr " Intensivplätze mit Covid-19-Patienten < 250"
@@ -1167,8 +1184,9 @@ msgstr ""
 msgid ""
 "Source Vaccinations: <a href=\"https://www.covid19.admin.ch/api/data/context"
 "\" target=\"_blank\">BAG</a><br>"
-msgstr "Quelle Impfungen: <a href=\"https://www.covid19.admin.ch/api/data/context"
-"\" target=\"_blank\">BAG</a><br>"
+msgstr ""
+"Quelle Impfungen: <a href=\"https://www.covid19.admin.ch/api/data/context\" "
+"target=\"_blank\">BAG</a><br>"
 
 #: measuremeter/templates/pages/ranking14.html:96
 #: measuremeter/templates/pages/ranking14.html:97
@@ -1194,6 +1212,56 @@ msgstr ""
 #: measuremeter/templates/pages/ranking_world.html:67
 msgid "Tendency cases<br>Week/Prev. week"
 msgstr "Entwicklung Fälle<br>Woche/Vorwoche"
+
+#: measuremeter/templates/pages/score_ch.html:48
+#: measuremeter/templates/pages/score_ch.html:49
+msgid "Covidmeter"
+msgstr "Covidmeter"
+
+#: measuremeter/templates/pages/score_ch.html:52
+msgid "Covidmeter-Index"
+msgstr ""
+
+#: measuremeter/templates/pages/score_ch.html:90
+#: measuremeter/templates/pages/score_ch.html:120
+msgid "average"
+msgstr "Durchschnitt"
+
+#: measuremeter/templates/pages/score_ch.html:113
+msgid "New hospital entries"
+msgstr "Neue Spitaleintritte"
+
+#: measuremeter/templates/pages/score_ch.html:166
+msgid "Most recent R value"
+msgstr "Aktuellster R-Wert"
+
+#: measuremeter/templates/pages/score_ch.html:216
+msgid "Case Incidence"
+msgstr "Fallinzidenz"
+
+#: measuremeter/templates/pages/score_ch.html:223
+msgid "Per 100k past 14 days."
+msgstr "Pro 100k Einw./verg. 14 Tage."
+
+#: measuremeter/templates/pages/score_ch.html:253
+msgid "Total past 7 days."
+msgstr "Total d. letzten 7 Tage."
+
+#: measuremeter/templates/pages/score_ch.html:273
+msgid "Positivity rate"
+msgstr "Positivitätsrate"
+
+#: measuremeter/templates/pages/score_ch.html:280
+msgid "Average past 7 days."
+msgstr "Durchschnitt d. letzten 7 Tage"
+
+#: measuremeter/templates/pages/score_ch.html:302
+msgid "Vaccination incidence"
+msgstr "Impfinzidenz"
+
+#: measuremeter/templates/pages/score_ch.html:309
+msgid "Per 100k past 7 days."
+msgstr "Pro 100k Einw./verg. 7 Tage."
 
 #: measuremeter/users/apps.py:7
 msgid "Users"
