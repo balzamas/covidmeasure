@@ -106,7 +106,7 @@ class Command(BaseCommand):
             ch_only_filter = df_hosp['geoRegion']=='CH'
             ch_only = df_hosp[ch_only_filter]
             empty_filter = ch_only.entries.notnull()
-            hosp_final = ch_only[empty_filter].tail(12).head(7)
+            hosp_final = ch_only[empty_filter].tail(14).head(7)
 
             hosp_sum = 0
 
@@ -116,7 +116,7 @@ class Command(BaseCommand):
             print(hosp_sum)
             hosp_average = hosp_sum / 7
 
-            hosp_final_7d = ch_only[empty_filter].tail(19).head(7)
+            hosp_final_7d = ch_only[empty_filter].tail(21).head(7)
 
             hosp_sum_7d = 0
 
