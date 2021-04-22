@@ -70,12 +70,12 @@
 
        <tr  class="center aligned">
           <th>
-            {% if hosp_average > 300 %}
+            {% if hosp_cov19_patients > 300 %}
                 <i class="red circular inverted large heartbeat icon"></i>
-            {% elif hosp_average > 180 %}
+            {% elif hosp_cov19_patients > 180 %}
                 <i class="orange circular inverted large heartbeat icon"></i>
-            {% elif hosp_average > 50 %}
-                <i class="orange circular inverted large heartbeat icon"></i>
+            {% elif hosp_cov19_patients > 50 %}
+                <i class="yellow circular inverted large heartbeat icon"></i>
             {% else %}
                 <i class="green circular inverted large heartbeat icon"></i>
             {% endif %}
