@@ -67,11 +67,11 @@ def load_data(request):
     else:
         value += 3
 
-    if doom_clock.incidence_latest > 350:
+    if doom_clock.incidence_latest > 450:
         value += 0
-    elif doom_clock.incidence_latest > 160:
+    elif doom_clock.incidence_latest > 250:
         value += 1
-    elif doom_clock.incidence_latest > 80:
+    elif doom_clock.incidence_latest > 100:
         value += 2
     elif doom_clock.incidence_latest > 40:
         value += 3

@@ -14,27 +14,27 @@
       }
 		}
 		#circle-red {
-            width: 120px;
-            height: 120px;
-            -webkit-border-radius: 60px;
-            -moz-border-radius: 60px;
-            border-radius: 60px;
+            width: 180px;
+            height: 180px;
+            -webkit-border-radius: 90px;
+            -moz-border-radius: 90px;
+            border-radius: 90px;
             background: red;
          }
 		#circle-orange {
-            width: 120px;
-            height: 120px;
-            -webkit-border-radius: 60px;
-            -moz-border-radius: 60px;
-            border-radius: 60px;
+            width: 180px;
+            height: 180px;
+            -webkit-border-radius: 90px;
+            -moz-border-radius: 90px;
+            border-radius: 90px;
             background: orange;
          }
 		#circle-green {
-            width: 120px;
-            height: 120px;
-            -webkit-border-radius: 60px;
-            -moz-border-radius: 60px;
-            border-radius: 60px;
+            width: 180px;
+            height: 180px;
+            -webkit-border-radius: 90px;
+            -moz-border-radius: 90px;
+            border-radius: 90px;
             background: green;
          }
 	</style>
@@ -49,9 +49,7 @@
 {% block description %}{% trans 'Covidmeter' %}{% endblock %}
 {% block content %}
    <div align="center">
-     <h2>{% trans 'Covidmeter' %}</h2>
-     <h3>Prototype</h3>
-     <h2>Score (max: 21):</h2>
+     <h2>{% trans 'Covidmeter-Index' %}</h2>
       {% if value < 8 %}
         <div id="circle-red">
           {% elif value < 15 %}
@@ -61,21 +59,35 @@
          {% endif %}
 
 
-        <div style="padding: 30px 30px 0 30px;"><h1 style="color:White;">{{value}}</h1></div></div>
+        <div style="padding: 30px 30px 0 30px;"><h1 style="color:White;font-size: 90px;">{{value}}</h1></div></div>
+
+                       <h3>                                    Max. value: 21
+</h3>
+
 
      <table class="ui celled table">
                      <thead>
 
        <tr  class="center aligned">
           <th>
-           {% trans 'Number of Covid patients in intensive care (15-days-average)' %}
+            {% if hosp_average > 300 %}
+                <i class="red circular inverted large heartbeat icon"></i>
+            {% elif hosp_average > 180 %}
+                <i class="orange circular inverted large heartbeat icon"></i>
+            {% elif hosp_average > 50 %}
+                <i class="orange circular inverted large heartbeat icon"></i>
+            {% else %}
+                <i class="green circular inverted large heartbeat icon"></i>
+            {% endif %}
+
+           {% trans 'Covid patients in ICU' %}: {{hosp_cov19_patients}} ({{hosp_cov19_patients_7d}} {% if hosp_cov19_patients_7d > hosp_cov19_patients %} <i class="green arrow circle down icon"></i>{% else %} <i class="red arrow circle up icon"></i>{% endif %})
          </th>
        </tr>
                      </thead>
 
        <tr  class="center aligned">
          <td>
-          {% trans 'Covid patients in ICU' %}: {{hosp_cov19_patients}} ({{hosp_cov19_patients_7d}} {% if hosp_cov19_patients_7d > hosp_cov19_patients %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Full capacity ICU' %}: {{hosp_capacity}} // {% trans 'Proportion' %}: {{hosp_quota|floatformat:1}} // {% trans 'Date' %}: {{hosp_date}}
+          15-days-average // {% trans 'Full capacity ICU' %}: {{hosp_capacity}} // {% trans 'Proportion' %}: {{hosp_quota|floatformat:1}} // {% trans 'Date' %}: {{hosp_date}}
          </td>
        </tr>
        <tr class="center aligned">
@@ -88,14 +100,24 @@
 
        <tr  class="center aligned">
           <th colspan="7">
-           {% trans 'New hospital entries (7-day-average).' %}
+            {% if hosp_average > 80 %}
+                <i class="red circular inverted large hospital icon"></i>
+            {% elif hosp_average > 50 %}
+                <i class="orange circular inverted large hospital icon"></i>
+            {% elif hosp_average > 20 %}
+                <i class="orange circular inverted large hospital icon"></i>
+            {% else %}
+                <i class="green circular inverted large hospital icon"></i>
+            {% endif %}
+
+           {% trans 'New hospital entries' %}: {{hosp_average|floatformat:0}} ({{hosp_average_7d|floatformat:0}} {% if hosp_average_7d > hosp_average %} <i class="green arrow circle down icon"></i> {% else %} <i class="red arrow circle up icon"></i> {% endif %})
          </th>
        </tr>
                      </thead>
 
               <tr  class="center aligned">
                 <td colspan="7">
-                  {% trans 'New entries' %}: {{hosp_average|floatformat:0}} ({{hosp_average_7d|floatformat:0}} {% if hosp_average_7d > hosp_average %} &#9989; {% else %} &#128308; {% endif %})
+                  7-day-average
                 </td>
               </tr>
        <tr  class="center aligned">
@@ -131,15 +153,20 @@
               <thead>
        <tr  class="center aligned">
           <th colspan="7">
-            {% trans 'Most recent R value' %}
+            {% if r7_value > 1.15 %}
+                <i class="red circular inverted large chart line icon"></i>
+            {% elif r7_value > 1 %}
+                <i class="orange circular inverted large chart line icon"></i>
+            {% elif r7_value > 0.9 %}
+                <i class="orange circular inverted large chart line icon"></i>
+            {% else %}
+                <i class="green circular inverted large chart line icon"></i>
+            {% endif %}
+
+            {% trans 'Most recent R value' %}: {{r7_value}} ({{r1_value}} {% if r1_value > r7_value %} <i class="green arrow circle down icon"></i>{% else %} <i class="red arrow circle up icon"></i>{% endif %})
          </th>
        </tr>
          </thead>
-              <tr  class="center aligned">
-                <td colspan="7">
-                  R: {{r7_value}} ({{r1_value}} {% if r1_value > r7_value %} &#9989; {% else %} &#128308; {% endif %})
-                </td>
-              </tr>
        <tr  class="center aligned">
          <td>
         {{r1_date}}: {{r1_value}}
@@ -174,19 +201,30 @@
 
        <tr  class="center aligned">
           <th>
+           {% if incidence_latest > 450 %}
+                <i class="red circular inverted large chart bar icon"></i>
+            {% elif incidence_latest > 250 %}
+                <i class="orange circular inverted large chart bar icon"></i>
+            {% elif incidence_latest > 100 %}
+                <i class="yellow circular inverted large chart bar icon"></i>
+            {% elif incidence_latest > 40 %}
+                <i class="yellow circular inverted large chart bar icon"></i>
+            {% else %}
+                <i class="green circular inverted large chart bar icon"></i>
+            {% endif %}
 
-           {% trans '14 day incidence.' %}
+           {% trans 'Case Incidence' %}: {{incidence_latest}} ({{incidence_latest_7d}} {% if incidence_latest_7d > incidence_latest %} <i class="green arrow circle down icon"></i>{% else %} <i class="red arrow circle up icon"></i>{% endif %})
          </th>
        </tr>
                      </thead>
 
        <tr  class="center aligned">
          <td>
-           {% trans 'Current incidence' %}: {{incidence_latest}} ({{incidence_latest_7d}} {% if incidence_latest_7d > incidence_latest %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Date' %}: {{incidence_latest_date}}
+           {% trans 'Per 100k past 14 days.' %} // {% trans 'Date' %}: {{incidence_latest_date}}
            </td>
        </tr>
        <tr class="center aligned">
-         <td style="font-size: 15px;"> >350: 0P, >160: 1P, >80: 2P, >40: 3P, <=40: 4P</td>
+         <td style="font-size: 15px;"> >450: 0P, >250: 1P, >100: 2P, >40: 3P, <=40: 4P</td>
        </tr>
      </table>
 
@@ -195,15 +233,24 @@
 
        <tr  class="center aligned">
           <th>
+            {% if deaths_value > 100 %}
+                <i class="red circular inverted large times circle icon"></i>
+            {% elif deaths_value > 50 %}
+                <i class="orange circular inverted large times circle icon"></i>
+            {% elif deaths_value > 20 %}
+                <i class="yellow circular inverted large times circle icon"></i>
+            {% else %}
+                <i class="green circular inverted large times circle icon"></i>
+            {% endif %}
 
-           {% trans 'Deaths past 7 days.' %}
+           {% trans 'Deaths' %}: {{deaths_value|floatformat:0}} ({{deaths_value_7d|floatformat:0}} {% if deaths_value_7d > deaths_value %} <i class="green arrow circle down icon"></i>{% else %} <i class="red arrow circle up icon"></i>{% endif %})
          </th>
        </tr>
                      </thead>
 
        <tr  class="center aligned">
          <td>
-           {% trans 'Deaths' %}: {{deaths_value|floatformat:0}} ({{deaths_value_7d|floatformat:0}} {% if deaths_value_7d > deaths_value %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Date' %}: {{incidence_latest_date}}
+           {% trans 'Total past 7 days.' %}  // {% trans 'Date' %}: {{incidence_latest_date}}
            </td>
        </tr>
               <tr class="center aligned">
@@ -216,15 +263,21 @@
 
        <tr  class="center aligned">
           <th>
-
-           {% trans 'Positivity' %}
+            {% if positivity > 5 %}
+                <i class="red circular inverted large plus icon"></i>
+            {% elif positivity > 2 %}
+                <i class="orange circular inverted large plus icon"></i>
+            {% else %}
+                <i class="green circular inverted large plus icon"></i>
+            {% endif %}
+           {% trans 'Positivity rate' %}: {{positivity}} ({{positivity_7d}} {% if positivity_7d > positivity %} <i class="green arrow circle down icon"></i>{% else %} <i class="red arrow circle up icon"></i>{% endif %})
          </th>
        </tr>
                      </thead>
 
        <tr  class="center aligned">
          <td>
-           {% trans 'Current positivity' %}: {{positivity}} ({{positivity_7d}} {% if positivity_7d > positivity %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Date' %}: {{incidence_latest_date}}
+           {% trans 'Average past 7 days.' %}  // {% trans 'Date' %}: {{incidence_latest_date}}
            </td>
        </tr>
                      <tr class="center aligned">
@@ -237,15 +290,23 @@
 
        <tr  class="center aligned">
           <th>
-
-           {% trans 'Vaccinations per 100k past 7 days' %}
+            {% if vacc_value > 6500 %}
+                <i class="green circular inverted large syringe icon"></i>
+            {% elif vacc_value > 3000 %}
+                <i class="yellow circular inverted large syringe icon"></i>
+             {% elif vacc_value > 1600 %}
+                <i class="orange circular inverted large syringe icon"></i>
+            {% else %}
+                <i class="red circular inverted large syringe icon"></i>
+            {% endif %}
+           {% trans 'Vaccination incidence' %}: {{vacc_value}} ({{vacc_value_7d}} {% if vacc_value_7d > vacc_value %} <i class="red arrow circle down icon"></i>{% else %} <i class="green arrow circle up icon"></i>{% endif %})
          </th>
        </tr>
                      </thead>
 
        <tr  class="center aligned">
          <td>
-           {% trans 'Vaccination incidence' %}: {{vacc_value}} ({{vacc_value_7d}} {% if vacc_value_7d < vacc_value %} &#9989; {% else %} &#128308; {% endif %}) // {% trans 'Date' %}: {{vacc_date}}
+           {% trans 'Per 100k past 7 days.' %} // {% trans 'Date' %}: {{vacc_date}}
            </td>
        </tr>
                        <tr class="center aligned">
