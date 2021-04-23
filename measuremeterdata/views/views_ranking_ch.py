@@ -34,7 +34,7 @@ def ranking7_calc(cantons):
                         vacc = case.vacc_perpop_7d
                         vacc_date = case.date
 
-                        to_vacc = (canton.population - case.vacc_total) * 2 /100*60
+                        to_vacc = ((canton.population /100*60) * 2 - case.vacc_total) - (canton.population / 100 * 6.5)
 
                         days = date(2021, 6, 30) - case.date
 
