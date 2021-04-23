@@ -34,11 +34,14 @@ def ranking7_calc(cantons):
                         vacc = case.vacc_perpop_7d
                         vacc_date = case.date
 
+
                         to_vacc = ((canton.population /100*60) * 2 - case.vacc_total) - (canton.population / 100 * 6.5)
 
                         days = date(2021, 6, 30) - case.date
 
-                        vacc_goal =  to_vacc / days.days * 7
+                        vacc_goal_raw =  to_vacc / days.days * 7
+
+                        vacc_goal = 100000 * vacc_goal_raw / canton.population
 
                     if case.r0median:
                         if r_count == 0:
