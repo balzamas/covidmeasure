@@ -29,19 +29,25 @@ class Command(BaseCommand):
             zf = zipfile.ZipFile(BytesIO(resp.read()), 'r')
 
             df_occupancy = pd.read_csv(zf.open('data/COVID19HospCapacity_geoRegion.csv'), error_bad_lines=False)
+            ch_only = df_occupancy['geoRegion'] == 'CH'
 
             hosp_final = 0
-            for index_row, row in df_occupancy.tail(15).iterrows():
+            print(df_occupancy.tail(15))
+            for index_row, row in df_occupancy[ch_only].tail(15).iterrows():
                 hosp_final += row['ICU_Covid19Patients']
+            print(hosp_final)
             hosp_cov19_patients = hosp_final/15
+            print(hosp_cov19_patients)
 
             hosp_final = 0
-            for index_row, row in df_occupancy.tail(22).head(15).iterrows():
+            for index_row, row in df_occupancy[ch_only].tail(22).head(15).iterrows():
                 hosp_final += row['ICU_Covid19Patients']
             hosp_cov19_patients_7d = hosp_final/15
+            print(hosp_cov19_patients_7d)
+            print("......")
 
-            hosp_capacity = df_occupancy.tail(1)['ICU_Capacity'].item()
-            hosp_date = df_occupancy.tail(1)['date'].item()
+            hosp_capacity = df_occupancy[ch_only].tail(1)['ICU_Capacity'].item()
+            hosp_date = df_occupancy[ch_only].tail(1)['date'].item()
 
             df_death = pd.read_csv(zf.open('data/COVID19Death_geoRegion.csv'), error_bad_lines=False)
             ch_only = df_death['geoRegion'] == 'CH'
