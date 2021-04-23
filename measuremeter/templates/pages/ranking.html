@@ -256,7 +256,8 @@ table.center {
 </div>
   <br>
   <p id="grande">
-    *{% trans 'How man vaccinations per week are needed to vaccinate 60% of the population twice.'%}<br>
+    *{% trans 'How man vaccinations per week are needed to vaccinate 60% of the population twice (already infected once).'%}<br>
+    Formula: 100000 * [ ((population * 0.6) * 2 - total_vaccinations) - (population / 100 * 6.5) ] / population<br>
 
   {% trans 'Source cases: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
   {% trans 'Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>'%}
