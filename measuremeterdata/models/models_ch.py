@@ -142,6 +142,9 @@ class CHCases(MotherModel):
     mobility_transit = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
     kof_index = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
     vacc_perpop_7d = models.DecimalField(max_digits=10, decimal_places=5, null=True, blank=True)
+    vacc_perpop = models.DecimalField(max_digits=10, decimal_places=5, null=True, blank=True)
+    vacc_total = models.IntegerField(null=True,blank=True)
+
 
     ordering = ['canton__pk', 'date', 'cases']
 

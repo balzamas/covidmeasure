@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static i18n %}
+{% load humanize %}
 
     {% block scripts %}
     <script>
@@ -105,15 +106,6 @@ table.center {
     <p id="grande"><a href="/ranking7">{% trans 'Ranking 7 days' %}</a> // <a href="/ranking14">{% trans 'Ranking 14 days'%}</a>  // <a href="/ranking7all">{% trans 'Ranking 7 days Cantons & Districts' %}</a> // <a href="/ranking14all">{% trans 'Ranking 14 days Cantons & Districts'%}</a></p>
     <p id="grande">{% trans 'You can follow the Bot on' %} <a href="https://twitter.com/CovidlawsStats">Twitter</a> {% trans 'or' %} <a href="https://t.me/covidlaws">Telegram</a> {% trans 'for updates on district data.' %}</p>
     <p id="grande">{% trans 'Graphs show development in the past 2 months.'%} {% trans 'For last update see date in graph.' %}</p>
-    <p id="grande"><b>{% trans 'Relaxations' %}</b><br>{% trans 'Cantons can relax regulations when:' %}</p>
-     <ul>
-        <li><p id="grande">{% trans 'R was not higher then 0.9 in the past 7 days' %}</p></li>
-        <li><p id="grande">{% trans '7-day incidence is lower than Swiss average' %}</p></li>
-      </ul>
-   <p id="grande">
-      {% trans 'Values are shown in green when complying with there rules.'%}<br>
-     <b>{% trans 'This rule does not exist anymore! As a reference I left it active on this site.'%}</b><br>
-      <a href="https://www.admin.ch/opc/de/classified-compilation/20201774/index.html#a7">{% trans 'Original regulation' %}</a>
    </p>
     <p id="grande">{% trans 'Source for incidence are cantonal data, not BAG. Values can differ from official values.' %} {% trans 'Values always 2 days or older (too many errors in most recent numbers).' %}</p>
   <input type="text" id="myInput" onkeyup="searchTable()" placeholder="{% trans 'Filter table (e.g. (ZH) for all Zurich districts)' %}">
@@ -127,8 +119,10 @@ table.center {
       <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
       <th onclick="sortTable(6, 'ranking')" nowrap>{% trans 'R median'%}</th>
       <th onclick="sortTable(7, 'ranking')" nowrap>{% trans 'Vacc. per 100k<br>Past 7 days'%}</th>
+      <th onclick="sortTable(8, 'ranking')" nowrap>{% trans 'Vacc. per 100k<br>goal per week'%}*</th>
 
-      <th>{% trans 'Measures'%}</th>
+
+     <!-- <th>{% trans 'Measures'%}</th> -->
     </tr>
     {% for hans in cantons %}
 
@@ -207,12 +201,22 @@ table.center {
         {% if hans.level == 0 %}
           <div class="container">
             <div class="centered">
-              {{ hans.vacc|floatformat:2 }}<br><font size=2px>{{ hans.vacc_date }}</font>
+              {{ hans.vacc|floatformat:0|intcomma }}<br><font size=2px>{{ hans.vacc_date }}</font>
             </div>
           </div>
         {% endif %}
       </td>
       <td>
+        <div hidden>{{ hans.vacc_goal }}</div>
+        {% if hans.level == 0 %}
+          <div class="container">
+            <div class="centered">
+              {{ hans.vacc_goal|floatformat:0|intcomma }}
+            </div>
+          </div>
+        {% endif %}
+      </td>
+  <!--    <td>
                 <div class="sample-container">
 
         {% for measure in hans.measures %}
@@ -245,13 +249,15 @@ table.center {
         {% endfor %}
         </div>
 
-      </td>
+      </td> -->
     </tr>
     {% endfor %}
   </table>
 </div>
   <br>
   <p id="grande">
+    *{% trans 'How man vaccinations per week are needed to vaccinate 60% of the population twice.'%}<br>
+
   {% trans 'Source cases: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
   {% trans 'Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>'%}
     {% trans 'Source Vaccinations: <a href="https://www.covid19.admin.ch/api/data/context" target="_blank">BAG</a><br>'%}

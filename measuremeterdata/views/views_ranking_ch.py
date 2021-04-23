@@ -10,8 +10,8 @@ from django.db.models import F, Func, Q
 def ranking7_calc(cantons):
     canton_vals = []
 
-    ch_incidences = CasesDeaths.objects.filter(country=1, date__range=[date.today() - timedelta(days=5), date.today()]).order_by("-date")
-    ch_incidence = ch_incidences[0].cases_past7days
+    #ch_incidences = CasesDeaths.objects.filter(country=1, date__range=[date.today() - timedelta(days=5), date.today()]).order_by("-date")
+    #ch_incidence = ch_incidences[0].cases_past7days
 
     for canton in cantons:
         date_tocheck = date.today()
@@ -33,6 +33,13 @@ def ranking7_calc(cantons):
                     if case.vacc_perpop_7d and not vacc:
                         vacc = case.vacc_perpop_7d
                         vacc_date = case.date
+
+                        to_vacc = (canton.population - case.vacc_total) * 2 /100*60
+
+                        days = date(2021, 6, 30) - case.date
+
+                        vacc_goal =  to_vacc / days.days * 7
+
                     if case.r0median:
                         if r_count == 0:
                             r0 = case.r0median
@@ -76,8 +83,6 @@ def ranking7_calc(cantons):
                 score = 0 - cases[0].incidence_past7days - (last_tendency * 2)
 
             incidence_below_ch = False
-            if last_prev7 < ch_incidence:
-                incidence_below_ch = True
 
         except:
             score = -99999
@@ -90,9 +95,9 @@ def ranking7_calc(cantons):
                             "date": last_date, "code": canton.code, "level": canton.level,
                             "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": last_tendency,
                             "cur_prev7": case_7days_before.incidence_past7days, "id": canton.swisstopo_id,
-                            "level": canton.level, "measures": measures, "incidence_below_ch": incidence_below_ch,
+                            "level": canton.level, "measures": measures, "incidence_below_ch": False,
                             "r0":r0, "r0_date":r0_date, "r_under_one":r_under_one,
-                            "vacc": vacc, "vacc_date": vacc_date}
+                            "vacc": vacc, "vacc_goal":vacc_goal, "vacc_date": vacc_date}
 
             canton_vals.append(canton_toadd)
 

@@ -40,16 +40,25 @@ class Command(BaseCommand):
                 ft_daysago = last14days.head(1)["sumTotal"].item()
 
                 print(canton.code)
-                vacc_perpop_7d = 100000 * (now - seven_daysago) / canton.population
+                vacc_perpop_7d = round((100000 * (now - seven_daysago) / canton.population),2)
                 print(vacc_perpop_7d)
 
+                vacc_perpop = round((vacc_perpop_7d / 7),2)
+
                 try:
+                    print("cccccc")
                     date = datetime.datetime.fromisoformat(last14days.tail(1)["date"].item())
                     cd_existing = CHCases.objects.get(canton=canton, date=date)
                     cd_existing.vacc_perpop_7d = vacc_perpop_7d
+                    cd_existing.vacc_perpop = vacc_perpop
+                    cd_existing.vacc_total = int(now)
+
                     cd_existing.save()
-                except:
-                    print("Record does not exist")
-
-
-
+                except CHCases.DoesNotExist:
+                    print("....")
+                    cd = CHCases(canton=canton,
+                                 vacc_perpop_7d=vacc_perpop_7d,
+                                 vacc_perpop=vacc_perpop,
+                                 vacc_total=int(now),
+                                 date=date)
+                    cd.save()
