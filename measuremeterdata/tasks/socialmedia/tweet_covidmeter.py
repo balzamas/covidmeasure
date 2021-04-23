@@ -334,9 +334,9 @@ def create_image():
                '''
 
     if doom_clock.vacc_value_7d < doom_clock.vacc_value:
-        html += '<i class="green arrow circle down icon"></i>'
+        html += '<i class="green arrow circle up icon"></i>'
     else:
-        html += '<i class="red arrow circle up icon"></i>'
+        html += '<i class="red arrow circle down icon"></i>'
 
     html += '''
     </th>
