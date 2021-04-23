@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-22 13:25+0200\n"
+"POT-Creation-Date: 2021-04-23 23:00+0200\n"
 "PO-Revision-Date: 2021-01-22 17:19+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -131,7 +131,7 @@ msgstr ""
 #: measuremeter/templates/account/login.html:26
 #: measuremeter/templates/pages/district.html:36
 #: measuremeter/templates/pages/district7.html:36
-#: measuremeter/templates/pages/ranking.html:106
+#: measuremeter/templates/pages/ranking.html:107
 #: measuremeter/templates/pages/ranking14.html:101
 msgid "or"
 msgstr "oder"
@@ -342,7 +342,7 @@ msgstr "Länderprofile"
 #: measuremeter/templates/base.html:101 measuremeter/templates/base.html:146
 #: measuremeter/templates/base_old_2.html:301
 #: measuremeter/templates/pages/ch.html:101
-#: measuremeter/templates/pages/score_ch.html:246
+#: measuremeter/templates/pages/score_ch.html:262
 #: measuremeter/templates/pages/start.html:201
 msgid "Deaths"
 msgstr "Todesfälle"
@@ -551,8 +551,8 @@ msgstr ""
 #: measuremeter/templates/pages/chrisk.html:53
 #: measuremeter/templates/pages/chrisk.html:54
 #: measuremeter/templates/pages/chrisk.html:55
-#: measuremeter/templates/pages/score_ch.html:90
-#: measuremeter/templates/pages/score_ch.html:120
+#: measuremeter/templates/pages/score_ch.html:106
+#: measuremeter/templates/pages/score_ch.html:136
 #: riskcalc/templates/pages/belrisk.html:112
 #: riskcalc/templates/pages/belrisk.html:113
 #: riskcalc/templates/pages/belrisk.html:114
@@ -684,19 +684,19 @@ msgid "Number of Covid patients in intensive care (15-days-average) < 300"
 msgstr " Intensivplätze mit Covid-19-Patienten < 300"
 
 #: measuremeter/templates/pages/closeometer.html:45
-#: measuremeter/templates/pages/score_ch.html:83
+#: measuremeter/templates/pages/score_ch.html:99
 msgid "Covid patients in ICU"
 msgstr "Covid-Patienten in IPS"
 
 #: measuremeter/templates/pages/closeometer.html:45
 #: measuremeter/templates/pages/doomsdayclock.html:45
-#: measuremeter/templates/pages/score_ch.html:90
+#: measuremeter/templates/pages/score_ch.html:106
 msgid "Full capacity ICU"
 msgstr "Gesamtkapazität IPS"
 
 #: measuremeter/templates/pages/closeometer.html:45
 #: measuremeter/templates/pages/doomsdayclock.html:45
-#: measuremeter/templates/pages/score_ch.html:90
+#: measuremeter/templates/pages/score_ch.html:106
 msgid "Proportion"
 msgstr "Quote"
 
@@ -705,11 +705,11 @@ msgstr "Quote"
 #: measuremeter/templates/pages/doomsdayclock.html:45
 #: measuremeter/templates/pages/doomsdayclock.html:62
 #: measuremeter/templates/pages/doomsdayclock.html:121
-#: measuremeter/templates/pages/score_ch.html:90
-#: measuremeter/templates/pages/score_ch.html:223
-#: measuremeter/templates/pages/score_ch.html:253
-#: measuremeter/templates/pages/score_ch.html:280
-#: measuremeter/templates/pages/score_ch.html:309
+#: measuremeter/templates/pages/score_ch.html:106
+#: measuremeter/templates/pages/score_ch.html:239
+#: measuremeter/templates/pages/score_ch.html:269
+#: measuremeter/templates/pages/score_ch.html:296
+#: measuremeter/templates/pages/score_ch.html:325
 msgid "Date"
 msgstr "Stand"
 
@@ -722,10 +722,8 @@ msgid "New entries"
 msgstr "Neue Eintritte"
 
 #: measuremeter/templates/pages/closeometer.html:100
-#, fuzzy
-#| msgid "Average of past 7 R values under 1.15"
 msgid "Most recent R value under 1.15"
-msgstr "Durchschnitt der letzten 7 R-Werte unter 1.15"
+msgstr "Aktueller R-Werte unter 1.15"
 
 #: measuremeter/templates/pages/closeometer.html:141
 msgid "14 day incidence lower then 350."
@@ -737,12 +735,12 @@ msgid "Current incidence"
 msgstr "Wert Aktuell"
 
 #: measuremeter/templates/pages/closeometer.html:152
-#: measuremeter/templates/pages/score_ch.html:318
+#: measuremeter/templates/pages/score_ch.html:334
 msgid "Numbers in brackets: Value a week before current value."
 msgstr "Zahlen in Klammern: Wert eine Woche vor aktuellem Wert."
 
 #: measuremeter/templates/pages/closeometer.html:153
-#: measuremeter/templates/pages/score_ch.html:319
+#: measuremeter/templates/pages/score_ch.html:335
 msgid "Past and current values can change due updates."
 msgstr ""
 "Aktuelle und vergangene Zahlen können ändern aufgrund von Nachmeldungen."
@@ -761,13 +759,13 @@ msgstr "Quellen BAG"
 
 #: measuremeter/templates/pages/closeometer.html:156
 #: measuremeter/templates/pages/doomsdayclock.html:133
-#: measuremeter/templates/pages/score_ch.html:322
+#: measuremeter/templates/pages/score_ch.html:338
 msgid "Source data:"
 msgstr "Quelle Daten:"
 
 #: measuremeter/templates/pages/closeometer.html:156
 #: measuremeter/templates/pages/doomsdayclock.html:133
-#: measuremeter/templates/pages/score_ch.html:322
+#: measuremeter/templates/pages/score_ch.html:338
 msgid "FOPH"
 msgstr "BAG"
 
@@ -789,14 +787,14 @@ msgstr "Wechsle zur 7-Tages-Inzidenz"
 
 #: measuremeter/templates/pages/district.html:36
 #: measuremeter/templates/pages/district7.html:36
-#: measuremeter/templates/pages/ranking.html:106
+#: measuremeter/templates/pages/ranking.html:107
 #: measuremeter/templates/pages/ranking14.html:101
 msgid "You can follow the Bot on"
 msgstr "Folge dem Bot auf"
 
 #: measuremeter/templates/pages/district.html:36
 #: measuremeter/templates/pages/district7.html:36
-#: measuremeter/templates/pages/ranking.html:106
+#: measuremeter/templates/pages/ranking.html:107
 #: measuremeter/templates/pages/ranking14.html:101
 msgid "for updates on district data."
 msgstr "für Updates (Bezirks-Daten)."
@@ -1035,75 +1033,43 @@ msgstr "Medienmitteilung BAG"
 msgid "CovidLaws // Canton rankings"
 msgstr "Covidlaws // Rangliste Kantone"
 
-#: measuremeter/templates/pages/ranking.html:101
 #: measuremeter/templates/pages/ranking.html:102
 #: measuremeter/templates/pages/ranking.html:103
+#: measuremeter/templates/pages/ranking.html:104
 msgid "Canton rankings"
 msgstr "Rangliste Kantone"
 
-#: measuremeter/templates/pages/ranking.html:105
+#: measuremeter/templates/pages/ranking.html:106
 #: measuremeter/templates/pages/ranking14.html:100
 msgid "Ranking 7 days"
 msgstr "Rangliste 7 Tage"
 
-#: measuremeter/templates/pages/ranking.html:105
+#: measuremeter/templates/pages/ranking.html:106
 #: measuremeter/templates/pages/ranking14.html:100
 msgid "Ranking 14 days"
 msgstr "Rangliste 14 Tage"
 
-#: measuremeter/templates/pages/ranking.html:105
+#: measuremeter/templates/pages/ranking.html:106
 #: measuremeter/templates/pages/ranking14.html:100
 msgid "Ranking 7 days Cantons & Districts"
 msgstr "Rangliste 7 Tage Kantone und Bezirke"
 
-#: measuremeter/templates/pages/ranking.html:105
+#: measuremeter/templates/pages/ranking.html:106
 #: measuremeter/templates/pages/ranking14.html:100
 msgid "Ranking 14 days Cantons & Districts"
 msgstr "Rangliste 14 Tage Kantone und Bezirke"
 
-#: measuremeter/templates/pages/ranking.html:107
+#: measuremeter/templates/pages/ranking.html:108
 #: measuremeter/templates/pages/ranking14.html:102
 msgid "Graphs show development in the past 2 months."
 msgstr "Grafiken zeigen die Entwicklung in den letzten 2 Monaten."
 
-#: measuremeter/templates/pages/ranking.html:107
+#: measuremeter/templates/pages/ranking.html:108
 #: measuremeter/templates/pages/ranking14.html:102
 msgid "For last update see date in graph."
 msgstr "Für das letzte Update siehe Datum in Grafik."
 
-#: measuremeter/templates/pages/ranking.html:108
-msgid "Relaxations"
-msgstr "Lockerungen"
-
-#: measuremeter/templates/pages/ranking.html:108
-msgid "Cantons can relax regulations when:"
-msgstr "Kantone können Einschränkungen lockern, wenn:"
-
 #: measuremeter/templates/pages/ranking.html:110
-msgid "R was not higher then 0.9 in the past 7 days"
-msgstr "R nie über 0,9 war in den vergangenen 7 Tagen"
-
-#: measuremeter/templates/pages/ranking.html:111
-msgid "7-day incidence is lower than Swiss average"
-msgstr "7-Tage-Inzidenz ist tiefer als gesamtschweizer Wert."
-
-#: measuremeter/templates/pages/ranking.html:114
-msgid "Values are shown in green when complying with there rules."
-msgstr "Werte in Grün erfüllen die Vorgaben"
-
-#: measuremeter/templates/pages/ranking.html:115
-msgid ""
-"This rule does not exist anymore! As a reference I left it active on this "
-"site."
-msgstr ""
-"Diese Regeln sind nicht mehr gültig. Als Referenz sind sie aber auf dieser "
-"Seite noch aktiv."
-
-#: measuremeter/templates/pages/ranking.html:116
-msgid "Original regulation"
-msgstr "Verordnung Bundesrat"
-
-#: measuremeter/templates/pages/ranking.html:118
 msgid ""
 "Source for incidence are cantonal data, not BAG. Values can differ from "
 "official values."
@@ -1111,59 +1077,70 @@ msgstr ""
 "Inzidenz von kantonalen Daten. Zahlen können abweichen von offiziellen Daten "
 "(BAG)."
 
-#: measuremeter/templates/pages/ranking.html:118
+#: measuremeter/templates/pages/ranking.html:110
 msgid "Values always 2 days or older (too many errors in most recent numbers)."
 msgstr ""
 "Die Werte der letzten beiden Tage werden nicht verwendet (zuviele Fehler)."
 
-#: measuremeter/templates/pages/ranking.html:119
+#: measuremeter/templates/pages/ranking.html:111
 #: measuremeter/templates/pages/ranking14.html:104
 msgid "Filter table (e.g. (ZH) for all Zurich districts)"
 msgstr "Tabelle filtern (z.B. (ZH) für alle Zürcher Bezirke)"
 
-#: measuremeter/templates/pages/ranking.html:123
+#: measuremeter/templates/pages/ranking.html:115
 #: measuremeter/templates/pages/ranking14.html:110
 msgid "Rank"
 msgstr "Rang"
 
-#: measuremeter/templates/pages/ranking.html:124
+#: measuremeter/templates/pages/ranking.html:116
 #: measuremeter/templates/pages/ranking14.html:111
 msgid "Shift"
 msgstr "Veränd."
 
-#: measuremeter/templates/pages/ranking.html:125
+#: measuremeter/templates/pages/ranking.html:117
 #: measuremeter/templates/pages/ranking14.html:112
 msgid "Canton"
 msgstr "Kanton"
 
-#: measuremeter/templates/pages/ranking.html:125
+#: measuremeter/templates/pages/ranking.html:117
 #: measuremeter/templates/pages/ranking14.html:112
 msgid "District"
 msgstr "Bezirk"
 
-#: measuremeter/templates/pages/ranking.html:126
+#: measuremeter/templates/pages/ranking.html:118
 msgid "Prevalence 7d/100k"
 msgstr "Fälle 7 Tage/100k Einw."
 
-#: measuremeter/templates/pages/ranking.html:127
+#: measuremeter/templates/pages/ranking.html:119
 #: measuremeter/templates/pages/ranking14.html:114
 msgid "Tendency cases<br>Week over week"
 msgstr "Entwicklung Fälle<br>Woche/Vorwoche"
 
-#: measuremeter/templates/pages/ranking.html:128
+#: measuremeter/templates/pages/ranking.html:120
 msgid "R median"
 msgstr "R median"
 
-#: measuremeter/templates/pages/ranking.html:129
+#: measuremeter/templates/pages/ranking.html:121
 msgid "Vacc. per 100k<br>Past 7 days"
 msgstr "Impf. pro 100k<br>verg. 7 Tage"
 
-#: measuremeter/templates/pages/ranking.html:131
+#: measuremeter/templates/pages/ranking.html:122
+msgid "Vacc. per 100k<br>goal per week"
+msgstr "Impf. pro 100k<br>Ziel pro Woche"
+
+#: measuremeter/templates/pages/ranking.html:125
 #: measuremeter/templates/pages/ranking14.html:115
 msgid "Measures"
 msgstr "Massnahmen"
 
-#: measuremeter/templates/pages/ranking.html:255
+#: measuremeter/templates/pages/ranking.html:259
+#, python-format
+msgid ""
+"How man vaccinations per week are needed to vaccinate 60%% of the population "
+"twice."
+msgstr ""
+
+#: measuremeter/templates/pages/ranking.html:261
 msgid ""
 "Source cases: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
 "\">OpenData ZH</a> and others, see <a href=\"/districts\">here for more "
@@ -1173,14 +1150,14 @@ msgstr ""
 "\">OpenData ZH</a> und andere, siehe <a href=\"/districts\">hier für mehr "
 "Informationen.</a>"
 
-#: measuremeter/templates/pages/ranking.html:256
+#: measuremeter/templates/pages/ranking.html:262
 #: measuremeter/templates/pages/ranking14.html:204
 msgid ""
 "Source R<sub>e</sub>: <a href=\"https://github.com/covid-19-Re/dailyRe-Data"
 "\" target=\"_blank\">ETH Zurich</a><br>"
 msgstr ""
 
-#: measuremeter/templates/pages/ranking.html:257
+#: measuremeter/templates/pages/ranking.html:263
 msgid ""
 "Source Vaccinations: <a href=\"https://www.covid19.admin.ch/api/data/context"
 "\" target=\"_blank\">BAG</a><br>"
@@ -1213,53 +1190,53 @@ msgstr ""
 msgid "Tendency cases<br>Week/Prev. week"
 msgstr "Entwicklung Fälle<br>Woche/Vorwoche"
 
-#: measuremeter/templates/pages/score_ch.html:48
-#: measuremeter/templates/pages/score_ch.html:49
+#: measuremeter/templates/pages/score_ch.html:64
+#: measuremeter/templates/pages/score_ch.html:65
 msgid "Covidmeter"
 msgstr "Covidmeter"
 
-#: measuremeter/templates/pages/score_ch.html:52
+#: measuremeter/templates/pages/score_ch.html:68
 msgid "Covidmeter-Index"
 msgstr ""
 
-#: measuremeter/templates/pages/score_ch.html:90
-#: measuremeter/templates/pages/score_ch.html:120
+#: measuremeter/templates/pages/score_ch.html:106
+#: measuremeter/templates/pages/score_ch.html:136
 msgid "average"
 msgstr "Durchschnitt"
 
-#: measuremeter/templates/pages/score_ch.html:113
+#: measuremeter/templates/pages/score_ch.html:129
 msgid "New hospital entries"
 msgstr "Neue Spitaleintritte"
 
-#: measuremeter/templates/pages/score_ch.html:166
+#: measuremeter/templates/pages/score_ch.html:182
 msgid "Most recent R value"
 msgstr "Aktuellster R-Wert"
 
-#: measuremeter/templates/pages/score_ch.html:216
+#: measuremeter/templates/pages/score_ch.html:232
 msgid "Case Incidence"
 msgstr "Fallinzidenz"
 
-#: measuremeter/templates/pages/score_ch.html:223
+#: measuremeter/templates/pages/score_ch.html:239
 msgid "Per 100k past 14 days."
 msgstr "Pro 100k Einw./verg. 14 Tage."
 
-#: measuremeter/templates/pages/score_ch.html:253
+#: measuremeter/templates/pages/score_ch.html:269
 msgid "Total past 7 days."
 msgstr "Total d. letzten 7 Tage."
 
-#: measuremeter/templates/pages/score_ch.html:273
+#: measuremeter/templates/pages/score_ch.html:289
 msgid "Positivity rate"
 msgstr "Positivitätsrate"
 
-#: measuremeter/templates/pages/score_ch.html:280
+#: measuremeter/templates/pages/score_ch.html:296
 msgid "Average past 7 days."
 msgstr "Durchschnitt d. letzten 7 Tage"
 
-#: measuremeter/templates/pages/score_ch.html:302
+#: measuremeter/templates/pages/score_ch.html:318
 msgid "Vaccination incidence"
 msgstr "Impfinzidenz"
 
-#: measuremeter/templates/pages/score_ch.html:309
+#: measuremeter/templates/pages/score_ch.html:325
 msgid "Per 100k past 7 days."
 msgstr "Pro 100k Einw./verg. 7 Tage."
 
@@ -1324,6 +1301,31 @@ msgstr ""
 #: riskcalc/templates/pages/belrisk.html:185
 msgid "Cases data is fetched every day at 10am from Sciensano.be"
 msgstr ""
+
+#~ msgid "Relaxations"
+#~ msgstr "Lockerungen"
+
+#~ msgid "Cantons can relax regulations when:"
+#~ msgstr "Kantone können Einschränkungen lockern, wenn:"
+
+#~ msgid "R was not higher then 0.9 in the past 7 days"
+#~ msgstr "R nie über 0,9 war in den vergangenen 7 Tagen"
+
+#~ msgid "7-day incidence is lower than Swiss average"
+#~ msgstr "7-Tage-Inzidenz ist tiefer als gesamtschweizer Wert."
+
+#~ msgid "Values are shown in green when complying with there rules."
+#~ msgstr "Werte in Grün erfüllen die Vorgaben"
+
+#~ msgid ""
+#~ "This rule does not exist anymore! As a reference I left it active on this "
+#~ "site."
+#~ msgstr ""
+#~ "Diese Regeln sind nicht mehr gültig. Als Referenz sind sie aber auf "
+#~ "dieser Seite noch aktiv."
+
+#~ msgid "Original regulation"
+#~ msgstr "Verordnung Bundesrat"
 
 #~ msgid "Map"
 #~ msgstr "Karte"
