@@ -22,6 +22,7 @@ def ranking7_calc(cantons):
         r_under_one = False
         vacc = None
         vacc_date = None
+        vacc_goal = None
         try:
             if canton.level == 0:
                 r0 = 0
@@ -37,7 +38,7 @@ def ranking7_calc(cantons):
 
                         to_vacc = ((canton.population /100*60) * 2 - case.vacc_total) - (canton.population / 100 * 6.5)
 
-                        days = date(2021, 6, 30) - case.date
+                        days = date(2021, 7, 31) - case.date
 
                         vacc_goal_raw =  to_vacc / days.days * 7
 
