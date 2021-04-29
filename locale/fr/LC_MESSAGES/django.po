@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-23 23:00+0200\n"
+"POT-Creation-Date: 2021-04-27 16:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1130,24 +1130,24 @@ msgstr ""
 #, python-format
 msgid ""
 "How man vaccinations per week are needed to vaccinate 60%% of the population "
-"twice."
+"twice (already infected once) until end of July."
 msgstr ""
 
-#: measuremeter/templates/pages/ranking.html:261
+#: measuremeter/templates/pages/ranking.html:262
 msgid ""
 "Source cases: <a href=\"https://github.com/openZH/covid_19\" target=\"_blank"
 "\">OpenData ZH</a> and others, see <a href=\"/districts\">here for more "
 "information.</a>"
 msgstr ""
 
-#: measuremeter/templates/pages/ranking.html:262
+#: measuremeter/templates/pages/ranking.html:263
 #: measuremeter/templates/pages/ranking14.html:204
 msgid ""
 "Source R<sub>e</sub>: <a href=\"https://github.com/covid-19-Re/dailyRe-Data"
 "\" target=\"_blank\">ETH Zurich</a><br>"
 msgstr ""
 
-#: measuremeter/templates/pages/ranking.html:263
+#: measuremeter/templates/pages/ranking.html:264
 msgid ""
 "Source Vaccinations: <a href=\"https://www.covid19.admin.ch/api/data/context"
 "\" target=\"_blank\">BAG</a><br>"

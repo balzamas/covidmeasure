@@ -207,7 +207,19 @@ function applyCountryBorder(map, countryname) {
         function style(feature) {
              if (feature.properties.is_not_ch)
                 {
-                   fillOpacity= 0.7
+                    var myPattern = new L.StripePattern({angle:  0,      weight:  7,      color:  getColor(feature.properties.level),      opacity:  1,});
+                    myPattern.addTo(map);
+
+                    myPattern.color = 'red'
+                    return {
+                        weight: 2,
+                        opacity: 1,
+                        color: 'white',
+                        dashArray: '3',
+                        fillOpacity: 0.7,
+                        fillColor: getColor(feature.properties.level),
+                        fillPattern: myPattern, fillOpacity: 0.7,
+                    };
                 }
                 else
                 {
