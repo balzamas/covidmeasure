@@ -15,7 +15,7 @@ def load_data(request):
 
     r_okay = False
 
-    if doom_clock.vacc_value > 6500:
+    if doom_clock.vacc_value > 6000:
         value += 3
     elif doom_clock.vacc_value > 3000:
         value += 2

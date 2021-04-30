@@ -58,7 +58,7 @@ def create_image():
     quota_str = "{0:.2f}".format(quota)
     value = 0
 
-    if doom_clock.vacc_value > 6500:
+    if doom_clock.vacc_value > 6000:
         value += 3
     elif doom_clock.vacc_value > 3000:
         value += 2
@@ -320,7 +320,7 @@ def create_image():
        <th>
       '''
 
-    if doom_clock.vacc_value > 6500:
+    if doom_clock.vacc_value > 6000:
         html += '<i class="red circular inverted large syringe icon"></i>'
     elif doom_clock.vacc_value > 3000:
         html += '<i class="orange circular inverted large syringe icon"></i>'
