@@ -27,6 +27,7 @@ def send_telegram(message):
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
+    bot.sendMessage(settings.TELEGRAM_CHATID, f"Covidmeter\n\nDetails: https://covidlaws.net/covidmeter/")
     bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
 
 
