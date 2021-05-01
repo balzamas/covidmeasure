@@ -51,7 +51,7 @@ def send_tweet(last_date):
 
     media = api.media_upload("/tmp/out_image.jpg")
     api.update_status(
-       status=f"Impfgeschwindigkeit in den Kantonen\n\nStand: {last_date}\n\n#CoronaInfoCH\n\nDetails: https://covidlaws.net/ranking7/",
+       status=f"Impfgeschwindigkeit in den Kantonen\n\nStand: {last_date}\n\n#CoronaInfoCH\n\nQuelle: https://covidlaws.net/ranking7/\n\nDetails Kantone: https://rsalzer.github.io/COVID_19_BAG/impfung/\n\nGrafiken: https://coviz.ch/#vaxx",
        media_ids=[media.media_id_string])
 
 
