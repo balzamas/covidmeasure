@@ -31,7 +31,7 @@ def send_telegram(canton, last_date):
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
     bot.sendMessage(settings.TELEGRAM_CHATID, f"Corona-Fälle in den Bezirken von {canton.name}\n\nStand: {last_date}\n\nGanze Rangliste: https://covidlaws.net/ranking7all/\nKartenansicht: https://covidlaws.net/districts7/")
-    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image_tg.jpg", 'rb'))
+    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
 
 
 
@@ -152,8 +152,6 @@ def create_image(districts, canton):
     print(html)
 
     options = {'width': '1200', 'height': '1200', 'encoding': "UTF-8", }
-    options_tg = {'width': '850', 'height': '1200', 'encoding': "UTF-8", }
     imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
-    imgkit.from_string(html, "/tmp/out_image_tg.jpg", options=options_tg)
 
     return last_date
