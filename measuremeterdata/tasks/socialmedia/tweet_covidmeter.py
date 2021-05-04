@@ -131,29 +131,32 @@ def create_image():
             '.peak { text-align: center; font-size: 10; } .container { position: relative; text-align: center; color: white; } .centered { position: absolute; color: black;' \
         'font-size: 18; top: 50%; left: 50%; transform: translate(-50%, -50%); } ' \
        '.bottomed { position: absolute; color: black; font-size: 10; bottom: 1px; left: 50%; transform: translate(-50%, -50%); }'
+    html += '.table td, .table th {'\
+                'font-size: 25px;'\
+            '}'
     html += '''
     		#circle-red {
-            width: 180px;
-            height: 180px;
-            -webkit-border-radius: 90px;
-            -moz-border-radius: 90px;
-            border-radius: 90px;
+            width: 140px;
+            height: 140px;
+            -webkit-border-radius: 70px;
+            -moz-border-radius: 70px;
+            border-radius: 70px;
             background: red;
          }
 		#circle-orange {
-            width: 180px;
-            height: 180px;
-            -webkit-border-radius: 90px;
-            -moz-border-radius: 90px;
-            border-radius: 90px;
+            width: 140px;
+            height: 140px;
+            -webkit-border-radius: 70px;
+            -moz-border-radius: 70px;
+            border-radius: 70px;
             background: orange;
          }
 		#circle-green {
-            width: 180px;
-            height: 180px;
-            -webkit-border-radius: 90px;
-            -moz-border-radius: 90px;
-            border-radius: 90px;
+            width: 140px;
+            height: 140px;
+            -webkit-border-radius: 70px;
+            -moz-border-radius: 70px;
+            border-radius: 70px;
             background: green;
          }
         '''
@@ -170,11 +173,11 @@ def create_image():
         html += '<div id="circle-green">'
 
     html += f'''
-                <div style="padding: 30px 30px 0 30px;"><h1 style="color:White;font-size: 90px;">{value}</h1></div></div>
+                <div style="padding: 20px 20px 0 20px;"><h1 style="color:White;font-size: 70px;">{value}</h1></div></div>
                 <br>
     '''
     html += f'''
-             <table class="ui celled table" style="width: 800px;">
+             <table class="ui celled table" style="width: 1140px;">
                      <thead>
 
        <tr  class="left aligned">
@@ -357,6 +360,6 @@ def create_image():
     '''
 
 
-    options = {'width': '1200', 'height': '725', 'encoding': "UTF-8", }
+    options = {'width': '1200', 'height': '875', 'encoding': "UTF-8", }
     imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 

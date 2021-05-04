@@ -64,6 +64,9 @@ def create_image(districts, canton):
            '<style>table, th, td { padding: 10px; font-size: 14; }' \
             '.columnl { float: left; width: 80px; } .columnr { float: left; width: 1000px; }/* Clear floats after the columns */ .row:after {   content: "";   display: table;   clear: both; }' \
             '#rotate-text { width: 45px; transform: rotate(90deg); }' \
+            '.table td, .table th {'\
+                'font-size: 25px;'\
+            '}'\
             '</style>' \
            f'</head>' \
            '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;">' \
@@ -72,16 +75,14 @@ def create_image(districts, canton):
            f'<img src = https://covidlaws.net/static/images/flags_ch/{canton.code}_circle.png><br><br>' \
            f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{canton.name}</h1></div>' \
             '</td><td>' \
-           '<table class="ui celled table" style="width: 670px;table-layout:fixed">' \
+           '<table class="ui celled table" style="width: 950px;table-layout:fixed">' \
             '<colgroup>' \
             '<col style="width: 30px;">' \
-            '<col style="width: 60px">' \
             '<col style="width: 150px">' \
             '<col style="width: 45px">' \
             '<col style="width: 65px">' \
             '</colgroup>' \
            '<tr><th>Rang</th>' \
-           '<th>Veränderung<br>zur Vorwoche</th>' \
            '<th>Bezirk</th>' \
            '<th>Inzidenz 7T/100k</th>' \
            '<th>Entwicklung<br>Woche/Vorwoche</th>' \
@@ -132,7 +133,6 @@ def create_image(districts, canton):
 
         html += f'<tr>' \
                 f'<td>{score["rank"]}</td>' \
-                f'<td><i class ="{score["rank_icon"]} icon" > </i>{score["rank_diff"]}</td>' \
                 f'<td><b>{score["name"]}</b></td>' \
                 f'<td><div class ="centered"> {score["cur_prev"]}</div></td>'
 
@@ -144,15 +144,15 @@ def create_image(districts, canton):
                 '</tr>'
 
 
-    html += f'</table><b>Stand: {last_date}</b>' \
-            "// covidlaws.net // Quelle: @OpenDataZH & der Kanton</td></tr></table>" \
+    html += f'</table><div style="font-size:30px"><b>Stand: {last_date}</b>' \
+            "// covidlaws.net // Quelle: @OpenDataZH & der Kanton</div></td></tr></table>" \
             '</div>' \
             '</body></html>'
 
     print(html)
 
-    options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
-    options_tg = {'width': '850', 'height': '675', 'encoding': "UTF-8", }
+    options = {'width': '1200', 'height': '1200', 'encoding': "UTF-8", }
+    options_tg = {'width': '850', 'height': '1200', 'encoding': "UTF-8", }
     imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
     imgkit.from_string(html, "/tmp/out_image_tg.jpg", options=options_tg)
 
