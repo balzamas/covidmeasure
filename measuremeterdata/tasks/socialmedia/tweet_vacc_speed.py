@@ -110,6 +110,9 @@ def create_image(cantons):
            '<style>table, th, td { padding: 10px; font-size: 14; }' \
             '.columnl { float: left; width: 80px; } .columnr { float: left; width: 1000px; }/* Clear floats after the columns */ .row:after {   content: "";   display: table;   clear: both; }' \
             '#rotate-text { width: 45px; transform: rotate(90deg); }' \
+    '.table td, .table th {'\
+        'font-size: 30px;'\
+    '}'\
             '</style>' \
            f'</head>' \
            '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;">' \
@@ -117,7 +120,7 @@ def create_image(cantons):
            '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right" nowrap>' \
            f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;Impfgeschwindigkeit</h1></div>' \
             '</td><td>' \
-           '<table class="ui celled table" style="width: 300px;table-layout:fixed">' \
+           '<table class="ui celled table" style="width: 450px;table-layout:fixed">' \
             '<colgroup>' \
             '<col style="width: 30px;">' \
             '<col style="width: 30px">' \
@@ -134,7 +137,7 @@ def create_image(cantons):
     for canton in canton_vals_sorted:
 
         html += f'<tr>' \
-                f'<td><img src = https://covidlaws.net/static/images/flags_ch/{canton["code"]}_circle.png width="25" height="25"></td>' \
+                f'<td><img src = https://covidlaws.net/static/images/flags_ch/{canton["code"]}_circle.png width="35" height="35"></td>' \
                 f'<td>{canton["code_up"]}</td>' \
 
         if canton["vacc_goal"] < canton["vacc"]:
@@ -145,9 +148,9 @@ def create_image(cantons):
         html += f'<td>{canton["vacc_goal"]}</td></tr>'
 
         count += 1
-        if count == 9 or count == 18:
+        if count == 14:
             html += "</table></td><td>&nbsp;</td><td>"
-            html += '<table class="ui celled table" style="width: 300px;table-layout:fixed">' \
+            html += '<table class="ui celled table" style="width: 450px;table-layout:fixed">' \
             '<colgroup>' \
             '<col style="width: 30px;">' \
             '<col style="width: 30px">' \
@@ -162,7 +165,7 @@ def create_image(cantons):
 
 
 
-    html += f'</table></td></tr><tr><td></td><td colspan=3> ' \
+    html += f'</table></td></tr><tr><td></td><td colspan=3 style="font-size: 25px"> ' \
             f'<b>Ist:</b> Impfungen pro 100k Einw. in den letzten 7 Tagen</b><br>' \
             f'<b>Soll:</b> Nötige Impfungen (100k/7T) um 60% der Bevölkerung bis Ende Juli zu impfen.</b><br>' \
             f'Details: covidlaws.net/ranking7<br>' \
@@ -173,7 +176,7 @@ def create_image(cantons):
 
     print(html)
 
-    options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
+    options = {'width': '1200', 'height': '1500', 'encoding': "UTF-8", }
     imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
     return vacc_date
