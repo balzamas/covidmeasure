@@ -138,7 +138,7 @@ $( document ).ready(function() {
             }
             else
             {
-                $('#measurechooser').dropdown('set selected',9);
+                $('#measurechooser').dropdown('set selected',11);
             }
 });
 
