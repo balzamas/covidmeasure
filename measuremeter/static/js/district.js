@@ -412,7 +412,7 @@ function applyCountryBorder(map, countryname) {
                 {
                         LoadMap(mapDistricts,date);
                         document.getElementById('dateview').innerHTML = formatDate(date);
-                        await sleep(10);
+                        await sleep(4);
                         date = addDays(date, 7);
                 }
           });
@@ -423,7 +423,7 @@ function applyCountryBorder(map, countryname) {
                 while (date < enddate)
                 {
                         LoadMap(mapDistricts,date);
-                        await sleep(10);
+                        await sleep(4);
                         document.getElementById('dateview').innerHTML = formatDate(date);
                         date = addDays(date, 7);
                 }
@@ -435,7 +435,19 @@ function applyCountryBorder(map, countryname) {
                 while (date < enddate)
                 {
                         LoadMap(mapDistricts,date);
-                        await sleep(10);
+                        await sleep(4);
+                        document.getElementById('dateview').innerHTML = formatDate(date);
+                        date = addDays(date, 7);
+                }
+          });
+                                    $("#btnPlayJan").click(async function(){
+                date = new Date(2021,0,1);
+                enddate = new Date();
+
+                while (date < enddate)
+                {
+                        LoadMap(mapDistricts,date);
+                        await sleep(6);
                         document.getElementById('dateview').innerHTML = formatDate(date);
                         date = addDays(date, 7);
                 }
