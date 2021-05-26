@@ -325,13 +325,13 @@ def create_image():
       '''
 
     if doom_clock.vacc_value > 6000:
-        html += '<i class="red circular inverted large syringe icon"></i>'
-    elif doom_clock.vacc_value > 3000:
-        html += '<i class="orange circular inverted large syringe icon"></i>'
-    elif doom_clock.vacc_value > 1600:
-        html += '<i class="yellow circular inverted large syringe icon"></i>'
-    else:
         html += '<i class="green circular inverted large syringe icon"></i>'
+    elif doom_clock.vacc_value > 3000:
+        html += '<i class="yellow circular inverted large syringe icon"></i>'
+    elif doom_clock.vacc_value > 1600:
+        html += '<i class="orange circular inverted large syringe icon"></i>'
+    else:
+        html += '<i class="red circular inverted large syringe icon"></i>'
 
     html += f'''
                Impfinzidenz: {round(doom_clock.vacc_value,0)} ({round(doom_clock.vacc_value_7d,0)})
