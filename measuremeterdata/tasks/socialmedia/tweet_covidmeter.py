@@ -169,6 +169,8 @@ def create_image():
         html += '<div id="circle-red">'
     elif value < 15:
         html += '<div id="circle-orange">'
+    elif value < 19
+        html += '<div id="circle-yellow">'
     else:
         html += '<div id="circle-green">'
 
