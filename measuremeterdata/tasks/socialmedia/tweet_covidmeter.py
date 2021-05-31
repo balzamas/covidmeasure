@@ -151,6 +151,14 @@ def create_image():
             border-radius: 70px;
             background: orange;
          }
+		#circle-yellow {
+            width: 140px;
+            height: 140px;
+            -webkit-border-radius: 70px;
+            -moz-border-radius: 70px;
+            border-radius: 70px;
+            background: yellow;
+         }
 		#circle-green {
             width: 140px;
             height: 140px;
