@@ -74,6 +74,30 @@ def tweet(type):
         scores = create_list(countries)
         text = create_image(region, scores)
 
+    if type == 10:
+        region = "South America (South)"
+        countries = Country.objects.filter(pk__in=[82,83,80,84,81])
+        scores = create_list(countries)
+        text = create_image(region, scores)
+
+    if type == 11:
+        region = "South East Asia"
+        countries = Country.objects.filter(pk__in=[67,65,66,68,69])
+        scores = create_list(countries)
+        text = create_image(region, scores)
+
+    if type == 12:
+        region = "Indian Subcontinent"
+        countries = Country.objects.filter(pk__in=[70,85,72,71,73, 109])
+        scores = create_list(countries)
+        text = create_image(region, scores)
+
+    if type == 13:
+        region = "Arab Gulf"
+        countries = Country.objects.filter(pk__in=[78,79,87,77,110])
+        scores = create_list(countries)
+        text = create_image(region, scores)
+
 #    page_access_token = settings.FACEBOOK_ACCESS_TOKEN
 #    graph = facebook.GraphAPI(page_access_token)
 #    facebook_page_id = settings.FACEBOOK_PAGE_ID
