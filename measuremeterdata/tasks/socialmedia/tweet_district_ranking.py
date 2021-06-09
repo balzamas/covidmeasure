@@ -106,6 +106,8 @@ def create_image(districts, canton):
         cur_prev = last_prev7
         if case_7days_before.incidence_past7days:
             cur_prev7 = case_7days_before.incidence_past7days
+        else:
+            cur_prev7 = 0
 
 
         canton_toadd = {"name": district.name,
@@ -113,8 +115,8 @@ def create_image(districts, canton):
                         "cur_prev": cur_prev, "cur_prev14": last_prev14, "tendency": last_tendency,
                         "cur_prev7": cur_prev7, "id": district.swisstopo_id,
                         "level": district.level}
+        canton_vals.append(canton_toadd)
 
-    print(canton_vals)
 
     scores = sorted(canton_vals, key=lambda i: i['cur_prev7'], reverse=False)
     rank = 1

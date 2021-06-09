@@ -98,6 +98,8 @@ def ranking7_calc(cantons):
             cur_prev = last_prev7
             if case_7days_before.incidence_past7days:
                 cur_prev7 = case_7days_before.incidence_past7days
+            else:
+                cur_prev7 = 0
 
             canton_toadd = {"name": canton.name, "score": int(score),
                             "date": last_date, "code": canton.code, "level": canton.level,
