@@ -90,7 +90,7 @@ function applyCountryBorder(map, countryname) {
                                     statesData.features[id].properties.name = item.canton.name;
                                     statesData.features[id].properties.weekoverweek = item.development7to7;
 
-                                    if (item.canton.name.includes("(AG)"))
+                                    if (item.canton.name.includes("(BE)"))
                                     {
                                         statesData.features[id].properties.comment = "<div align='center'><p>"+item.incidence_past7days +'</p><p>' + gettext('Population') + ':<br>' + item.canton.population.toLocaleString('ch-CH') + '<br>' + gettext('Last update') + ':<br>' + item.date+'</div></p>';
                                     }
