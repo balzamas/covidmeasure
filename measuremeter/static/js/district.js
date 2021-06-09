@@ -162,28 +162,6 @@ function applyCountryBorder(map, countryname) {
 
         info.addTo(map);
 
-
-        function getColor_blue(d) {
-            console.log("hans")
-            return  d > 500 ? '#50504e' :
-                    d > 500 ? '#1a000d' :
-                    d > 350 ? '#33001a' :
-                    d > 250 ? '#660033' :
-                    d > 150   ? '#000000' :
-                    d > 120   ? '#060261' :
-                    d > 90   ? '#0b03a8' :
-                    d > 70   ? '#180df8' :
-                    d > 50   ? '#3127fa' :
-                    d > 30   ? '#483ff8' :
-                    d > 20   ? '#665ff3' :
-                    d > 15   ? '#847ef8' :
-                    d > 10   ? '#a09cfa' :
-                    d > 5   ? '#bab7ff' :
-                    d > 0   ? '#ffffff' :
-                    '#ffffff' ;
-
-        }
-
         function getColor(d) {
             console.log("hans2")
             return  d > 1000 ? '#000000' :
