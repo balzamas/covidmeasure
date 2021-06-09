@@ -95,10 +95,14 @@ def ranking7_calc(cantons):
         if (score > -99999):
             measures = CHMeasure.objects.filter(canton=canton, type__isactive=True).filter(Q(end__gte=date.today())|Q(end__isnull=True)).filter(Q(start__lte=date.today())).order_by("type__name")
 
+            cur_prev = last_prev7
+            if case_7days_before.incidence_past7days:
+                cur_prev7 = case_7days_before.incidence_past7days
+
             canton_toadd = {"name": canton.name, "score": int(score),
                             "date": last_date, "code": canton.code, "level": canton.level,
-                            "cur_prev": last_prev7, "cur_prev14": last_prev14, "tendency": last_tendency,
-                            "cur_prev7": case_7days_before.incidence_past7days, "id": canton.swisstopo_id,
+                            "cur_prev": cur_prev, "cur_prev14": last_prev14, "tendency": last_tendency,
+                            "cur_prev7": cur_prev7, "id": canton.swisstopo_id,
                             "level": canton.level, "measures": measures, "incidence_below_ch": False,
                             "r0":r0, "r0_date":r0_date, "r_under_one":r_under_one,
                             "vacc": vacc, "vacc_goal":vacc_goal, "vacc_date": vacc_date}
