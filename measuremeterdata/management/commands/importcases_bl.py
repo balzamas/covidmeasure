@@ -12,7 +12,7 @@ from measuremeterdata.tasks.socialmedia.tweet_district_ranking import tweet
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
-      url = 'https://raw.githubusercontent.com/openZH/covid_19/master/fallzahlen_bezirke/fallzahlen_kanton_FR_bezirk.csv'
+      url = 'https://raw.githubusercontent.com/openZH/covid_19/master/fallzahlen_bezirke/fallzahlen_kanton_BL_bezirk.csv'
 
       with requests.Session() as s:
         download = s.get(url)
@@ -32,6 +32,7 @@ class Command(BaseCommand):
 
 
         for row in my_list:
+            print(row[4])
             if (count > 1) and row[4]:
                 print("get")
                 date =  import_helper.get_start_end_dates(int(row[5]), int(row[4]))[1]
@@ -70,7 +71,7 @@ class Command(BaseCommand):
             count += 1
 
         if has_new_data:
-            canton_code = "fr"
+            canton_code = "bl"
             canton = CHCanton.objects.filter(level=0, code=canton_code)[0]
             tweet(canton)
 
