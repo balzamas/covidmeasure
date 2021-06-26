@@ -32,11 +32,10 @@ class Command(BaseCommand):
 
 
         for row in my_list:
-            print(row[4])
-            if (count > 1) and row[4]:
+            if (count > 1):
                 print("get")
-                date =  import_helper.get_start_end_dates(int(row[5]), int(row[4]))[1]
-                print(date)
+                date_tosave = date.fromisoformat(row[3])
+                print(date_tosave)
                 bezirk = CHCanton.objects.filter(swisstopo_id=int(row[0]))
 
                 if (bezirk):
@@ -55,14 +54,14 @@ class Command(BaseCommand):
                         development7to7 = (int(row[8]) * 100 / last_7days) - 100
 
                     try:
-                        cd_existing = CHCases.objects.get(canton=bezirk[0], date=date)
+                        cd_existing = CHCases.objects.get(canton=bezirk[0], date=date_tosave)
                         cd_existing.incidence_past7days = sdays
                         cd_existing.incidence_past14days = ftdays
                         cd_existing.development7to7 = development7to7
                         cd_existing.save()
                     except CHCases.DoesNotExist:
                         has_new_data = True
-                        cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, development7to7=development7to7, date=date)
+                        cd = CHCases(canton=bezirk[0], incidence_past7days=sdays, incidence_past14days=ftdays, development7to7=development7to7, date=date_tosave)
                         cd.save()
 
                     old_bezirk = int(row[0])
