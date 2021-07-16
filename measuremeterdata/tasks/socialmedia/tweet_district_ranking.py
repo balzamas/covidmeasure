@@ -1,4 +1,3 @@
-from measuremeterdata.models.models_ch import CHCases, CHCanton
 import os
 import csv
 import datetime
@@ -142,7 +141,7 @@ def create_image(districts, canton):
                 f'<td><b>{score["name"]}</b></td>' \
                 f'<td><div class ="centered"> {score["cur_prev"]}</div></td>'
 
-        if score["tendency"] < 0:
+        if score["tendency"] and score["tendency"] < 0:
             html += f'<td class="positive"><div class ="centered">{score["tendency"]} %</div></td>' \
                 '</tr>'
         else:
