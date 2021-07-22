@@ -56,11 +56,11 @@ def send_tweet(message, tweet_id):
     if tweet_id:
         tweet_id = api.update_status(
            status=f"{message}",
-           media_ids=[media.media_id_string])
+            in_reply_to_status_id=tweet_id.id,
+            media_ids=[media.media_id_string])
     else:
         tweet_id = api.update_status(
            status=f"{message}",
-            in_reply_to_status_id=tweet_id.id,
             media_ids=[media.media_id_string])
 
     return tweet_id
