@@ -508,5 +508,5 @@ def create_image(date_to_load):
 
 
     options = {'width': '1200', 'height': '875', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
