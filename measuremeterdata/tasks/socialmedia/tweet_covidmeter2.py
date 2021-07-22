@@ -15,16 +15,18 @@ from django.db.models import F, Func
 
 
 def tweet():
+    tweet_id = prepare(datetime.today(), "Covidmeter-Index\n\nhttps://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
+    tweet_id = prepare(datetime.today()- timedelta(days=121), "Covidmeter-Index\n\nVor 4 Monaten.\n\nhttps://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", tweet_id)
+    tweet_id = prepare(datetime.today() - timedelta(days=242), "Covidmeter-Index\n\nVor 8 Monaten.\n\nhttps://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", tweet_id)
+    tweet_id = prepare(datetime.today()- timedelta(days=365), "Covidmeter-Index\n\nVor einem Jahr.\n\nhttps://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", tweet_id)
 
-        #create_image(datetime.today())
-        #create_image(datetime.today()- timedelta(days=121))
-        create_image(datetime.today()- timedelta(days=242))
-        #create_image(datetime.today()- timedelta(days=365))
+def prepare(date_to_load, text, tweet_id):
+    create_image(date_to_load)
 
-        text = "Covidmeter-Index\n\nhttps://covidlaws.net/covidmeter/\n\n #CoronaInfoCH"
+    send_telegram(text)
+    return send_tweet(text, tweet_id)
 
-    #    send_telegram(text)
-    #    send_tweet(text)
+
 
 def send_telegram(message):
     #Telegram
@@ -36,7 +38,7 @@ def send_telegram(message):
 
 
 
-def send_tweet(message):
+def send_tweet(message, tweet_id):
     #Twitter
 
     auth = tweepy.OAuthHandler(settings.TWITTER_API_KEY, settings.TWITTER_SECRET_KEY)
@@ -51,9 +53,17 @@ def send_tweet(message):
         print("Error during authentication")
 
     media = api.media_upload("/tmp/out_image.jpg")
-    api.update_status(
-       status=f"{message}",
-       media_ids=[media.media_id_string])
+    if tweet_id:
+        tweet_id = api.update_status(
+           status=f"{message}",
+           media_ids=[media.media_id_string])
+    else:
+        tweet_id = api.update_status(
+           status=f"{message}",
+            in_reply_to_status_id=tweet_id.id,
+            media_ids=[media.media_id_string])
+
+    return tweet_id
 
 
 def create_image(date_to_load):
