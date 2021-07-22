@@ -237,8 +237,8 @@ class Command(BaseCommand):
             print("Save...")
 
             try:
+                old_date = incidence_latest_date
                 cd_existing = DoomsdayClock.objects.get(cur_date=date_to_load_date)
-                old_date = cd_existing.incidence_latest_date
                 cd_existing.cur_date = date_to_load_date
                 cd_existing.hosp_cov19_patients = hosp_cov19_patients
                 cd_existing.hosp_cov19_patients_7d = hosp_cov19_patients_7d
@@ -291,6 +291,7 @@ class Command(BaseCommand):
                 cd_existing.vacc_date = vacc_date
                 cd_existing.save()
             except DoomsdayClock.DoesNotExist:
+                old_date = incidence_latest_date
                 cd = DoomsdayClock(
                             cur_date = date_to_load_date,
                             hosp_cov19_patients = hosp_cov19_patients,
@@ -345,5 +346,5 @@ class Command(BaseCommand):
                 )
                 cd.save()
 
-#            if old_date.isoformat() != cd_existing.incidence_latest_date:
- #               tweet()
+            if old_date.isoformat() != cd_existing.incidence_latest_date:
+                tweet()

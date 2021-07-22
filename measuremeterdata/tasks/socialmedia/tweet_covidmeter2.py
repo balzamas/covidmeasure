@@ -16,9 +16,9 @@ from django.db.models import F, Func
 
 def tweet():
 
-        create_image(datetime.today())
+        #create_image(datetime.today())
         #create_image(datetime.today()- timedelta(days=121))
-        #create_image(datetime.today()- timedelta(days=242))
+        create_image(datetime.today()- timedelta(days=242))
         #create_image(datetime.today()- timedelta(days=365))
 
         text = "Covidmeter-Index\n\nhttps://covidlaws.net/covidmeter/\n\n #CoronaInfoCH"
@@ -57,6 +57,7 @@ def send_tweet(message):
 
 
 def create_image(date_to_load):
+    print(date_to_load)
     doom_clock = DoomsdayClock.objects.get(cur_date=date_to_load)
 
     quota = doom_clock.hosp_cov19_patients * 100 / doom_clock.hosp_capacity
