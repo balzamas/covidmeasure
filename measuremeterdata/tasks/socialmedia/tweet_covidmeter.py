@@ -53,7 +53,7 @@ def send_tweet(message):
 
 
 def create_image():
-    doom_clock = DoomsdayClock.objects.get(name="Master")
+    doom_clock = DoomsdayClock.objects.get(cur_date=datetime.today())
 
     quota = doom_clock.hosp_cov19_patients * 100 / doom_clock.hosp_capacity
     quota_str = "{0:.2f}".format(quota)
