@@ -153,8 +153,8 @@ class Command(BaseCommand):
 
             r_sum = 0
 
-            datefrom = (date_to_load_date - timedelta(days=18)).strftime('%Y-%m-%d')
-            dateto = (date_to_load_date - timedelta(days=12)).strftime('%Y-%m-%d')
+            datefrom = (date_to_load_date - timedelta(days=19)).strftime('%Y-%m-%d')
+            dateto = (date_to_load_date - timedelta(days=13)).strftime('%Y-%m-%d')
 
             r_final = df_r[ch_only_filter].loc[datefrom:dateto]
             print(r_final.index[0])
@@ -165,8 +165,8 @@ class Command(BaseCommand):
             r_average = r_sum / 7
 
             r_sum_7d = 0
-            datefrom = (date_to_load_date - timedelta(days=26)).strftime('%Y-%m-%d')
-            dateto = (date_to_load_date - timedelta(days=19)).strftime('%Y-%m-%d')
+            datefrom = (date_to_load_date - timedelta(days=27)).strftime('%Y-%m-%d')
+            dateto = (date_to_load_date - timedelta(days=20)).strftime('%Y-%m-%d')
             for index_row, row in df_r[ch_only_filter].loc[datefrom:dateto].iterrows():
                 r_sum_7d += row['median_R_mean']
             r_average_7d = r_sum_7d / 7

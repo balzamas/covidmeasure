@@ -16,8 +16,10 @@ from django.db.models import F, Func
 
 def tweet():
 
-        #create_image(datetime.today()- timedelta(days=1))
-        create_image(datetime.today()- timedelta(days=369))
+        create_image(datetime.today())
+        #create_image(datetime.today()- timedelta(days=121))
+        #create_image(datetime.today()- timedelta(days=242))
+        #create_image(datetime.today()- timedelta(days=365))
 
         text = "Covidmeter-Index\n\nhttps://covidlaws.net/covidmeter/\n\n #CoronaInfoCH"
 
