@@ -23,17 +23,18 @@ def tweet():
 def prepare(date_to_load, text, tweet_id):
     create_image(date_to_load)
 
-    send_telegram(text)
-    return send_tweet(text, tweet_id)
-
-
+    if tweet_id:
+        return send_tweet(text, tweet_id)
+    else:
+        send_telegram(text)
+        return send_tweet(text, tweet_id)
 
 def send_telegram(message):
     #Telegram
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
-    bot.sendMessage(settings.TELEGRAM_CHATID, f"Covidmeter\n\nDetails: https://covidlaws.net/covidmeter/")
+    bot.sendMessage(settings.TELEGRAM_CHATID, f"Covidmeter\n\nDetails: https://covidlaws.net/covidmeter2/")
     bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
 
 
