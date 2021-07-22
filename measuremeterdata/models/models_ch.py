@@ -10,6 +10,7 @@ class MotherModel(models.Model):
 
 class DoomsdayClock(MotherModel):
     name = models.CharField(max_length=200)
+    cur_date = models.DateField(null=True,blank=True)
     hosp_cov19_patients = models.IntegerField(null=True, blank=True)
     hosp_cov19_patients_7d = models.IntegerField(null=True, blank=True)
     hosp_capacity = models.IntegerField(null=True, blank=True)

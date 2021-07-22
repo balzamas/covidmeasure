@@ -15,7 +15,9 @@ def load_data(request):
             doom_clock = DoomsdayClock.objects.get(cur_date=(date_to_load- timedelta(days=1)))
         except (DoomsdayClock.DoesNotExist):
             doom_clock = DoomsdayClock.objects.get(cur_date=(date_to_load- timedelta(days=2)))
-    template = loader.get_template('pages/score_ch.html')
+
+
+    template = loader.get_template('pages/score_ch2.html')
 
     quota = doom_clock.hosp_cov19_patients * 100 / doom_clock.hosp_capacity
 
@@ -23,23 +25,16 @@ def load_data(request):
 
     r_okay = False
 
-    if doom_clock.vacc_value > 6000:
-        value += 3
-    elif doom_clock.vacc_value > 3000:
-        value += 2
-    elif doom_clock.vacc_value > 1600:
-        value += 1
-    else:
-        value += 0
-
     if doom_clock.deaths_value > 100:
         value += 0
     elif doom_clock.deaths_value > 50:
         value += 1
     elif doom_clock.deaths_value > 20:
         value += 2
-    else:
+    elif doom_clock.deaths_value > 5:
         value += 3
+    else:
+        value += 4
 
     if doom_clock.positivity > 5:
         value += 0
@@ -54,8 +49,10 @@ def load_data(request):
         value += 1
     elif doom_clock.hosp_average > 20:
         value += 2
-    else:
+    elif doom_clock.hosp_average > 5:
         value += 3
+    else:
+        value += 4
 
     if doom_clock.hosp_cov19_patients > 300:
         value += 0
@@ -88,6 +85,7 @@ def load_data(request):
 
 
     context = {
+        'cur_date': doom_clock.cur_date,
         'hosp_cov19_patients' : doom_clock.hosp_cov19_patients,
         'hosp_cov19_patients_7d': doom_clock.hosp_cov19_patients_7d,
         'hosp_capacity' : doom_clock.hosp_capacity ,
