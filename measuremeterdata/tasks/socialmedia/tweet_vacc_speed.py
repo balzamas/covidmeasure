@@ -167,7 +167,7 @@ def create_image(cantons):
 
     html += f'</table></td></tr><tr><td></td><td colspan=3 style="font-size: 25px"> ' \
             f'<b>Ist:</b> Impfungen pro 100k Einw. in den letzten 7 Tagen</b><br>' \
-            f'<b>Soll:</b> Nötige Impfungen (100k/7T) um 60% der Bevölkerung bis Ende Juli zu impfen.</b><br>' \
+            f'<b>Soll:</b> Nötige Impfungen (100k/7T) um 60% der Bevölkerung bis Ende Juli zu impfen.<br>' \
             f'Details: covidlaws.net/ranking7<br>' \
             f'<b>Stand: {vacc_date}</b> // covidlaws.net // Quelle: BAG' \
             f'</td></tr></table>' \
