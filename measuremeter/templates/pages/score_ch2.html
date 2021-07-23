@@ -87,7 +87,7 @@
 
         <div style="padding: 30px 30px 0 30px;"><h1 style="color:White;font-size: 90px;">{{value}}</h1></div></div>
 <h3>{{cur_date}}</h3>
-                       <h3>                                    Max. value: 20
+                       <h3>                                    Max. value: 21
 </h3>
 
 
@@ -101,6 +101,8 @@
             {% elif hosp_cov19_patients > 180 %}
                 <i class="orange circular inverted large heartbeat icon"></i>
             {% elif hosp_cov19_patients > 50 %}
+                <i class="yellow circular inverted large heartbeat icon"></i>
+            {% elif hosp_cov19_patients > 25 %}
                 <i class="yellow circular inverted large heartbeat icon"></i>
             {% else %}
                 <i class="green circular inverted large heartbeat icon"></i>
@@ -117,7 +119,7 @@
          </td>
        </tr>
        <tr class="center aligned">
-         <td style="font-size: 15px;"> >300: 0P, >180: 1P, >50: 2P, <=50: 3P</td>
+         <td style="font-size: 15px;"> >300: 0P, >180: 1P, >50: 2P, >25: 3P, <=25: 4P</td>
        </tr>
      </table>
 
@@ -131,12 +133,12 @@
             {% elif hosp_average > 50 %}
                 <i class="orange circular inverted large hospital icon"></i>
             {% elif hosp_average > 5 %}
-                <i class="orange circular inverted large hospital icon"></i>
+                <i class="yellow circular inverted large hospital icon"></i>
             {% else %}
                 <i class="green circular inverted large hospital icon"></i>
             {% endif %}
 
-           {% trans 'New hospital entries' %}: {{hosp_average|floatformat:0}} ({{hosp_average_7d|floatformat:0}} {% if hosp_average_7d > hosp_average %} <i class="green arrow circle down icon"></i> {% else %} <i class="red arrow circle up icon"></i> {% endif %})
+           {% trans 'New hospital entries' %}: {{hosp_average|floatformat:1}} ({{hosp_average_7d|floatformat:1}} {% if hosp_average_7d > hosp_average %} <i class="green arrow circle down icon"></i> {% else %} <i class="red arrow circle up icon"></i> {% endif %})
          </th>
        </tr>
                      </thead>

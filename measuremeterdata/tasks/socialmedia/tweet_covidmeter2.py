@@ -110,8 +110,10 @@ def create_image(date_to_load):
         value += 1
     elif doom_clock.hosp_cov19_patients > 50:
         value += 2
-    else:
+    elif doom_clock.hosp_cov19_patients > 25:
         value += 3
+    else:
+        value += 4
 
     if doom_clock.r_average > 1.15:
         value += 0
@@ -235,7 +237,7 @@ def create_image(date_to_load):
         html += '<div id="circle-red">'
     elif value < 14:
         html += '<div id="circle-orange">'
-    elif value < 18:
+    elif value < 19:
         html += '<div id="circle-yellow">'
     else:
         html += '<div id="circle-green">'
@@ -331,9 +333,9 @@ def create_image(date_to_load):
         html += '<div id="circle-yellow-small" style="opacity:0.2;"></div>'
 
     if value > 17:
-        html += '<div id="circle-green-small"></div>'
+        html += '<div id="circle-yellow-small"></div>'
     else:
-        html += '<div id="circle-green-small" style="opacity:0.2;"></div>'
+        html += '<div id="circle-yellow-small" style="opacity:0.2;"></div>'
 
     if value > 18:
         html += '<div id="circle-green-small"></div>'
@@ -344,7 +346,10 @@ def create_image(date_to_load):
         html += '<div id="circle-green-small"></div>'
     else:
         html += '<div id="circle-green-small" style="opacity:0.2;"></div>'
-
+    if value > 20:
+        html += '<div id="circle-green-small"></div>'
+    else:
+        html += '<div id="circle-green-small" style="opacity:0.2;"></div>'
 
 
     html += '</div>'

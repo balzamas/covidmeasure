@@ -60,8 +60,10 @@ def load_data(request):
         value += 1
     elif doom_clock.hosp_cov19_patients > 50:
         value += 2
-    else:
+    elif doom_clock.hosp_cov19_patients > 25:
         value += 3
+    else:
+        value += 4
 
     if doom_clock.r_average > 1.15:
         value += 0
