@@ -39,7 +39,7 @@ class Command(BaseCommand):
 
 
 
-                    val20 = int(row["2020 2"])
+                    val20 = int(row["2020"])
                     val15 = int(row[2015])
 
                     if week < 53:

@@ -367,6 +367,8 @@ def create_image(date_to_load):
         html += '<i class="orange circular inverted large heartbeat icon"></i>'
     elif doom_clock.hosp_cov19_patients > 50:
         html += '<i class="yellow circular inverted large heartbeat icon"></i>'
+    elif doom_clock.hosp_cov19_patients > 25:
+        html += '<i class="yellow circular inverted large heartbeat icon"></i>'
     else:
         html += '<i class="green circular inverted large heartbeat icon"></i>'
 

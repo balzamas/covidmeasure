@@ -345,5 +345,4 @@ class Command(BaseCommand):
                 )
                 cd.save()
 
-                tweet()
                 tweet2()
