@@ -41,7 +41,7 @@ def import_data():
                     val20 = None
                     val21 = None
 
-                    val20 = int(row["2020"])
+                    val20 = int(row[2020])
                     val15 = int(row[2015])
 
                     if week < 53:

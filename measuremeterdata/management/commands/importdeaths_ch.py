@@ -39,7 +39,7 @@ class Command(BaseCommand):
 
 
 
-                    val20 = int(row["2020"])
+                    val20 = int(row[2020])
                     val15 = int(row[2015])
 
                     if week < 53:
@@ -50,6 +50,9 @@ class Command(BaseCommand):
 
                     avg_1519 = avg_1519 / 7
 
+
+
+                    print(row["2021 2"])
                     if  pd.notna(row["2021 2"]) and row["2021 2"]:
                         val21 = int(row["2021 2"])
 
