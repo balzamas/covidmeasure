@@ -10,6 +10,8 @@ import imgkit
 import facebook
 import telepot
 from PIL import Image, ImageChops
+from measuremeterdata.models.models_ch import CHCases, CHCanton
+
 
 def tweet(canton):
 
