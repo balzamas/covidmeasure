@@ -391,6 +391,8 @@ def create_image(date_to_load):
         html += '<i class="orange circular inverted large hospital icon"></i>'
     elif doom_clock.hosp_average > 20:
         html += '<i class="yellow circular inverted large hospital icon"></i>'
+    elif doom_clock.hosp_average > 5:
+        html += '<i class="yellow circular inverted large hospital icon"></i>'
     else:
         html += '<i class="green circular inverted large hospital icon"></i>'
 
