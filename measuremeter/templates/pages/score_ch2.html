@@ -271,7 +271,7 @@
                 <i class="green circular inverted large times circle icon"></i>
             {% endif %}
 
-           {% trans 'Deaths' %}: {{deaths_value|floatformat:0}} ({{deaths_value_7d|floatformat:0}} {% if deaths_value_7d > deaths_value %} <i class="green arrow circle down icon"></i>{% else %} <i class="red arrow circle up icon"></i>{% endif %})
+           {% trans 'Deaths' %}*: {{deaths_value|floatformat:0}} ({{deaths_value_7d|floatformat:0}} {% if deaths_value_7d > deaths_value %} <i class="green arrow circle down icon"></i>{% else %} <i class="red arrow circle up icon"></i>{% endif %})
          </th>
        </tr>
                      </thead>
@@ -346,7 +346,7 @@
      {% trans 'Numbers in brackets: Value a week before current value.' %}&nbsp;
      {% trans 'Past and current values can change due updates.' %}
      <br>
-
+* {% trans 'incl. late registrations.' %}
      {% trans 'Source data:' %} <a href="https://www.covid19.admin.ch/" target="_blank">{% trans 'FOPH' %}</a>
    </div>
 
