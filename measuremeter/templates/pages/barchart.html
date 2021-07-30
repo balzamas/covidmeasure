@@ -51,7 +51,11 @@
                   <td><a href="" @click.prevent="loadExample('covid19_ch_start')">load data</a></td>
                 </tr>
                 <tr>
-                  <td>Incidence 14 days European countries since July</td>
+                  <td>Incidence 14 days European countries since June 21</td>
+                  <td><a href="" @click.prevent="loadExample('covid19_eu_june21')">load data</a></td>
+                </tr>
+                <tr>
+                  <td>Incidence 14 days European countries since July 20</td>
                   <td><a href="" @click.prevent="loadExample('covid19_eu_july')">load data</a></td>
                 </tr>
                 <tr>
@@ -59,11 +63,15 @@
                   <td><a href="" @click.prevent="loadExample('covid19_eu_start')">load data</a></td>
                 </tr>
                 <tr>
-                  <td>Incidence 7 days European countries since October</td>
+                  <td>Incidence 7 days European countries since June 21</td>
+                  <td><a href="" @click.prevent="loadExample('covid19_eu_7_june21')">load data</a></td>
+                </tr>
+                <tr>
+                  <td>Incidence 7 days European countries since October 20</td>
                   <td><a href="" @click.prevent="loadExample('covid19_eu_7_october')">load data</a></td>
                 </tr>
                 <tr>
-                  <td>Incidence 7 days European countries since July</td>
+                  <td>Incidence 7 days European countries since July 20</td>
                   <td><a href="" @click.prevent="loadExample('covid19_eu_7_july')">load data</a></td>
                 </tr>
                 <tr>
@@ -255,6 +263,12 @@
             "title": "Countries, Incidence 14 days ",
             "url": "{% static 'csv/countries14_start.csv' %}"
         },
+        "covid19_eu_june21": {
+            "duration": 30,
+            "top_n": 20,
+            "title": "Countries, Incidence 14 days ",
+            "url": "{% static 'csv/countries14_june21.csv' %}"
+        },
         "covid19_eu_july": {
             "duration": 30,
             "top_n": 20,
@@ -266,6 +280,12 @@
             "top_n": 20,
             "title": "Countries, Incidence 7 days ",
             "url": "{% static 'csv/countries7_start.csv' %}"
+        },
+        "covid19_eu_7_june21": {
+            "duration": 30,
+            "top_n": 20,
+            "title": "Countries, Incidence 7 days ",
+            "url": "{% static 'csv/countries7_june21.csv' %}"
         },
         "covid19_eu_7_july": {
             "duration": 30,
