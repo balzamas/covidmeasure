@@ -48,6 +48,7 @@ class Command(BaseCommand):
                 try:
                     print("cccccc")
                     date = datetime.datetime.fromisoformat(last14days.tail(1)["date"].item())
+                    print(date)
                     cd_existing = CHCases.objects.get(canton=canton, date=date)
                     cd_existing.vacc_perpop_7d = vacc_perpop_7d
                     cd_existing.vacc_perpop = vacc_perpop
@@ -56,6 +57,7 @@ class Command(BaseCommand):
                     cd_existing.save()
                 except CHCases.DoesNotExist:
                     print("....")
+                    print(date)
                     cd = CHCases(canton=canton,
                                  vacc_perpop_7d=vacc_perpop_7d,
                                  vacc_perpop=vacc_perpop,

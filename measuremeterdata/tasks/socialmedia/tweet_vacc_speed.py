@@ -64,35 +64,39 @@ def create_image(cantons):
     vacc_date = None
 
     for canton in cantons:
-        date_tocheck = date.today()
+        if canton.code != "fl":
+            date_tocheck = date.today()
 
-        cases = CHCases.objects.filter(canton=canton, date__range=[date_tocheck - timedelta(days=25), date_tocheck]).order_by("-date")
-        vacc = None
-        vacc_goal = None
-        for case in cases:
-                if case.vacc_perpop_7d and not vacc:
-                    vacc = case.vacc_perpop_7d
-                    vacc_date = case.date
-
-
-                    to_vacc = ((canton.population /100*70) * 2 - case.vacc_total) - (canton.population / 100 * 6.5)
-
-                    days = date(2021, 9, 30) - case.date
-
-                    vacc_goal_raw =  to_vacc / days.days * 7
-
-                    vacc_goal = 100000 * vacc_goal_raw / canton.population
+            cases = CHCases.objects.filter(canton=canton, date__range=[date_tocheck - timedelta(days=25), date_tocheck]).order_by("-date")
+            vacc = None
+            vacc_goal = None
+            for case in cases:
+                    print(case.date)
+                    print(case.vacc_perpop_7d)
+                    print(case.canton)
+                    if case.vacc_perpop_7d and not vacc:
+                        vacc = case.vacc_perpop_7d
+                        vacc_date = case.date
 
 
+                        to_vacc = ((canton.population /100*70) * 2 - case.vacc_total) - (canton.population / 100 * 6.5)
+
+                        days = date(2021, 9, 30) - case.date
+
+                        vacc_goal_raw =  to_vacc / days.days * 7
+
+                        vacc_goal = 100000 * vacc_goal_raw / canton.population
 
 
-        canton_toadd = {"name": canton.name,
-                         "code": canton.code,
-                        "code_up": canton.code.upper(),
-                        "id": canton.swisstopo_id,
-                        "vacc": int(vacc), "vacc_goal":int(vacc_goal), "vacc_date": vacc_date}
 
-        canton_vals.append(canton_toadd)
+
+            canton_toadd = {"name": canton.name,
+                             "code": canton.code,
+                            "code_up": canton.code.upper(),
+                            "id": canton.swisstopo_id,
+                            "vacc": int(vacc), "vacc_goal":int(vacc_goal), "vacc_date": vacc_date}
+
+            canton_vals.append(canton_toadd)
 
     canton_vals_sorted = sorted(canton_vals, key=lambda i: i['vacc'], reverse=True)
 
