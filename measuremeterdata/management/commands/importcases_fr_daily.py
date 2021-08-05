@@ -104,5 +104,3 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         import_day('FR')
-        import_day('BL')
-
