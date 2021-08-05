@@ -2,6 +2,8 @@ from django.core.management.base import BaseCommand, CommandError
 from measuremeterdata.models.models_ch import CHCanton, CHCases, DoomsdayClock
 from measuremeterdata.tasks.socialmedia.tweet_covidmeter import tweet
 from measuremeterdata.tasks.socialmedia.tweet_covidmeter2 import tweet as tweet2
+from measuremeterdata.tasks.socialmedia.tweet_vacc_speed import tweet as tweet_vacc
+from measuremeterdata.tasks.importer.ch.import_vacc_cantons import import_vacc_cantons
 import os
 import csv
 import datetime
@@ -346,3 +348,5 @@ class Command(BaseCommand):
                 cd.save()
 
                 tweet2()
+                import_vacc_cantons()
+                tweet_vacc()
