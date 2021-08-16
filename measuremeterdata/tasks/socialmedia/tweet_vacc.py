@@ -702,5 +702,5 @@ def create_image(week):
     print(html)
 
     options = {'width': '1500', 'height': '1200', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
