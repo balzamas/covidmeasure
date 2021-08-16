@@ -63,7 +63,7 @@ def send_tweet(week):
 
     media = api.media_upload("/tmp/out_image.jpg")
     api.update_status(
-       status=f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nStand: Woche {week - 4} bis {week}\n28-Tage-Inzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert, d.h. noch sehr inkomplett.\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.Geimpfte vs. Ungeimpfte',
+       status=f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {week - 4} bis {week}\n28-Tage-Inzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert!\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.',
        media_ids=[media.media_id_string])
 
 def get_vacced_by_agegroup(age_group, date_week, zf):
