@@ -45,7 +45,7 @@ def load_data(request):
 
     if doom_clock.hosp_average > 120:
         value += 0
-    if doom_clock.hosp_average > 80:
+    elif doom_clock.hosp_average > 80:
         value += 1
     elif doom_clock.hosp_average > 50:
         value += 2
@@ -78,7 +78,7 @@ def load_data(request):
 
     if doom_clock.incidence_latest > 600:
         value += 0
-    if doom_clock.incidence_latest > 450:
+    elif doom_clock.incidence_latest > 450:
         value += 1
     elif doom_clock.incidence_latest > 250:
         value += 2
