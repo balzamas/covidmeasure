@@ -16,12 +16,12 @@ from django.db.models import F, Func
 
 def tweet():
     tweet_id = prepare(datetime.today(), "Covidmeter-Index\n\nhttps://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
-    tweet_id = prepare(datetime.today()- timedelta(days=121), "Covidmeter-Index\n\nVor 4 Monaten.\n\nhttps://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", tweet_id)
-    tweet_id = prepare(datetime.today() - timedelta(days=242), "Covidmeter-Index\n\nVor 8 Monaten.\n\nhttps://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", tweet_id)
-    tweet_id = prepare(datetime.today()- timedelta(days=365), "Covidmeter-Index\n\nVor einem Jahr.\n\nhttps://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", tweet_id)
 
 def prepare(date_to_load, text, tweet_id):
-    create_image(date_to_load)
+    create_image(date_to_load, "1")
+    create_image(date_to_load - timedelta(days=121), "2")
+    create_image(date_to_load - timedelta(days=242), "3")
+    create_image(date_to_load - timedelta(days=365), "4")
 
     if tweet_id:
         return send_tweet(text, tweet_id)
@@ -35,7 +35,7 @@ def send_telegram(message):
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
     bot.sendMessage(settings.TELEGRAM_CHATID, f"Covidmeter\n\nDetails: https://covidlaws.net/covidmeter2/")
-    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
+    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image1.jpg", 'rb'))
 
 
 
@@ -53,7 +53,10 @@ def send_tweet(message, tweet_id):
     except:
         print("Error during authentication")
 
-    media = api.media_upload("/tmp/out_image.jpg")
+    media = api.media_upload("/tmp/out_image1.jpg")
+    media2 = api.media_upload("/tmp/out_image2.jpg")
+    media3 = api.media_upload("/tmp/out_image3.jpg")
+    media4 = api.media_upload("/tmp/out_image4.jpg")
     if tweet_id:
         tweet_id = api.update_status(
            status=f"{message}",
@@ -62,12 +65,12 @@ def send_tweet(message, tweet_id):
     else:
         tweet_id = api.update_status(
            status=f"{message}",
-            media_ids=[media.media_id_string])
+            media_ids=[media.media_id_string, media2.media_id_string, media3.media_id_string, media4.media_id_string])
 
     return tweet_id
 
 
-def create_image(date_to_load):
+def create_image(date_to_load, num):
     print(date_to_load)
     doom_clock = DoomsdayClock.objects.get(cur_date=date_to_load)
 
@@ -518,5 +521,5 @@ def create_image(date_to_load):
 
 
     options = {'width': '1200', 'height': '875', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    imgkit.from_string(html, f"/tmp/out_image{num}.jpg", options=options)
 
