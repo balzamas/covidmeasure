@@ -131,7 +131,7 @@ def create_image(date_to_load, num):
 
     if doom_clock.incidence_latest > 600:
         value += 0
-    if doom_clock.incidence_latest > 450:
+    if doom_clock.incidence_latest > 400:
         value += 1
     elif doom_clock.incidence_latest > 250:
         value += 2
@@ -399,8 +399,10 @@ def create_image(date_to_load, num):
         </th>
         <th>
         '''
-    if doom_clock.hosp_average > 80:
+    if doom_clock.hosp_average > 120:
         html += '<i class="red circular inverted large hospital icon"></i>'
+    elif doom_clock.hosp_average > 80:
+        html += '<i class="orange circular inverted large hospital icon"></i>'
     elif doom_clock.hosp_average > 50:
         html += '<i class="orange circular inverted large hospital icon"></i>'
     elif doom_clock.hosp_average > 20:
@@ -449,8 +451,10 @@ def create_image(date_to_load, num):
 
     html += '</th><th>'
 
-    if doom_clock.incidence_latest > 450:
+    if doom_clock.incidence_latest > 600:
         html += '<i class="red circular inverted large chart bar icon"></i>'
+    elif doom_clock.incidence_latest > 400:
+        html += '<i class="orange circular inverted large chart bar icon"></i>'
     elif doom_clock.incidence_latest > 250:
         html += '<i class="orange circular inverted large chart bar icon"></i>'
     elif doom_clock.incidence_latest > 100:

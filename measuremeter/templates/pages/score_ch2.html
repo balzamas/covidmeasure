@@ -131,7 +131,7 @@
             {% if hosp_average > 120 %}
                 <i class="red circular inverted large hospital icon"></i>
             {% elif hosp_average > 80 %}
-                <i class="red circular inverted large hospital icon"></i>
+                <i class="orange circular inverted large hospital icon"></i>
             {% elif hosp_average > 50 %}
                 <i class="orange circular inverted large hospital icon"></i>
             {% elif hosp_average > 5 %}
@@ -233,8 +233,8 @@
           <th>
            {% if incidence_latest > 600 %}
                 <i class="red circular inverted large chart bar icon"></i>
-            {% elif incidence_latest > 450 %}
-                <i class="red circular inverted large chart bar icon"></i>
+            {% elif incidence_latest > 400 %}
+                <i class="orange circular inverted large chart bar icon"></i>
             {% elif incidence_latest > 250 %}
                 <i class="orange circular inverted large chart bar icon"></i>
             {% elif incidence_latest > 100 %}
@@ -256,7 +256,7 @@
            </td>
        </tr>
        <tr class="center aligned">
-         <td style="font-size: 15px;"> >600: 0P, >450: 1P, >250: 2P, >100: 3P, >40: 4P, <=40: 5P</td>
+         <td style="font-size: 15px;"> >600: 0P, >400: 1P, >250: 2P, >100: 3P, >40: 4P, <=40: 5P</td>
        </tr>
      </table>
 
