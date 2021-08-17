@@ -70,10 +70,10 @@
 {% endblock %}
 
 {% block title_header %}CovidLaws // {% trans 'Covidmeter' %} 2{% endblock %}
-{% block description %}{% trans 'Covidmeter' %} 2{% endblock %}
+{% block description %}{% trans 'Covidmeter' %} 2.1{% endblock %}
 {% block content %}
    <div align="center">
-     <h2>{% trans 'Covidmeter-Index' %} 2</h2>
+     <h2>{% trans 'Covidmeter-Index' %} 2.1</h2>
       {% if value < 8 %}
         <div id="circle-red">
           {% elif value < 15 %}
@@ -87,7 +87,7 @@
 
         <div style="padding: 30px 30px 0 30px;"><h1 style="color:White;font-size: 90px;">{{value}}</h1></div></div>
 <h3>{{cur_date}}</h3>
-                       <h3>                                    Max. value: 21
+                       <h3>                                    Max. value: 23
 </h3>
 
 
@@ -128,7 +128,9 @@
 
        <tr  class="center aligned">
           <th colspan="7">
-            {% if hosp_average > 80 %}
+            {% if hosp_average > 120 %}
+                <i class="red circular inverted large hospital icon"></i>
+            {% elif hosp_average > 80 %}
                 <i class="red circular inverted large hospital icon"></i>
             {% elif hosp_average > 50 %}
                 <i class="orange circular inverted large hospital icon"></i>
@@ -173,7 +175,7 @@
          </td>
        </tr>
        <tr class="center aligned">
-         <td style="font-size: 15px;" colspan="7"> >80: 0P, >50: 1P, >20: 2P, >5: 3P, <=5: 4P</td>
+         <td style="font-size: 15px;" colspan="7"> >120: 0P, >80: 1P, >50: 2P, >20: 3P, >5: 4P, <=5: 5P</td>
        </tr>
      </table>
 
@@ -229,7 +231,9 @@
 
        <tr  class="center aligned">
           <th>
-           {% if incidence_latest > 450 %}
+           {% if incidence_latest > 600 %}
+                <i class="red circular inverted large chart bar icon"></i>
+            {% elif incidence_latest > 450 %}
                 <i class="red circular inverted large chart bar icon"></i>
             {% elif incidence_latest > 250 %}
                 <i class="orange circular inverted large chart bar icon"></i>
@@ -252,7 +256,7 @@
            </td>
        </tr>
        <tr class="center aligned">
-         <td style="font-size: 15px;"> >450: 0P, >250: 1P, >100: 2P, >40: 3P, <=40: 4P</td>
+         <td style="font-size: 15px;"> >600: 0P, >450: 1P, >250: 2P, >100: 3P, >40: 4P, <=40: 5P</td>
        </tr>
      </table>
 

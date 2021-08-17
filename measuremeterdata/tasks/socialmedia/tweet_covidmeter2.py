@@ -96,16 +96,18 @@ def create_image(date_to_load, num):
     else:
         value += 2
 
-    if doom_clock.hosp_average > 80:
+    if doom_clock.hosp_average > 120:
         value += 0
-    elif doom_clock.hosp_average > 50:
+    if doom_clock.hosp_average > 80:
         value += 1
-    elif doom_clock.hosp_average > 20:
+    elif doom_clock.hosp_average > 50:
         value += 2
-    elif doom_clock.hosp_average > 5:
+    elif doom_clock.hosp_average > 20:
         value += 3
-    else:
+    elif doom_clock.hosp_average > 5:
         value += 4
+    else:
+        value += 5
 
     if doom_clock.hosp_cov19_patients > 300:
         value += 0
@@ -127,16 +129,18 @@ def create_image(date_to_load, num):
     else:
         value += 3
 
-    if doom_clock.incidence_latest > 450:
+    if doom_clock.incidence_latest > 600:
         value += 0
-    elif doom_clock.incidence_latest > 250:
+    if doom_clock.incidence_latest > 450:
         value += 1
-    elif doom_clock.incidence_latest > 100:
+    elif doom_clock.incidence_latest > 250:
         value += 2
-    elif doom_clock.incidence_latest > 40:
+    elif doom_clock.incidence_latest > 100:
         value += 3
-    else:
+    elif doom_clock.incidence_latest > 40:
         value += 4
+    else:
+        value += 5
 
     #'#container_2 { -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -o-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg);}' \
 
@@ -235,7 +239,7 @@ def create_image(date_to_load, num):
            f'</head>' \
            '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;margin-left: 30px;margin-right: 30px">'
 
-    html += f'<div align="center"><h2>Covidmeter-Index 2</h2>'
+    html += f'<div align="center"><h2>Covidmeter-Index 2.1</h2>'
     if value < 8:
         html += '<div id="circle-red">'
     elif value < 14:
@@ -353,7 +357,14 @@ def create_image(date_to_load, num):
         html += '<div id="circle-green-small"></div>'
     else:
         html += '<div id="circle-green-small" style="opacity:0.2;"></div>'
-
+    if value > 21:
+        html += '<div id="circle-green-small"></div>'
+    else:
+        html += '<div id="circle-green-small" style="opacity:0.2;"></div>'
+    if value > 22:
+        html += '<div id="circle-green-small"></div>'
+    else:
+        html += '<div id="circle-green-small" style="opacity:0.2;"></div>'
 
     html += '</div>'
 

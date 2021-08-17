@@ -43,16 +43,18 @@ def load_data(request):
     else:
         value += 2
 
-    if doom_clock.hosp_average > 80:
+    if doom_clock.hosp_average > 120:
         value += 0
-    elif doom_clock.hosp_average > 50:
+    if doom_clock.hosp_average > 80:
         value += 1
-    elif doom_clock.hosp_average > 20:
+    elif doom_clock.hosp_average > 50:
         value += 2
-    elif doom_clock.hosp_average > 5:
+    elif doom_clock.hosp_average > 20:
         value += 3
-    else:
+    elif doom_clock.hosp_average > 5:
         value += 4
+    else:
+        value += 5
 
     if doom_clock.hosp_cov19_patients > 300:
         value += 0
@@ -74,16 +76,18 @@ def load_data(request):
     else:
         value += 3
 
-    if doom_clock.incidence_latest > 450:
+    if doom_clock.incidence_latest > 600:
         value += 0
-    elif doom_clock.incidence_latest > 250:
+    if doom_clock.incidence_latest > 450:
         value += 1
-    elif doom_clock.incidence_latest > 100:
+    elif doom_clock.incidence_latest > 250:
         value += 2
-    elif doom_clock.incidence_latest > 40:
+    elif doom_clock.incidence_latest > 100:
         value += 3
-    else:
+    elif doom_clock.incidence_latest > 40:
         value += 4
+    else:
+        value += 5
 
 
     context = {
