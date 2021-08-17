@@ -34,7 +34,7 @@ def send_telegram(message):
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
-    bot.sendMessage(settings.TELEGRAM_CHATID, f"Covidmeter\n\nDetails: https://covidlaws.net/covidmeter2/")
+    bot.sendMessage(settings.TELEGRAM_CHATID, f"Covidmeter 2\n\nHeute, vor 4, 8 und 12 Monaten\n\n Formel/Details: https://covidlaws.net/covidmeter2/")
     bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image1.jpg", 'rb'))
 
 
