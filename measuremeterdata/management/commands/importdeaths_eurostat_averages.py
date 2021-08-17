@@ -128,5 +128,7 @@ class Command(BaseCommand):
         getdata(Country.objects.get(pk=24)) #fi
 #        getdata(Country.objects.get(pk=35)) #de incomplete data 2015
         getdata(Country.objects.get(pk=49)) #cy
+        getdata(Country.objects.get(pk=39)) #al
+        getdata(Country.objects.get(pk=53)) #mt
 
 

@@ -193,15 +193,15 @@ def create_image(week):
         zf = zipfile.ZipFile(BytesIO(resp.read()), 'r')
 
 
-        tot_vacc_0_9 = get_vacced_by_agegroup("0 - 9", date_week,zf)
-        tot_vacc_10_19 = get_vacced_by_agegroup("10 - 19", date_week,zf)
-        tot_vacc_20_29 = get_vacced_by_agegroup("20 - 29", date_week,zf)
-        tot_vacc_30_39 = get_vacced_by_agegroup("30 - 39", date_week,zf)
-        tot_vacc_40_49 = get_vacced_by_agegroup("40 - 49", date_week,zf)
-        tot_vacc_50_59 = get_vacced_by_agegroup("50 - 59", date_week,zf)
-        tot_vacc_60_69 = get_vacced_by_agegroup("60 - 69", date_week,zf)
-        tot_vacc_70_79 = get_vacced_by_agegroup("70 - 79", date_week,zf)
-        tot_vacc_80plus = get_vacced_by_agegroup("80+", date_week,zf)
+        tot_vacc_0_9 = get_vacced_by_agegroup("0 - 9", (date_week-4),zf)
+        tot_vacc_10_19 = get_vacced_by_agegroup("10 - 19", (date_week-4),zf)
+        tot_vacc_20_29 = get_vacced_by_agegroup("20 - 29", (date_week-4),zf)
+        tot_vacc_30_39 = get_vacced_by_agegroup("30 - 39", (date_week-4),zf)
+        tot_vacc_40_49 = get_vacced_by_agegroup("40 - 49", (date_week-4),zf)
+        tot_vacc_50_59 = get_vacced_by_agegroup("50 - 59", (date_week-4),zf)
+        tot_vacc_60_69 = get_vacced_by_agegroup("60 - 69", (date_week-4),zf)
+        tot_vacc_70_79 = get_vacced_by_agegroup("70 - 79", (date_week-4),zf)
+        tot_vacc_80plus = get_vacced_by_agegroup("80+", (date_week-4),zf)
 
         tot_nonvacc_0_9 = pop_0_9 - tot_vacc_0_9
         tot_nonvacc_10_19 = pop_10_19 - tot_vacc_10_19
@@ -213,6 +213,38 @@ def create_image(week):
         tot_nonvacc_70_79 = pop_70_79 - tot_vacc_70_79
         tot_nonvacc_80plus = pop_80plus - tot_vacc_80plus
 
+        print("Vaccinated:")
+        print(tot_vacc_0_9)
+        print(tot_vacc_10_19)
+        print(tot_vacc_20_29)
+        print(tot_vacc_30_39)
+        print(tot_vacc_40_49)
+        print(tot_vacc_50_59)
+        print(tot_vacc_60_69)
+        print(tot_vacc_70_79)
+        print(tot_vacc_80plus)
+
+        print("Non-Vaccinated:")
+        print(tot_nonvacc_0_9)
+        print(tot_nonvacc_10_19)
+        print(tot_nonvacc_20_29)
+        print(tot_nonvacc_30_39)
+        print(tot_nonvacc_40_49)
+        print(tot_nonvacc_50_59)
+        print(tot_nonvacc_60_69)
+        print(tot_nonvacc_70_79)
+        print(tot_nonvacc_80plus)
+
+        print("Rate:")
+        print(tot_vacc_0_9 * 100 / pop_0_9)
+        print(tot_vacc_10_19 * 100 / pop_10_19)
+        print(tot_vacc_20_29 * 100 / pop_20_29)
+        print(tot_vacc_30_39 * 100 / pop_30_39)
+        print(tot_vacc_40_49 * 100 / pop_40_49)
+        print(tot_vacc_50_59 * 100 / pop_50_59)
+        print(tot_vacc_60_69 * 100 / pop_60_69)
+        print(tot_vacc_70_79 * 100 / pop_70_79)
+        print(tot_vacc_80plus * 100 / pop_80plus)
 
         #Cases ------------------------------------------------------------------------
 
@@ -641,9 +673,25 @@ def create_image(week):
         else:
             rel_death_80plus_str = "-"
 
+        print("CSV:")
+        print(f"Week {week -4} to {week}")
+        print(f"Numbers: Incidence 24 days per 100k")
+        print("Age Group;Vacc ppl;Unvacc ppl;Perc. Vacc;Vacc Cases;Unvacc Cases;Ratio Cases;Vacc Hosp.;Unvacc Hosp; Ratio Hosp;Vacc Death;Unvacc Death;Ratio Death")
+        print(f"0 - 9;{tot_vacc_0_9};{tot_nonvacc_0_9};{tot_vacc_0_9 * 100 / pop_0_9};{inz_vacccases_0_9};{inz_nonvacccases_0_9};{rel_cases_0_9_str};{inz_vacchosp_0_9};{inz_nonvacchosp_0_9};{rel_hosp_0_9_str};{inz_vaccdeath_0_9};{inz_nonvaccdeath_0_9};{rel_death_0_9_str};")
+        print(f"10 - 19;{tot_vacc_10_19};{tot_nonvacc_10_19};{tot_vacc_10_19 * 100 / pop_10_19};{inz_vacccases_10_19};{inz_nonvacccases_10_19};{rel_cases_10_19_str};{inz_vacchosp_10_19};{inz_nonvacchosp_10_19};{rel_hosp_10_19_str};{inz_vaccdeath_10_19};{inz_nonvaccdeath_10_19};{rel_death_10_19_str};")
+        print(f"20 - 29;{tot_vacc_20_29};{tot_nonvacc_20_29};{tot_vacc_20_29 * 100 / pop_20_29};{inz_vacccases_20_29};{inz_nonvacccases_20_29};{rel_cases_20_29_str};{inz_vacchosp_20_29};{inz_nonvacchosp_20_29};{rel_hosp_20_29_str};{inz_vaccdeath_20_29};{inz_nonvaccdeath_20_29};{rel_death_20_29_str};")
+        print(f"30 - 39;{tot_vacc_30_39};{tot_nonvacc_30_39};{tot_vacc_30_39 * 100 / pop_30_39};{inz_vacccases_30_39};{inz_nonvacccases_30_39};{rel_cases_30_39_str};{inz_vacchosp_30_39};{inz_nonvacchosp_30_39};{rel_hosp_30_39_str};{inz_vaccdeath_30_39};{inz_nonvaccdeath_30_39};{rel_death_30_39_str};")
+        print(f"40 - 49;{tot_vacc_40_49};{tot_nonvacc_40_49};{tot_vacc_40_49 * 100 / pop_40_49};{inz_vacccases_40_49};{inz_nonvacccases_40_49};{rel_cases_40_49_str};{inz_vacchosp_40_49};{inz_nonvacchosp_40_49};{rel_hosp_40_49_str};{inz_vaccdeath_40_49};{inz_nonvaccdeath_40_49};{rel_death_40_49_str};")
+        print(f"50 - 59;{tot_vacc_50_59};{tot_nonvacc_50_59};{tot_vacc_50_59 * 100 / pop_50_59};{inz_vacccases_50_59};{inz_nonvacccases_50_59};{rel_cases_50_59_str};{inz_vacchosp_50_59};{inz_nonvacchosp_50_59};{rel_hosp_50_59_str};{inz_vaccdeath_50_59};{inz_nonvaccdeath_50_59};{rel_death_50_59_str};")
+        print(f"60 - 69;{tot_vacc_60_69};{tot_nonvacc_60_69};{tot_vacc_60_69 * 100 / pop_60_69};{inz_vacccases_60_69};{inz_nonvacccases_60_69};{rel_cases_60_69_str};{inz_vacchosp_60_69};{inz_nonvacchosp_60_69};{rel_hosp_60_69_str};{inz_vaccdeath_60_69};{inz_nonvaccdeath_60_69};{rel_death_60_69_str};")
+        print(f"70 - 79;{tot_vacc_70_79};{tot_nonvacc_70_79};{tot_vacc_70_79 * 100 / pop_70_79};{inz_vacccases_70_79};{inz_nonvacccases_70_79};{rel_cases_70_79_str};{inz_vacchosp_70_79};{inz_nonvacchosp_70_79};{rel_hosp_70_79_str};{inz_vaccdeath_70_79};{inz_nonvaccdeath_70_79};{rel_death_70_79_str};")
+        print(f"80plus;{tot_vacc_80plus};{tot_nonvacc_80plus};{tot_vacc_80plus * 100 / pop_80plus};{inz_vacccases_80plus};{inz_nonvacccases_80plus};{rel_cases_80plus_str};{inz_vacchosp_80plus};{inz_nonvacchosp_80plus};{rel_hosp_80plus_str};{inz_vaccdeath_80plus};{inz_nonvaccdeath_80plus};{rel_death_80plus_str};")
+
+        print("--------------------------------")
+
     html = f'<html><head><meta charset="UTF-8" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>' \
            '<style>table, th, td { padding: 10px; font-size: 14; }' \
-            '.columnl { float: left; width: 80px; } .columnr { float: left; width: 1400px; }/* Clear floats after the columns */ .row:after {   content: "";   display: table;   clear: both; }' \
+            '.columnl { float: left; width: 80px; } .columnr { float: left; width: 1500px; }/* Clear floats after the columns */ .row:after {   content: "";   display: table;   clear: both; }' \
             '#rotate-text { width: 45px; transform: rotate(90deg); }' \
     '.table td, .table th {'\
         'font-size: 30px;'\
@@ -653,10 +701,11 @@ def create_image(week):
            '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;">' \
            '<table style="margin-left: auto;margin-right: auto;">' \
            '<tr style="vertical-align: top;"><td>' \
-           f'<h1>Fully vaccinated vs. Not fully vaccinated/Unvaccinated // Week {week - 4} to {week} // !!DRAFT!!</h1>' \
-           f'<h2>28 day incidences per 100k</h2>' \
-           '<h3>All data about the vaccinated cases, hosp. and deaths is still very LIMITED! Source: BAG/FOPH Switzerland</h3>' \
-           '<table class="ui celled table striped" style="width: 1400px;table-layout:fixed">' \
+           f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {week - 4} bis {week} // !!Entwurf!!</h1>' \
+           f'<h2>28-Tages-Inzidenz auf 100k</h2>' \
+           '<h3>Die Daten für die geimpften Fälle/Hospitalisierungen/Todesfälle sind noch stark LIMITIERT! Quelle: BAG Schweiz</h3>' \
+           f'<h3>Die Anzahl vollständig geimpfter Personen bezieht sich auf Woche {week-4}.</h3>' \
+           '<table class="ui celled table striped" style="width: 1500px;table-layout:fixed">' \
            '<colgroup>' \
            '<col style="width: 80px;">' \
            '<col style="width: 10px">' \
@@ -666,25 +715,25 @@ def create_image(week):
            '<col style="width: 10px">' \
            '<col style="width: 60px">' \
            '<col style="width: 80px">' \
-           '<col style="width: 40px">' \
+           '<col style="width: 50px">' \
            '<col style="width: 10px">' \
            '<col style="width: 60px">' \
            '<col style="width: 80px">' \
-           '<col style="width: 40px">' \
+           '<col style="width: 50px">' \
            '</colgroup>' \
-           '<tr><th>Age group</th>' \
+           '<tr><th>Alters- gruppe</th>' \
            '<th  style="background-color:#edefee;"></th>' \
-           '<th class="right aligned">Vacc. Cases</th>' \
-           '<th class="right aligned">Unvacc. Cases</th>' \
-           '<th class="right aligned">Ratio</th>' \
+           '<th class="right aligned">Geimp. Fälle</th>' \
+           '<th class="right aligned">Ungeimp. Fälle</th>' \
+           '<th class="right aligned">Rate</th>' \
            '<th style="background-color:#edefee;"></th>' \
-           '<th class="right aligned">Vacc. Hosp.</th>' \
-           '<th class="right aligned">Unvacc. Hosp.</th>' \
-           '<th class="right aligned">Ratio</th>' \
+           '<th class="right aligned">Geimp. Hosp.</th>' \
+           '<th class="right aligned">Ungeimp. Hosp.</th>' \
+           '<th class="right aligned">Rate</th>' \
            '<th style="background-color:#edefee;"></th>' \
-           '<th class="right aligned">Vacc. Deaths</th>' \
-           '<th class="right aligned">Unvacc. Deaths</th>' \
-           '<th class="right aligned">Ratio</th>' \
+           '<th class="right aligned">Geimpt. Tote</th>' \
+           '<th class="right aligned">Ungeimp. Tote</th>' \
+           '<th class="right aligned">Rate</th>' \
            '</tr>' \
            f'<tr><td>0-9</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_0_9)}</td><td class="right aligned">{rel_cases_0_9_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_0_9)}</td><td>{rel_hosp_0_9_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_0_9)}</td><td>{rel_death_0_9_str}</td></tr>' \
            f'<tr><td>10-19</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_10_19)}</td><td class="right aligned">{rel_cases_10_19_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_10_19)}</td><td>{rel_hosp_10_19_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_10_19)}</td><td>{rel_death_10_19_str}</td></tr>' \
@@ -697,10 +746,10 @@ def create_image(week):
            f'<tr><td>80+</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_80plus)}</td><td class="right aligned">{rel_cases_80plus_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_80plus)}</td><td>{rel_hosp_80plus_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_80plus)}</td><td>{rel_death_80plus_str}</td></tr>' \
 
 
-    html += f'</table><h3>Web: covidlaws.net // Twitter: @CovidLawsStats</h3></td></tr></table> </body></html>'
+    html += f'</table><h3>Ungeimp. = Noch nicht vollständig geimpfte und Ungeimpfte Personen</h3><h3>Web: covidlaws.net // Twitter: @CovidLawsStats</h3></td></tr></table> </body></html>'
 
     print(html)
 
-    options = {'width': '1500', 'height': '1200', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    options = {'width': '1600', 'height': '1250', 'encoding': "UTF-8", }
+    imgkit.from_string(html, "out_image.jpg", options=options)
 
