@@ -183,6 +183,7 @@ def create_image(week):
     pop_60_69 = 947959
     pop_70_79 = 721518
     pop_80plus = 453670
+    pop_alle = pop_0_9 + pop_10_19 + pop_20_29 + pop_30_39 + pop_40_49 + pop_50_59 + pop_60_69 + pop_70_79 + pop_80plus
 
     with urllib.request.urlopen("https://www.covid19.admin.ch/api/data/context") as url:
         data = json.loads(url.read().decode())
@@ -202,6 +203,7 @@ def create_image(week):
         tot_vacc_60_69 = get_vacced_by_agegroup("60 - 69", (date_week-4),zf)
         tot_vacc_70_79 = get_vacced_by_agegroup("70 - 79", (date_week-4),zf)
         tot_vacc_80plus = get_vacced_by_agegroup("80+", (date_week-4),zf)
+        tot_vacc_alle = tot_vacc_0_9 + tot_vacc_10_19 + tot_vacc_20_29 + tot_vacc_30_39 + tot_vacc_40_49 + tot_vacc_50_59 + tot_vacc_60_69 + tot_vacc_70_79 + tot_vacc_80plus
 
         tot_nonvacc_0_9 = pop_0_9 - tot_vacc_0_9
         tot_nonvacc_10_19 = pop_10_19 - tot_vacc_10_19
@@ -212,6 +214,8 @@ def create_image(week):
         tot_nonvacc_60_69 = pop_60_69 - tot_vacc_60_69
         tot_nonvacc_70_79 = pop_70_79 - tot_vacc_70_79
         tot_nonvacc_80plus = pop_80plus - tot_vacc_80plus
+        tot_nonvacc_alle = tot_nonvacc_0_9 + tot_nonvacc_10_19 + tot_nonvacc_20_29 + tot_nonvacc_30_39 + tot_nonvacc_40_49 + tot_nonvacc_50_59 + tot_nonvacc_60_69 + tot_nonvacc_70_79 + tot_nonvacc_80plus
+
 
         print("Vaccinated:")
         print(tot_vacc_0_9)
@@ -223,6 +227,8 @@ def create_image(week):
         print(tot_vacc_60_69)
         print(tot_vacc_70_79)
         print(tot_vacc_80plus)
+        print(tot_vacc_alle)
+
 
         print("Non-Vaccinated:")
         print(tot_nonvacc_0_9)
@@ -234,6 +240,7 @@ def create_image(week):
         print(tot_nonvacc_60_69)
         print(tot_nonvacc_70_79)
         print(tot_nonvacc_80plus)
+        print(tot_nonvacc_alle)
 
         print("Rate:")
         print(tot_vacc_0_9 * 100 / pop_0_9)
@@ -245,6 +252,7 @@ def create_image(week):
         print(tot_vacc_60_69 * 100 / pop_60_69)
         print(tot_vacc_70_79 * 100 / pop_70_79)
         print(tot_vacc_80plus * 100 / pop_80plus)
+        print(tot_vacc_alle * 100 / pop_alle)
 
         #Cases ------------------------------------------------------------------------
 
@@ -257,6 +265,8 @@ def create_image(week):
         cases_tot_60_69 = get_cases_tot_by_agegroup("60 - 69", week,zf)
         cases_tot_70_79 = get_cases_tot_by_agegroup("70 - 79", week,zf)
         cases_tot_80plus = get_cases_tot_by_agegroup("80+", week,zf)
+        cases_tot_alle = cases_tot_0_9 + cases_tot_10_19 + cases_tot_20_29 + cases_tot_30_39 + cases_tot_40_49 + cases_tot_50_59 + cases_tot_60_69 + cases_tot_70_79 + cases_tot_80plus
+
 
         vacccases_tot_0_9 = get_vacccases_tot_by_agegroup("0 - 9",week,zf)
         vacccases_tot_10_19 = get_vacccases_tot_by_agegroup("10 - 19", week,zf)
@@ -267,6 +277,7 @@ def create_image(week):
         vacccases_tot_60_69 = get_vacccases_tot_by_agegroup("60 - 69", week,zf)
         vacccases_tot_70_79 = get_vacccases_tot_by_agegroup("70 - 79", week,zf)
         vacccases_tot_80plus = get_vacccases_tot_by_agegroup("80+", week,zf)
+        vacccases_tot_alle = vacccases_tot_0_9 + vacccases_tot_10_19 + vacccases_tot_20_29 + vacccases_tot_30_39 + vacccases_tot_40_49 + vacccases_tot_50_59 + vacccases_tot_60_69 + vacccases_tot_70_79 + vacccases_tot_80plus
 
         nonvacccases_tot_0_9 = cases_tot_0_9 - vacccases_tot_0_9
         nonvacccases_tot_10_19 = cases_tot_10_19 - vacccases_tot_10_19
@@ -277,6 +288,8 @@ def create_image(week):
         nonvacccases_tot_60_69 = cases_tot_60_69 - vacccases_tot_60_69
         nonvacccases_tot_70_79 = cases_tot_70_79 - vacccases_tot_70_79
         nonvacccases_tot_80plus = cases_tot_80plus - vacccases_tot_80plus
+        nonvacccases_tot_alle = nonvacccases_tot_0_9 + nonvacccases_tot_10_19 + nonvacccases_tot_20_29 + nonvacccases_tot_30_39 + nonvacccases_tot_40_49 + nonvacccases_tot_50_59 + nonvacccases_tot_60_69 + nonvacccases_tot_70_79 + nonvacccases_tot_80plus
+
 
         inz_vacccases_0_9 = 100000 * vacccases_tot_0_9 / tot_vacc_0_9
         inz_vacccases_10_19 = 100000 * vacccases_tot_10_19 / tot_vacc_10_19
@@ -287,6 +300,8 @@ def create_image(week):
         inz_vacccases_60_69 = 100000 * vacccases_tot_60_69 / tot_vacc_60_69
         inz_vacccases_70_79 = 100000 * vacccases_tot_70_79 / tot_vacc_70_79
         inz_vacccases_80plus = 100000 * vacccases_tot_80plus / tot_vacc_80plus
+        inz_vacccases_alle = 100000 * vacccases_tot_alle / tot_vacc_alle
+
 
         inz_nonvacccases_0_9 = 100000 * nonvacccases_tot_0_9 / tot_nonvacc_0_9
         inz_nonvacccases_10_19 = 100000 * nonvacccases_tot_10_19 / tot_nonvacc_10_19
@@ -297,6 +312,7 @@ def create_image(week):
         inz_nonvacccases_60_69 = 100000 * nonvacccases_tot_60_69 / tot_nonvacc_60_69
         inz_nonvacccases_70_79 = 100000 * nonvacccases_tot_70_79 / tot_nonvacc_70_79
         inz_nonvacccases_80plus = 100000 * nonvacccases_tot_80plus / tot_nonvacc_80plus
+        inz_nonvacccases_alle = 100000 * nonvacccases_tot_alle / tot_nonvacc_alle
 
         rel_cases_0_9 = None
         try:
@@ -387,7 +403,16 @@ def create_image(week):
             rel_cases_80plus_str = "{0:.0f}".format(rel_cases_80plus) + "x"
         else:
             rel_cases_80plus_str = "-"
+        rel_cases_80plus = None
 
+        try:
+            rel_cases_alle = inz_nonvacccases_alle / inz_vacccases_alle
+        except:
+            pass
+        if rel_cases_alle:
+            rel_cases_alle_str = "{0:.0f}".format(rel_cases_alle) + "x"
+        else:
+            rel_cases_alle_str = "-"
 
         #Hosp ------------------------------------------------------------------------
 
@@ -400,6 +425,8 @@ def create_image(week):
         hosp_tot_60_69 = get_hosp_tot_by_agegroup("60 - 69", week,zf)
         hosp_tot_70_79 = get_hosp_tot_by_agegroup("70 - 79", week,zf)
         hosp_tot_80plus = get_hosp_tot_by_agegroup("80+", week,zf)
+        hosp_tot_alle = hosp_tot_0_9 + hosp_tot_10_19 + hosp_tot_20_29 + hosp_tot_30_39 + hosp_tot_40_49 + hosp_tot_50_59 + hosp_tot_60_69 + hosp_tot_70_79 + hosp_tot_80plus
+
 
         vacchosp_tot_0_9 = get_vacchosp_tot_by_agegroup("0 - 9",week,zf)
         vacchosp_tot_10_19 = get_vacchosp_tot_by_agegroup("10 - 19", week,zf)
@@ -410,6 +437,7 @@ def create_image(week):
         vacchosp_tot_60_69 = get_vacchosp_tot_by_agegroup("60 - 69", week,zf)
         vacchosp_tot_70_79 = get_vacchosp_tot_by_agegroup("70 - 79", week,zf)
         vacchosp_tot_80plus = get_vacchosp_tot_by_agegroup("80+", week,zf)
+        vacchosp_tot_alle = vacchosp_tot_0_9 + vacchosp_tot_10_19 + vacchosp_tot_20_29 + vacchosp_tot_30_39 + vacchosp_tot_40_49 + vacchosp_tot_50_59 + vacchosp_tot_60_69 + vacchosp_tot_70_79 + vacchosp_tot_80plus
 
         nonvacchosp_tot_0_9 = hosp_tot_0_9 - vacchosp_tot_0_9
         nonvacchosp_tot_10_19 = hosp_tot_10_19 - vacchosp_tot_10_19
@@ -420,6 +448,7 @@ def create_image(week):
         nonvacchosp_tot_60_69 = hosp_tot_60_69 - vacchosp_tot_60_69
         nonvacchosp_tot_70_79 = hosp_tot_70_79 - vacchosp_tot_70_79
         nonvacchosp_tot_80plus = hosp_tot_80plus - vacchosp_tot_80plus
+        nonvacchosp_tot_alle = nonvacchosp_tot_0_9 + nonvacchosp_tot_10_19 + nonvacchosp_tot_20_29 + nonvacchosp_tot_30_39 + nonvacchosp_tot_40_49 + nonvacchosp_tot_50_59 + nonvacchosp_tot_60_69 + nonvacchosp_tot_70_79 + nonvacchosp_tot_80plus
 
         inz_vacchosp_0_9 = 100000 * vacchosp_tot_0_9 / tot_vacc_0_9
         inz_vacchosp_10_19 = 100000 * vacchosp_tot_10_19 / tot_vacc_10_19
@@ -430,6 +459,7 @@ def create_image(week):
         inz_vacchosp_60_69 = 100000 * vacchosp_tot_60_69 / tot_vacc_60_69
         inz_vacchosp_70_79 = 100000 * vacchosp_tot_70_79 / tot_vacc_70_79
         inz_vacchosp_80plus = 100000 * vacchosp_tot_80plus / tot_vacc_80plus
+        inz_vacchosp_alle = 100000 * vacchosp_tot_alle / tot_vacc_alle
 
         inz_nonvacchosp_0_9 = 100000 * nonvacchosp_tot_0_9 / tot_nonvacc_0_9
         inz_nonvacchosp_10_19 = 100000 * nonvacchosp_tot_10_19 / tot_nonvacc_10_19
@@ -440,6 +470,7 @@ def create_image(week):
         inz_nonvacchosp_60_69 = 100000 * nonvacchosp_tot_60_69 / tot_nonvacc_60_69
         inz_nonvacchosp_70_79 = 100000 * nonvacchosp_tot_70_79 / tot_nonvacc_70_79
         inz_nonvacchosp_80plus = 100000 * nonvacchosp_tot_80plus / tot_nonvacc_80plus
+        inz_nonvacchosp_alle = 100000 * nonvacchosp_tot_alle / tot_nonvacc_alle
 
         rel_hosp_0_9 = None
         try:
@@ -531,6 +562,16 @@ def create_image(week):
         else:
             rel_hosp_80plus_str = "-"
 
+        rel_hosp_alle = None
+        try:
+            rel_hosp_alle = inz_nonvacchosp_alle / inz_vacchosp_alle
+        except:
+            pass
+        if rel_hosp_alle:
+            rel_hosp_alle_str = "{0:.0f}".format(rel_hosp_alle) + "x"
+        else:
+            rel_hosp_alle_str = "-"
+
         #Death ------------------------------------------------------------------------
 
         death_tot_0_9 = get_death_tot_by_agegroup("0 - 9",week,zf)
@@ -542,6 +583,7 @@ def create_image(week):
         death_tot_60_69 = get_death_tot_by_agegroup("60 - 69", week,zf)
         death_tot_70_79 = get_death_tot_by_agegroup("70 - 79", week,zf)
         death_tot_80plus = get_death_tot_by_agegroup("80+", week,zf)
+        death_tot_alle = death_tot_0_9 + death_tot_10_19 + death_tot_20_29 + death_tot_30_39 + death_tot_40_49 + death_tot_50_59 + death_tot_60_69 + death_tot_70_79 + death_tot_80plus
 
         vaccdeath_tot_0_9 = get_vaccdeath_tot_by_agegroup("0 - 9",week,zf)
         vaccdeath_tot_10_19 = get_vaccdeath_tot_by_agegroup("10 - 19", week,zf)
@@ -552,6 +594,7 @@ def create_image(week):
         vaccdeath_tot_60_69 = get_vaccdeath_tot_by_agegroup("60 - 69", week,zf)
         vaccdeath_tot_70_79 = get_vaccdeath_tot_by_agegroup("70 - 79", week,zf)
         vaccdeath_tot_80plus = get_vaccdeath_tot_by_agegroup("80+", week,zf)
+        vaccdeath_tot_alle = vaccdeath_tot_0_9 + vaccdeath_tot_10_19 + vaccdeath_tot_20_29 + vaccdeath_tot_30_39 + vaccdeath_tot_40_49 + vaccdeath_tot_50_59 + vaccdeath_tot_60_69 + vaccdeath_tot_70_79 + vaccdeath_tot_80plus
 
         nonvaccdeath_tot_0_9 = death_tot_0_9 - vaccdeath_tot_0_9
         nonvaccdeath_tot_10_19 = death_tot_10_19 - vaccdeath_tot_10_19
@@ -562,6 +605,7 @@ def create_image(week):
         nonvaccdeath_tot_60_69 = death_tot_60_69 - vaccdeath_tot_60_69
         nonvaccdeath_tot_70_79 = death_tot_70_79 - vaccdeath_tot_70_79
         nonvaccdeath_tot_80plus = death_tot_80plus - vaccdeath_tot_80plus
+        nonvaccdeath_tot_alle = nonvaccdeath_tot_0_9 + nonvaccdeath_tot_10_19 + nonvaccdeath_tot_20_29 + nonvaccdeath_tot_30_39 + nonvaccdeath_tot_40_49 + nonvaccdeath_tot_50_59 + nonvaccdeath_tot_60_69 + nonvaccdeath_tot_70_79 + nonvaccdeath_tot_80plus
 
         inz_vaccdeath_0_9 = 100000 * vaccdeath_tot_0_9 / tot_vacc_0_9
         inz_vaccdeath_10_19 = 100000 * vaccdeath_tot_10_19 / tot_vacc_10_19
@@ -572,6 +616,7 @@ def create_image(week):
         inz_vaccdeath_60_69 = 100000 * vaccdeath_tot_60_69 / tot_vacc_60_69
         inz_vaccdeath_70_79 = 100000 * vaccdeath_tot_70_79 / tot_vacc_70_79
         inz_vaccdeath_80plus = 100000 * vaccdeath_tot_80plus / tot_vacc_80plus
+        inz_vaccdeath_alle = 100000 * vaccdeath_tot_alle / tot_vacc_alle
 
         inz_nonvaccdeath_0_9 = 100000 * nonvaccdeath_tot_0_9 / tot_nonvacc_0_9
         inz_nonvaccdeath_10_19 = 100000 * nonvaccdeath_tot_10_19 / tot_nonvacc_10_19
@@ -582,6 +627,7 @@ def create_image(week):
         inz_nonvaccdeath_60_69 = 100000 * nonvaccdeath_tot_60_69 / tot_nonvacc_60_69
         inz_nonvaccdeath_70_79 = 100000 * nonvaccdeath_tot_70_79 / tot_nonvacc_70_79
         inz_nonvaccdeath_80plus = 100000 * nonvaccdeath_tot_80plus / tot_nonvacc_80plus
+        inz_nonvaccdeath_alle = 100000 * nonvaccdeath_tot_alle / tot_nonvacc_alle
 
         rel_death_0_9 = None
         try:
@@ -673,6 +719,16 @@ def create_image(week):
         else:
             rel_death_80plus_str = "-"
 
+        rel_death_alle = None
+        try:
+            rel_death_alle = inz_nonvaccdeath_alle / inz_vaccdeath_alle
+        except:
+            pass
+        if rel_death_alle:
+            rel_death_alle_str = "{0:.0f}".format(rel_death_alle) + "x"
+        else:
+            rel_death_alle_str = "-"
+
         print("CSV:")
         print(f"Week {week -4} to {week}")
         print(f"Numbers: Incidence 24 days per 100k")
@@ -686,6 +742,7 @@ def create_image(week):
         print(f"60 - 69;{tot_vacc_60_69};{tot_nonvacc_60_69};{tot_vacc_60_69 * 100 / pop_60_69};{inz_vacccases_60_69};{inz_nonvacccases_60_69};{rel_cases_60_69_str};{inz_vacchosp_60_69};{inz_nonvacchosp_60_69};{rel_hosp_60_69_str};{inz_vaccdeath_60_69};{inz_nonvaccdeath_60_69};{rel_death_60_69_str};")
         print(f"70 - 79;{tot_vacc_70_79};{tot_nonvacc_70_79};{tot_vacc_70_79 * 100 / pop_70_79};{inz_vacccases_70_79};{inz_nonvacccases_70_79};{rel_cases_70_79_str};{inz_vacchosp_70_79};{inz_nonvacchosp_70_79};{rel_hosp_70_79_str};{inz_vaccdeath_70_79};{inz_nonvaccdeath_70_79};{rel_death_70_79_str};")
         print(f"80plus;{tot_vacc_80plus};{tot_nonvacc_80plus};{tot_vacc_80plus * 100 / pop_80plus};{inz_vacccases_80plus};{inz_nonvacccases_80plus};{rel_cases_80plus_str};{inz_vacchosp_80plus};{inz_nonvacchosp_80plus};{rel_hosp_80plus_str};{inz_vaccdeath_80plus};{inz_nonvaccdeath_80plus};{rel_death_80plus_str};")
+        print(f"Alle;{tot_vacc_alle};{tot_nonvacc_alle};{tot_vacc_alle * 100 / pop_alle};{inz_vacccases_alle};{inz_nonvacccases_alle};{rel_cases_alle_str};{inz_vacchosp_alle};{inz_nonvacchosp_alle};{rel_hosp_alle_str};{inz_vaccdeath_alle};{inz_nonvaccdeath_alle};{rel_death_alle_str};")
 
         print("--------------------------------")
 
@@ -744,12 +801,12 @@ def create_image(week):
            f'<tr><td>60-69</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_60_69)}</td><td class="right aligned">{rel_cases_60_69_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_60_69)}</td><td>{rel_hosp_60_69_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_60_69)}</td><td>{rel_death_60_69_str}</td></tr>' \
            f'<tr><td>70-79</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_70_79)}</td><td class="right aligned">{rel_cases_70_79_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_70_79)}</td><td>{rel_hosp_70_79_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_70_79)}</td><td>{rel_death_70_79_str}</td></tr>' \
            f'<tr><td>80+</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_80plus)}</td><td class="right aligned">{rel_cases_80plus_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_80plus)}</td><td>{rel_hosp_80plus_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_80plus)}</td><td>{rel_death_80plus_str}</td></tr>' \
-
+           f'<tr><td>Alle</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_alle)}</td><td class="right aligned">{rel_cases_alle_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_alle)}</td><td>{rel_hosp_alle_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_alle)}</td><td>{rel_death_alle_str}</td></tr>'
 
     html += f'</table><h3>Ungeimp. = Noch nicht vollständig geimpfte und Ungeimpfte Personen</h3><h3>Web: covidlaws.net // Twitter: @CovidLawsStats</h3></td></tr></table> </body></html>'
 
     print(html)
 
-    options = {'width': '1600', 'height': '1250', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
+    options = {'width': '1600', 'height': '1350', 'encoding': "UTF-8", }
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
