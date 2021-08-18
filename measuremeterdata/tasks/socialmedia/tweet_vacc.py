@@ -473,104 +473,139 @@ def create_image(week):
         inz_nonvacchosp_alle = 100000 * nonvacchosp_tot_alle / tot_nonvacc_alle
 
         rel_hosp_0_9 = None
+        eff_hosp_0_9 = None
         try:
             rel_hosp_0_9 = inz_nonvacchosp_0_9 / inz_vacchosp_0_9
+            eff_hosp_0_9 = (inz_nonvacchosp_0_9 - inz_vacchosp_0_9) / inz_nonvacchosp_0_9 * 100
         except:
             pass
         if rel_hosp_0_9:
-            rel_hosp_10_19_str = "{0:.0f}".format(rel_hosp_0_9) + "x"
+            rel_hosp_0_9_str = "{0:.0f}".format(rel_hosp_0_9) + "x"
+            eff_hosp_0_9_str = "{0:.1f}".format(eff_hosp_0_9) + "%"
         else:
             rel_hosp_0_9_str = "-"
+            eff_hosp_0_9_str = "-"
 
         rel_hosp_10_19 = None
+        eff_hosp_10_19 = None
         try:
             rel_hosp_10_19 = inz_nonvacchosp_10_19 / inz_vacchosp_10_19
+            eff_hosp_10_19 = (inz_nonvacchosp_10_19 - inz_vacchosp_10_19) / inz_nonvacchosp_10_19 * 100
         except:
             pass
         if rel_hosp_10_19:
             rel_hosp_10_19_str = "{0:.0f}".format(rel_hosp_10_19) + "x"
+            eff_hosp_10_19_str = "{0:.1f}".format(eff_hosp_10_19) + "%"
         else:
             rel_hosp_10_19_str = "-"
+            eff_hosp_10_19_str = "-"
 
         rel_hosp_20_29 = None
+        eff_hosp_20_29 = None
         try:
             rel_hosp_20_29 = inz_nonvacchosp_20_29 / inz_vacchosp_20_29
+            eff_hosp_20_29 = (inz_nonvacchosp_20_29 - inz_vacchosp_20_29) / inz_nonvacchosp_20_29 * 100
         except:
             pass
         if rel_hosp_20_29:
             rel_hosp_20_29_str = "{0:.0f}".format(rel_hosp_20_29) + "x"
+            eff_hosp_20_29_str = "{0:.1f}".format(eff_hosp_20_29) + "%"
         else:
             rel_hosp_20_29_str = "-"
+            eff_hosp_20_29_str = "-"
 
         rel_hosp_30_39 = None
+        eff_hosp_30_39 = None
         try:
             rel_hosp_30_39 = inz_nonvacchosp_30_39 / inz_vacchosp_30_39
+            eff_hosp_30_39 = (inz_nonvacchosp_30_39 - inz_vacchosp_30_39) / inz_nonvacchosp_30_39 * 100
         except:
             pass
         if rel_hosp_30_39:
             rel_hosp_30_39_str = "{0:.0f}".format(rel_hosp_30_39) + "x"
+            eff_hosp_30_39_str = "{0:.1f}".format(eff_hosp_30_39) + "%"
         else:
             rel_hosp_30_39_str = "-"
+            eff_hosp_30_39_str = "-"
 
         rel_hosp_40_49 = None
+        eff_hosp_40_49 = None
         try:
             rel_hosp_40_49 = inz_nonvacchosp_40_49 / inz_vacchosp_40_49
+            eff_hosp_40_49 = (inz_nonvacchosp_40_49 - inz_vacchosp_40_49) / inz_nonvacchosp_40_49 * 100
         except:
             pass
         if rel_hosp_40_49:
             rel_hosp_40_49_str = "{0:.0f}".format(rel_hosp_40_49) + "x"
+            eff_hosp_40_49_str = "{0:.1f}".format(eff_hosp_40_49) + "%"
         else:
             rel_hosp_40_49_str = "-"
+            eff_hosp_40_49_str = "-"
 
         rel_hosp_50_59 = None
         try:
             rel_hosp_50_59 = inz_nonvacchosp_50_59 / inz_vacchosp_50_59
+            eff_hosp_50_59 = (inz_nonvacchosp_50_59 - inz_vacchosp_50_59) / inz_nonvacchosp_50_59 * 100
         except:
             pass
         if rel_hosp_50_59:
             rel_hosp_50_59_str = "{0:.0f}".format(rel_hosp_50_59) + "x"
+            eff_hosp_50_59_str = "{0:.1f}".format(eff_hosp_50_59) + "%"
         else:
             rel_hosp_50_59_str = "-"
+            eff_hosp_50_59_str = "-"
 
         rel_hosp_60_69 = None
         try:
             rel_hosp_60_69 = inz_nonvacchosp_60_69 / inz_vacchosp_60_69
+            eff_hosp_60_69 = (inz_nonvacchosp_60_69 - inz_vacchosp_60_69) / inz_nonvacchosp_60_69 * 100
         except:
             pass
         if rel_hosp_60_69:
             rel_hosp_60_69_str = "{0:.0f}".format(rel_hosp_60_69) + "x"
+            eff_hosp_60_69_str = "{0:.1f}".format(eff_hosp_60_69) + "%"
         else:
             rel_hosp_60_69_str = "-"
+            eff_hosp_60_69_str = "-"
 
         rel_hosp_70_79 = None
         try:
             rel_hosp_70_79 = inz_nonvacchosp_70_79 / inz_vacchosp_70_79
+            eff_hosp_70_79 = (inz_nonvacchosp_70_79 - inz_vacchosp_70_79) / inz_nonvacchosp_70_79 * 100
         except:
             pass
         if rel_hosp_70_79:
             rel_hosp_70_79_str = "{0:.0f}".format(rel_hosp_70_79) + "x"
+            eff_hosp_70_79_str = "{0:.1f}".format(eff_hosp_70_79) + "%"
         else:
             rel_hosp_70_79_str = "-"
+            eff_hosp_70_79_str = "-"
 
         rel_hosp_80plus = None
         try:
             rel_hosp_80plus = inz_nonvacchosp_80plus / inz_vacchosp_80plus
+            eff_hosp_80plus = (inz_nonvacchosp_80plus - inz_vacchosp_80plus) / inz_nonvacchosp_80plus * 100
         except:
             pass
         if rel_hosp_80plus:
             rel_hosp_80plus_str = "{0:.0f}".format(rel_hosp_80plus) + "x"
+            eff_hosp_80plus_str = "{0:.1f}".format(eff_hosp_80plus) + "%"
         else:
             rel_hosp_80plus_str = "-"
+            eff_hosp_80plus_str = "-"
 
         rel_hosp_alle = None
         try:
             rel_hosp_alle = inz_nonvacchosp_alle / inz_vacchosp_alle
+            eff_hosp_alle = (inz_nonvacchosp_alle - inz_vacchosp_alle) / inz_nonvacchosp_alle * 100
         except:
             pass
         if rel_hosp_alle:
             rel_hosp_alle_str = "{0:.0f}".format(rel_hosp_alle) + "x"
+            eff_hosp_alle_str = "{0:.1f}".format(eff_hosp_alle) + "%"
         else:
             rel_hosp_alle_str = "-"
+            eff_hosp_alle_str = "-"
 
         #Death ------------------------------------------------------------------------
 
@@ -632,102 +667,132 @@ def create_image(week):
         rel_death_0_9 = None
         try:
             rel_death_0_9 = inz_nonvaccdeath_0_9 / inz_vaccdeath_0_9
+            eff_death_0_9 = (inz_nonvaccdeath_0_9 - inz_vaccdeath_0_9) / inz_nonvaccdeath_0_9 * 100
         except:
             pass
         if rel_death_0_9:
-            rel_death_10_19_str = "{0:.0f}".format(rel_death_0_9) + "x"
+            rel_death_0_9_str = "{0:.0f}".format(rel_death_0_9) + "x"
+            eff_death_0_9_str = "{0:.1f}".format(eff_death_0_9) + "%"
         else:
             rel_death_0_9_str = "-"
+            eff_death_0_9_str = "-"
 
         rel_death_10_19 = None
         try:
             rel_death_10_19 = inz_nonvaccdeath_10_19 / inz_vaccdeath_10_19
+            eff_death_10_19 = (inz_nonvaccdeath_10_19 - inz_vaccdeath_10_19) / inz_nonvaccdeath_10_19 * 100
         except:
             pass
         if rel_death_10_19:
             rel_death_10_19_str = "{0:.0f}".format(rel_death_10_19) + "x"
+            eff_death_10_19_str = "{0:.1f}".format(eff_death_10_19) + "%"
         else:
             rel_death_10_19_str = "-"
+            eff_death_10_19_str = "-"
 
         rel_death_20_29 = None
         try:
             rel_death_20_29 = inz_nonvaccdeath_20_29 / inz_vaccdeath_20_29
+            eff_death_20_29 = (inz_nonvaccdeath_20_29 - inz_vaccdeath_20_29) / inz_nonvaccdeath_20_29 * 100
         except:
             pass
         if rel_death_20_29:
             rel_death_20_29_str = "{0:.0f}".format(rel_death_20_29) + "x"
+            eff_death_20_29_str = "{0:.1f}".format(eff_death_20_29) + "%"
         else:
             rel_death_20_29_str = "-"
+            eff_death_20_29_str = "-"
 
         rel_death_30_39 = None
         try:
             rel_death_30_39 = inz_nonvaccdeath_30_39 / inz_vaccdeath_30_39
+            eff_death_30_39 = (inz_nonvaccdeath_30_39 - inz_vaccdeath_30_39) / inz_nonvaccdeath_30_39 * 100
         except:
             pass
         if rel_death_30_39:
             rel_death_30_39_str = "{0:.0f}".format(rel_death_30_39) + "x"
+            eff_death_30_39_str = "{0:.1f}".format(eff_death_30_39) + "%"
         else:
             rel_death_30_39_str = "-"
+            eff_death_30_39_str = "-"
 
         rel_death_40_49 = None
         try:
             rel_death_40_49 = inz_nonvaccdeath_40_49 / inz_vaccdeath_40_49
+            eff_death_40_49 = (inz_nonvaccdeath_40_49 - inz_vaccdeath_40_49) / inz_nonvaccdeath_40_49 * 100
         except:
             pass
         if rel_death_40_49:
             rel_death_40_49_str = "{0:.0f}".format(rel_death_40_49) + "x"
+            eff_death_40_49_str = "{0:.1f}".format(eff_death_40_49) + "%"
         else:
             rel_death_40_49_str = "-"
+            eff_death_40_49_str = "-"
 
         rel_death_50_59 = None
         try:
             rel_death_50_59 = inz_nonvaccdeath_50_59 / inz_vaccdeath_50_59
+            eff_death_50_59 = (inz_nonvaccdeath_50_59 - inz_vaccdeath_50_59) / inz_nonvaccdeath_50_59 * 100
         except:
             pass
         if rel_death_50_59:
             rel_death_50_59_str = "{0:.0f}".format(rel_death_50_59) + "x"
+            eff_death_50_59_str = "{0:.1f}".format(eff_death_50_59) + "%"
         else:
             rel_death_50_59_str = "-"
+            eff_death_50_59_str = "-"
 
         rel_death_60_69 = None
         try:
             rel_death_60_69 = inz_nonvaccdeath_60_69 / inz_vaccdeath_60_69
+            eff_death_60_69 = (inz_nonvaccdeath_60_69 - inz_vaccdeath_60_69) / inz_nonvaccdeath_60_69 * 100
         except:
             pass
         if rel_death_60_69:
             rel_death_60_69_str = "{0:.0f}".format(rel_death_60_69) + "x"
+            eff_death_60_69_str = "{0:.1f}".format(eff_death_60_69) + "%"
         else:
             rel_death_60_69_str = "-"
+            eff_death_60_69_str = "-"
 
         rel_death_70_79 = None
         try:
             rel_death_70_79 = inz_nonvaccdeath_70_79 / inz_vaccdeath_70_79
+            eff_death_70_79 = (inz_nonvaccdeath_70_79 - inz_vaccdeath_70_79) / inz_nonvaccdeath_70_79 * 100
         except:
             pass
         if rel_death_70_79:
             rel_death_70_79_str = "{0:.0f}".format(rel_death_70_79) + "x"
+            eff_death_70_79_str = "{0:.1f}".format(eff_death_70_79) + "%"
         else:
             rel_death_70_79_str = "-"
+            eff_death_70_79_str = "-"
 
         rel_death_80plus = None
         try:
             rel_death_80plus = inz_nonvaccdeath_80plus / inz_vaccdeath_80plus
+            eff_death_80plus = (inz_nonvaccdeath_80plus - inz_vaccdeath_80plus) / inz_nonvaccdeath_80plus * 100
         except:
             pass
         if rel_death_80plus:
             rel_death_80plus_str = "{0:.0f}".format(rel_death_80plus) + "x"
+            eff_death_80plus_str = "{0:.1f}".format(eff_death_80plus) + "%"
         else:
             rel_death_80plus_str = "-"
+            eff_death_80plus_str = "-"
 
         rel_death_alle = None
         try:
             rel_death_alle = inz_nonvaccdeath_alle / inz_vaccdeath_alle
+            eff_death_alle = (inz_nonvaccdeath_alle - inz_vaccdeath_alle) / inz_nonvaccdeath_alle * 100
         except:
             pass
         if rel_death_alle:
             rel_death_alle_str = "{0:.0f}".format(rel_death_alle) + "x"
+            eff_death_alle_str = "{0:.1f}".format(eff_death_alle) + "%"
         else:
             rel_death_alle_str = "-"
+            eff_death_alle_str = "-"
 
         print("CSV:")
         print(f"Week {week -4} to {week}")
@@ -748,7 +813,7 @@ def create_image(week):
 
     html = f'<html><head><meta charset="UTF-8" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>' \
            '<style>table, th, td { padding: 10px; font-size: 14; }' \
-            '.columnl { float: left; width: 80px; } .columnr { float: left; width: 1500px; }/* Clear floats after the columns */ .row:after {   content: "";   display: table;   clear: both; }' \
+            '.columnl { float: left; width: 80px; } .columnr { float: left; width: 1600px; }/* Clear floats after the columns */ .row:after {   content: "";   display: table;   clear: both; }' \
             '#rotate-text { width: 45px; transform: rotate(90deg); }' \
     '.table td, .table th {'\
         'font-size: 30px;'\
@@ -762,7 +827,7 @@ def create_image(week):
            f'<h2>28-Tages-Inzidenz auf 100k</h2>' \
            '<h3>Die Daten für die geimpften Fälle/Hospitalisierungen/Todesfälle sind noch stark LIMITIERT! Quelle: BAG Schweiz</h3>' \
            f'<h3>Die Anzahl vollständig geimpfter Personen bezieht sich auf Woche {week-4}.</h3>' \
-           '<table class="ui celled table striped" style="width: 1500px;table-layout:fixed">' \
+           '<table class="ui celled table striped" style="width: 1700px;table-layout:fixed">' \
            '<colgroup>' \
            '<col style="width: 80px;">' \
            '<col style="width: 10px">' \
@@ -773,10 +838,12 @@ def create_image(week):
            '<col style="width: 60px">' \
            '<col style="width: 80px">' \
            '<col style="width: 50px">' \
+           '<col style="width: 60px">' \
            '<col style="width: 10px">' \
            '<col style="width: 60px">' \
            '<col style="width: 80px">' \
            '<col style="width: 50px">' \
+           '<col style="width: 60px">' \
            '</colgroup>' \
            '<tr><th>Alters- gruppe</th>' \
            '<th  style="background-color:#edefee;"></th>' \
@@ -787,26 +854,28 @@ def create_image(week):
            '<th class="right aligned">Geimp. Hosp.</th>' \
            '<th class="right aligned">Ungeimp. Hosp.</th>' \
            '<th class="right aligned">Rate</th>' \
+           '<th class="right aligned">Effekt.</th>' \
            '<th style="background-color:#edefee;"></th>' \
            '<th class="right aligned">Geimpt. Tote</th>' \
            '<th class="right aligned">Ungeimp. Tote</th>' \
            '<th class="right aligned">Rate</th>' \
+           '<th class="right aligned">Effekt.</th>' \
            '</tr>' \
-           f'<tr><td>0-9</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_0_9)}</td><td class="right aligned">{rel_cases_0_9_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_0_9)}</td><td>{rel_hosp_0_9_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_0_9)}</td><td>{rel_death_0_9_str}</td></tr>' \
-           f'<tr><td>10-19</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_10_19)}</td><td class="right aligned">{rel_cases_10_19_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_10_19)}</td><td>{rel_hosp_10_19_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_10_19)}</td><td>{rel_death_10_19_str}</td></tr>' \
-           f'<tr><td>20-29</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_20_29)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_20_29)}</td><td class="right aligned">{rel_cases_20_29_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_20_29)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_20_29)}</td><td>{rel_hosp_20_29_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_20_29)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_20_29)}</td><td>{rel_death_20_29_str}</td></tr>' \
-           f'<tr><td>30-39</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_30_39)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_30_39)}</td><td class="right aligned">{rel_cases_30_39_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_30_39)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_30_39)}</td><td>{rel_hosp_30_39_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_30_39)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_30_39)}</td><td>{rel_death_30_39_str}</td></tr>' \
-           f'<tr><td>40-49</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_40_49)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_40_49)}</td><td class="right aligned">{rel_cases_40_49_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_40_49)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_40_49)}</td><td>{rel_hosp_40_49_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_40_49)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_40_49)}</td><td>{rel_death_40_49_str}</td></tr>' \
-           f'<tr><td>50-59</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_50_59)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_50_59)}</td><td class="right aligned">{rel_cases_50_59_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_50_59)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_50_59)}</td><td>{rel_hosp_50_59_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_50_59)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_50_59)}</td><td>{rel_death_50_59_str}</td></tr>' \
-           f'<tr><td>60-69</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_60_69)}</td><td class="right aligned">{rel_cases_60_69_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_60_69)}</td><td>{rel_hosp_60_69_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_60_69)}</td><td>{rel_death_60_69_str}</td></tr>' \
-           f'<tr><td>70-79</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_70_79)}</td><td class="right aligned">{rel_cases_70_79_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_70_79)}</td><td>{rel_hosp_70_79_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_70_79)}</td><td>{rel_death_70_79_str}</td></tr>' \
-           f'<tr><td>80+</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_80plus)}</td><td class="right aligned">{rel_cases_80plus_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_80plus)}</td><td>{rel_hosp_80plus_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_80plus)}</td><td>{rel_death_80plus_str}</td></tr>' \
-           f'<tr><td>Alle</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_alle)}</td><td class="right aligned">{rel_cases_alle_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_alle)}</td><td>{rel_hosp_alle_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_alle)}</td><td>{rel_death_alle_str}</td></tr>'
+           f'<tr><td>0-9</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_0_9)}</td><td class="right aligned">{rel_cases_0_9_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_0_9)}</td><td>{rel_hosp_0_9_str}</td><td>{eff_hosp_0_9_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_0_9)}</td><td>{rel_death_0_9_str}</td><td>{eff_death_0_9_str}</td></tr>' \
+           f'<tr><td>10-19</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_10_19)}</td><td class="right aligned">{rel_cases_10_19_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_10_19)}</td><td>{rel_hosp_10_19_str}</td><td>{eff_hosp_10_19_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_10_19)}</td><td>{rel_death_10_19_str}</td><td>{eff_death_10_19_str}</td></tr>' \
+           f'<tr><td>20-29</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_20_29)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_20_29)}</td><td class="right aligned">{rel_cases_20_29_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_20_29)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_20_29)}</td><td>{rel_hosp_20_29_str}</td><td>{eff_hosp_20_29_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_20_29)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_20_29)}</td><td>{rel_death_20_29_str}</td><td>{eff_death_20_29_str}</td></tr>' \
+           f'<tr><td>30-39</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_30_39)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_30_39)}</td><td class="right aligned">{rel_cases_30_39_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_30_39)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_30_39)}</td><td>{rel_hosp_30_39_str}</td><td>{eff_hosp_30_39_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_30_39)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_30_39)}</td><td>{rel_death_30_39_str}</td><td>{eff_death_30_39_str}</td></tr>' \
+           f'<tr><td>40-49</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_40_49)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_40_49)}</td><td class="right aligned">{rel_cases_40_49_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_40_49)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_40_49)}</td><td>{rel_hosp_40_49_str}</td><td>{eff_hosp_40_49_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_40_49)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_40_49)}</td><td>{rel_death_40_49_str}</td><td>{eff_death_40_49_str}</td></tr>' \
+           f'<tr><td>50-59</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_50_59)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_50_59)}</td><td class="right aligned">{rel_cases_50_59_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_50_59)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_50_59)}</td><td>{rel_hosp_50_59_str}</td><td>{eff_hosp_50_59_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_50_59)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_50_59)}</td><td>{rel_death_50_59_str}</td><td>{eff_death_50_59_str}</td></tr>' \
+           f'<tr><td>60-69</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_60_69)}</td><td class="right aligned">{rel_cases_60_69_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_60_69)}</td><td>{rel_hosp_60_69_str}</td><td>{eff_hosp_60_69_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_60_69)}</td><td>{rel_death_60_69_str}</td><td>{eff_death_60_69_str}</td></tr>' \
+           f'<tr><td>70-79</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_70_79)}</td><td class="right aligned">{rel_cases_70_79_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_70_79)}</td><td>{rel_hosp_70_79_str}</td><td>{eff_hosp_70_79_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_70_79)}</td><td>{rel_death_70_79_str}</td><td>{eff_death_70_79_str}</td></tr>' \
+           f'<tr><td>80+</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_80plus)}</td><td class="right aligned">{rel_cases_80plus_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_80plus)}</td><td>{rel_hosp_80plus_str}</td><td>{eff_hosp_80plus_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_80plus)}</td><td>{rel_death_80plus_str}</td><td>{eff_death_80plus_str}</td></tr>' \
+           f'<tr><td>Alle</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_alle)}</td><td class="right aligned">{rel_cases_alle_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_alle)}</td><td>{rel_hosp_alle_str}</td><td>{eff_hosp_alle_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_alle)}</td><td>{rel_death_alle_str}</td><td>{eff_death_alle_str}</td></tr>'
 
     html += f'</table><h3>Ungeimp. = Noch nicht vollständig geimpfte und Ungeimpfte Personen</h3><h3>Web: covidlaws.net // Twitter: @CovidLawsStats</h3></td></tr></table> </body></html>'
 
     print(html)
 
-    options = {'width': '1600', 'height': '1350', 'encoding': "UTF-8", }
+    options = {'width': '1750', 'height': '1350', 'encoding': "UTF-8", }
     imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
