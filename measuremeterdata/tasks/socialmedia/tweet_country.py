@@ -17,7 +17,10 @@ import flag
 
 def tweet(type):
 
-    countries = Country.objects.filter(continent=1,isactive=True)
+    if type > 4:
+        countries = Country.objects.filter(isactive=True)
+    else:
+        countries = Country.objects.filter(continent=1,isactive=True)
     scores = create_list(countries)
 
     message = create_messages(scores, type)
@@ -25,13 +28,6 @@ def tweet(type):
     print(message)
     send_tweet(message)
     send_telegram(message)
-
- #   last_date = create_image(countries)
-
-#    page_access_token = settings.FACEBOOK_ACCESS_TOKEN
-#    graph = facebook.GraphAPI(page_access_token)
-#    facebook_page_id = settings.FACEBOOK_PAGE_ID
-#    graph.put_object(facebook_page_id, "feed", message='test message')
 
 def create_messages(scores, type):
 
@@ -41,28 +37,42 @@ def create_messages(scores, type):
         #Tendency bad
         scores = sorted(scores, key=lambda i: i['tendency'],reverse=True)
         message_twitter = "Euro Stats\nHöchste Zunahme Fälle im Vergleich zur Vorwoche in %\n\n"
-        gen_message, countries = generate_list(scores, "tendency")
+        gen_message, countries = generate_list(scores, "tendency", 7)
         message_twitter += gen_message
 
     if type == 2:
         #Tendency good
         scores = sorted(scores, key=lambda i: i['tendency'],reverse=False)
         message_twitter = "Euro Stats\nHöchste Rückgänge Fälle im Vergleich zur Vorwoche in %\n"
-        gen_message, countries = generate_list(scores, "tendency")
+        gen_message, countries = generate_list(scores, "tendency", 7)
         message_twitter += gen_message
 
     if type == 3:
         #deaths bad
         scores = sorted(scores, key=lambda i: i['deaths'],reverse=True)
         message_twitter = emoji.emojize('Euro Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (worst)\n')
-        gen_message, countries = generate_list(scores, "deaths")
+        gen_message, countries = generate_list(scores, "deaths", 7)
         message_twitter += gen_message
 
     if type == 4:
         #Tendency good
         scores = sorted(scores, key=lambda i: i['deaths'],reverse=False)
         message_twitter = emoji.emojize("Euro Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (best)\n")
-        gen_message, countries = generate_list(scores, "deaths")
+        gen_message, countries = generate_list(scores, "deaths", 7)
+        message_twitter += gen_message
+
+    if type == 5:
+        #Tendency bad
+        scores = sorted(scores, key=lambda i: i['tendency'],reverse=True)
+        message_twitter = "World Stats\nHöchste Zunahme Fälle im Vergleich zur Vorwoche in %\n\n"
+        gen_message, countries = generate_list(scores, "tendency", 11)
+        message_twitter += gen_message
+
+    if type == 6:
+        #Tendency good
+        scores = sorted(scores, key=lambda i: i['tendency'],reverse=False)
+        message_twitter = "World Stats\nHöchste Rückgänge Fälle im Vergleich zur Vorwoche in %\n"
+        gen_message, countries = generate_list(scores, "tendency", 11)
         message_twitter += gen_message
 
     cntry_list = ""
@@ -214,74 +224,19 @@ def create_list(countries):
 
 
 
-def generate_list(scores, field):
+def generate_list(scores, field, max):
     count = 0
     countries = []
 
     list = ""
 
     for score in scores:
-        if (count < 7):
-            list += str(score[field]) + " " + flag.flag(score["code"]) + " " + score["name"] +"\n"
+        if (count < max):
+            if max > 7:
+                list += str(score[field]) + " " + flag.flag(score["code"]) + " " + score["code"] + "\n"
+            else:
+                list += str(score[field]) + " " + flag.flag(score["code"]) + " " + score["name"] +"\n"
             countries.append(score["pk"])
         count += 1
 
     return list, countries
-
-
-def create_image(countries):
-
-    scores = create_list(countries)
-
-
-    #'#container_2 { -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -o-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg);}' \
-
-    html = f'<html><head><meta charset="UTF-8" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>' \
-           '<style>table, th, td { padding: 10px; font-size: 14; }' \
-            '.columnl { float: left; width: 80px; } .columnr { float: left; width: 1000px; }/* Clear floats after the columns */ .row:after {   content: "";   display: table;   clear: both; }' \
-            '#rotate-text { width: 45px; transform: rotate(90deg); }' \
-            '</style>' \
-           f'</head>' \
-           '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;margin-left: 150px;margin-right: 150px;">' \
-           '<table>' \
-           '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right" nowrap>' \
-           f'<img src = https://covidlaws.net/static/images/flags_ch/{canton.code}_circle.png><br><br>' \
-           f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{canton.name}</h1></div>' \
-            '</td><td>' \
-           '<table class="ui celled table" style="width: 800px;">' \
-           '<tr><th>Rang</th>' \
-           '<th>Veränderung<br>zur Vorwoche</th>' \
-           '<th>Bezirk</th>' \
-           '<th>Inzidenz 7T/100k</th>' \
-           '<th>Entwicklung<br>Woche/Vorwoche</th>' \
-           '</tr>'
-
-    scores = sorted(scores, key=lambda i: i['score'],reverse=False)
-
-
-    for score in scores:
-        html += f'<tr>' \
-                f'<td>{score["rank"]}</td>' \
-                f'<td><i class ="{score["rank_icon"]} icon" > </i>{score["rank_diff"]}</td>' \
-                f'<td><b>{score["name"]}</b></td>' \
-                f'<td><div class ="centered"> {score["cur_prev"]}</div></td>'
-
-        if score["tendency"] < 0:
-            html += f'<td class="positive"><div class ="centered">{score["tendency"]} %</div></td>' \
-                '</tr>'
-        else:
-            html += f'<td class="negative"><div class ="centered">{score["tendency"]} %</div></td>' \
-                '</tr>'
-
-
-    html += f'</table><b>Stand: {last_date}</b>' \
-            "// covidlaws.net // Quelle: @OpenDataZH & der Kanton</td></tr></table>" \
-            '</div>' \
-            '</body></html>'
-
-    print(html)
-
-    options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
-
-    return last_date
