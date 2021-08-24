@@ -15,7 +15,7 @@ from django.db.models import F, Func
 
 
 def tweet():
-    tweet_id = prepare(datetime.today(), "Covidmeter-Index v2.1\n\nhttps://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
+    tweet_id = prepare(datetime.today(), "Covidmeter-Index v2.1\n\nFormel/Details: https://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
 
 def prepare(date_to_load, text, tweet_id):
     create_image(date_to_load, "1")
