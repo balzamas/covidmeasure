@@ -26,28 +26,28 @@ import zipfile
 import urllib.request, json
 from decimal import *
 
-def tweet(week):
-    create_image(week)
+def tweet(weekfrom, weekto, weekvacc, geo):
+    create_image(weekfrom, weekto, weekvacc, geo)
 
 #    page_access_token = settings.FACEBOOK_ACCESS_TOKEN
 #    graph = facebook.GraphAPI(page_access_token)
 #    facebook_page_id = settings.FACEBOOK_PAGE_ID
 #    graph.put_object(facebook_page_id, "feed", message='test message')
 
-    send_telegram(week)
-    send_tweet(week)
+    send_telegram(weekfrom, weekto)
+    send_tweet(weekfrom, weekto)
 
-def send_telegram(week):
+def send_telegram(weekfrom, weekto):
     #Telegram
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
-    bot.sendMessage(settings.TELEGRAM_CHATID, f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nStand: Woche {week - 4} bis {week}\n28-Tage-Inzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert, d.h. noch sehr inkomplett.\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.Geimpfte vs. Ungeimpfte')
+    bot.sendMessage(settings.TELEGRAM_CHATID, f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nStand: Woche {weekfrom} bis {weekto}\n28-Tage-Inzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert, d.h. noch sehr inkomplett.\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.Geimpfte vs. Ungeimpfte')
     bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
 
 
 
-def send_tweet(week):
+def send_tweet(weekfrom, weekto):
     #Twitter
 
     auth = tweepy.OAuthHandler(settings.TWITTER_API_KEY, settings.TWITTER_SECRET_KEY)
@@ -63,13 +63,16 @@ def send_tweet(week):
 
     media = api.media_upload("/tmp/out_image.jpg")
     api.update_status(
-       status=f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {week - 4} bis {week}\n28-Tage-Inzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert!\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.',
+       status=f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {weekfrom} bis {weekto}\n28-Tage-Inzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert!\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.',
        media_ids=[media.media_id_string])
 
-def get_vacced_by_agegroup(age_group, date_week, zf):
+
+
+
+def get_vacced_by_agegroup(age_group, date_week, zf, geo):
         df_tot_vacc = pd.read_csv(zf.open('data/COVID19VaccPersons_AKL10_w_v2.csv'), error_bad_lines=False)
 
-        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == "CHFL") &
+        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == geo) &
                             (df_tot_vacc['altersklasse_covid19'] == age_group) &
                              (df_tot_vacc['date'] == date_week) &
                             (df_tot_vacc['type'] == "COVID19FullyVaccPersons") ]
@@ -77,113 +80,42 @@ def get_vacced_by_agegroup(age_group, date_week, zf):
         return rslt_df['sumTotal'].item()
 
 
-def get_cases_tot_by_agegroup(age_group, week, zf):
-    df_tot_vacc = pd.read_csv(zf.open('data/COVID19Cases_geoRegion_AKL10_w.csv'), error_bad_lines=False)
+def get_numbers_tot_by_agegroup(filename, date_str, age_group, week_from, week_to, zf, geo):
+    df_tot_vacc = pd.read_csv(zf.open(f'data/{filename}'), error_bad_lines=False)
 
     tot = 0
 
-    for x in range(4):
-        date_week = (202100 + week - x)
-        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == "CHFL") &
+    for x in range(week_from, (week_to + 1)):
+        date_week = (202100 +  x)
+        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == geo) &
                               (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                              (df_tot_vacc['datum'] == date_week)]
+                              (df_tot_vacc[date_str] == date_week)]
 
         tot += rslt_df['entries'].item()
 
     return tot
 
+def create_image(weekfrom, weekto, weekvacc, geo):
+    date_week_to = 202100 + weekto
+    date_week_from = 202100 + weekfrom
+    date_week_vacc = 202100 + weekvacc
 
-def get_vacccases_tot_by_agegroup(age_group, week, zf):
-    df_tot_vacc = pd.read_csv(zf.open('data/COVID19Cases_vaccpersons_AKL10_w.csv'), error_bad_lines=False)
+    age_categories = ["0 - 9","10 - 19","20 - 29","30 - 39","40 - 49","50 - 59","60 - 69","70 - 79","80+"]
 
-    tot = 0
+    pop = {}
+    pop_alle = 0
+    pop["0 - 9"] = 873043
+    pop["10 - 19"] = 844155
+    pop["20 - 29"] = 1045350
+    pop["30 - 39"] = 1229176
+    pop["40 - 49"] = 1198325
+    pop["50 - 59"] = 1292837
+    pop["60 - 69"] = 947959
+    pop["70 - 79"] = 721518
+    pop["80+"] = 453670
 
-    for x in range(4):
-        date_week = (202100 + week - x)
-        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == "CHFL") &
-                              (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                              (df_tot_vacc['date'] == date_week)]
-
-        tot += rslt_df['entries'].item()
-
-    return tot
-
-def get_hosp_tot_by_agegroup(age_group, week, zf):
-    df_tot_vacc = pd.read_csv(zf.open('data/COVID19Hosp_geoRegion_AKL10_w.csv'), error_bad_lines=False)
-
-    tot = 0
-
-    for x in range(4):
-        date_week = (202100 + week - x)
-        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == "CHFL") &
-                              (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                              (df_tot_vacc['datum'] == date_week)]
-
-        tot += rslt_df['entries'].item()
-
-    return tot
-
-
-def get_vacchosp_tot_by_agegroup(age_group, week, zf):
-    df_tot_vacc = pd.read_csv(zf.open('data/COVID19Hosp_vaccpersons_AKL10_w.csv'), error_bad_lines=False)
-
-    tot = 0
-
-    for x in range(4):
-        date_week = (202100 + week - x)
-        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == "CHFL") &
-                              (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                              (df_tot_vacc['date'] == date_week)]
-
-        tot += rslt_df['entries'].item()
-
-    return tot
-
-def get_death_tot_by_agegroup(age_group, week, zf):
-    df_tot_vacc = pd.read_csv(zf.open('data/COVID19Death_geoRegion_AKL10_w.csv'), error_bad_lines=False)
-
-    tot = 0
-
-    for x in range(4):
-        date_week = (202100 + week - x)
-        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == "CHFL") &
-                              (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                              (df_tot_vacc['datum'] == date_week)]
-
-        tot += rslt_df['entries'].item()
-
-    return tot
-
-
-def get_vaccdeath_tot_by_agegroup(age_group, week, zf):
-    df_tot_vacc = pd.read_csv(zf.open('data/COVID19Death_vaccpersons_AKL10_w.csv'), error_bad_lines=False)
-
-    tot = 0
-
-    for x in range(4):
-        date_week = (202100 + week - x)
-        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == "CHFL") &
-                              (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                              (df_tot_vacc['date'] == date_week)]
-
-        tot += rslt_df['entries'].item()
-
-    return tot
-
-
-def create_image(week):
-    date_week = 202100 + week
-
-    pop_0_9 = 873043
-    pop_10_19 = 844155
-    pop_20_29 = 1045350
-    pop_30_39 = 1229176
-    pop_40_49 = 1198325
-    pop_50_59 = 1292837
-    pop_60_69 = 947959
-    pop_70_79 = 721518
-    pop_80plus = 453670
-    pop_alle = pop_0_9 + pop_10_19 + pop_20_29 + pop_30_39 + pop_40_49 + pop_50_59 + pop_60_69 + pop_70_79 + pop_80plus
+    for ac in age_categories:
+        pop_alle += pop[ac]
 
     with urllib.request.urlopen("https://www.covid19.admin.ch/api/data/context") as url:
         data = json.loads(url.read().decode())
@@ -193,221 +125,65 @@ def create_image(week):
 
         zf = zipfile.ZipFile(BytesIO(resp.read()), 'r')
 
+        tot_vacc = {}
+        tot_vacc_alle = 0
+        for ac in age_categories:
+            tot_vacc[ac] = get_vacced_by_agegroup(ac, date_week_vacc, zf, geo)
+            tot_vacc_alle += tot_vacc[ac]
 
-        tot_vacc_0_9 = get_vacced_by_agegroup("0 - 9", (date_week-4),zf)
-        tot_vacc_10_19 = get_vacced_by_agegroup("10 - 19", (date_week-4),zf)
-        tot_vacc_20_29 = get_vacced_by_agegroup("20 - 29", (date_week-4),zf)
-        tot_vacc_30_39 = get_vacced_by_agegroup("30 - 39", (date_week-4),zf)
-        tot_vacc_40_49 = get_vacced_by_agegroup("40 - 49", (date_week-4),zf)
-        tot_vacc_50_59 = get_vacced_by_agegroup("50 - 59", (date_week-4),zf)
-        tot_vacc_60_69 = get_vacced_by_agegroup("60 - 69", (date_week-4),zf)
-        tot_vacc_70_79 = get_vacced_by_agegroup("70 - 79", (date_week-4),zf)
-        tot_vacc_80plus = get_vacced_by_agegroup("80+", (date_week-4),zf)
-        tot_vacc_alle = tot_vacc_0_9 + tot_vacc_10_19 + tot_vacc_20_29 + tot_vacc_30_39 + tot_vacc_40_49 + tot_vacc_50_59 + tot_vacc_60_69 + tot_vacc_70_79 + tot_vacc_80plus
-
-        tot_nonvacc_0_9 = pop_0_9 - tot_vacc_0_9
-        tot_nonvacc_10_19 = pop_10_19 - tot_vacc_10_19
-        tot_nonvacc_20_29 = pop_20_29 - tot_vacc_20_29
-        tot_nonvacc_30_39 = pop_30_39 - tot_vacc_30_39
-        tot_nonvacc_40_49 = pop_40_49 - tot_vacc_40_49
-        tot_nonvacc_50_59 = pop_50_59 - tot_vacc_50_59
-        tot_nonvacc_60_69 = pop_60_69 - tot_vacc_60_69
-        tot_nonvacc_70_79 = pop_70_79 - tot_vacc_70_79
-        tot_nonvacc_80plus = pop_80plus - tot_vacc_80plus
-        tot_nonvacc_alle = tot_nonvacc_0_9 + tot_nonvacc_10_19 + tot_nonvacc_20_29 + tot_nonvacc_30_39 + tot_nonvacc_40_49 + tot_nonvacc_50_59 + tot_nonvacc_60_69 + tot_nonvacc_70_79 + tot_nonvacc_80plus
-
-
-        print("Vaccinated:")
-        print(tot_vacc_0_9)
-        print(tot_vacc_10_19)
-        print(tot_vacc_20_29)
-        print(tot_vacc_30_39)
-        print(tot_vacc_40_49)
-        print(tot_vacc_50_59)
-        print(tot_vacc_60_69)
-        print(tot_vacc_70_79)
-        print(tot_vacc_80plus)
-        print(tot_vacc_alle)
-
-
-        print("Non-Vaccinated:")
-        print(tot_nonvacc_0_9)
-        print(tot_nonvacc_10_19)
-        print(tot_nonvacc_20_29)
-        print(tot_nonvacc_30_39)
-        print(tot_nonvacc_40_49)
-        print(tot_nonvacc_50_59)
-        print(tot_nonvacc_60_69)
-        print(tot_nonvacc_70_79)
-        print(tot_nonvacc_80plus)
-        print(tot_nonvacc_alle)
-
-        print("Rate:")
-        print(tot_vacc_0_9 * 100 / pop_0_9)
-        print(tot_vacc_10_19 * 100 / pop_10_19)
-        print(tot_vacc_20_29 * 100 / pop_20_29)
-        print(tot_vacc_30_39 * 100 / pop_30_39)
-        print(tot_vacc_40_49 * 100 / pop_40_49)
-        print(tot_vacc_50_59 * 100 / pop_50_59)
-        print(tot_vacc_60_69 * 100 / pop_60_69)
-        print(tot_vacc_70_79 * 100 / pop_70_79)
-        print(tot_vacc_80plus * 100 / pop_80plus)
-        print(tot_vacc_alle * 100 / pop_alle)
+        tot_nonvacc = {}
+        tot_nonvacc_alle = 0
+        for ac in age_categories:
+            tot_nonvacc[ac] = pop[ac] - tot_vacc[ac]
+            tot_nonvacc_alle += tot_nonvacc[ac]
 
         #Cases ------------------------------------------------------------------------
 
-        cases_tot_0_9 = get_cases_tot_by_agegroup("0 - 9",week,zf)
-        cases_tot_10_19 = get_cases_tot_by_agegroup("10 - 19", week,zf)
-        cases_tot_20_29 = get_cases_tot_by_agegroup("20 - 29", week,zf)
-        cases_tot_30_39 = get_cases_tot_by_agegroup("30 - 39", week,zf)
-        cases_tot_40_49 = get_cases_tot_by_agegroup("40 - 49", week,zf)
-        cases_tot_50_59 = get_cases_tot_by_agegroup("50 - 59", week,zf)
-        cases_tot_60_69 = get_cases_tot_by_agegroup("60 - 69", week,zf)
-        cases_tot_70_79 = get_cases_tot_by_agegroup("70 - 79", week,zf)
-        cases_tot_80plus = get_cases_tot_by_agegroup("80+", week,zf)
-        cases_tot_alle = cases_tot_0_9 + cases_tot_10_19 + cases_tot_20_29 + cases_tot_30_39 + cases_tot_40_49 + cases_tot_50_59 + cases_tot_60_69 + cases_tot_70_79 + cases_tot_80plus
+        cases_tot = {}
+        cases_tot_alle = 0
+        for ac in age_categories:
+            cases_tot[ac] = get_numbers_tot_by_agegroup("COVID19Cases_geoRegion_AKL10_w.csv", "datum", ac, weekfrom, weekto ,zf, geo)
+            cases_tot_alle += cases_tot[ac]
 
+        vacccases_tot = {}
+        vacccases_tot_alle = 0
+        for ac in age_categories:
+            vacccases_tot[ac] = get_numbers_tot_by_agegroup("COVID19Cases_vaccpersons_AKL10_w.csv", "date", ac, weekfrom, weekto, zf, geo)
+            vacccases_tot_alle += vacccases_tot[ac]
 
-        vacccases_tot_0_9 = get_vacccases_tot_by_agegroup("0 - 9",week,zf)
-        vacccases_tot_10_19 = get_vacccases_tot_by_agegroup("10 - 19", week,zf)
-        vacccases_tot_20_29 = get_vacccases_tot_by_agegroup("20 - 29", week,zf)
-        vacccases_tot_30_39 = get_vacccases_tot_by_agegroup("30 - 39", week,zf)
-        vacccases_tot_40_49 = get_vacccases_tot_by_agegroup("40 - 49", week,zf)
-        vacccases_tot_50_59 = get_vacccases_tot_by_agegroup("50 - 59", week,zf)
-        vacccases_tot_60_69 = get_vacccases_tot_by_agegroup("60 - 69", week,zf)
-        vacccases_tot_70_79 = get_vacccases_tot_by_agegroup("70 - 79", week,zf)
-        vacccases_tot_80plus = get_vacccases_tot_by_agegroup("80+", week,zf)
-        vacccases_tot_alle = vacccases_tot_0_9 + vacccases_tot_10_19 + vacccases_tot_20_29 + vacccases_tot_30_39 + vacccases_tot_40_49 + vacccases_tot_50_59 + vacccases_tot_60_69 + vacccases_tot_70_79 + vacccases_tot_80plus
+        nonvacccases_tot = {}
+        nonvacccases_tot_alle = 0
+        for ac in age_categories:
+            nonvacccases_tot[ac] = cases_tot[ac] - vacccases_tot[ac]
+            nonvacccases_tot_alle += nonvacccases_tot[ac]
 
-        nonvacccases_tot_0_9 = cases_tot_0_9 - vacccases_tot_0_9
-        nonvacccases_tot_10_19 = cases_tot_10_19 - vacccases_tot_10_19
-        nonvacccases_tot_20_29 = cases_tot_20_29 - vacccases_tot_20_29
-        nonvacccases_tot_30_39 = cases_tot_30_39 - vacccases_tot_30_39
-        nonvacccases_tot_40_49 = cases_tot_40_49 - vacccases_tot_40_49
-        nonvacccases_tot_50_59 = cases_tot_50_59 - vacccases_tot_50_59
-        nonvacccases_tot_60_69 = cases_tot_60_69 - vacccases_tot_60_69
-        nonvacccases_tot_70_79 = cases_tot_70_79 - vacccases_tot_70_79
-        nonvacccases_tot_80plus = cases_tot_80plus - vacccases_tot_80plus
-        nonvacccases_tot_alle = nonvacccases_tot_0_9 + nonvacccases_tot_10_19 + nonvacccases_tot_20_29 + nonvacccases_tot_30_39 + nonvacccases_tot_40_49 + nonvacccases_tot_50_59 + nonvacccases_tot_60_69 + nonvacccases_tot_70_79 + nonvacccases_tot_80plus
-
-
-        inz_vacccases_0_9 = 100000 * vacccases_tot_0_9 / tot_vacc_0_9
-        inz_vacccases_10_19 = 100000 * vacccases_tot_10_19 / tot_vacc_10_19
-        inz_vacccases_20_29 = 100000 * vacccases_tot_20_29 / tot_vacc_20_29
-        inz_vacccases_30_39 = 100000 * vacccases_tot_30_39 / tot_vacc_30_39
-        inz_vacccases_40_49 = 100000 * vacccases_tot_40_49 / tot_vacc_40_49
-        inz_vacccases_50_59 = 100000 * vacccases_tot_50_59 / tot_vacc_50_59
-        inz_vacccases_60_69 = 100000 * vacccases_tot_60_69 / tot_vacc_60_69
-        inz_vacccases_70_79 = 100000 * vacccases_tot_70_79 / tot_vacc_70_79
-        inz_vacccases_80plus = 100000 * vacccases_tot_80plus / tot_vacc_80plus
+        inz_vacccases = {}
+        for ac in age_categories:
+            inz_vacccases[ac] = 100000 * vacccases_tot[ac] / tot_vacc[ac]
         inz_vacccases_alle = 100000 * vacccases_tot_alle / tot_vacc_alle
 
-
-        inz_nonvacccases_0_9 = 100000 * nonvacccases_tot_0_9 / tot_nonvacc_0_9
-        inz_nonvacccases_10_19 = 100000 * nonvacccases_tot_10_19 / tot_nonvacc_10_19
-        inz_nonvacccases_20_29 = 100000 * nonvacccases_tot_20_29 / tot_nonvacc_20_29
-        inz_nonvacccases_30_39 = 100000 * nonvacccases_tot_30_39 / tot_nonvacc_30_39
-        inz_nonvacccases_40_49 = 100000 * nonvacccases_tot_40_49 / tot_nonvacc_40_49
-        inz_nonvacccases_50_59 = 100000 * nonvacccases_tot_50_59 / tot_nonvacc_50_59
-        inz_nonvacccases_60_69 = 100000 * nonvacccases_tot_60_69 / tot_nonvacc_60_69
-        inz_nonvacccases_70_79 = 100000 * nonvacccases_tot_70_79 / tot_nonvacc_70_79
-        inz_nonvacccases_80plus = 100000 * nonvacccases_tot_80plus / tot_nonvacc_80plus
+        inz_nonvacccases = {}
+        for ac in age_categories:
+            inz_nonvacccases[ac] = 100000 * nonvacccases_tot[ac] / tot_nonvacc[ac]
         inz_nonvacccases_alle = 100000 * nonvacccases_tot_alle / tot_nonvacc_alle
 
-        rel_cases_0_9 = None
-        try:
-            rel_cases_0_9 = inz_nonvacccases_0_9 / inz_vacccases_0_9
-        except:
-            pass
-        if rel_cases_0_9:
-            rel_cases_10_19_str = "{0:.0f}".format(rel_cases_0_9) + "x"
-        else:
-            rel_cases_0_9_str = "-"
-
-        rel_cases_10_19 = None
-        try:
-            rel_cases_10_19 = inz_nonvacccases_10_19 / inz_vacccases_10_19
-        except:
-            pass
-        if rel_cases_10_19:
-            rel_cases_10_19_str = "{0:.0f}".format(rel_cases_10_19) + "x"
-        else:
-            rel_cases_10_19_str = "-"
-
-        rel_cases_20_29 = None
-        try:
-            rel_cases_20_29 = inz_nonvacccases_20_29 / inz_vacccases_20_29
-        except:
-            pass
-        if rel_cases_20_29:
-            rel_cases_20_29_str = "{0:.0f}".format(rel_cases_20_29) + "x"
-        else:
-            rel_cases_20_29_str = "-"
-
-        rel_cases_30_39 = None
-        try:
-            rel_cases_30_39 = inz_nonvacccases_30_39 / inz_vacccases_30_39
-        except:
-            pass
-        if rel_cases_30_39:
-            rel_cases_30_39_str = "{0:.0f}".format(rel_cases_30_39) + "x"
-        else:
-            rel_cases_30_39_str = "-"
-
-        rel_cases_40_49 = None
-        try:
-            rel_cases_40_49 = inz_nonvacccases_40_49 / inz_vacccases_40_49
-        except:
-            pass
-        if rel_cases_40_49:
-            rel_cases_40_49_str = "{0:.0f}".format(rel_cases_40_49) + "x"
-        else:
-            rel_cases_40_49_str = "-"
-
-        rel_cases_50_59 = None
-        try:
-            rel_cases_50_59 = inz_nonvacccases_50_59 / inz_vacccases_50_59
-        except:
-            pass
-        if rel_cases_50_59:
-            rel_cases_50_59_str = "{0:.0f}".format(rel_cases_50_59) + "x"
-        else:
-            rel_cases_50_59_str = "-"
-
-        rel_cases_60_69 = None
-        try:
-            rel_cases_60_69 = inz_nonvacccases_60_69 / inz_vacccases_60_69
-        except:
-            pass
-        if rel_cases_60_69:
-            rel_cases_60_69_str = "{0:.0f}".format(rel_cases_60_69) + "x"
-        else:
-            rel_cases_60_69_str = "-"
-
-        rel_cases_70_79 = None
-        try:
-            rel_cases_70_79 = inz_nonvacccases_70_79 / inz_vacccases_70_79
-        except:
-            pass
-        if rel_cases_70_79:
-            rel_cases_70_79_str = "{0:.0f}".format(rel_cases_70_79) + "x"
-        else:
-            rel_cases_70_79_str = "-"
-
-        rel_cases_80plus = None
-        try:
-            rel_cases_80plus = inz_nonvacccases_80plus / inz_vacccases_80plus
-        except:
-            pass
-        if rel_cases_80plus:
-            rel_cases_80plus_str = "{0:.0f}".format(rel_cases_80plus) + "x"
-        else:
-            rel_cases_80plus_str = "-"
-        rel_cases_80plus = None
+        rel_cases = {}
+        rel_cases_str = {}
+        for ac in age_categories:
+            rel_cases[ac] = None
+            try:
+                rel_cases[ac] = inz_nonvacccases[ac] / inz_vacccases[ac]
+            except:
+                pass
+            if rel_cases[ac]:
+                rel_cases_str[ac] = "{0:.0f}".format(rel_cases[ac]) + "x"
+            else:
+                rel_cases_str[ac] = "-"
 
         try:
             rel_cases_alle = inz_nonvacccases_alle / inz_vacccases_alle
         except:
+            rel_cases_alle = None
             pass
         if rel_cases_alle:
             rel_cases_alle_str = "{0:.0f}".format(rel_cases_alle) + "x"
@@ -416,183 +192,53 @@ def create_image(week):
 
         #Hosp ------------------------------------------------------------------------
 
-        hosp_tot_0_9 = get_hosp_tot_by_agegroup("0 - 9",week,zf)
-        hosp_tot_10_19 = get_hosp_tot_by_agegroup("10 - 19", week,zf)
-        hosp_tot_20_29 = get_hosp_tot_by_agegroup("20 - 29", week,zf)
-        hosp_tot_30_39 = get_hosp_tot_by_agegroup("30 - 39", week,zf)
-        hosp_tot_40_49 = get_hosp_tot_by_agegroup("40 - 49", week,zf)
-        hosp_tot_50_59 = get_hosp_tot_by_agegroup("50 - 59", week,zf)
-        hosp_tot_60_69 = get_hosp_tot_by_agegroup("60 - 69", week,zf)
-        hosp_tot_70_79 = get_hosp_tot_by_agegroup("70 - 79", week,zf)
-        hosp_tot_80plus = get_hosp_tot_by_agegroup("80+", week,zf)
-        hosp_tot_alle = hosp_tot_0_9 + hosp_tot_10_19 + hosp_tot_20_29 + hosp_tot_30_39 + hosp_tot_40_49 + hosp_tot_50_59 + hosp_tot_60_69 + hosp_tot_70_79 + hosp_tot_80plus
+        hosp_tot = {}
+        hosp_tot_alle = 0
+        for ac in age_categories:
+            hosp_tot[ac] = get_numbers_tot_by_agegroup("COVID19Hosp_geoRegion_AKL10_w.csv", "datum", ac, weekfrom, weekto, zf, geo)
+            hosp_tot_alle += hosp_tot[ac]
 
+        vacchosp_tot = {}
+        vacchosp_tot_alle = 0
+        for ac in age_categories:
+            vacchosp_tot[ac] = get_numbers_tot_by_agegroup("COVID19Hosp_vaccpersons_AKL10_w.csv", "date", ac, weekfrom, weekto, zf, geo)
+            vacchosp_tot_alle += vacchosp_tot[ac]
 
-        vacchosp_tot_0_9 = get_vacchosp_tot_by_agegroup("0 - 9",week,zf)
-        vacchosp_tot_10_19 = get_vacchosp_tot_by_agegroup("10 - 19", week,zf)
-        vacchosp_tot_20_29 = get_vacchosp_tot_by_agegroup("20 - 29", week,zf)
-        vacchosp_tot_30_39 = get_vacchosp_tot_by_agegroup("30 - 39", week,zf)
-        vacchosp_tot_40_49 = get_vacchosp_tot_by_agegroup("40 - 49", week,zf)
-        vacchosp_tot_50_59 = get_vacchosp_tot_by_agegroup("50 - 59", week,zf)
-        vacchosp_tot_60_69 = get_vacchosp_tot_by_agegroup("60 - 69", week,zf)
-        vacchosp_tot_70_79 = get_vacchosp_tot_by_agegroup("70 - 79", week,zf)
-        vacchosp_tot_80plus = get_vacchosp_tot_by_agegroup("80+", week,zf)
-        vacchosp_tot_alle = vacchosp_tot_0_9 + vacchosp_tot_10_19 + vacchosp_tot_20_29 + vacchosp_tot_30_39 + vacchosp_tot_40_49 + vacchosp_tot_50_59 + vacchosp_tot_60_69 + vacchosp_tot_70_79 + vacchosp_tot_80plus
+        nonvacchosp_tot = {}
+        nonvacchosp_tot_alle = 0
+        for ac in age_categories:
+            nonvacchosp_tot[ac] = hosp_tot[ac] - vacchosp_tot[ac]
+            nonvacchosp_tot_alle += nonvacchosp_tot[ac]
 
-        nonvacchosp_tot_0_9 = hosp_tot_0_9 - vacchosp_tot_0_9
-        nonvacchosp_tot_10_19 = hosp_tot_10_19 - vacchosp_tot_10_19
-        nonvacchosp_tot_20_29 = hosp_tot_20_29 - vacchosp_tot_20_29
-        nonvacchosp_tot_30_39 = hosp_tot_30_39 - vacchosp_tot_30_39
-        nonvacchosp_tot_40_49 = hosp_tot_40_49 - vacchosp_tot_40_49
-        nonvacchosp_tot_50_59 = hosp_tot_50_59 - vacchosp_tot_50_59
-        nonvacchosp_tot_60_69 = hosp_tot_60_69 - vacchosp_tot_60_69
-        nonvacchosp_tot_70_79 = hosp_tot_70_79 - vacchosp_tot_70_79
-        nonvacchosp_tot_80plus = hosp_tot_80plus - vacchosp_tot_80plus
-        nonvacchosp_tot_alle = nonvacchosp_tot_0_9 + nonvacchosp_tot_10_19 + nonvacchosp_tot_20_29 + nonvacchosp_tot_30_39 + nonvacchosp_tot_40_49 + nonvacchosp_tot_50_59 + nonvacchosp_tot_60_69 + nonvacchosp_tot_70_79 + nonvacchosp_tot_80plus
-
-        inz_vacchosp_0_9 = 100000 * vacchosp_tot_0_9 / tot_vacc_0_9
-        inz_vacchosp_10_19 = 100000 * vacchosp_tot_10_19 / tot_vacc_10_19
-        inz_vacchosp_20_29 = 100000 * vacchosp_tot_20_29 / tot_vacc_20_29
-        inz_vacchosp_30_39 = 100000 * vacchosp_tot_30_39 / tot_vacc_30_39
-        inz_vacchosp_40_49 = 100000 * vacchosp_tot_40_49 / tot_vacc_40_49
-        inz_vacchosp_50_59 = 100000 * vacchosp_tot_50_59 / tot_vacc_50_59
-        inz_vacchosp_60_69 = 100000 * vacchosp_tot_60_69 / tot_vacc_60_69
-        inz_vacchosp_70_79 = 100000 * vacchosp_tot_70_79 / tot_vacc_70_79
-        inz_vacchosp_80plus = 100000 * vacchosp_tot_80plus / tot_vacc_80plus
+        inz_vacchosp = {}
+        for ac in age_categories:
+            inz_vacchosp[ac] = 100000 * vacchosp_tot[ac] / tot_vacc[ac]
         inz_vacchosp_alle = 100000 * vacchosp_tot_alle / tot_vacc_alle
 
-        inz_nonvacchosp_0_9 = 100000 * nonvacchosp_tot_0_9 / tot_nonvacc_0_9
-        inz_nonvacchosp_10_19 = 100000 * nonvacchosp_tot_10_19 / tot_nonvacc_10_19
-        inz_nonvacchosp_20_29 = 100000 * nonvacchosp_tot_20_29 / tot_nonvacc_20_29
-        inz_nonvacchosp_30_39 = 100000 * nonvacchosp_tot_30_39 / tot_nonvacc_30_39
-        inz_nonvacchosp_40_49 = 100000 * nonvacchosp_tot_40_49 / tot_nonvacc_40_49
-        inz_nonvacchosp_50_59 = 100000 * nonvacchosp_tot_50_59 / tot_nonvacc_50_59
-        inz_nonvacchosp_60_69 = 100000 * nonvacchosp_tot_60_69 / tot_nonvacc_60_69
-        inz_nonvacchosp_70_79 = 100000 * nonvacchosp_tot_70_79 / tot_nonvacc_70_79
-        inz_nonvacchosp_80plus = 100000 * nonvacchosp_tot_80plus / tot_nonvacc_80plus
+        inz_nonvacchosp = {}
+        for ac in age_categories:
+            inz_nonvacchosp[ac] = 100000 * nonvacchosp_tot[ac] / tot_nonvacc[ac]
+
         inz_nonvacchosp_alle = 100000 * nonvacchosp_tot_alle / tot_nonvacc_alle
 
-        rel_hosp_0_9 = None
-        eff_hosp_0_9 = None
-        try:
-            rel_hosp_0_9 = inz_nonvacchosp_0_9 / inz_vacchosp_0_9
-            eff_hosp_0_9 = (inz_nonvacchosp_0_9 - inz_vacchosp_0_9) / inz_nonvacchosp_0_9 * 100
-        except:
-            pass
-        if rel_hosp_0_9:
-            rel_hosp_0_9_str = "{0:.0f}".format(rel_hosp_0_9) + "x"
-            eff_hosp_0_9_str = "{0:.1f}".format(eff_hosp_0_9) + "%"
-        else:
-            rel_hosp_0_9_str = "-"
-            eff_hosp_0_9_str = "-"
-
-        rel_hosp_10_19 = None
-        eff_hosp_10_19 = None
-        try:
-            rel_hosp_10_19 = inz_nonvacchosp_10_19 / inz_vacchosp_10_19
-            eff_hosp_10_19 = (inz_nonvacchosp_10_19 - inz_vacchosp_10_19) / inz_nonvacchosp_10_19 * 100
-        except:
-            pass
-        if rel_hosp_10_19:
-            rel_hosp_10_19_str = "{0:.0f}".format(rel_hosp_10_19) + "x"
-            eff_hosp_10_19_str = "{0:.1f}".format(eff_hosp_10_19) + "%"
-        else:
-            rel_hosp_10_19_str = "-"
-            eff_hosp_10_19_str = "-"
-
-        rel_hosp_20_29 = None
-        eff_hosp_20_29 = None
-        try:
-            rel_hosp_20_29 = inz_nonvacchosp_20_29 / inz_vacchosp_20_29
-            eff_hosp_20_29 = (inz_nonvacchosp_20_29 - inz_vacchosp_20_29) / inz_nonvacchosp_20_29 * 100
-        except:
-            pass
-        if rel_hosp_20_29:
-            rel_hosp_20_29_str = "{0:.0f}".format(rel_hosp_20_29) + "x"
-            eff_hosp_20_29_str = "{0:.1f}".format(eff_hosp_20_29) + "%"
-        else:
-            rel_hosp_20_29_str = "-"
-            eff_hosp_20_29_str = "-"
-
-        rel_hosp_30_39 = None
-        eff_hosp_30_39 = None
-        try:
-            rel_hosp_30_39 = inz_nonvacchosp_30_39 / inz_vacchosp_30_39
-            eff_hosp_30_39 = (inz_nonvacchosp_30_39 - inz_vacchosp_30_39) / inz_nonvacchosp_30_39 * 100
-        except:
-            pass
-        if rel_hosp_30_39:
-            rel_hosp_30_39_str = "{0:.0f}".format(rel_hosp_30_39) + "x"
-            eff_hosp_30_39_str = "{0:.1f}".format(eff_hosp_30_39) + "%"
-        else:
-            rel_hosp_30_39_str = "-"
-            eff_hosp_30_39_str = "-"
-
-        rel_hosp_40_49 = None
-        eff_hosp_40_49 = None
-        try:
-            rel_hosp_40_49 = inz_nonvacchosp_40_49 / inz_vacchosp_40_49
-            eff_hosp_40_49 = (inz_nonvacchosp_40_49 - inz_vacchosp_40_49) / inz_nonvacchosp_40_49 * 100
-        except:
-            pass
-        if rel_hosp_40_49:
-            rel_hosp_40_49_str = "{0:.0f}".format(rel_hosp_40_49) + "x"
-            eff_hosp_40_49_str = "{0:.1f}".format(eff_hosp_40_49) + "%"
-        else:
-            rel_hosp_40_49_str = "-"
-            eff_hosp_40_49_str = "-"
-
-        rel_hosp_50_59 = None
-        try:
-            rel_hosp_50_59 = inz_nonvacchosp_50_59 / inz_vacchosp_50_59
-            eff_hosp_50_59 = (inz_nonvacchosp_50_59 - inz_vacchosp_50_59) / inz_nonvacchosp_50_59 * 100
-        except:
-            pass
-        if rel_hosp_50_59:
-            rel_hosp_50_59_str = "{0:.0f}".format(rel_hosp_50_59) + "x"
-            eff_hosp_50_59_str = "{0:.1f}".format(eff_hosp_50_59) + "%"
-        else:
-            rel_hosp_50_59_str = "-"
-            eff_hosp_50_59_str = "-"
-
-        rel_hosp_60_69 = None
-        try:
-            rel_hosp_60_69 = inz_nonvacchosp_60_69 / inz_vacchosp_60_69
-            eff_hosp_60_69 = (inz_nonvacchosp_60_69 - inz_vacchosp_60_69) / inz_nonvacchosp_60_69 * 100
-        except:
-            pass
-        if rel_hosp_60_69:
-            rel_hosp_60_69_str = "{0:.0f}".format(rel_hosp_60_69) + "x"
-            eff_hosp_60_69_str = "{0:.1f}".format(eff_hosp_60_69) + "%"
-        else:
-            rel_hosp_60_69_str = "-"
-            eff_hosp_60_69_str = "-"
-
-        rel_hosp_70_79 = None
-        try:
-            rel_hosp_70_79 = inz_nonvacchosp_70_79 / inz_vacchosp_70_79
-            eff_hosp_70_79 = (inz_nonvacchosp_70_79 - inz_vacchosp_70_79) / inz_nonvacchosp_70_79 * 100
-        except:
-            pass
-        if rel_hosp_70_79:
-            rel_hosp_70_79_str = "{0:.0f}".format(rel_hosp_70_79) + "x"
-            eff_hosp_70_79_str = "{0:.1f}".format(eff_hosp_70_79) + "%"
-        else:
-            rel_hosp_70_79_str = "-"
-            eff_hosp_70_79_str = "-"
-
-        rel_hosp_80plus = None
-        try:
-            rel_hosp_80plus = inz_nonvacchosp_80plus / inz_vacchosp_80plus
-            eff_hosp_80plus = (inz_nonvacchosp_80plus - inz_vacchosp_80plus) / inz_nonvacchosp_80plus * 100
-        except:
-            pass
-        if rel_hosp_80plus:
-            rel_hosp_80plus_str = "{0:.0f}".format(rel_hosp_80plus) + "x"
-            eff_hosp_80plus_str = "{0:.1f}".format(eff_hosp_80plus) + "%"
-        else:
-            rel_hosp_80plus_str = "-"
-            eff_hosp_80plus_str = "-"
+        rel_hosp = {}
+        eff_hosp = {}
+        rel_hosp_str = {}
+        eff_hosp_str = {}
+        for ac in age_categories:
+            rel_hosp[ac] = None
+            eff_hosp[ac] = None
+            try:
+                rel_hosp[ac] = inz_nonvacchosp[ac] / inz_vacchosp[ac]
+                eff_hosp[ac] = (inz_nonvacchosp[ac] - inz_vacchosp[ac]) / inz_nonvacchosp[ac] * 100
+            except:
+                pass
+            if rel_hosp[ac]:
+                rel_hosp_str[ac] = "{0:.0f}".format(rel_hosp[ac]) + "x"
+                eff_hosp_str[ac] = "{0:.1f}".format(eff_hosp[ac]) + "%"
+            else:
+                rel_hosp_str[ac] = "-"
+                eff_hosp_str[ac] = "-"
 
         rel_hosp_alle = None
         try:
@@ -609,177 +255,52 @@ def create_image(week):
 
         #Death ------------------------------------------------------------------------
 
-        death_tot_0_9 = get_death_tot_by_agegroup("0 - 9",week,zf)
-        death_tot_10_19 = get_death_tot_by_agegroup("10 - 19", week,zf)
-        death_tot_20_29 = get_death_tot_by_agegroup("20 - 29", week,zf)
-        death_tot_30_39 = get_death_tot_by_agegroup("30 - 39", week,zf)
-        death_tot_40_49 = get_death_tot_by_agegroup("40 - 49", week,zf)
-        death_tot_50_59 = get_death_tot_by_agegroup("50 - 59", week,zf)
-        death_tot_60_69 = get_death_tot_by_agegroup("60 - 69", week,zf)
-        death_tot_70_79 = get_death_tot_by_agegroup("70 - 79", week,zf)
-        death_tot_80plus = get_death_tot_by_agegroup("80+", week,zf)
-        death_tot_alle = death_tot_0_9 + death_tot_10_19 + death_tot_20_29 + death_tot_30_39 + death_tot_40_49 + death_tot_50_59 + death_tot_60_69 + death_tot_70_79 + death_tot_80plus
+        death_tot = {}
+        death_tot_alle = 0
+        for ac in age_categories:
+            death_tot[ac] = get_numbers_tot_by_agegroup("COVID19Death_geoRegion_AKL10_w.csv", "datum", ac, weekfrom, weekto, zf, geo)
+            death_tot_alle += death_tot[ac]
 
-        vaccdeath_tot_0_9 = get_vaccdeath_tot_by_agegroup("0 - 9",week,zf)
-        vaccdeath_tot_10_19 = get_vaccdeath_tot_by_agegroup("10 - 19", week,zf)
-        vaccdeath_tot_20_29 = get_vaccdeath_tot_by_agegroup("20 - 29", week,zf)
-        vaccdeath_tot_30_39 = get_vaccdeath_tot_by_agegroup("30 - 39", week,zf)
-        vaccdeath_tot_40_49 = get_vaccdeath_tot_by_agegroup("40 - 49", week,zf)
-        vaccdeath_tot_50_59 = get_vaccdeath_tot_by_agegroup("50 - 59", week,zf)
-        vaccdeath_tot_60_69 = get_vaccdeath_tot_by_agegroup("60 - 69", week,zf)
-        vaccdeath_tot_70_79 = get_vaccdeath_tot_by_agegroup("70 - 79", week,zf)
-        vaccdeath_tot_80plus = get_vaccdeath_tot_by_agegroup("80+", week,zf)
-        vaccdeath_tot_alle = vaccdeath_tot_0_9 + vaccdeath_tot_10_19 + vaccdeath_tot_20_29 + vaccdeath_tot_30_39 + vaccdeath_tot_40_49 + vaccdeath_tot_50_59 + vaccdeath_tot_60_69 + vaccdeath_tot_70_79 + vaccdeath_tot_80plus
+        vaccdeath_tot = {}
+        vaccdeath_tot_alle = 0
+        for ac in age_categories:
+            vaccdeath_tot[ac] = get_numbers_tot_by_agegroup("COVID19Death_vaccpersons_AKL10_w.csv", "date", ac, weekfrom, weekto, zf, geo)
+            vaccdeath_tot_alle += vaccdeath_tot[ac]
 
-        nonvaccdeath_tot_0_9 = death_tot_0_9 - vaccdeath_tot_0_9
-        nonvaccdeath_tot_10_19 = death_tot_10_19 - vaccdeath_tot_10_19
-        nonvaccdeath_tot_20_29 = death_tot_20_29 - vaccdeath_tot_20_29
-        nonvaccdeath_tot_30_39 = death_tot_30_39 - vaccdeath_tot_30_39
-        nonvaccdeath_tot_40_49 = death_tot_40_49 - vaccdeath_tot_40_49
-        nonvaccdeath_tot_50_59 = death_tot_50_59 - vaccdeath_tot_50_59
-        nonvaccdeath_tot_60_69 = death_tot_60_69 - vaccdeath_tot_60_69
-        nonvaccdeath_tot_70_79 = death_tot_70_79 - vaccdeath_tot_70_79
-        nonvaccdeath_tot_80plus = death_tot_80plus - vaccdeath_tot_80plus
-        nonvaccdeath_tot_alle = nonvaccdeath_tot_0_9 + nonvaccdeath_tot_10_19 + nonvaccdeath_tot_20_29 + nonvaccdeath_tot_30_39 + nonvaccdeath_tot_40_49 + nonvaccdeath_tot_50_59 + nonvaccdeath_tot_60_69 + nonvaccdeath_tot_70_79 + nonvaccdeath_tot_80plus
+        nonvaccdeath_tot = {}
+        nonvaccdeath_tot_alle = 0
+        for ac in age_categories:
+           nonvaccdeath_tot[ac] = death_tot[ac] - vaccdeath_tot[ac]
+           nonvaccdeath_tot_alle += nonvaccdeath_tot[ac]
 
-        inz_vaccdeath_0_9 = 100000 * vaccdeath_tot_0_9 / tot_vacc_0_9
-        inz_vaccdeath_10_19 = 100000 * vaccdeath_tot_10_19 / tot_vacc_10_19
-        inz_vaccdeath_20_29 = 100000 * vaccdeath_tot_20_29 / tot_vacc_20_29
-        inz_vaccdeath_30_39 = 100000 * vaccdeath_tot_30_39 / tot_vacc_30_39
-        inz_vaccdeath_40_49 = 100000 * vaccdeath_tot_40_49 / tot_vacc_40_49
-        inz_vaccdeath_50_59 = 100000 * vaccdeath_tot_50_59 / tot_vacc_50_59
-        inz_vaccdeath_60_69 = 100000 * vaccdeath_tot_60_69 / tot_vacc_60_69
-        inz_vaccdeath_70_79 = 100000 * vaccdeath_tot_70_79 / tot_vacc_70_79
-        inz_vaccdeath_80plus = 100000 * vaccdeath_tot_80plus / tot_vacc_80plus
+        inz_vaccdeath = {}
+        for ac in age_categories:
+           inz_vaccdeath[ac] = 100000 * vaccdeath_tot[ac] / tot_vacc[ac]
+
         inz_vaccdeath_alle = 100000 * vaccdeath_tot_alle / tot_vacc_alle
 
-        inz_nonvaccdeath_0_9 = 100000 * nonvaccdeath_tot_0_9 / tot_nonvacc_0_9
-        inz_nonvaccdeath_10_19 = 100000 * nonvaccdeath_tot_10_19 / tot_nonvacc_10_19
-        inz_nonvaccdeath_20_29 = 100000 * nonvaccdeath_tot_20_29 / tot_nonvacc_20_29
-        inz_nonvaccdeath_30_39 = 100000 * nonvaccdeath_tot_30_39 / tot_nonvacc_30_39
-        inz_nonvaccdeath_40_49 = 100000 * nonvaccdeath_tot_40_49 / tot_nonvacc_40_49
-        inz_nonvaccdeath_50_59 = 100000 * nonvaccdeath_tot_50_59 / tot_nonvacc_50_59
-        inz_nonvaccdeath_60_69 = 100000 * nonvaccdeath_tot_60_69 / tot_nonvacc_60_69
-        inz_nonvaccdeath_70_79 = 100000 * nonvaccdeath_tot_70_79 / tot_nonvacc_70_79
-        inz_nonvaccdeath_80plus = 100000 * nonvaccdeath_tot_80plus / tot_nonvacc_80plus
+        inz_nonvaccdeath = {}
+        for ac in age_categories:
+            inz_nonvaccdeath[ac] = 100000 * nonvaccdeath_tot[ac] / tot_nonvacc[ac]
         inz_nonvaccdeath_alle = 100000 * nonvaccdeath_tot_alle / tot_nonvacc_alle
 
-        rel_death_0_9 = None
-        try:
-            rel_death_0_9 = inz_nonvaccdeath_0_9 / inz_vaccdeath_0_9
-            eff_death_0_9 = (inz_nonvaccdeath_0_9 - inz_vaccdeath_0_9) / inz_nonvaccdeath_0_9 * 100
-        except:
-            pass
-        if rel_death_0_9:
-            rel_death_0_9_str = "{0:.0f}".format(rel_death_0_9) + "x"
-            eff_death_0_9_str = "{0:.1f}".format(eff_death_0_9) + "%"
-        else:
-            rel_death_0_9_str = "-"
-            eff_death_0_9_str = "-"
-
-        rel_death_10_19 = None
-        try:
-            rel_death_10_19 = inz_nonvaccdeath_10_19 / inz_vaccdeath_10_19
-            eff_death_10_19 = (inz_nonvaccdeath_10_19 - inz_vaccdeath_10_19) / inz_nonvaccdeath_10_19 * 100
-        except:
-            pass
-        if rel_death_10_19:
-            rel_death_10_19_str = "{0:.0f}".format(rel_death_10_19) + "x"
-            eff_death_10_19_str = "{0:.1f}".format(eff_death_10_19) + "%"
-        else:
-            rel_death_10_19_str = "-"
-            eff_death_10_19_str = "-"
-
-        rel_death_20_29 = None
-        try:
-            rel_death_20_29 = inz_nonvaccdeath_20_29 / inz_vaccdeath_20_29
-            eff_death_20_29 = (inz_nonvaccdeath_20_29 - inz_vaccdeath_20_29) / inz_nonvaccdeath_20_29 * 100
-        except:
-            pass
-        if rel_death_20_29:
-            rel_death_20_29_str = "{0:.0f}".format(rel_death_20_29) + "x"
-            eff_death_20_29_str = "{0:.1f}".format(eff_death_20_29) + "%"
-        else:
-            rel_death_20_29_str = "-"
-            eff_death_20_29_str = "-"
-
-        rel_death_30_39 = None
-        try:
-            rel_death_30_39 = inz_nonvaccdeath_30_39 / inz_vaccdeath_30_39
-            eff_death_30_39 = (inz_nonvaccdeath_30_39 - inz_vaccdeath_30_39) / inz_nonvaccdeath_30_39 * 100
-        except:
-            pass
-        if rel_death_30_39:
-            rel_death_30_39_str = "{0:.0f}".format(rel_death_30_39) + "x"
-            eff_death_30_39_str = "{0:.1f}".format(eff_death_30_39) + "%"
-        else:
-            rel_death_30_39_str = "-"
-            eff_death_30_39_str = "-"
-
-        rel_death_40_49 = None
-        try:
-            rel_death_40_49 = inz_nonvaccdeath_40_49 / inz_vaccdeath_40_49
-            eff_death_40_49 = (inz_nonvaccdeath_40_49 - inz_vaccdeath_40_49) / inz_nonvaccdeath_40_49 * 100
-        except:
-            pass
-        if rel_death_40_49:
-            rel_death_40_49_str = "{0:.0f}".format(rel_death_40_49) + "x"
-            eff_death_40_49_str = "{0:.1f}".format(eff_death_40_49) + "%"
-        else:
-            rel_death_40_49_str = "-"
-            eff_death_40_49_str = "-"
-
-        rel_death_50_59 = None
-        try:
-            rel_death_50_59 = inz_nonvaccdeath_50_59 / inz_vaccdeath_50_59
-            eff_death_50_59 = (inz_nonvaccdeath_50_59 - inz_vaccdeath_50_59) / inz_nonvaccdeath_50_59 * 100
-        except:
-            pass
-        if rel_death_50_59:
-            rel_death_50_59_str = "{0:.0f}".format(rel_death_50_59) + "x"
-            eff_death_50_59_str = "{0:.1f}".format(eff_death_50_59) + "%"
-        else:
-            rel_death_50_59_str = "-"
-            eff_death_50_59_str = "-"
-
-        rel_death_60_69 = None
-        try:
-            rel_death_60_69 = inz_nonvaccdeath_60_69 / inz_vaccdeath_60_69
-            eff_death_60_69 = (inz_nonvaccdeath_60_69 - inz_vaccdeath_60_69) / inz_nonvaccdeath_60_69 * 100
-        except:
-            pass
-        if rel_death_60_69:
-            rel_death_60_69_str = "{0:.0f}".format(rel_death_60_69) + "x"
-            eff_death_60_69_str = "{0:.1f}".format(eff_death_60_69) + "%"
-        else:
-            rel_death_60_69_str = "-"
-            eff_death_60_69_str = "-"
-
-        rel_death_70_79 = None
-        try:
-            rel_death_70_79 = inz_nonvaccdeath_70_79 / inz_vaccdeath_70_79
-            eff_death_70_79 = (inz_nonvaccdeath_70_79 - inz_vaccdeath_70_79) / inz_nonvaccdeath_70_79 * 100
-        except:
-            pass
-        if rel_death_70_79:
-            rel_death_70_79_str = "{0:.0f}".format(rel_death_70_79) + "x"
-            eff_death_70_79_str = "{0:.1f}".format(eff_death_70_79) + "%"
-        else:
-            rel_death_70_79_str = "-"
-            eff_death_70_79_str = "-"
-
-        rel_death_80plus = None
-        try:
-            rel_death_80plus = inz_nonvaccdeath_80plus / inz_vaccdeath_80plus
-            eff_death_80plus = (inz_nonvaccdeath_80plus - inz_vaccdeath_80plus) / inz_nonvaccdeath_80plus * 100
-        except:
-            pass
-        if rel_death_80plus:
-            rel_death_80plus_str = "{0:.0f}".format(rel_death_80plus) + "x"
-            eff_death_80plus_str = "{0:.1f}".format(eff_death_80plus) + "%"
-        else:
-            rel_death_80plus_str = "-"
-            eff_death_80plus_str = "-"
+        rel_death = {}
+        rel_death_str = {}
+        eff_death = {}
+        eff_death_str = {}
+        for ac in age_categories:
+            rel_death[ac] = None
+            try:
+                rel_death[ac] = inz_nonvaccdeath[ac] / inz_vaccdeath[ac]
+                eff_death[ac] = (inz_nonvaccdeath[ac] - inz_vaccdeath[ac]) / inz_nonvaccdeath[ac] * 100
+            except:
+                pass
+            if rel_death[ac]:
+                rel_death_str[ac] = "{0:.0f}".format(rel_death[ac]) + "x"
+                eff_death_str[ac] = "{0:.1f}".format(eff_death[ac]) + "%"
+            else:
+                rel_death_str[ac] = "-"
+                eff_death_str[ac] = "-"
 
         rel_death_alle = None
         try:
@@ -795,18 +316,11 @@ def create_image(week):
             eff_death_alle_str = "-"
 
         print("CSV:")
-        print(f"Week {week -4} to {week}")
+        print(f"Week {weekfrom} to {weekto}")
         print(f"Numbers: Incidence 24 days per 100k")
         print("Age Group;Vacc ppl;Unvacc ppl;Perc. Vacc;Vacc Cases;Unvacc Cases;Ratio Cases;Vacc Hosp.;Unvacc Hosp; Ratio Hosp;Vacc Death;Unvacc Death;Ratio Death")
-        print(f"0 - 9;{tot_vacc_0_9};{tot_nonvacc_0_9};{tot_vacc_0_9 * 100 / pop_0_9};{inz_vacccases_0_9};{inz_nonvacccases_0_9};{rel_cases_0_9_str};{inz_vacchosp_0_9};{inz_nonvacchosp_0_9};{rel_hosp_0_9_str};{inz_vaccdeath_0_9};{inz_nonvaccdeath_0_9};{rel_death_0_9_str};")
-        print(f"10 - 19;{tot_vacc_10_19};{tot_nonvacc_10_19};{tot_vacc_10_19 * 100 / pop_10_19};{inz_vacccases_10_19};{inz_nonvacccases_10_19};{rel_cases_10_19_str};{inz_vacchosp_10_19};{inz_nonvacchosp_10_19};{rel_hosp_10_19_str};{inz_vaccdeath_10_19};{inz_nonvaccdeath_10_19};{rel_death_10_19_str};")
-        print(f"20 - 29;{tot_vacc_20_29};{tot_nonvacc_20_29};{tot_vacc_20_29 * 100 / pop_20_29};{inz_vacccases_20_29};{inz_nonvacccases_20_29};{rel_cases_20_29_str};{inz_vacchosp_20_29};{inz_nonvacchosp_20_29};{rel_hosp_20_29_str};{inz_vaccdeath_20_29};{inz_nonvaccdeath_20_29};{rel_death_20_29_str};")
-        print(f"30 - 39;{tot_vacc_30_39};{tot_nonvacc_30_39};{tot_vacc_30_39 * 100 / pop_30_39};{inz_vacccases_30_39};{inz_nonvacccases_30_39};{rel_cases_30_39_str};{inz_vacchosp_30_39};{inz_nonvacchosp_30_39};{rel_hosp_30_39_str};{inz_vaccdeath_30_39};{inz_nonvaccdeath_30_39};{rel_death_30_39_str};")
-        print(f"40 - 49;{tot_vacc_40_49};{tot_nonvacc_40_49};{tot_vacc_40_49 * 100 / pop_40_49};{inz_vacccases_40_49};{inz_nonvacccases_40_49};{rel_cases_40_49_str};{inz_vacchosp_40_49};{inz_nonvacchosp_40_49};{rel_hosp_40_49_str};{inz_vaccdeath_40_49};{inz_nonvaccdeath_40_49};{rel_death_40_49_str};")
-        print(f"50 - 59;{tot_vacc_50_59};{tot_nonvacc_50_59};{tot_vacc_50_59 * 100 / pop_50_59};{inz_vacccases_50_59};{inz_nonvacccases_50_59};{rel_cases_50_59_str};{inz_vacchosp_50_59};{inz_nonvacchosp_50_59};{rel_hosp_50_59_str};{inz_vaccdeath_50_59};{inz_nonvaccdeath_50_59};{rel_death_50_59_str};")
-        print(f"60 - 69;{tot_vacc_60_69};{tot_nonvacc_60_69};{tot_vacc_60_69 * 100 / pop_60_69};{inz_vacccases_60_69};{inz_nonvacccases_60_69};{rel_cases_60_69_str};{inz_vacchosp_60_69};{inz_nonvacchosp_60_69};{rel_hosp_60_69_str};{inz_vaccdeath_60_69};{inz_nonvaccdeath_60_69};{rel_death_60_69_str};")
-        print(f"70 - 79;{tot_vacc_70_79};{tot_nonvacc_70_79};{tot_vacc_70_79 * 100 / pop_70_79};{inz_vacccases_70_79};{inz_nonvacccases_70_79};{rel_cases_70_79_str};{inz_vacchosp_70_79};{inz_nonvacchosp_70_79};{rel_hosp_70_79_str};{inz_vaccdeath_70_79};{inz_nonvaccdeath_70_79};{rel_death_70_79_str};")
-        print(f"80plus;{tot_vacc_80plus};{tot_nonvacc_80plus};{tot_vacc_80plus * 100 / pop_80plus};{inz_vacccases_80plus};{inz_nonvacccases_80plus};{rel_cases_80plus_str};{inz_vacchosp_80plus};{inz_nonvacchosp_80plus};{rel_hosp_80plus_str};{inz_vaccdeath_80plus};{inz_nonvaccdeath_80plus};{rel_death_80plus_str};")
+        for ac in age_categories:
+            print(f"{ac};{tot_vacc[ac]};{tot_nonvacc[ac]};{tot_vacc[ac] * 100 / pop[ac]};{inz_vacccases[ac]};{inz_nonvacccases[ac]};{rel_cases_str[ac]};{inz_vacchosp[ac]};{inz_nonvacchosp[ac]};{rel_hosp_str[ac]};{inz_vaccdeath[ac]};{inz_nonvaccdeath[ac]};{rel_death_str[ac]};")
         print(f"Alle;{tot_vacc_alle};{tot_nonvacc_alle};{tot_vacc_alle * 100 / pop_alle};{inz_vacccases_alle};{inz_nonvacccases_alle};{rel_cases_alle_str};{inz_vacchosp_alle};{inz_nonvacchosp_alle};{rel_hosp_alle_str};{inz_vaccdeath_alle};{inz_nonvaccdeath_alle};{rel_death_alle_str};")
 
         print("--------------------------------")
@@ -823,10 +337,10 @@ def create_image(week):
            '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;">' \
            '<table style="margin-left: auto;margin-right: auto;">' \
            '<tr style="vertical-align: top;"><td>' \
-           f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {week - 4} bis {week} // !!Entwurf!!</h1>' \
+           f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {weekfrom} bis {weekto} // !!Entwurf!!</h1>' \
            f'<h2>28-Tages-Inzidenz auf 100k</h2>' \
            '<h3>Die Daten für die geimpften Fälle/Hospitalisierungen/Todesfälle sind noch stark LIMITIERT! Quelle: BAG Schweiz</h3>' \
-           f'<h3>Die Anzahl vollständig geimpfter Personen bezieht sich auf Woche {week-4}.</h3>' \
+           f'<h3>Die Anzahl vollständig geimpfter Personen bezieht sich auf Woche {weekvacc}.</h3>' \
            '<table class="ui celled table striped" style="width: 1700px;table-layout:fixed">' \
            '<colgroup>' \
            '<col style="width: 80px;">' \
@@ -860,22 +374,14 @@ def create_image(week):
            '<th class="right aligned">Ungeimp. Tote</th>' \
            '<th class="right aligned">Rate</th>' \
            '<th class="right aligned">Effekt.</th>' \
-           '</tr>' \
-           f'<tr><td>0-9</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_0_9)}</td><td class="right aligned">{rel_cases_0_9_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_0_9)}</td><td>{rel_hosp_0_9_str}</td><td>{eff_hosp_0_9_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_0_9)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_0_9)}</td><td>{rel_death_0_9_str}</td><td>{eff_death_0_9_str}</td></tr>' \
-           f'<tr><td>10-19</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_10_19)}</td><td class="right aligned">{rel_cases_10_19_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_10_19)}</td><td>{rel_hosp_10_19_str}</td><td>{eff_hosp_10_19_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_10_19)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_10_19)}</td><td>{rel_death_10_19_str}</td><td>{eff_death_10_19_str}</td></tr>' \
-           f'<tr><td>20-29</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_20_29)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_20_29)}</td><td class="right aligned">{rel_cases_20_29_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_20_29)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_20_29)}</td><td>{rel_hosp_20_29_str}</td><td>{eff_hosp_20_29_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_20_29)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_20_29)}</td><td>{rel_death_20_29_str}</td><td>{eff_death_20_29_str}</td></tr>' \
-           f'<tr><td>30-39</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_30_39)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_30_39)}</td><td class="right aligned">{rel_cases_30_39_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_30_39)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_30_39)}</td><td>{rel_hosp_30_39_str}</td><td>{eff_hosp_30_39_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_30_39)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_30_39)}</td><td>{rel_death_30_39_str}</td><td>{eff_death_30_39_str}</td></tr>' \
-           f'<tr><td>40-49</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_40_49)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_40_49)}</td><td class="right aligned">{rel_cases_40_49_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_40_49)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_40_49)}</td><td>{rel_hosp_40_49_str}</td><td>{eff_hosp_40_49_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_40_49)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_40_49)}</td><td>{rel_death_40_49_str}</td><td>{eff_death_40_49_str}</td></tr>' \
-           f'<tr><td>50-59</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_50_59)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_50_59)}</td><td class="right aligned">{rel_cases_50_59_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_50_59)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_50_59)}</td><td>{rel_hosp_50_59_str}</td><td>{eff_hosp_50_59_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_50_59)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_50_59)}</td><td>{rel_death_50_59_str}</td><td>{eff_death_50_59_str}</td></tr>' \
-           f'<tr><td>60-69</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_60_69)}</td><td class="right aligned">{rel_cases_60_69_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_60_69)}</td><td>{rel_hosp_60_69_str}</td><td>{eff_hosp_60_69_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_60_69)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_60_69)}</td><td>{rel_death_60_69_str}</td><td>{eff_death_60_69_str}</td></tr>' \
-           f'<tr><td>70-79</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_70_79)}</td><td class="right aligned">{rel_cases_70_79_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_70_79)}</td><td>{rel_hosp_70_79_str}</td><td>{eff_hosp_70_79_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_70_79)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_70_79)}</td><td>{rel_death_70_79_str}</td><td>{eff_death_70_79_str}</td></tr>' \
-           f'<tr><td>80+</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_80plus)}</td><td class="right aligned">{rel_cases_80plus_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_80plus)}</td><td>{rel_hosp_80plus_str}</td><td>{eff_hosp_80plus_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_80plus)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_80plus)}</td><td>{rel_death_80plus_str}</td><td>{eff_death_80plus_str}</td></tr>' \
-           f'<tr><td>Alle</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_alle)}</td><td class="right aligned">{rel_cases_alle_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_alle)}</td><td>{rel_hosp_alle_str}</td><td>{eff_hosp_alle_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_alle)}</td><td>{rel_death_alle_str}</td><td>{eff_death_alle_str}</td></tr>'
+           '</tr>'
+
+    for ac in age_categories:
+        html += f'<tr><td>{ac}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases[ac])}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases[ac])}</td><td class="right aligned">{rel_cases_str[ac]}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp[ac])}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp[ac])}</td><td>{rel_hosp_str[ac]}</td><td>{eff_hosp_str[ac]}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath[ac])}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath[ac])}</td><td>{rel_death_str[ac]}</td><td>{eff_death_str[ac]}</td></tr>'
+    html += f'<tr><td>Alle</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacccases_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacccases_alle)}</td><td class="right aligned">{rel_cases_alle_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vacchosp_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvacchosp_alle)}</td><td>{rel_hosp_alle_str}</td><td>{eff_hosp_alle_str}</td><td style="background-color:#edefee;"></td><td class="right aligned">{"{:10.1f}".format(inz_vaccdeath_alle)}</td><td class="right aligned">{"{:10.1f}".format(inz_nonvaccdeath_alle)}</td><td>{rel_death_alle_str}</td><td>{eff_death_alle_str}</td></tr>'
 
     html += f'</table><h3>Ungeimp. = Noch nicht vollständig geimpfte und Ungeimpfte Personen</h3><h3>Web: covidlaws.net // Twitter: @CovidLawsStats</h3></td></tr></table> </body></html>'
 
-    print(html)
-
     options = {'width': '1750', 'height': '1350', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    imgkit.from_string(html, "out_image.jpg", options=options)
 
