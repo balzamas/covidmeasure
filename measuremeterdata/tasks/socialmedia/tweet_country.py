@@ -78,14 +78,14 @@ def create_messages(scores, type):
     if type == 7:
         #deaths bad
         scores = sorted(scores, key=lambda i: i['deaths'],reverse=True)
-        message_twitter = emoji.emojize('Euro Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (worst)\n')
+        message_twitter = emoji.emojize('World Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (worst)\n')
         gen_message, countries = generate_list(scores, "deaths", 11)
         message_twitter += gen_message
 
     if type == 8:
         #Tendency good
         scores = sorted(scores, key=lambda i: i['deaths'],reverse=False)
-        message_twitter = emoji.emojize("Euro Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (best)\n")
+        message_twitter = emoji.emojize("World Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (best)\n")
         gen_message, countries = generate_list(scores, "deaths", 11)
         message_twitter += gen_message
 
