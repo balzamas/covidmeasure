@@ -63,12 +63,12 @@ def send_tweet(weekfrom, weekto):
 
     media = api.media_upload("/tmp/out_image.jpg")
     if weekto == weekfrom:
-        status_gen = f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {weekto}\nInzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert!\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.',
+        status_gen = {weekto}
     else:
-        status_gen = f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {weekfrom} bis {weekto}\n28-Tage-Inzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert!\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.',
+        status_gen = f'{weekfrom} bis {weekto}'
 
     api.update_status(
-        status = status_gen,
+        status = f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {status_gen}\nInzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert!\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.',
         media_ids=[media.media_id_string])
 
 
