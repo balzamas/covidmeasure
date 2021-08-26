@@ -62,9 +62,14 @@ def send_tweet(weekfrom, weekto):
         print("Error during authentication")
 
     media = api.media_upload("/tmp/out_image.jpg")
+    if weekto == weekfrom:
+        status_gen = f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {weekto}\nInzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert!\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.',
+    else:
+        status_gen = f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {weekfrom} bis {weekto}\n28-Tage-Inzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert!\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.',
+
     api.update_status(
-       status=f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {weekfrom} bis {weekto}\n28-Tage-Inzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "limited" markiert!\nDie Tabelle dient als Demo bis die Zahlen zuverlässiger werden.',
-       media_ids=[media.media_id_string])
+        status = status_gen,
+        media_ids=[media.media_id_string])
 
 
 
@@ -336,9 +341,13 @@ def create_image(weekfrom, weekto, weekvacc, geo):
            f'</head>' \
            '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;">' \
            '<table style="margin-left: auto;margin-right: auto;">' \
-           '<tr style="vertical-align: top;"><td>' \
-           f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {weekfrom} bis {weekto} // !!Entwurf!!</h1>' \
-           f'<h2>28-Tages-Inzidenz auf 100k</h2>' \
+           '<tr style="vertical-align: top;"><td>'
+    if weekfrom == weekto:
+        html += f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {weekto} // !!Entwurf!!</h1>'
+    else:
+        html += f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {weekfrom} bis {weekto} // !!Entwurf!!</h1>'
+
+    html +=    f'<h2>Inzidenz auf 100k</h2>' \
            '<h3>Die Daten für die geimpften Fälle/Hospitalisierungen/Todesfälle sind noch stark LIMITIERT! Quelle: BAG Schweiz</h3>' \
            f'<h3>Die Anzahl vollständig geimpfter Personen bezieht sich auf Woche {weekvacc}.</h3>' \
            '<table class="ui celled table striped" style="width: 1700px;table-layout:fixed">' \
@@ -383,5 +392,5 @@ def create_image(weekfrom, weekto, weekvacc, geo):
     html += f'</table><h3>Ungeimp. = Noch nicht vollständig geimpfte und Ungeimpfte Personen</h3><h3>Web: covidlaws.net // Twitter: @CovidLawsStats</h3></td></tr></table> </body></html>'
 
     options = {'width': '1750', 'height': '1350', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
