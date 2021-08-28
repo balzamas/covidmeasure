@@ -12,6 +12,7 @@ import requests
 import pandas as pd
 from io import BytesIO
 import gzip
+import math
 from urllib.request import urlopen
 from measuremeterdata.tasks import import_helper
 import pandas as pd
@@ -164,8 +165,21 @@ class Command(BaseCommand):
             for index_row, row in df_r[ch_only_filter].loc[datefrom:dateto].iterrows():
                 r_sum += row['median_R_mean']
 
-            print(r_sum)
-            r_average = r_sum / 7
+            print("R")
+
+            if math.isnan(r_sum):
+                print("Empty")
+                datefrom = (date_to_load_date - timedelta(days=20)).strftime('%Y-%m-%d')
+                dateto = (date_to_load_date - timedelta(days=14)).strftime('%Y-%m-%d')
+                r_sum = 0
+
+                r_final = df_r[ch_only_filter].loc[datefrom:dateto]
+                for index_row, row in df_r[ch_only_filter].loc[datefrom:dateto].iterrows():
+                    r_sum += row['median_R_mean']
+                r_average = r_sum / 7
+            else:
+                r_average = r_sum / 7
+
 
             r_sum_7d = 0
             datefrom = (date_to_load_date - timedelta(days=27)).strftime('%Y-%m-%d')
