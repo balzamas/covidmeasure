@@ -96,7 +96,10 @@ def create_messages(scores, type):
     end_date = datetime.now()
     start_date =  end_date - timedelta(days=62)
 
-    message_twitter += "\n\ncovidlaws.net/ranking_europe\n"
+    if type > 4:
+        message_twitter += "\n\ncovidlaws.net/ranking_world\n"
+    else:
+        message_twitter += "\n\ncovidlaws.net/ranking_europe\n"
     message_twitter += f"covidlaws.net/compare/{cntry_list}&1,2,5&{start_date.strftime('%Y-%m-%d')}&{end_date.strftime('%Y-%m-%d')}"
     return message_twitter
 
