@@ -19,9 +19,9 @@ def tweet():
 
 def prepare(date_to_load, text, tweet_id):
     create_image(date_to_load, "1")
-  #  create_image(date_to_load - timedelta(days=121), "2")
-  #  create_image(date_to_load - timedelta(days=242), "3")
-  #  create_image(date_to_load - timedelta(days=365), "4")
+    create_image(date_to_load - timedelta(days=121), "2")
+    create_image(date_to_load - timedelta(days=242), "3")
+    create_image(date_to_load - timedelta(days=365), "4")
 
     if tweet_id:
         return send_tweet(text, tweet_id)
@@ -54,9 +54,9 @@ def send_tweet(message, tweet_id):
         print("Error during authentication")
 
     media = api.media_upload("/tmp/out_image1.jpg")
-  #  media2 = api.media_upload("/tmp/out_image2.jpg")
-  #  media3 = api.media_upload("/tmp/out_image3.jpg")
-  #  media4 = api.media_upload("/tmp/out_image4.jpg")
+    media2 = api.media_upload("/tmp/out_image2.jpg")
+    media3 = api.media_upload("/tmp/out_image3.jpg")
+    media4 = api.media_upload("/tmp/out_image4.jpg")
     if tweet_id:
         tweet_id = api.update_status(
            status=f"{message}",
@@ -65,8 +65,8 @@ def send_tweet(message, tweet_id):
     else:
         tweet_id = api.update_status(
            status=f"{message}",
-   #         media_ids=[media.media_id_string, media2.media_id_string, media3.media_id_string, media4.media_id_string])
-           media_ids=[media.media_id_string])
+            media_ids=[media.media_id_string, media2.media_id_string, media3.media_id_string, media4.media_id_string])
+   #        media_ids=[media.media_id_string])
 
     return tweet_id
 
