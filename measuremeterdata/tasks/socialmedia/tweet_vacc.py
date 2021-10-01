@@ -323,10 +323,10 @@ def create_image(weekfrom, weekto, weekvacc, geo):
         print("CSV:")
         print(f"Week {weekfrom} to {weekto}")
         print(f"Numbers: Incidence 24 days per 100k")
-        print("Age Group;Vacc ppl;Unvacc ppl;Perc. Vacc;Vacc Cases;Unvacc Cases;Ratio Cases;Vacc Hosp.;Unvacc Hosp; Ratio Hosp;Vacc Death;Unvacc Death;Ratio Death")
+        print("Age Group;Vacc ppl;Unvacc ppl;Perc. Vacc;Vacc Cases;Unvacc Cases;Ratio Cases;Vacc Hosp.;Unvacc Hosp; Ratio Hosp;Eff Hosp;Vacc Death;Unvacc Death;Ratio Death; Eff Death")
         for ac in age_categories:
-            print(f"{ac};{tot_vacc[ac]};{tot_nonvacc[ac]};{tot_vacc[ac] * 100 / pop[ac]};{inz_vacccases[ac]};{inz_nonvacccases[ac]};{rel_cases_str[ac]};{inz_vacchosp[ac]};{inz_nonvacchosp[ac]};{rel_hosp_str[ac]};{inz_vaccdeath[ac]};{inz_nonvaccdeath[ac]};{rel_death_str[ac]};")
-        print(f"Alle;{tot_vacc_alle};{tot_nonvacc_alle};{tot_vacc_alle * 100 / pop_alle};{inz_vacccases_alle};{inz_nonvacccases_alle};{rel_cases_alle_str};{inz_vacchosp_alle};{inz_nonvacchosp_alle};{rel_hosp_alle_str};{inz_vaccdeath_alle};{inz_nonvaccdeath_alle};{rel_death_alle_str};")
+            print(f"{ac};{tot_vacc[ac]};{tot_nonvacc[ac]};{tot_vacc[ac] * 100 / pop[ac]};{inz_vacccases[ac]};{inz_nonvacccases[ac]};{rel_cases_str[ac]};{inz_vacchosp[ac]};{inz_nonvacchosp[ac]};{rel_hosp_str[ac]};{eff_hosp_str[ac]};{inz_vaccdeath[ac]};{inz_nonvaccdeath[ac]};{rel_death_str[ac]};{eff_death_str[ac]}")
+        print(f"Alle;{tot_vacc_alle};{tot_nonvacc_alle};{tot_vacc_alle * 100 / pop_alle};{inz_vacccases_alle};{inz_nonvacccases_alle};{rel_cases_alle_str};{inz_vacchosp_alle};{inz_nonvacchosp_alle};{rel_hosp_alle_str};{eff_hosp_alle_str};{inz_vaccdeath_alle};{inz_nonvaccdeath_alle};{rel_death_alle_str};{eff_death_alle_str}")
 
         print("--------------------------------")
 

@@ -15,9 +15,9 @@ from django.db.models import F, Func
 
 
 def tweet():
-    #tweet_id = prepare(datetime.today(), "Covidmeter-Index v2.1\n\nFormel/Details: https://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
+    tweet_id = prepare(datetime.today(), "Covidmeter-Index v2.1\n\nFormel/Details: https://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
 
-    tweet_id = prepare(datetime(2021, 9, 30), "Covidmeter-Index v2.1\n\nHeute und vor einem Jahr.\n\nFormel/Details: https://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
+    #tweet_id = prepare(datetime(2021, 9, 30), "Covidmeter-Index v2.1\n\nHeute und vor einem Jahr.\n\nFormel/Details: https://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
 
 def prepare(date_to_load, text, tweet_id):
     create_image(date_to_load, "1")
@@ -67,7 +67,7 @@ def send_tweet(message, tweet_id):
     else:
         tweet_id = api.update_status(
            status=f"{message}",
-            media_ids=[media.media_id_string, media2.media_id_string, media3.media_id_string, media4.media_id_string])
+            media_ids=[media.media_id_string, media4.media_id_string])
    #        media_ids=[media.media_id_string])
 
     return tweet_id
