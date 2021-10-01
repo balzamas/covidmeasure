@@ -79,9 +79,9 @@ def create_image(cantons):
                         vacc_date = case.date
 
 
-                        to_vacc = ((canton.population /100*70) * 2 - case.vacc_total) - (canton.population / 100 * 6.5)
+                        to_vacc = ((canton.population /100*80) * 2 - case.vacc_total) - (canton.population / 100 * 6.5)
 
-                        days = date(2021, 9, 30) - case.date
+                        days = date(2021, 12, 31) - case.date
 
                         vacc_goal_raw =  to_vacc / days.days * 7
 
@@ -171,7 +171,7 @@ def create_image(cantons):
 
     html += f'</table></td></tr><tr><td></td><td colspan=3 style="font-size: 25px"> ' \
             f'<b>Ist:</b> Impfungen pro 100k Einw. in den letzten 7 Tagen</b><br>' \
-            f'<b>Soll:</b> Nötige Impfungen (100k/7T) um 70% der Bevölkerung bis Ende September zu impfen.<br>' \
+            f'<b>Soll:</b> Nötige Impfungen (100k/7T) um 80% der Gesamtbevölkerung bis Ende Dezember zu impfen.<br>' \
             f'Details: covidlaws.net/ranking7<br>' \
             f'<b>Stand: {vacc_date}</b> // covidlaws.net // Quelle: BAG' \
             f'</td></tr></table>' \
