@@ -15,12 +15,14 @@ from django.db.models import F, Func
 
 
 def tweet():
-    tweet_id = prepare(datetime.today(), "Covidmeter-Index v2.1\n\nFormel/Details: https://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
+    #tweet_id = prepare(datetime.today(), "Covidmeter-Index v2.1\n\nFormel/Details: https://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
+
+    tweet_id = prepare(datetime(2021, 9, 30), "Covidmeter-Index v2.1\n\nHeute und vor einem Jahr.\n\nFormel/Details: https://covidlaws.net/covidmeter2/\n\n #CoronaInfoCH", None)
 
 def prepare(date_to_load, text, tweet_id):
     create_image(date_to_load, "1")
-    create_image(date_to_load - timedelta(days=121), "2")
-    create_image(date_to_load - timedelta(days=242), "3")
+#    create_image(date_to_load - timedelta(days=121), "2")
+#    create_image(date_to_load - timedelta(days=242), "3")
     create_image(date_to_load - timedelta(days=365), "4")
 
     if tweet_id:
@@ -54,8 +56,8 @@ def send_tweet(message, tweet_id):
         print("Error during authentication")
 
     media = api.media_upload("/tmp/out_image1.jpg")
-    media2 = api.media_upload("/tmp/out_image2.jpg")
-    media3 = api.media_upload("/tmp/out_image3.jpg")
+#    media2 = api.media_upload("/tmp/out_image2.jpg")
+#    media3 = api.media_upload("/tmp/out_image3.jpg")
     media4 = api.media_upload("/tmp/out_image4.jpg")
     if tweet_id:
         tweet_id = api.update_status(
@@ -374,7 +376,7 @@ def create_image(date_to_load, num):
                      <thead>
 
        <tr  class="left aligned">
-          <th>
+          <th><div><div style="float: left; width: 15%;">
     '''
     if doom_clock.hosp_cov19_patients > 300:
         html += '<i class="red circular inverted large heartbeat icon"></i>'
@@ -388,7 +390,7 @@ def create_image(date_to_load, num):
         html += '<i class="green circular inverted large heartbeat icon"></i>'
 
     html += f'''
-               Covid-Patienten in der IPS: {doom_clock.hosp_cov19_patients} ({doom_clock.hosp_cov19_patients_7d})
+               </div><div style="float: left;margin-top: 19px;margin-left: 5px;">Covid-Patienten in IPS: {doom_clock.hosp_cov19_patients} ({doom_clock.hosp_cov19_patients_7d})
                '''
 
     if doom_clock.hosp_cov19_patients_7d > doom_clock.hosp_cov19_patients:
@@ -396,9 +398,11 @@ def create_image(date_to_load, num):
     else:
         html += '<i class="red arrow circle up icon"></i>'
 
+    html += "<br><div style='font-size:15'>15-Tage-Durchschnitt</div></div></div>"
+
     html += '''
         </th>
-        <th>
+        <th><div><div style="float: left; width: 15%;">
         '''
     if doom_clock.hosp_average > 120:
         html += '<i class="red circular inverted large hospital icon"></i>'
@@ -414,7 +418,7 @@ def create_image(date_to_load, num):
         html += '<i class="green circular inverted large hospital icon"></i>'
 
     html += f'''
-               Neue Spitaleintritte: {doom_clock.hosp_average} ({doom_clock.hosp_average_7d})
+               </div><div style="float: left;margin-top: 19px;margin-left: 5px;">Neue Spitaleintritte: {doom_clock.hosp_average} ({doom_clock.hosp_average_7d})
                '''
 
     if doom_clock.hosp_average_7d > doom_clock.hosp_average:
@@ -422,6 +426,7 @@ def create_image(date_to_load, num):
     else:
         html += '<i class="red arrow circle up icon"></i>'
 
+    html += "<br><div style='font-size:15'>7-Tage-Durchschnitt</div></div></div>"
 
     html += '''
         </th>
@@ -478,7 +483,7 @@ def create_image(date_to_load, num):
         </th>
        </tr>
        <tr class="left aligned">
-       <th>
+       <th><div><div style="float: left; width: 15%;">
       '''
 
     if doom_clock.deaths_value > 100:
@@ -491,13 +496,14 @@ def create_image(date_to_load, num):
         html += '<i class="green circular inverted large times circle icon"></i>'
 
     html += f'''
-               Todesfälle: {round(doom_clock.deaths_value,0)} ({round(doom_clock.deaths_value_7d,0)})
+               </div><div style="float: left;margin-top: 19px;margin-left: 5px;">Todesfälle: {round(doom_clock.deaths_value,0)} ({round(doom_clock.deaths_value_7d,0)})
                '''
 
     if doom_clock.deaths_value_7d > doom_clock.deaths_value:
         html += '<i class="green arrow circle down icon"></i>'
     else:
         html += '<i class="red arrow circle up icon"></i>'
+    html += "<br><div style='font-size:15'>Total in den letzten 7 Tagen</div></div></div>"
 
     html += '</th><th>'
 
