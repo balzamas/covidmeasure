@@ -85,16 +85,23 @@ def get_vacced_by_agegroup(age_group, date_week, zf, geo):
         return rslt_df['sumTotal'].item()
 
 
-def get_numbers_tot_by_agegroup(filename, date_str, age_group, week_from, week_to, zf, geo):
+def get_numbers_tot_by_agegroup(filename, date_str, age_group, week_from, week_to, zf, geo, is_vacc_file):
     df_tot_vacc = pd.read_csv(zf.open(f'data/{filename}'), error_bad_lines=False)
 
     tot = 0
 
     for x in range(week_from, (week_to + 1)):
         date_week = (202100 +  x)
-        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == geo) &
-                              (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                              (df_tot_vacc[date_str] == date_week)]
+
+        if is_vacc_file:
+            rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == geo) &
+                                  (df_tot_vacc['altersklasse_covid19'] == age_group) &
+                                  (df_tot_vacc[date_str] == date_week) &
+                                  (df_tot_vacc['vaccination_status'] == 'fully_vaccinated') ]
+        else:
+            rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == geo) &
+                                  (df_tot_vacc['altersklasse_covid19'] == age_group) &
+                                  (df_tot_vacc[date_str] == date_week)]
 
         tot += rslt_df['entries'].item()
 
@@ -147,13 +154,13 @@ def create_image(weekfrom, weekto, weekvacc, geo):
         cases_tot = {}
         cases_tot_alle = 0
         for ac in age_categories:
-            cases_tot[ac] = get_numbers_tot_by_agegroup("COVID19Cases_geoRegion_AKL10_w.csv", "datum", ac, weekfrom, weekto ,zf, geo)
+            cases_tot[ac] = get_numbers_tot_by_agegroup("COVID19Cases_geoRegion_AKL10_w.csv", "datum", ac, weekfrom, weekto ,zf, geo, False)
             cases_tot_alle += cases_tot[ac]
 
         vacccases_tot = {}
         vacccases_tot_alle = 0
         for ac in age_categories:
-            vacccases_tot[ac] = get_numbers_tot_by_agegroup("COVID19Cases_vaccpersons_AKL10_w.csv", "date", ac, weekfrom, weekto, zf, geo)
+            vacccases_tot[ac] = get_numbers_tot_by_agegroup("COVID19Cases_vaccpersons_AKL10_w.csv", "date", ac, weekfrom, weekto, zf, geo, True)
             vacccases_tot_alle += vacccases_tot[ac]
 
         nonvacccases_tot = {}
@@ -200,13 +207,13 @@ def create_image(weekfrom, weekto, weekvacc, geo):
         hosp_tot = {}
         hosp_tot_alle = 0
         for ac in age_categories:
-            hosp_tot[ac] = get_numbers_tot_by_agegroup("COVID19Hosp_geoRegion_AKL10_w.csv", "datum", ac, weekfrom, weekto, zf, geo)
+            hosp_tot[ac] = get_numbers_tot_by_agegroup("COVID19Hosp_geoRegion_AKL10_w.csv", "datum", ac, weekfrom, weekto, zf, geo, False)
             hosp_tot_alle += hosp_tot[ac]
 
         vacchosp_tot = {}
         vacchosp_tot_alle = 0
         for ac in age_categories:
-            vacchosp_tot[ac] = get_numbers_tot_by_agegroup("COVID19Hosp_vaccpersons_AKL10_w.csv", "date", ac, weekfrom, weekto, zf, geo)
+            vacchosp_tot[ac] = get_numbers_tot_by_agegroup("COVID19Hosp_vaccpersons_AKL10_w.csv", "date", ac, weekfrom, weekto, zf, geo, True)
             vacchosp_tot_alle += vacchosp_tot[ac]
 
         nonvacchosp_tot = {}
@@ -263,13 +270,13 @@ def create_image(weekfrom, weekto, weekvacc, geo):
         death_tot = {}
         death_tot_alle = 0
         for ac in age_categories:
-            death_tot[ac] = get_numbers_tot_by_agegroup("COVID19Death_geoRegion_AKL10_w.csv", "datum", ac, weekfrom, weekto, zf, geo)
+            death_tot[ac] = get_numbers_tot_by_agegroup("COVID19Death_geoRegion_AKL10_w.csv", "datum", ac, weekfrom, weekto, zf, geo, False)
             death_tot_alle += death_tot[ac]
 
         vaccdeath_tot = {}
         vaccdeath_tot_alle = 0
         for ac in age_categories:
-            vaccdeath_tot[ac] = get_numbers_tot_by_agegroup("COVID19Death_vaccpersons_AKL10_w.csv", "date", ac, weekfrom, weekto, zf, geo)
+            vaccdeath_tot[ac] = get_numbers_tot_by_agegroup("COVID19Death_vaccpersons_AKL10_w.csv", "date", ac, weekfrom, weekto, zf, geo, True)
             vaccdeath_tot_alle += vaccdeath_tot[ac]
 
         nonvaccdeath_tot = {}
@@ -343,12 +350,12 @@ def create_image(weekfrom, weekto, weekvacc, geo):
            '<table style="margin-left: auto;margin-right: auto;">' \
            '<tr style="vertical-align: top;"><td>'
     if weekfrom == weekto:
-        html += f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {weekto} // !!Entwurf!!</h1>'
+        html += f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {weekto} // V2</h1>'
     else:
-        html += f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {weekfrom} bis {weekto} // !!Entwurf!!</h1>'
+        html += f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {weekfrom} bis {weekto} // V2</h1>'
 
     html +=    f'<h2>Inzidenz auf 100k</h2>' \
-           '<h3>Die Daten für die geimpften Fälle/Hospitalisierungen/Todesfälle sind noch stark LIMITIERT! Quelle: BAG Schweiz</h3>' \
+           '<h3>Die Daten für die geimpften Fälle/Hospitalisierungen/Todesfälle sind noch stark LIMITIERT (Stufe:intermediate)! Quelle: BAG Schweiz</h3>' \
            f'<h3>Die Anzahl vollständig geimpfter Personen bezieht sich auf Woche {weekvacc}.</h3>' \
            '<table class="ui celled table striped" style="width: 1700px;table-layout:fixed">' \
            '<colgroup>' \
@@ -392,5 +399,5 @@ def create_image(weekfrom, weekto, weekvacc, geo):
     html += f'</table><h3>Ungeimp. = Noch nicht vollständig geimpfte und ungeimpfte Personen</h3><h3>Web: covidlaws.net // Twitter: @CovidLawsStats</h3></td></tr></table> </body></html>'
 
     options = {'width': '1750', 'height': '1350', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    imgkit.from_string(html, "out_image.jpg", options=options)
 
