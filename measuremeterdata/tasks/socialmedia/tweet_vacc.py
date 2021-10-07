@@ -399,5 +399,5 @@ def create_image(weekfrom, weekto, weekvacc, geo):
     html += f'</table><h3>Ungeimp. = Noch nicht vollständig geimpfte und ungeimpfte Personen</h3><h3>Web: covidlaws.net // Twitter: @CovidLawsStats</h3></td></tr></table> </body></html>'
 
     options = {'width': '1750', 'height': '1350', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
