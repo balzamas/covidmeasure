@@ -1232,10 +1232,10 @@
                 document.getElementById("datefrom").value = formatDate(real_startdate)
                 document.getElementById("dateto").value = formatDate(real_enddate)
 
-                $('#countries_dd').dropdown('set selected', ['1','6','13','14','33','34','35'])
-                $('#measuretypes_dd').dropdown('set selected', ['1','5','2'])
+                $('#countries_dd').dropdown('set selected', ['1','6','33','34','35'])
+                $('#measuretypes_dd').dropdown('set selected', ['14'])
                 LoadCountryMeasures($('#countries_dd').dropdown('get value'))
-                LoadData("1,6,13,14,33,34,35", "1,5,2",real_startdate,real_enddate);
+                LoadData("1,6,33,34,35", "14",real_startdate,real_enddate);
 
             }
 

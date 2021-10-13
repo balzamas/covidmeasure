@@ -937,7 +937,8 @@ var data
 
                 document.getElementById("datefrom").value = formatDate(real_startdate)
                 document.getElementById("dateto").value = formatDate(real_enddate)
-                $('#cantons_dd').dropdown('set selected', ['37','35','43'])
+                $('#cantons_dd').dropdown('set selected', ['37','35','43','39'])
+                $('#measuretypes_dd').dropdown('set selected', ['6'])
 
                 LoadDataGraph(real_startdate,real_enddate,$('#cantons_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'));
                 var ctx = document.getElementById('compareChart').getContext('2d');
