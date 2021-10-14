@@ -169,7 +169,7 @@ function loadMapData(measuretype,filterdate) {
                 {
                     statesData.features[id].properties.isregional = item.isregional;
                     statesData.features[id].properties.level = item.level;
-                    statesData.features[id].properties.comment = item.comment;
+                    statesData.features[id].properties.comment = item.comment + "<p><a href="+item.source+">Source</a></p>";
              		if (item.type.text_level3 == null)
                     {
                         statesData.features[id].properties.levels = 2
