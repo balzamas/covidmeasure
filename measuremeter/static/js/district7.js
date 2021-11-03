@@ -422,7 +422,18 @@ function applyCountryBorder(map, countryname) {
                         date = addDays(date, 7);
                 }
           });
+                          $("#btnPlayJul21").click(async function(){
+                date = new Date(2021,6,4);
+                enddate = new Date();
 
+                while (date < enddate)
+                {
+                        LoadMap(mapDistricts,date);
+                        await sleep(6);
+                        document.getElementById('dateview').innerHTML = formatDate(date);
+                        date = addDays(date, 7);
+                }
+          });
             real_enddate = new Date();
 
             mapDistricts = L.map('mapDistricts').setView([46.8, 8.4], 8);
