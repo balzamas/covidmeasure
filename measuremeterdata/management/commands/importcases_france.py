@@ -10,7 +10,7 @@ from datetime import date, timedelta
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
-      url = 'https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675'
+      url = 'https://www.data.gouv.fr/en/datasets/r/19a91d64-3cd3-42fc-9943-d635491a4d76'
 
       with requests.Session() as s:
         download = s.get(url)
