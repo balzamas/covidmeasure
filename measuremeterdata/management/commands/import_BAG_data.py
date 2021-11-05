@@ -362,5 +362,5 @@ class Command(BaseCommand):
                 cd.save()
 
                 tweet2()
-                import_vacc_cantons()
-                tweet_vacc()
+                #import_vacc_cantons()
+                #tweet_vacc()

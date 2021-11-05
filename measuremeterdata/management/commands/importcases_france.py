@@ -10,7 +10,7 @@ from datetime import date, timedelta
 class Command(BaseCommand):
     def handle(self, *args, **options):
 
-      url = 'https://raw.githubusercontent.com/rozierguillaume/covid-19/master/data/france/taux-incidence-dep-quot.csv'
+      url = 'https://www.data.gouv.fr/fr/datasets/r/406c6a23-e283-4300-9484-54e78c8ae675'
 
       with requests.Session() as s:
         download = s.get(url)
