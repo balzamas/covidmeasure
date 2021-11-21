@@ -140,7 +140,7 @@ def create_image(weekfrom, weekto, weekvacc, geo):
         tot_vacc = {}
         tot_vacc_alle = 0
         for ac in age_categories:
-            tot_vacc[ac] = get_vacced_by_agegroup(ac, date_week_vacc, zf, geo)
+            tot_vacc[ac] = get_vacced_by_agegroup("COVID19Cases_geoRegion_AKL10_w.csv", ac, date_week_vacc, zf, geo)
             tot_vacc_alle += tot_vacc[ac]
 
         tot_nonvacc = {}
