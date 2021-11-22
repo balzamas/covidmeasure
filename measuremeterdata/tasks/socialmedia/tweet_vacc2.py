@@ -171,6 +171,9 @@ def get_vals_by_agegroup(filename, date_str, age_group, date_week, zf, geo):
 
 def calc_week(week, geo, age_categories):
     date_week = 202100 + week
+    age_categories_young = ["0 - 9", "10 - 19", "20 - 29", "30 - 39", "40 - 49", "50 - 59"]
+    age_categories_old = ["60 - 69","70 - 79","80+"]
+
 
     response = {}
 
@@ -194,10 +197,27 @@ def calc_week(week, geo, age_categories):
         for ac in age_categories:
             cases_vacc[ac], tot_vacc[ac], cases_unvacc[ac], tot_nonvacc[ac], cases_unknown[ac] = get_vals_by_agegroup("COVID19Cases_vaccpersons_AKL10_w.csv", "date", ac, date_week ,zf, geo)
 
+        cases_vacc["<60"] = None
+        tot_vacc["<60"] = None
+        cases_unvacc["<60"] = None
+        tot_nonvacc["<60"] = None
+        cases_unknown["<60"] = None
+        cases_vacc["60+"] = None
+        tot_vacc["60+"] = None
+        cases_unvacc["60+"] = None
+        tot_nonvacc["60+"] = None
+        cases_unknown["60+"] = None
+
         if (cases_vacc["all"]):
             for ac in age_categories:
                 inz_vacccases[ac] = 100000 * cases_vacc[ac] / tot_vacc[ac]
                 inz_nonvacccases[ac] = 100000 * cases_unvacc[ac] / tot_nonvacc[ac]
+
+            inz_vacccases["60+"] = None
+            inz_nonvacccases["60+"] = None
+
+            inz_vacccases["<60"] = None
+            inz_nonvacccases["<60"] = None
 
             rel_cases = {}
             rel_cases_str = {}
@@ -212,15 +232,8 @@ def calc_week(week, geo, age_categories):
                 else:
                     rel_cases_str[ac] = "-"
 
-            try:
-                rel_cases_alle = inz_nonvacccases_alle / inz_vacccases_alle
-            except:
-                rel_cases_alle = None
-                pass
-            if rel_cases_alle:
-                rel_cases_alle_str = "{0:.0f}".format(rel_cases_alle) + "x"
-            else:
-                rel_cases_alle_str = "-"
+            rel_cases_str["60+"]="-"
+            rel_cases_str["<60"]="-"
         else:
             rel_cases_str = {}
 
@@ -245,6 +258,44 @@ def calc_week(week, geo, age_categories):
             inz_vacchosp[ac] = 100000 * hosp_vacc[ac] / tot_vacc[ac]
             inz_nonvacchosp[ac] = 100000 * hosp_unvacc[ac] / tot_nonvacc[ac]
 
+        temp_hosp_vacc = 0
+        temp_tot_vacc = 0
+        temp_hosp_unvacc = 0
+        temp_tot_nonvacc = 0
+        temp_hosp_unknown = 0
+
+        for ac in age_categories_young:
+            temp_hosp_vacc += hosp_vacc[ac]
+            temp_tot_vacc += tot_vacc[ac]
+            temp_hosp_unvacc += hosp_unvacc[ac]
+            temp_tot_nonvacc += tot_nonvacc[ac]
+            temp_hosp_unknown += hosp_unknown[ac]
+
+        hosp_vacc["<60"] = temp_hosp_vacc
+        tot_vacc["<60"] = temp_tot_vacc
+        hosp_unvacc["<60"] = temp_hosp_unvacc
+        tot_nonvacc["<60"] = temp_tot_nonvacc
+        hosp_unknown["<60"] = temp_hosp_unknown
+
+        temp_hosp_vacc = 0
+        temp_tot_vacc = 0
+        temp_hosp_unvacc = 0
+        temp_tot_nonvacc = 0
+        temp_hosp_unknown = 0
+
+        for ac in age_categories_old:
+            temp_hosp_vacc += hosp_vacc[ac]
+            temp_tot_vacc += tot_vacc[ac]
+            temp_hosp_unvacc += hosp_unvacc[ac]
+            temp_tot_nonvacc += tot_nonvacc[ac]
+            temp_hosp_unknown += hosp_unknown[ac]
+
+        hosp_vacc["60+"] = temp_hosp_vacc
+        tot_vacc["60+"] = temp_tot_vacc
+        hosp_unvacc["60+"] = temp_hosp_unvacc
+        tot_nonvacc["60+"] = temp_tot_nonvacc
+        hosp_unknown["60+"] = temp_hosp_unknown
+
         rel_hosp = {}
         eff_hosp = {}
         rel_hosp_str = {}
@@ -264,18 +315,16 @@ def calc_week(week, geo, age_categories):
                 rel_hosp_str[ac] = "-"
                 eff_hosp_str[ac] = "-"
 
-        rel_hosp_alle = None
-        try:
-            rel_hosp_alle = inz_nonvacchosp_alle / inz_vacchosp_alle
-            eff_hosp_alle = (inz_nonvacchosp_alle - inz_vacchosp_alle) / inz_nonvacchosp_alle * 100
-        except:
-            pass
-        if rel_hosp_alle:
-            rel_hosp_alle_str = "{0:.0f}".format(rel_hosp_alle) + "x"
-            eff_hosp_alle_str = "{0:.1f}".format(eff_hosp_alle) + "%"
-        else:
-            rel_hosp_alle_str = "-"
-            eff_hosp_alle_str = "-"
+        inz_vacchosp["60+"] = 100000 * hosp_vacc["60+"] / tot_vacc["60+"]
+        inz_nonvacchosp["60+"] = 100000 * hosp_unvacc["60+"] / tot_nonvacc["60+"]
+
+        inz_vacchosp["<60"] = 100000 * hosp_vacc["<60"] / tot_vacc["<60"]
+        inz_nonvacchosp["<60"] = 100000 * hosp_unvacc["<60"] / tot_nonvacc["<60"]
+
+        eff_hosp_str["60+"] = "-"
+        eff_hosp_str["<60"] = "-"
+        rel_hosp_str["60+"] = "-"
+        rel_hosp_str["<60"] = "-"
 
         #Death ------------------------------------------------------------------------
         death_vacc = {}
@@ -293,6 +342,44 @@ def calc_week(week, geo, age_categories):
         for ac in age_categories:
             inz_vaccdeath[ac] = 100000 * death_vacc[ac] / tot_vacc[ac]
             inz_nonvaccdeath[ac] = 100000 * death_nonvacc[ac] / tot_nonvacc[ac]
+
+        temp_death_vacc = 0
+        temp_tot_vacc = 0
+        temp_death_unvacc = 0
+        temp_tot_nonvacc = 0
+        temp_death_unknown = 0
+
+        for ac in age_categories_young:
+            temp_death_vacc += death_vacc[ac]
+            temp_tot_vacc += tot_vacc[ac]
+            temp_death_unvacc += death_nonvacc[ac]
+            temp_tot_nonvacc += tot_nonvacc[ac]
+            temp_death_unknown += death_unknown[ac]
+
+        death_vacc["<60"] = temp_death_vacc
+        tot_vacc["<60"] = temp_tot_vacc
+        death_nonvacc["<60"] = temp_death_unvacc
+        tot_nonvacc["<60"] = temp_tot_nonvacc
+        death_unknown["<60"] = temp_death_unknown
+
+        temp_death_vacc = 0
+        temp_tot_vacc = 0
+        temp_death_unvacc = 0
+        temp_tot_nonvacc = 0
+        temp_death_unknown = 0
+
+        for ac in age_categories_old:
+            temp_death_vacc += death_vacc[ac]
+            temp_tot_vacc += tot_vacc[ac]
+            temp_death_unvacc += death_nonvacc[ac]
+            temp_tot_nonvacc += tot_nonvacc[ac]
+            temp_death_unknown += death_unknown[ac]
+
+        death_vacc["60+"] = temp_death_vacc
+        tot_vacc["60+"] = temp_tot_vacc
+        death_nonvacc["60+"] = temp_death_unvacc
+        tot_nonvacc["60+"] = temp_tot_nonvacc
+        death_unknown["60+"] = temp_death_unknown
 
         rel_death = {}
         eff_death = {}
@@ -313,18 +400,16 @@ def calc_week(week, geo, age_categories):
                 rel_death_str[ac] = "-"
                 eff_death_str[ac] = "-"
 
-        rel_death_alle = None
-        try:
-            rel_death_alle = inz_nonvaccdeath_alle / inz_vaccdeath_alle
-            eff_death_alle = (inz_nonvaccdeath_alle - inz_vaccdeath_alle) / inz_nonvaccdeath_alle * 100
-        except:
-            pass
-        if rel_death_alle:
-            rel_death_alle_str = "{0:.0f}".format(rel_death_alle) + "x"
-            eff_death_alle_str = "{0:.1f}".format(eff_death_alle) + "%"
-        else:
-            rel_death_alle_str = "-"
-            eff_death_alle_str = "-"
+        inz_vaccdeath["60+"] = 100000 * death_vacc["60+"] / tot_vacc["60+"]
+        inz_nonvaccdeath["60+"] = 100000 * death_nonvacc["60+"] / tot_nonvacc["60+"]
+
+        inz_vaccdeath["<60"] = 100000 * death_vacc["<60"] / tot_vacc["<60"]
+        inz_nonvaccdeath["<60"] = 100000 * death_nonvacc["<60"] / tot_nonvacc["<60"]
+
+        eff_death_str["60+"] = "-"
+        eff_death_str["<60"] = "-"
+        rel_death_str["60+"] = "-"
+        rel_death_str["<60"] = "-"
 
 
     response["tot_vacc"] = tot_vacc
@@ -359,16 +444,25 @@ def create_csv(week, geo, age_categories):
         response = calc_week(week_to_load, geo, age_categories)
 
         for ac in age_categories:
-            print(f"{week_to_load};Cases;{ac};{response['cases_vacc'][ac]};{response['cases_unvacc'][ac]};{response['cases_unknown'][ac]};{response['inz_vacccases'][ac]};{response['inz_nonvacccases'][ac]};{response['rel_cases_str'][ac]};;")
-            print(f"{week_to_load};Hosp;{ac};{response['hosp_vacc'][ac]};{response['hosp_unvacc'][ac]};{response['hosp_unknown'][ac]};{response['inz_vacchosp'][ac]};{response['inz_nonvacchosp'][ac]};{response['rel_hosp_str'][ac]};{response['eff_hosp_str'][ac]};")
-            print(f"{week_to_load};Death;{ac};{response['death_vacc'][ac]};{response['death_nonvacc'][ac]};{response['death_unknown'][ac]};{response['inz_vaccdeath'][ac]};{response['inz_nonvaccdeath'][ac]};{response['rel_death_str'][ac]};{response['eff_hosp_str'][ac]};")
+            print(f"{week_to_load};Cases;'{ac}';{response['cases_vacc'][ac]};{response['cases_unvacc'][ac]};{response['cases_unknown'][ac]};{response['inz_vacccases'][ac]};{response['inz_nonvacccases'][ac]};{response['rel_cases_str'][ac]};;")
+            print(f"{week_to_load};Hosp;'{ac}';{response['hosp_vacc'][ac]};{response['hosp_unvacc'][ac]};{response['hosp_unknown'][ac]};{response['inz_vacchosp'][ac]};{response['inz_nonvacchosp'][ac]};{response['rel_hosp_str'][ac]};{response['eff_hosp_str'][ac]};")
+            print(f"{week_to_load};Death;'{ac}';{response['death_vacc'][ac]};{response['death_nonvacc'][ac]};{response['death_unknown'][ac]};{response['inz_vaccdeath'][ac]};{response['inz_nonvaccdeath'][ac]};{response['rel_death_str'][ac]};{response['eff_hosp_str'][ac]};")
+
+        print(f"{week_to_load};Cases;'<60';{response['cases_vacc']['<60']};{response['cases_unvacc']['<60']};{response['cases_unknown']['<60']};{response['inz_vacccases']['<60']};{response['inz_nonvacccases']['<60']};{response['rel_cases_str']['<60']};;")
+        print(f"{week_to_load};Hosp;'<60';{response['hosp_vacc']['<60']};{response['hosp_unvacc']['<60']};{response['hosp_unknown']['<60']};{response['inz_vacchosp']['<60']};{response['inz_nonvacchosp']['<60']};{response['rel_hosp_str']['<60']};{response['eff_hosp_str']['<60']};")
+        print(f"{week_to_load};Death;'<60';{response['death_vacc']['<60']};{response['death_nonvacc']['<60']};{response['death_unknown']['<60']};{response['inz_vaccdeath']['<60']};{response['inz_nonvaccdeath']['<60']};{response['rel_death_str']['<60']};{response['eff_hosp_str']['<60']};")
+
+        print(f"{week_to_load};Cases;'60+';{response['cases_vacc']['60+']};{response['cases_unvacc']['60+']};{response['cases_unknown']['60+']};{response['inz_vacccases']['60+']};{response['inz_nonvacccases']['60+']};{response['rel_cases_str']['60+']};;")
+        print(f"{week_to_load};Hosp;'60+';{response['hosp_vacc']['60+']};{response['hosp_unvacc']['60+']};{response['hosp_unknown']['60+']};{response['inz_vacchosp']['60+']};{response['inz_nonvacchosp']['60+']};{response['rel_hosp_str']['60+']};{response['eff_hosp_str']['60+']};")
+        print(f"{week_to_load};Death;'60+';{response['death_vacc']['60+']};{response['death_nonvacc']['60+']};{response['death_unknown']['60+']};{response['inz_vaccdeath']['60+']};{response['inz_nonvaccdeath']['60+']};{response['rel_death_str']['60+']};{response['eff_hosp_str']['60+']};")
+
 
 
     print("--------------------------------")
 def create_image(week, geo):
     age_categories = ["0 - 9","10 - 19","20 - 29","30 - 39","40 - 49","50 - 59","60 - 69","70 - 79","80+","all"]
 
-    create_csv(week, geo, age_categories)
+    #create_csv(week, geo, age_categories)
 
     response = calc_week(week, geo, age_categories)
     print(response)
@@ -385,44 +479,40 @@ def create_image(week, geo):
            '<body style="background-color: #edeeee;"><div style="margin-top: 20px;margin-bottom: 20px;">' \
            '<table style="margin-left: auto;margin-right: auto;">' \
            '<tr style="vertical-align: top;"><td>'
-    html += f'<h1>Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {week} // V3</h1>'\
-    '<h1>Hospitalisierungen und Todesfälle</h1><br>'\
-    '<pre>'\
-    '                                           <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/hospital_1f3e5.png" width="70">'\
-    '                                                   <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/hospital_1f3e5.png" width="70">'\
-    '                                                        <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/coffin_26b0-fe0f.png" width="70">'\
-    '</pre>'\
+    html += f'<h1>Hospitalisierungen und Todesfälle // Vollständig Geimpfte vs. Unvollständig/nicht Geimpfte // Woche {week} // V3</h1>'\
+    '<br>'\
     '<table class="ui celled table striped" style="width: 1700px;table-layout:fixed">' \
            '<colgroup>' \
-           '<col style="width: 80px;">' \
-           '<col style="width: 10px">' \
+           '<col style="width: 70px;">' \
+           '<col style="width: 5px">' \
            '<col style="width: 60px">' \
            '<col style="width: 60px">' \
            '<col style="width: 50px">' \
-           '<col style="width: 10px">' \
-           '<col style="width: 60px">' \
-           '<col style="width: 60px">' \
+           '<col style="width: 5px">' \
+           '<col style="width: 70px">' \
+           '<col style="width: 70px">' \
            '<col style="width: 50px">' \
            '<col style="width: 60px">' \
-           '<col style="width: 10px">' \
+           '<col style="width: 5px">' \
            '<col style="width: 60px">' \
            '<col style="width: 60px">' \
            '<col style="width: 50px">' \
            '<col style="width: 60px">' \
            '</colgroup>' \
+           '<tr><td></td><td style="background-color:#edefee;"></td><td colspan="3" class="center aligned"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/hospital_1f3e5.png" width="70"><br>Spital Einlieferungen</td><td style="background-color:#edefee;"></td><td colspan="4" class="center aligned"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/hospital_1f3e5.png" width="70"><br>Spital Einlieferungen per 100\'000</td><td style="background-color:#edefee;"></td><td colspan="4" class="center aligned"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/coffin_26b0-fe0f.png" width="70"><br>Todesfälle per 100\'000</td></tr>'\
            '<tr><th>Alters- gruppe</th>' \
            '<th  style="background-color:#edefee;"></th>' \
-           '<th>Total <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"></th>' \
-           '<th>Total <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/woman-gesturing-no_1f645-200d-2640-fe0f.png" width="50"></th>' \
-            '<th>Total <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/question-mark_2753.png" width="50"></th>' \
+           '<th><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"></th>' \
+           '<th><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/woman-gesturing-no_1f645-200d-2640-fe0f.png" width="50"></th>' \
+            '<th class="right aligned"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/question-mark_2753.png" width="50"></th>' \
                '<th style="background-color:#edefee;"></th>' \
-               '<th class="right aligned">Inzidenz <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"></th>' \
-           '<th class="right aligned">Inzidenz <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/woman-gesturing-no_1f645-200d-2640-fe0f.png" width="50"></th>' \
+               '<th class="right aligned"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"></th>' \
+           '<th class="right aligned"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/woman-gesturing-no_1f645-200d-2640-fe0f.png" width="50"></th>' \
            '<th class="right aligned">Rate</th>' \
            '<th class="right aligned">Effekt.</th>' \
            '<th style="background-color:#edefee;"></th>' \
-           '<th class="right aligned">Inzidenz <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"></th>' \
-           '<th class="right aligned">Inzidenz <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/woman-gesturing-no_1f645-200d-2640-fe0f.png" width="50"></th>' \
+           '<th class="right aligned"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"></th>' \
+           '<th class="right aligned"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/woman-gesturing-no_1f645-200d-2640-fe0f.png" width="50"></th>' \
            '<th class="right aligned">Rate</th>' \
            '<th class="right aligned">Effekt.</th>' \
            '</tr>'
