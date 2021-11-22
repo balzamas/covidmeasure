@@ -412,9 +412,9 @@ def create_image(week, geo):
            '</colgroup>' \
            '<tr><th>Alters- gruppe</th>' \
            '<th  style="background-color:#edefee;"></th>' \
-           '<th>Fälle <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"></th>' \
-           '<th>Fälle <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/woman-gesturing-no_1f645-200d-2640-fe0f.png" width="50"></th>' \
-            '<th>Fälle <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/question-mark_2753.png" width="50"></th>' \
+           '<th>Total <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"></th>' \
+           '<th>Total <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/woman-gesturing-no_1f645-200d-2640-fe0f.png" width="50"></th>' \
+            '<th>Total <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/question-mark_2753.png" width="50"></th>' \
                '<th style="background-color:#edefee;"></th>' \
                '<th class="right aligned">Inzidenz <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"></th>' \
            '<th class="right aligned">Inzidenz <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/syringe_1f489.png" width="50"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/twitter/282/woman-gesturing-no_1f645-200d-2640-fe0f.png" width="50"></th>' \

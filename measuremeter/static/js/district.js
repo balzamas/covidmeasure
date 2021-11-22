@@ -159,8 +159,8 @@ function applyCountryBorder(map, countryname) {
             console.log("hans2")
             return  d > 1000 ? '#000000' :
                     d > 500 ? '#420423' :
-                    d > 350 ? '#5f0332' :
-                    d > 250 ? '#BF0060' :
+                    d > 350 ? '#8C0549' :
+                    d > 250 ? '#D7006D' :
                     d > 160   ? '#ff0000' :
                     d > 140   ? '#fb5f5f' :
                     d > 120   ? '#fb8c8c' :
