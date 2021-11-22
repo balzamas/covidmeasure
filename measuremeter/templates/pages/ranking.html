@@ -119,7 +119,6 @@ table.center {
       <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
       <th onclick="sortTable(6, 'ranking')" nowrap>{% trans 'R median'%}</th>
       <th onclick="sortTable(7, 'ranking')" nowrap>{% trans 'Vacc. per 100k<br>Past 7 days'%}</th>
-      <th onclick="sortTable(8, 'ranking')" nowrap>{% trans 'Vacc. per 100k<br>goal per week'%}*</th>
 
 
      <!-- <th>{% trans 'Measures'%}</th> -->
@@ -206,16 +205,6 @@ table.center {
           </div>
         {% endif %}
       </td>
-      <td>
-        <div hidden>{{ hans.vacc_goal }}</div>
-        {% if hans.level == 0 %}
-          <div class="container">
-            <div class="centered">
-              {{ hans.vacc_goal|floatformat:0|intcomma }}
-            </div>
-          </div>
-        {% endif %}
-      </td>
   <!--    <td>
                 <div class="sample-container">
 
@@ -256,9 +245,6 @@ table.center {
 </div>
   <br>
   <p id="grande">
-    *{% trans 'How man vaccinations per week are needed to vaccinate 80% of the population twice (already infected once) until end of December.'%}<br>
-    Formula: 100000 * [ ((population * 0.6) * 2 - total_vaccinations) - (population / 100 * 6.5) ] / population<br>
-
   {% trans 'Source cases: <a href="https://github.com/openZH/covid_19" target="_blank">OpenData ZH</a> and others, see <a href="/districts">here for more information.</a>'%}<br>
   {% trans 'Source R<sub>e</sub>: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>'%}
     {% trans 'Source Vaccinations: <a href="https://www.covid19.admin.ch/api/data/context" target="_blank">BAG</a><br>'%}

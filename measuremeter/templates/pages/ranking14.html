@@ -112,7 +112,6 @@ table.center {
       <th>{% trans 'Canton'%}/{% trans 'District'%}</th>
       <th align="center" onclick="sortTable(4,'ranking')">{% trans 'Prevalence 14d/100k'%}</th>
       <th onclick="sortTable(5,'ranking')">{% trans 'Tendency cases<br>Week over week'%}</th>
-      <th>{% trans 'Measures'%}</th>
     </tr>
     {% for hans in cantons %}
         {% if "(AG)" in hans.name %}
@@ -160,38 +159,6 @@ table.center {
               {{ hans.tendency|stringformat:"+.1f" }}%
             </div>
         </div>
-      </td>
-      <td style="white-space: nowrap;">
-                <div class="sample-container">
-
-        {% for measure in hans.measures %}
-          {% if measure.level != 0 %}
-            <div class="ui icon button" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" onclick="showpopup('dialog{{ hans.code  }}{{measure.type.id}}')">
-                  {% if measure.level > 2 %}
-            <i class="{{ measure.type.icon }} red" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
-            {% elif measure.level > 0 %}
-            <i class="{{ measure.type.icon }} orange" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
-              {% elif measure.level < 0 %}
-              <i class="{{ measure.type.icon }} green" data-html="<b>{{measure.type.name}}</b><br>{{measure.comment}}" ></i>
-                  {% endif %}
-            </div>
-            <div id="dialog{{ hans.code  }}{{measure.type.id}}" title={{hans.code|upper}}:&nbsp;{{measure.type.name}}  style="display: none;" >
-              <div style="font-size:20px;">
-              {% autoescape off %}
-                {{measure.comment}}
-              {% endautoescape %}
-                {{measure.type.name}}
-              <p>Start: {{measure.start}}<br>
-               End: {{measure.end}}</p>
-              {% if measure.sources != "" %}
-                <p><a href='{{measure.sources}}' target="_blank">Source</a></p>
-              {% endif %}
-              </div>
-            </div>
-          {% endif %}
-        {% endfor %}
-        </div>
-
       </td>
     </tr>
     {% endif %}
