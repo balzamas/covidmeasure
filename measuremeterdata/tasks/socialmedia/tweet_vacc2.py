@@ -42,7 +42,7 @@ def send_telegram(week):
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
-    bot.sendMessage(settings.TELEGRAM_CHATID, f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nStand: Woche {week} \n7-Tage-Inzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "intermediate" markiert.\nGeimpfte vs. Ungeimpfte')
+    bot.sendMessage(settings.TELEGRAM_CHATID, f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nStand: Woche {week} \n7-Tage-Inzidenzen Hospitalisierte/Tote\nDaten sind im BAG-File als "intermediate" markiert.\nGeimpfte vs. Ungeimpfte')
     bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
 
 
@@ -65,7 +65,7 @@ def send_tweet(week):
     status_gen = {week}
 
     api.update_status(
-        status = f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {status_gen}\nInzidenzen Fälle/Hospitalisierte/Tote\nDaten sind im BAG-File als "intermediate" markiert!',
+        status = f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {status_gen}\nInzidenzen Hospitalisierte/Tote\nDaten sind im BAG-File als "intermediate" markiert!',
         media_ids=[media.media_id_string])
 
 
@@ -368,7 +368,7 @@ def create_csv(week, geo, age_categories):
 def create_image(week, geo):
     age_categories = ["0 - 9","10 - 19","20 - 29","30 - 39","40 - 49","50 - 59","60 - 69","70 - 79","80+","all"]
 
-    #create_csv(week, geo, age_categories)
+    create_csv(week, geo, age_categories)
 
     response = calc_week(week, geo, age_categories)
     print(response)
