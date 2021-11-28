@@ -281,7 +281,7 @@ def create_image(region, scores, show_hosp):
         options = {'width': '1360', 'height': '675', 'encoding': "UTF-8", }
     else:
         options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
     return f"Regionalvergleich\n\n{region}"
 
