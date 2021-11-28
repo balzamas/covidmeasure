@@ -217,11 +217,12 @@ def create_image(region, scores, show_hosp):
 
         if show_hosp:
             html += '<td nowrap>'
-            html += f'<div class="container"> \
-              <img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_hosp.png height="70px"> \
-              <div class="centered">{score["hosp"]}</div> \
-              <div class="bottomed">{score["hosp_date"]}</div> \
-            </div> '
+            if score["hosp"]:
+                html += f'<div class="container"> \
+                  <img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_hosp.png height="70px"> \
+                  <div class="centered">{score["hosp"]}</div> \
+                  <div class="bottomed">{score["hosp_date"]}</div> \
+                </div> '
             html += '</td>'
 
         html += "<td nowrap>"
