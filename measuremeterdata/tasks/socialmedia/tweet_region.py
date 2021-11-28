@@ -187,7 +187,7 @@ def create_image(region, scores, show_hosp):
            '<th>Pos. Tests per 100k<br>Last 14 days</th>' \
            '<th>Deaths per 100k<br>Last 14 days</th>'
     if show_hosp:
-           '<th>Hospitalisations<br>per 1 Mill.</th>'
+            html += '<th>Hospitalisations<br>per 1 Mill.</th>'
     html += '<th>Positive rate<br>7 days avg. @ Date</th>' \
            '<th>Development<br>Week over week</th>' \
            '<th>Vacc. per<br>100 pop.*</th>' \
