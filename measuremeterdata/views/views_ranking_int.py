@@ -23,6 +23,8 @@ def calc_ranking_countries(countries):
             last_tendency = cases[0].development7to7
             last_positivity = None
             last_positivity_date = None
+            last_hosp = None
+            last_hosp_date = None
             last_R = None
             last_R_date = None
             last_vaccinated = None
@@ -47,6 +49,10 @@ def calc_ranking_countries(countries):
                     last_vaccinated = case.people_vaccinated_per_hundred
                     last_vaccinated_date = case.date
 
+                if (case.hosp_per_million != None and last_hosp == None):
+                    last_hosp = case.hosp_per_million
+                    last_hosp_date = case.date
+
             past_date_tocheck = last_date - timedelta(days=14)
 
             case_14days_7daysago = CasesDeaths.objects.get(country=country, date=last_date - timedelta(days=7))
@@ -59,18 +65,12 @@ def calc_ranking_countries(countries):
             if positivity_before7 == None:
                 positivity_before7 = 5
 
+            score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7) * float(cases[0].cases_past7days) /100) + (float(last_positivity_calc) * float(cases[0].cases_past7days)) + float((cases[0].deaths_past14days * 20))
+            score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7) * float(case_14days_7daysago.cases_past7days) /100) + (float(positivity_before7) * float(case_14days_7daysago.cases_past7days)) + float((case_14days_7daysago.deaths_past14days * 20))
+
             try:
                 score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7) * float(cases[0].cases_past7days) /100) + (float(last_positivity_calc) * float(cases[0].cases_past7days)) + float((cases[0].deaths_past14days * 20))
                 score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7) * float(case_14days_7daysago.cases_past7days) /100) + (float(positivity_before7) * float(case_14days_7daysago.cases_past7days)) + float((case_14days_7daysago.deaths_past14days * 20))
-
-                print(f"cases 14: {float(cases[0].cases_past14days)}")
-                print(f"cases 7: {float(cases[0].cases_past7days)}")
-                print(f"dev: {(float(cases[0].development7to7) * float(cases[0].cases_past7days))/100}")
-                print(f"pos: {(float(last_positivity_calc) * float(cases[0].cases_past7days))}")
-                print(f"death: {float((cases[0].deaths_past14days * 20))}")
-                print(f"Score: {score}")
-                print(f"Score Old: {score_7days_before}")
-
             except:
                 print(f"{country} failed...")
                 score = None
@@ -95,14 +95,20 @@ def calc_ranking_countries(countries):
                 peak_positivity = positivity_ds[0].positivity
                 peak_positivity_date = positivity_ds[0].date
 
+                hosp_ds = CasesDeaths.objects.filter(country=country).order_by(F('hosp_per_million').desc(nulls_last=True))
+                peak_hosp = hosp_ds[0].hosp_per_million
+                peak_hosp_date = hosp_ds[0].date
+
                 canton_toadd = {"name": country.name, "score": int(score), "score_before": int(score_7days_before),
                                 "date": last_date, "code": country.code,
                                 "cur_prev14": last_prev14, "tendency": last_tendency,
                                 "cur_prev7": case_14days_14daysago.cases_past7days,
+                                "hosp": last_hosp, "hosp_date": last_hosp_date,
                                 "positivity": last_positivity, "positivity_date":last_positivity_date, "deaths": last_deaths14,
                                 "has_measures": country.has_measures, "continent": country.continent.pk, "icon": arrow,
                                 "peak_cases": peak_cases, "peak_cases_date": peak_cases_date,
                                 "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
+                                "peak_hosp": peak_hosp, "peak_hosp_date": peak_hosp_date,
                                 "peak_positivity": peak_positivity, "peak_positivity_date": peak_positivity_date,
                                 "R": last_R, "R_date": last_R_date, "stringency": last_stringency, "stringency_date": last_stringency_date,
                                 "vaccinated": last_vaccinated, "vaccinated_date": last_vaccinated_date

@@ -241,6 +241,16 @@ def calc_week(week, geo, age_categories):
                 inz_vacccases[ac] = 0
                 inz_nonvacccases[ac] = 0
                 rel_cases_str[ac] = "-"
+
+            inz_vacccases["60+"] = None
+            inz_nonvacccases["60+"] = None
+
+            inz_vacccases["<60"] = None
+            inz_nonvacccases["<60"] = None
+
+            rel_cases_str["60+"]="-"
+            rel_cases_str["<60"]="-"
+
         #Hosp ------------------------------------------------------------------------
         hosp_vacc = {}
         tot_vacc = {}
@@ -462,10 +472,9 @@ def create_csv(week, geo, age_categories):
 def create_image(week, geo):
     age_categories = ["0 - 9","10 - 19","20 - 29","30 - 39","40 - 49","50 - 59","60 - 69","70 - 79","80+","all"]
 
-    #create_csv(week, geo, age_categories)
+    create_csv(week, geo, age_categories)
 
     response = calc_week(week, geo, age_categories)
-    print(response)
 
     html = f'<html><head><meta charset="UTF-8" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>' \
            '<style>table, th, td { padding: 10px; font-size: 14; }' \

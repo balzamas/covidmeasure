@@ -102,6 +102,7 @@ class CasesDeaths(MotherModel):
     stringency_index = models.DecimalField(max_digits=17, decimal_places=5, null=True, blank=True)
     death_to_cases = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
     people_vaccinated_per_hundred = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
+    hosp_per_million = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
     ordering = ['country__pk', 'date', 'cases', 'deaths']
 
     def __str__(self):

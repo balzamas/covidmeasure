@@ -42,12 +42,15 @@ def generate():
             cases = []
             deaths = []
             positivity = []
+            hospitalisation = []
             dates = []
+            dates_hospitalisatiom = []
             dates_positivity = []
             dates_stringency = []
             stringency = []
             largest_pos = 5
             largest_stringency = 100
+            largest_hosp = 400
 
             for day in CasesDeaths.objects.filter(country=country).order_by('-date')[:61]:
                 if (day.cases_past14days is not None and day.deaths_past14days is not None):
@@ -68,6 +71,12 @@ def generate():
                         positivity.append(float(day.positivity))
                         dates_positivity.append(day.date)
 
+                    if (day.hosp_per_million is not None):
+                        if (day.hosp_per_million > largest_hosp):
+                            largest_hosp = day.hosp_per_million
+                        hospitalisation.append(float(day.hosp_per_million))
+                        dates_hospitalisatiom.append(day.date)
+
             if (len(cases) > 0):
                 write_graph(country, dates, cases,  "cases", None)
             if (len(deaths) > 0):
@@ -76,5 +85,7 @@ def generate():
                 write_graph(country, dates_stringency, stringency, "stringency", largest_stringency)
             if (len(positivity) > 0):
                 write_graph(country, dates_positivity, positivity, "positivity", largest_pos)
+            if (len(hospitalisation) > 0):
+                write_graph(country, dates_hospitalisatiom, hospitalisation,  "hosp", largest_hosp)
 
-
+            print(hospitalisation)

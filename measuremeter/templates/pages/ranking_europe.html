@@ -65,7 +65,7 @@
 <div style="overflow-x:auto;">
  <table class="ui celled table" id="ranking" width="100%">
 <thead>
-    <tr><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(3,'ranking')">Score</th><th onclick="sortTable(4,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(5,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(7,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th onclick="sortTable(8,'ranking')">Vaccination:<br>per 100 pop.*</th><th onclick="sortTable(9,'ranking')">Stringency index</th></tr>
+    <tr><th>Rank</th><th>Trend</th><th>Country</th><th onclick="sortTable(3,'ranking')">Score</th><th onclick="sortTable(4,'ranking')">Pos. Tests per 100k<br>Last 14 days</th><th onclick="sortTable(5,'ranking')">Deaths per 100k<br>Last 14 days</th><th onclick="sortTable(6,'ranking')">Hospitalisations<br>per 1 Mill.</th><th onclick="sortTable(7,'ranking')">Positive rate<br>7 days avg. @ Date</th><th onclick="sortTable(8,'ranking')">{% trans 'Tendency cases<br>Week/Prev. week'%}</th><th onclick="sortTable(9,'ranking')">Vaccination:<br>per 100 pop.*</th><th onclick="sortTable(10,'ranking')">Stringency index</th></tr>
     {% for hans in countries %}
 </thead>
    <tbody>
@@ -106,6 +106,21 @@
         <div class="peak">All time peak: {{ hans.peak_deaths }}<br>
         {{ hans.peak_deaths_date }}</div>
        </td>
+       <td>
+
+        <div hidden>{{ hans.hosp|floatformat:1 }}</div>
+
+        {% if hans.hosp != None %}
+          <div class="container">
+            <img src=/static/images/graphs_world/{{ hans.code  }}_hosp.png>
+            <div class="centered">{{ hans.hosp|floatformat:1 }}</div>
+            <div class="bottomed">{{ hans.hosp_date }}</div>
+          </div>
+        <div class="peak">All time peak: {{ hans.peak_hosp|floatformat:1 }}<br>
+        {{ hans.peak_hosp_date }}</div>
+
+        {% endif %}
+      </td>
       {% if hans.positivity < 5 %}
             <td class="positive">
       {% else %}
@@ -212,7 +227,7 @@
       <p>
       <b>Sources</b><br>
          Cases/Deaths: <a href="https://github.com/CSSEGISandData/COVID-19/tree/master/csse_covid_19_data/csse_covid_19_time_series">J. Hopkins University</a><br>
-        Positive rate, Vaccination: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a><br>
+        Positive rate, Vaccination, Hospitalisations: <a href="https://ourworldindata.org/coronavirus-testing" target="_blank">Our World in data</a><br>
         Reproduction Rate R: <a href="https://github.com/covid-19-Re/dailyRe-Data" target="_blank">ETH Zurich</a><br>
           <p>Stringency Index: <a href="https://www.bsg.ox.ac.uk/research/research-projects/coronavirus-government-response-tracker">Oxford Covid-19 Government Response Tracker</a>
       </p>

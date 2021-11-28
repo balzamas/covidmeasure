@@ -34,6 +34,7 @@ class Command(BaseCommand):
         col_tests = -1
         col_tests_per_p = -1
         col_people_vaccinated_per_hundred = -1
+        col_hosp_per_million = -1
 
         for row in cr:
             if row_count == 0:
@@ -46,6 +47,8 @@ class Command(BaseCommand):
                         col_tests = col_count
                     if col == "people_vaccinated_per_hundred":
                         col_people_vaccinated_per_hundred = col_count
+                    if col == "hosp_patients_per_million":
+                        col_hosp_per_million = col_count
                     col_count += 1
             row_count += 1
 
@@ -59,6 +62,11 @@ class Command(BaseCommand):
                     tests_per_p = Decimal(row[col_tests_per_p])
                 else:
                     tests_per_p = None
+
+                if row[col_hosp_per_million]:
+                    hosp_per_million = Decimal(row[col_hosp_per_million])
+                else:
+                    hosp_per_million = None
 
                 if row[col_tests]:
                     tests = Decimal(row[col_tests])
@@ -79,6 +87,7 @@ class Command(BaseCommand):
                     cd_existing.positivity = pos
                     cd_existing.tests_smoothed_per_thousand = tests_per_p
                     cd_existing.tests = tests
+                    cd_existing.hosp_per_million = hosp_per_million
                     cd_existing.people_vaccinated_per_hundred = people_vaccinated_per_hundred
                     cd_existing.save()
                 except:

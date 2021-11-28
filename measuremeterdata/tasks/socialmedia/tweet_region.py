@@ -23,80 +23,80 @@ def tweet(type):
         countries = Country.objects.filter(pk__in=[8, 22, 23, 24, 44])
         scores = create_list(countries)
         print(scores)
-        text = create_image(region, scores)
+        text = create_image(region, scores, True)
         print(text)
 
     if type == 2:
         region = "Switzerland and neighbours"
         countries = Country.objects.filter(pk__in=[6, 35, 34, 33, 1])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, True)
 
     if type == 3:
         region = "Central Europe"
         countries = Country.objects.filter(pk__in=[3, 12, 29, 18])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, True)
 
     if type == 4:
         region = "Baltics"
         countries = Country.objects.filter(pk__in=[25,9,26,16])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, True)
 
     if type == 5:
         region = "Eastern Africa"
         countries = Country.objects.filter(pk__in=[5,89,98,88])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, False)
 
     if type == 6:
         region = "Southern Africa"
         countries = Country.objects.filter(pk__in=[90,97,102,103,104])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, False)
 
     if type == 7:
         region = "Western Africa"
         countries = Country.objects.filter(pk__in=[55,91,95,92,96])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, False)
 
     if type == 8:
         region = "Postsoviet space"
         countries = Country.objects.filter(pk__in=[27,50,21,46,47,45])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, False)
 
     if type == 9:
         region = "Eastern Balkans"
         countries = Country.objects.filter(pk__in=[30,32,42,40,39,38])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, False)
 
     if type == 10:
         region = "South America (South)"
         countries = Country.objects.filter(pk__in=[82,83,80,84,81])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, False)
 
     if type == 11:
         region = "South East Asia"
         countries = Country.objects.filter(pk__in=[67,65,66,68,69])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, False)
 
     if type == 12:
         region = "Indian Subcontinent"
         countries = Country.objects.filter(pk__in=[70,85,72,71,73, 109])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, False)
 
     if type == 13:
         region = "Arab Gulf"
         countries = Country.objects.filter(pk__in=[78,79,87,77,110])
         scores = create_list(countries)
-        text = create_image(region, scores)
+        text = create_image(region, scores, False)
 
 #    page_access_token = settings.FACEBOOK_ACCESS_TOKEN
 #    graph = facebook.GraphAPI(page_access_token)
@@ -151,7 +151,7 @@ def send_tweet(message):
        media_ids=[media.media_id_string])
 
 
-def create_image(region, scores):
+def create_image(region, scores, show_hosp):
     canton_vals = []
 
     #'#container_2 { -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -o-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg);}' \
@@ -174,8 +174,10 @@ def create_image(region, scores):
             '<colgroup>' \
             '<col style="width: 150px;">' \
             '<col style="width: 150px">' \
-            '<col style="width: 150px">' \
-            '<col style="width: 150px">' \
+            '<col style="width: 150px">'
+    if show_hosp:
+             html +=  '<col style="width: 150px">'
+    html += '<col style="width: 150px">' \
             '<col style="width: 130px">' \
            '<col style="width: 90px">'\
            '<col style="width: 90px">' \
@@ -183,8 +185,10 @@ def create_image(region, scores):
            '</colgroup>' \
            '<tr><th></th>' \
            '<th>Pos. Tests per 100k<br>Last 14 days</th>' \
-           '<th>Deaths per 100k<br>Last 14 days</th>' \
-           '<th>Positive rate<br>7 days avg. @ Date</th>' \
+           '<th>Deaths per 100k<br>Last 14 days</th>'
+    if show_hosp:
+           '<th>Hospitalisations<br>per 1 Mill.</th>'
+    html += '<th>Positive rate<br>7 days avg. @ Date</th>' \
            '<th>Development<br>Week over week</th>' \
            '<th>Vacc. per<br>100 pop.*</th>' \
            '<th>Tests per<br>1000 pop.</th>' \
@@ -211,6 +215,14 @@ def create_image(region, scores):
         </div> '
         html += '</td>'
 
+        if show_hosp:
+            html += '<td nowrap>'
+            html += f'<div class="container"> \
+              <img src=https://covidlaws.net/static/images/graphs_world/{score["code"]}_hosp.png height="70px"> \
+              <div class="centered">{score["hosp"]}</div> \
+              <div class="bottomed">{score["hosp_date"]}</div> \
+            </div> '
+            html += '</td>'
 
         html += "<td nowrap>"
         if score["positivity"] != None:
@@ -265,8 +277,11 @@ def create_image(region, scores):
             '</div>' \
             '</body></html>'
 
-    options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    if show_hosp:
+        options = {'width': '1360', 'height': '675', 'encoding': "UTF-8", }
+    else:
+        options = {'width': '1200', 'height': '675', 'encoding': "UTF-8", }
+    imgkit.from_string(html, "out_image.jpg", options=options)
 
     return f"Regionalvergleich\n\n{region}"
 
@@ -289,6 +304,8 @@ def create_list(countries):
             last_tendency = cases[0].development7to7
             last_positivity = None
             last_positivity_date = None
+            last_hosp = None
+            last_hosp_date = None
             last_R = None
             last_R_date = None
             positivity_before7 = None
@@ -319,6 +336,10 @@ def create_list(countries):
                 if (case.people_vaccinated_per_hundred and last_vaccination == None):
                     last_vaccination = case.people_vaccinated_per_hundred
                     last_vaccination_date = case.date
+
+                if (case.hosp_per_million != None and last_hosp == None):
+                    last_hosp = case.hosp_per_million
+                    last_hosp_date = case.date
 
             past_date_tocheck = last_date - timedelta(days=14)
 
@@ -365,6 +386,7 @@ def create_list(countries):
                                 "cur_prev14": last_prev14, "tendency": last_tendency,
                                 "cur_prev7": case_14days_14daysago.cases_past7days,
                                 "positivity": last_positivity, "positivity_date":last_positivity_date, "deaths": last_deaths14,
+                                "hosp": last_hosp, "hosp_date": last_hosp_date,
                                 "has_measures": country.has_measures, "continent": country.continent.pk, "icon": arrow,
                                 "peak_cases": peak_cases, "peak_cases_date": peak_cases_date,
                                 "peak_deaths": peak_deaths, "peak_deaths_date": peak_deaths_date,
