@@ -52,7 +52,7 @@ def tweet(type):
 
     if type == 6:
         region = "Southern Africa"
-        countries = Country.objects.filter(pk__in=[90,97,102,103,104])
+        countries = Country.objects.filter(pk__in=[90,97,102,103,104, 112])
         scores = create_list(countries)
         text = create_image(region, scores, False)
 
