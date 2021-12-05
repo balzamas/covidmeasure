@@ -52,13 +52,16 @@ def country_deaths(request):
 
         now20_11_32 = 0
         now20_33_53 = 0
-        now21_1 = 0
-        avg_11_32 = 0
-        avg_33_53 = 0
-        avg_1 = 0
+        now21_1_25 = 0
+        now21_rest = 0
+        avg20_11_32 = 0
+        avg20_33_53 = 0
+        avg21_1_25 = 0
+        avg21_rest = 0
 
-        last_week20 = None
-        last_week21 = None
+        last_week = 40
+        last_week_def = 0
+
 
         for case in cases:
             week_value_covid += case.deaths
@@ -104,19 +107,17 @@ def country_deaths(request):
 
                 if week_value_all > -1 and case.date.year == 2020 and case.date.isocalendar()[1] > 10 and case.date.isocalendar()[1] < 33:
                     now20_11_32 += week_values_alldeaths[week]
-                    avg_11_32 += week_values_avg[week]
+                    avg20_11_32 += week_values_avg[week]
                 elif week_value_all > -1 and case.date.year == 2020 and case.date.isocalendar()[1] > 32:
                     now20_33_53 += week_values_alldeaths[week]
-                    avg_33_53 += week_values_avg[week]
-                    last_week20 = week
-                elif week_value_all > -1 and case.date.year == 2021 and case.date.isocalendar()[1] == 53:
-                    now20_33_53 += week_values_alldeaths[week]
-                    avg_33_53 += week_values_avg[week]
-                    last_week20 = week
-                elif week_value_all > -1 and case.date.year == 2021:
-                    now21_1 += week_values_alldeaths[week]
-                    avg_1 += week_values_avg[week]
-                    last_week21 = week - 53
+                    avg20_33_53 += week_values_avg[week]
+                elif week_value_all > -1 and case.date.year == 2021 and case.date.isocalendar()[1] < 26:
+                    now21_1_25 += week_values_alldeaths[week]
+                    avg21_1_25 += week_values_avg[week]
+                elif week_value_all > -1 and case.date.year == 2021 and case.date.isocalendar()[1] > 25:
+                    now21_rest += week_values_alldeaths[week]
+                    avg21_rest += week_values_avg[week]
+                    last_week_def = case.date.isocalendar()[1]
 
 
                 weekday = 1
@@ -141,9 +142,17 @@ def country_deaths(request):
         print(week_values_alldeaths)
         print(week_values_alldeaths_peak)
 
+        all_num = now20_11_32 + now20_33_53 + now21_1_25 + now21_rest
+        all_avg = avg20_11_32 + avg20_33_53 + avg21_1_25 + avg21_rest
+
         percent_peak = None
         if (death_peak_week2):
             percent_peak = (100 * diff_week2_peak / death_peak_week2)
+
+        print("Week")
+        print(last_week_def)
+        if last_week_def < last_week:
+            last_week = None
 
         countr_toadd = {"country": country,
                           "covid20": week_values_coviddeaths20,
@@ -153,13 +162,13 @@ def country_deaths(request):
                            "week_values_avg": week_values_avg,
                         "now20_11_32": now20_11_32,
                         "now20_33_53": now20_33_53,
-                        "now21_1": now21_1,
-                        "avg_11_32": avg_11_32,
-                        "avg_33_53": avg_33_53,
-                        "avg_1": avg_1,
-                        "last_week20": last_week20,
-                        "last_week21": last_week21
-
+                        "now21_1_25": now21_1_25,
+                        "avg20_11_32": avg20_11_32,
+                        "avg20_33_53": avg20_33_53,
+                        "avg21_1_25": avg21_1_25,
+                        "all_num": all_num,
+                        "all_avg": all_avg,
+                        "last_week": last_week
                         }
         countries_values.append(countr_toadd)
 

@@ -11,19 +11,20 @@
                 var div = document.createElement('div');
                 div.id = '{{country.country.code}}' + 'Chart';
 
-                diff_11_32 = ({{country.now20_11_32}} * 100 / {{country.avg_11_32}}) - 100
-                diff_33_53 = ({{country.now20_33_53}} * 100 / {{country.avg_33_53}}) - 100
-                diff_1 = ({{country.now21_1}} * 100 / {{country.avg_1}}) - 100
-                diff_all21 = (({{country.now20_11_32}} + {{country.now20_33_53}}) * 100 / ({{country.avg_11_32}} + {{country.avg_33_53}})) - 100
-                all_20 = {{country.now20_11_32}} + {{country.now20_33_53}}
-                all_avg =  {{country.avg_11_32}} + {{country.avg_33_53}}
+                diff20_11_32 = ({{country.now20_11_32}} * 100 / {{country.avg20_11_32}}) - 100
+                diff20_33_53 = ({{country.now20_33_53}} * 100 / {{country.avg20_33_53}}) - 100
+                diff21_1_25 = ({{country.now21_1_25}} * 100 / {{country.avg21_1_25}}) - 100
+                diff_all = ({{country.all_num}} * 100 / {{country.all_avg}}) - 100
+
 
                 innerHTML = '<div style="height: 500px"><canvas id="'+ '{{country.country.code}}' +'deathChart"></canvas></div><br>'
                 innerHTML += '<table class="ui celled table">'
-                innerHTML += '<tr><td><b>Week 11 - Week {{country.last_week20}}</b></td><td>2020:' + all_20 + '</td><td>Average 15-19: ' + all_avg + '</td><td>' + diff_all21.toFixed(1) + '%</td></tr>'
-                innerHTML += '<tr><td><b>Week 11 - Week 32</b></td><td>2020: {{country.now20_11_32}}</td><td>Average 15-19: {{country.avg_11_32}}</td><td>' + diff_11_32.toFixed(1) + '%</td></tr>'
-                innerHTML += '<tr><td><b>Week 33 - Week {{country.last_week20}}</b></td><td>2020: {{country.now20_33_53}}</td><td>Average 15-19: {{country.avg_33_53}}</td><td>' + diff_33_53.toFixed(1) + '%</td></tr>'
-                innerHTML += '<tr><td><b>Week 1 - Week {{country.last_week21}}</b></td><td>2021: {{country.now21_1}}</td><td>Average 15-19: {{country.avg_1}}</td><td>' + diff_1.toFixed(1) + '%</td></tr>'
+                innerHTML += '<tr><td><b>Week 11 - 32 // 2020</b></td><td>2020: {{country.now20_11_32}}</td><td>Average 15-19: {{country.avg20_11_32}}</td><td>' + diff20_11_32.toFixed(1) + '%</td></tr>'
+                innerHTML += '<tr><td><b>Week 33 - 53 // 2020</b></td><td>2020: {{country.now20_33_53}}</td><td>Average 15-19: {{country.avg20_33_53}}</td><td>' + diff20_33_53.toFixed(1) + '%</td></tr>'
+                innerHTML += '<tr><td><b>Week 1 - 25 // 2021</b></td><td>2021: {{country.now21_1_25}}</td><td>Average 15-19: {{country.avg21_1_25}}</td><td>' + diff21_1_25.toFixed(1) + '%</td></tr>'
+                {% if country.last_week %}
+                  innerHTML += '<tr><td><b>Week 11/20 - Week {{country.last_week}}/21 </b></td><td>2020/21: {{country.all_num}}</td><td>Average 15-19: {{country.all_avg}}</td><td>' + diff_all.toFixed(1) + '%</td></tr>'
+                {% endif %}
                 innerHTML += '</table><br><br>'
 
                 div.innerHTML = innerHTML;
