@@ -86,13 +86,6 @@ def country_deaths(request):
 
             weekday += 1
             if weekday == 8:
-                print(case.date)
-                print(".....")
-                print(case.date.isocalendar()[1])
-                print(case.date.year)
-                print(week)
-                print(week_value_all)
-
                 if week_value_all > -1:
                     week_values_alldeaths[week] = int(week_value_all)
                 if week_value_peak_all:
@@ -138,10 +131,6 @@ def country_deaths(request):
                     diff_week2_peak = int(death_total_week2 - death_peak_week2)
                 diff_week12 = int(death_total_week12 - ((weeks_wdata - 11) * 7 * country.average_death_per_day))
 
-        print(country)
-        print(week_values_alldeaths)
-        print(week_values_alldeaths_peak)
-
         all_num = now20_11_32 + now20_33_53 + now21_1_25 + now21_rest
         all_avg = avg20_11_32 + avg20_33_53 + avg21_1_25 + avg21_rest
 
@@ -149,8 +138,6 @@ def country_deaths(request):
         if (death_peak_week2):
             percent_peak = (100 * diff_week2_peak / death_peak_week2)
 
-        print("Week")
-        print(last_week_def)
         if last_week_def < last_week:
             last_week = None
 
