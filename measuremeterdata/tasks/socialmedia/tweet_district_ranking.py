@@ -164,6 +164,6 @@ def create_image(districts, canton):
     print(html)
 
     options = {'width': '1200', 'height': '1200', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "out_image.jpg", options=options)
+    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
 
     return last_date
