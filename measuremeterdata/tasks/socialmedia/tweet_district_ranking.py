@@ -61,6 +61,10 @@ def create_image(districts, canton):
 
     #'#container_2 { -webkit-transform: rotate(90deg); -moz-transform: rotate(90deg); -o-transform: rotate(90deg); -ms-transform: rotate(90deg); transform: rotate(90deg);}' \
 
+    cases_canton = CHCases.objects.filter(canton=canton,
+                                   date__range=[date.today() - timedelta(days=25), date.today()]).order_by(
+        "-date")
+
     html = f'<html><head><meta charset="UTF-8" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>' \
            '<style>table, th, td { padding: 10px; font-size: 14; }' \
             '.columnl { float: left; width: 80px; } .columnr { float: left; width: 1000px; }/* Clear floats after the columns */ .row:after {   content: "";   display: table;   clear: both; }' \
@@ -74,7 +78,7 @@ def create_image(districts, canton):
            '<table style="margin-left: auto;margin-right: auto;">' \
            '<tr style="vertical-align: top;"><td style="vertical-align: top;text-align: right" nowrap>' \
            f'<img src = https://covidlaws.net/static/images/flags_ch/{canton.code}_circle.png><br><br>' \
-           f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{canton.name}</h1></div>' \
+           f'<div id="rotate-text"><h1>&nbsp;&nbsp;&nbsp;{canton.name} // Inzidenz: {cases_canton[0].incidence_past7days} ({cases_canton[0].date}) </h1></div>' \
             '</td><td>' \
            '<table class="ui celled table" style="width: 950px;table-layout:fixed">' \
             '<colgroup>' \
@@ -95,6 +99,7 @@ def create_image(districts, canton):
         cases = CHCases.objects.filter(canton=district,
                                        date__range=[date_tocheck - timedelta(days=25), date_tocheck]).order_by(
             "-date")
+
         last_date = cases[0].date
         last_prev7 = cases[0].incidence_past7days
         last_prev14 = cases[0].incidence_past14days
@@ -159,6 +164,6 @@ def create_image(districts, canton):
     print(html)
 
     options = {'width': '1200', 'height': '1200', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    imgkit.from_string(html, "out_image.jpg", options=options)
 
     return last_date
