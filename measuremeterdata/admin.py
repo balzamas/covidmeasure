@@ -45,6 +45,8 @@ admin.site.register(BELCases, BELCasesAdmin)
 class CasesDeathResource(resources.ModelResource):
     class Meta:
         model = CasesDeaths
+        fields = ('country__name', 'country__code','country__iso_code','date', 'cases', 'deaths', 'cases_past14days', 'deaths_past14days', 'development7to7', 'r0median', 'hosp_per_million', 'people_vaccinated_per_hundred', 'tests_smoothed_per_thousand', 'positivity')
+
 
 class CasesDeathsAdmin(ImportExportModelAdmin):
     list_display = ['country', 'date', 'iso_code', 'cases', 'deaths', 'cases_past14days', 'deaths_past14days', 'development7to7', 'r0median', 'hosp_per_million', 'people_vaccinated_per_hundred', 'tests_smoothed_per_thousand', 'positivity']
