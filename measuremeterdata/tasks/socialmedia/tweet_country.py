@@ -214,7 +214,8 @@ def create_list(countries):
                                 "R": last_R, "R_date": last_R_date, "stringency": last_stringency, "stringency_date": last_stringency_date
                                 }
 
-                country_vals.append(canton_toadd)
+                if (last_prev14 > 5)
+                    country_vals.append(canton_toadd)
 
     scores = sorted(country_vals, key=lambda i: i['score_before'],reverse=False)
     rank = 1
