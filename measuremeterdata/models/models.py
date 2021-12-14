@@ -108,7 +108,6 @@ class CasesDeaths(MotherModel):
     def __str__(self):
         return f"{self.country} {self.date}"
 
-
 class CountryMeasureType(MotherModel):
     name = models.CharField(max_length=200)
     code = models.CharField(max_length=2)

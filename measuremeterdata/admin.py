@@ -3,6 +3,8 @@ from django import forms
 from measuremeterdata.models.models import Country, MeasureCategory, MeasureType_old, Measure_old, Continent, CasesDeaths, CountryMeasure, CountryMeasureType
 from measuremeterdata.models.models_ch import CHCanton, CHMeasureType, CHMeasure, CHCases, CHDeaths, DoomsdayClock
 from measuremeterdata.models.models_bel import BELCases, BELProvince, BELAgeGroups
+from import_export.admin import ImportExportModelAdmin
+from import_export import resources
 
 admin.site.register(Continent)
 admin.site.register(MeasureCategory)
@@ -40,19 +42,30 @@ class BELCasesAdmin(admin.ModelAdmin):
 admin.site.register(BELCases, BELCasesAdmin)
 
 
-class CasesDeathsAdmin(admin.ModelAdmin):
-    list_display = ['country', 'date', 'cases', 'deaths', 'deathstotal', 'deathstotal_peak']
+class CasesDeathResource(resources.ModelResource):
+    class Meta:
+        model = CasesDeaths
+
+class CasesDeathsAdmin(ImportExportModelAdmin):
+    list_display = ['country', 'date', 'iso_code', 'cases', 'deaths', 'cases_past14days', 'deaths_past14days', 'development7to7', 'r0median', 'hosp_per_million', 'people_vaccinated_per_hundred', 'tests_smoothed_per_thousand', 'positivity']
     list_filter = ('country','date')
+    resource_class = CasesDeathResource
+    def iso_code(self,obj):
+        return obj.country.iso_code
+
 admin.site.register(CasesDeaths, CasesDeathsAdmin)
 
 class CHCasesAdmin(admin.ModelAdmin):
     list_display = ['canton', 'date', 'cases', 'incidence_past14days', 'incidence_past7days']
     search_fields = ['canton']
     list_filter = ('canton','date')
+
+
 admin.site.register(CHCases, CHCasesAdmin)
 
 
 class CountryAdmin(admin.ModelAdmin):
+    list_display = ['name', 'code', 'iso_code',]
     ordering = ['name']
     search_fields = ['name']
 admin.site.register(Country, CountryAdmin)

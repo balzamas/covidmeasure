@@ -81,6 +81,7 @@ THIRD_PARTY_APPS = [
     'django_filters',
     'ckeditor',
     'corsheaders',
+    'import_export'
 ]
 
 LOCAL_APPS = [

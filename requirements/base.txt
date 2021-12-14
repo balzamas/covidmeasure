@@ -22,7 +22,7 @@ bs4
 matplotlib
 pydeepl
 tweepy
-freeze
+#freeze
 imgkit
 wkhtmltopdf
 openpyxl
@@ -30,3 +30,5 @@ facebook-sdk
 telepot
 emoji
 emoji-country-flag
+instabot
+django-import-export
