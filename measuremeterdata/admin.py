@@ -48,7 +48,7 @@ class CasesDeathResource(resources.ModelResource):
 
 class CasesDeathsAdmin(ImportExportModelAdmin):
     list_display = ['country', 'date', 'iso_code', 'cases', 'deaths', 'cases_past14days', 'deaths_past14days', 'development7to7', 'r0median', 'hosp_per_million', 'people_vaccinated_per_hundred', 'tests_smoothed_per_thousand', 'positivity']
-    list_filter = ('country','date')
+    list_filter = ('country','date', 'country__continent')
     resource_class = CasesDeathResource
     def iso_code(self,obj):
         return obj.country.iso_code
