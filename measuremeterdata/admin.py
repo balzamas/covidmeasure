@@ -65,11 +65,16 @@ class CHCasesAdmin(admin.ModelAdmin):
 
 admin.site.register(CHCases, CHCasesAdmin)
 
+class CountryResource(resources.ModelResource):
+    class Meta:
+        model = Country
 
-class CountryAdmin(admin.ModelAdmin):
+
+class CountryAdmin(ImportExportModelAdmin):
     list_display = ['name', 'code', 'iso_code',]
     ordering = ['name']
     search_fields = ['name']
+    resource_class = CountryResource
 admin.site.register(Country, CountryAdmin)
 
 
