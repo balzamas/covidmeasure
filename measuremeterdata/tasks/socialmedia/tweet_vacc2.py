@@ -68,64 +68,6 @@ def send_tweet(week):
         status = f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {status_gen}\nInzidenzen Hospitalisierte/Tote\nDaten sind im BAG-File als "intermediate" markiert!',
         media_ids=[media.media_id_string])
 
-
-
-
-def get_vacced_by_agegroup(filename, age_group, date_week, zf, geo):
-        df_tot_vacc = pd.read_csv(zf.open(f'data/{filename}'), error_bad_lines=False)
-
-        rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == geo) &
-                            (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                             (df_tot_vacc['date'] == date_week) &
-                            (df_tot_vacc['vaccination_status'] == "fully_vaccinated") ]
-
-        return rslt_df['pop'].item()
-
-
-def get_unvacced_by_agegroup(filename, age_group, date_week, zf, geo):
-    tot = 0
-
-    df_tot_vacc = pd.read_csv(zf.open(f'data/{filename}'), error_bad_lines=False)
-
-    rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == geo) &
-                          (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                          (df_tot_vacc['date'] == date_week) &
-                          (df_tot_vacc['vaccination_status'] == "not_vaccinated")]
-
-    tot += rslt_df['pop'].item()
-
-    rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == geo) &
-                          (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                          (df_tot_vacc['date'] == date_week) &
-                          (df_tot_vacc['vaccination_status'] == "partially_vaccinated")]
-
-    tot += rslt_df['pop'].item()
-
-    return tot
-
-def get_numbers_tot_by_agegroup(filename, date_str, age_group, week_from, week_to, zf, geo, is_vacc_file):
-    df_tot_vacc = pd.read_csv(zf.open(f'data/{filename}'), error_bad_lines=False)
-
-    tot = 0
-
-    for x in range(week_from, (week_to + 1)):
-        date_week = (202100 +  x)
-
-        if is_vacc_file:
-            rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == geo) &
-                                  (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                                  (df_tot_vacc[date_str] == date_week) &
-                                  (df_tot_vacc['vaccination_status'] == 'fully_vaccinated') ]
-        else:
-            rslt_df = df_tot_vacc[(df_tot_vacc['geoRegion'] == geo) &
-                                  (df_tot_vacc['altersklasse_covid19'] == age_group) &
-                                  (df_tot_vacc[date_str] == date_week)]
-
-        tot += rslt_df['entries'].item()
-
-    return tot
-
-
 def get_vals_by_agegroup(filename, date_str, age_group, date_week, zf, geo):
     try:
         df_tot_vacc = pd.read_csv(zf.open(f'data/{filename}'), error_bad_lines=False)
