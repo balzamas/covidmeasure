@@ -18,7 +18,7 @@ import flag
 def tweet(type):
 
     if type > 4:
-        countries = Country.objects.filter(isactive=True)
+        countries = Country.objects.filter(isactive=True,population__gte=500000)
     else:
         countries = Country.objects.filter(continent=1,isactive=True)
     scores = create_list(countries)
