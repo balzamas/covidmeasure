@@ -25,6 +25,7 @@ import pandas as pd
 import zipfile
 import urllib.request, json
 from decimal import *
+from measuremeterdata.tasks.socialmedia.tweet_impfdich import tweet as tweet_impf
 
 def tweet(week, geo):
     create_image(week, geo)
@@ -43,7 +44,7 @@ def send_telegram(week):
     bot = telepot.Bot(settings.TELEGRAM_TOKEN)
     print(bot.getMe())
     bot.sendMessage(settings.TELEGRAM_CHATID, f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nStand: Woche {week} \n7-Tage-Inzidenzen Hospitalisierte/Tote\nDaten sind im BAG-File als "intermediate" markiert.\nGeimpfte vs. Ungeimpfte')
-    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image.jpg", 'rb'))
+    bot.sendPhoto(settings.TELEGRAM_CHATID, photo=open("/tmp/out_image_vacc.jpg", 'rb'))
 
 
 
@@ -67,6 +68,8 @@ def send_tweet(week):
     api.update_status(
         status = f'Vollständig Geimpfte vs. Unvollständig Geimpfte/Ungeimpfte\nWoche {status_gen}\nInzidenzen Hospitalisierte/Tote\nDaten sind im BAG-File als "intermediate" markiert!',
         media_ids=[media.media_id_string])
+
+    tweet_impf("Covidlaws")
 
 def get_vals_by_agegroup(filename, date_str, age_group, date_week, zf, geo):
     try:
@@ -493,5 +496,5 @@ def create_image(week, geo):
             f'<h3>Web: covidlaws.net // Twitter: @CovidLawsStats // Quelle: BAG Schweiz, Status Daten: Intermediate</h3></td></tr></table> </body></html>'
 
     options = {'width': '1750', 'height': '1350', 'encoding': "UTF-8", }
-    imgkit.from_string(html, "/tmp/out_image.jpg", options=options)
+    imgkit.from_string(html, "/tmp/out_image_vacc.jpg", options=options)
 

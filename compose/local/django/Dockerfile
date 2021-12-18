@@ -14,6 +14,9 @@ RUN apt-get update \
   #wkhtml for imgkit
   && apt-get install -y wkhtmltopdf \
 
+  && apt-get install -y poppler-utils \
+
+
   # cleaning up unused files
   && apt-get purge -y --auto-remove -o APT::AutoRemove::RecommendsImportant=false \
   && rm -rf /var/lib/apt/lists/*

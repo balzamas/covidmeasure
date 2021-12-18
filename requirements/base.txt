@@ -32,3 +32,6 @@ emoji
 emoji-country-flag
 instabot
 django-import-export
+pdf2image
+PyPDF2
+PyMuPDF
