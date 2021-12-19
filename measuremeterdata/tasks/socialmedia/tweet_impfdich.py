@@ -37,7 +37,9 @@ def random_text():
         "احم نفسك ، احصل على التطعيم! 🥰",
         "خپل ځان وساتئ، واکسین وکړئ! 🥰",
         "Protektu vin, vakcinu vin! 🥰",
-        "Protegia tei e lai virolar tei! 🥰"
+        "Protegia tei e lai virolar tei! 🥰",
+        "💉💉 ➡ 🏋️  🦠  🚫💉 ➡ ️⚰️",
+        "Vielleicht reicht es noch bevor dich @realB11529 erwischt? 😬"
 
     ]
     rnd_num = random.randrange(0, (len(texts)-1))
