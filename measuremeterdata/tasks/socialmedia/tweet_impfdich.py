@@ -30,7 +30,6 @@ def random_text():
         "Protégez-vous, faites-vous vacciner! 🥰",
         "🥰 !از خودتون مراقبت کنید، واکسن بزنید",
         "உங்களைப் பாதுகாத்துக் கொள்ளுங்கள், தடுப்பூசி போடுங்கள்! 🥰",
-        "Zaštitite se, cijepite se! 🥰",
         "Kendinizi koruyun, aşı olun! 🥰",
         "Proteggiti, fatti vaccinare! 🥰",
         "Xwe biparêzin, aşî bikin! 🥰",
@@ -39,7 +38,8 @@ def random_text():
         "Protektu vin, vakcinu vin! 🥰",
         "Protegia tei e lai virolar tei! 🥰",
         "💉💉 ➡ 🏋️  🦠  🚫💉 ➡ ️⚰️",
-        "Vielleicht reicht es noch bevor dich @realB11529 erwischt? 😬"
+        "Vielleicht reicht es noch bevor dich @realB11529 erwischt? 😬",
+        "Zaštitite se, cijepite se! 🥰",
 
     ]
     rnd_num = random.randrange(0, (len(texts)-1))
