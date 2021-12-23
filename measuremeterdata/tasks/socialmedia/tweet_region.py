@@ -98,6 +98,11 @@ def tweet(type):
         scores = create_list(countries)
         text = create_image(region, scores, False)
 
+    if type == 14:
+        region = "Mediterranean West"
+        countries = Country.objects.filter(pk__in=[34,33,20,31,53])
+        scores = create_list(countries)
+        text = create_image(region, scores, False)
 #    page_access_token = settings.FACEBOOK_ACCESS_TOKEN
 #    graph = facebook.GraphAPI(page_access_token)
 #    facebook_page_id = settings.FACEBOOK_PAGE_ID
