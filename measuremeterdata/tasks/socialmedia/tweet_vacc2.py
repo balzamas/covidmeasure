@@ -62,7 +62,7 @@ def send_tweet(week):
     except:
         print("Error during authentication")
 
-    media = api.media_upload("/tmp/out_image.jpg")
+    media = api.media_upload("/tmp/out_image_vacc.jpg")
     status_gen = {week}
 
     api.update_status(
