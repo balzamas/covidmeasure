@@ -25,7 +25,11 @@ class MeasureTypeAdmin(admin.ModelAdmin):
     search_fields = ['name']
 admin.site.register(CountryMeasureType, MeasureTypeAdmin)
 
-admin.site.register(DoomsdayClock)
+class DoomsdayClockAdmin(admin.ModelAdmin):
+    list_display = ['cur_date', 'name']
+    ordering = ['cur_date']
+
+admin.site.register(DoomsdayClock, DoomsdayClockAdmin)
 
 class MeasureAdmin(admin.ModelAdmin):
     list_display = ['country', 'type', 'level', 'last_level','comment', 'start', 'end']

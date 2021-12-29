@@ -47,7 +47,7 @@ class Command(BaseCommand):
 
             zf = zipfile.ZipFile(BytesIO(resp.read()), 'r')
 
-            df_occupancy = pd.read_csv(zf.open('data/COVID19HospCapacity_geoRegion.csv'), error_bad_lines=False)
+            df_occupancy = pd.read_csv(zf.open('data/COVID19HospCapacity_geoRegion.csv'), on_bad_lines='skip')
             df_occupancy['date'] = pd.to_datetime(df_occupancy['date'])
             df_occupancy = df_occupancy.set_index(['date'])
 
@@ -55,6 +55,7 @@ class Command(BaseCommand):
             datefrom = (date_to_load_date - timedelta(days=15)).strftime('%Y-%m-%d')
             dateto = (date_to_load_date - timedelta(days=1)).strftime('%Y-%m-%d')
 
+            print("Load Hospitalisations")
             hosp_final = 0
             for index_row, row in df_occupancy[ch_only].loc[datefrom:dateto].iterrows():
                 hosp_final += row['ICU_Covid19Patients']
@@ -73,7 +74,9 @@ class Command(BaseCommand):
 
             #---------------------------------------------------------------------------
 
-            df_death = pd.read_csv(zf.open('data/COVID19Death_geoRegion.csv'), error_bad_lines=False)
+            print("Load Deaths")
+
+            df_death = pd.read_csv(zf.open('data/COVID19Death_geoRegion.csv'), on_bad_lines='skip')
             df_death['datum'] = pd.to_datetime(df_death['datum'])
             df_death = df_death.set_index(['datum'])
             ch_only = df_death['geoRegion'] == 'CH'
@@ -89,11 +92,10 @@ class Command(BaseCommand):
 
             print("Vacc")
 
-            df_vacc = pd.read_csv(zf.open('data/COVID19VaccDosesAdministered.csv'), error_bad_lines=False)
+            df_vacc = pd.read_csv(zf.open('data/COVID19VaccDosesAdministered.csv'), on_bad_lines='skip')
             df_vacc['date'] = pd.to_datetime(df_vacc['date'])
             df_vacc = df_vacc.set_index(['date'])
             ch_only = df_vacc['geoRegion'] == 'CH'
-
 
             try:
                 date_vacc = (date_to_load_date - timedelta(days=1)).strftime('%Y-%m-%d')
@@ -104,14 +106,11 @@ class Command(BaseCommand):
                 now = df_vacc[ch_only].tail(1)['sumTotal'].item()
                 vacc_date = df_vacc[ch_only].tail(1).index[0]
 
-
-            print(vacc_date)
             date_vacc = (vacc_date - timedelta(days=8)).strftime('%Y-%m-%d')
             bef7d = df_vacc[ch_only].loc[date_vacc]['sumTotal']
 
             date_vacc = (vacc_date - timedelta(days=15)).strftime('%Y-%m-%d')
             bef14d = df_vacc[ch_only].loc[date_vacc]['sumTotal']
-
 
             vacc_value = (now - bef7d) * 100000 / 8500000
             vacc_value_7d = (bef7d - bef14d) * 100000 / 8500000
@@ -119,7 +118,7 @@ class Command(BaseCommand):
             #---------------------------------------------------------------------------
             print("Positivity")
 
-            df_positivity = pd.read_csv(zf.open('data/COVID19Test_geoRegion_all.csv'), error_bad_lines=False)
+            df_positivity = pd.read_csv(zf.open('data/COVID19Test_geoRegion_all.csv'), on_bad_lines='skip')
             df_positivity['datum'] = pd.to_datetime(df_positivity['datum'])
             df_positivity = df_positivity.set_index(['datum'])
             ch_only = df_positivity['geoRegion'] == 'CH'
@@ -148,7 +147,7 @@ class Command(BaseCommand):
             #---------------------------------------------------------------------------
             print("R")
 
-            df_r = pd.read_csv(zf.open('data/COVID19Re_geoRegion.csv'), error_bad_lines=False)
+            df_r = pd.read_csv(zf.open('data/COVID19Re_geoRegion.csv'), on_bad_lines='skip')
             df_r['date'] = pd.to_datetime(df_r['date'])
             df_r = df_r.set_index(['date'])
             ch_only_filter = df_r['geoRegion']=='CH'
@@ -195,7 +194,7 @@ class Command(BaseCommand):
 
             print("Hosp")
 
-            df_hosp = pd.read_csv(zf.open('data/COVID19Hosp_geoRegion.csv'), error_bad_lines=False)
+            df_hosp = pd.read_csv(zf.open('data/COVID19Hosp_geoRegion.csv'), on_bad_lines='skip')
             df_hosp['datum'] = pd.to_datetime(df_hosp['datum'])
             df_hosp = df_hosp.set_index(['datum'])
             ch_only_filter = df_hosp['geoRegion']=='CH'
@@ -235,7 +234,7 @@ class Command(BaseCommand):
 
             print("Inz")
 
-            df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'), error_bad_lines=False)
+            df_incidence = pd.read_csv(zf.open('data/COVID19Cases_geoRegion.csv'), on_bad_lines='skip')
             df_incidence['datum'] = pd.to_datetime(df_incidence['datum'])
             df_incidence = df_incidence.set_index(['datum'])
             df_incidence_ch_only = df_incidence['geoRegion']=='CH'

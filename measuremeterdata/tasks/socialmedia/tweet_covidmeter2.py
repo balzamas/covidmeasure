@@ -74,6 +74,7 @@ def send_tweet(message, tweet_id):
 
 
 def create_image(date_to_load, num):
+    print("Loading....")
     print(date_to_load)
     doom_clock = DoomsdayClock.objects.get(cur_date=date_to_load)
 
