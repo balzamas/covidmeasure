@@ -937,7 +937,7 @@ var data
 
                 document.getElementById("datefrom").value = formatDate(real_startdate)
                 document.getElementById("dateto").value = formatDate(real_enddate)
-                $('#cantons_dd').dropdown('set selected', ['37','35','43','39'])
+                $('#cantons_dd').dropdown('set selected', ['37', '43','39', '44', '34'])
                 $('#measuretypes_dd').dropdown('set selected', ['6'])
 
                 LoadDataGraph(real_startdate,real_enddate,$('#cantons_dd').dropdown('get value'),$('#measuretypes_dd').dropdown('get value'));

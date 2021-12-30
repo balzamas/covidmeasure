@@ -106,14 +106,17 @@ class Command(BaseCommand):
                 now = df_vacc[ch_only].tail(1)['sumTotal'].item()
                 vacc_date = df_vacc[ch_only].tail(1).index[0]
 
-            date_vacc = (vacc_date - timedelta(days=8)).strftime('%Y-%m-%d')
-            bef7d = df_vacc[ch_only].loc[date_vacc]['sumTotal']
+            try:
+                date_vacc = (vacc_date - timedelta(days=8)).strftime('%Y-%m-%d')
+                bef7d = df_vacc[ch_only].loc[date_vacc]['sumTotal']
 
-            date_vacc = (vacc_date - timedelta(days=15)).strftime('%Y-%m-%d')
-            bef14d = df_vacc[ch_only].loc[date_vacc]['sumTotal']
+                date_vacc = (vacc_date - timedelta(days=15)).strftime('%Y-%m-%d')
+                bef14d = df_vacc[ch_only].loc[date_vacc]['sumTotal']
 
-            vacc_value = (now - bef7d) * 100000 / 8500000
-            vacc_value_7d = (bef7d - bef14d) * 100000 / 8500000
+                vacc_value = (now - bef7d) * 100000 / 8500000
+                vacc_value_7d = (bef7d - bef14d) * 100000 / 8500000
+            except:
+                pass
 
             #---------------------------------------------------------------------------
             print("Positivity")
