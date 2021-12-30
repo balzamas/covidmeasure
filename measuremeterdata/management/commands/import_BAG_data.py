@@ -116,6 +116,8 @@ class Command(BaseCommand):
                 vacc_value = (now - bef7d) * 100000 / 8500000
                 vacc_value_7d = (bef7d - bef14d) * 100000 / 8500000
             except:
+                vacc_value = None
+                vacc_value_7d = None
                 pass
 
             #---------------------------------------------------------------------------
