@@ -95,6 +95,12 @@ def create_messages(scores, type):
         gen_message, countries = generate_list(scores, "cur_prev14", 11)
         message_twitter += gen_message
 
+    if type == 10:
+        scores = sorted(scores, key=lambda i: i['cur_prev14'],reverse=False)
+        message_twitter = emoji.emojize("World Stats\nFall-Inzidenz (14 Tage/100k Einwohner) (tiefste)\n")
+        gen_message, countries = generate_list(scores, "cur_prev14", 11)
+        message_twitter += gen_message
+
     cntry_list = ""
     for country in countries:
        cntry_list+=str(country)+","
