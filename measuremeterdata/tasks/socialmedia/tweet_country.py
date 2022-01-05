@@ -89,6 +89,12 @@ def create_messages(scores, type):
         gen_message, countries = generate_list(scores, "deaths", 11)
         message_twitter += gen_message
 
+    if type == 9:
+        scores = sorted(scores, key=lambda i: i['cur_prev14'],reverse=True)
+        message_twitter = emoji.emojize("World Stats\nFall-Inzidenz (14 Tage/100k Einwohner)\n")
+        gen_message, countries = generate_list(scores, "cur_prev14", 11)
+        message_twitter += gen_message
+
     cntry_list = ""
     for country in countries:
        cntry_list+=str(country)+","
@@ -175,12 +181,12 @@ def create_list(countries):
                 positivity_before7 = 5
 
 
-#            try:
-            score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7) * float(cases[0].cases_past7days) /100) + (float(last_positivity_calc) * float(cases[0].cases_past7days) / 50) + float((cases[0].deaths_past14days * 20))
-            score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7) * float(case_14days_7daysago.cases_past7days) /100) + (float(positivity_before7) * float(case_14days_7daysago.cases_past7days) / 50) + float((case_14days_7daysago.deaths_past14days * 20))
-#            except:
-#                print(f"{country} failed...")
-#                score = None
+            try:
+                score = float(cases[0].cases_past14days) + float(cases[0].cases_past7days) + (float(cases[0].development7to7) * float(cases[0].cases_past7days) /100) + (float(last_positivity_calc) * float(cases[0].cases_past7days) / 50) + float((cases[0].deaths_past14days * 20))
+                score_7days_before = float(case_14days_7daysago.cases_past14days) + float(case_14days_7daysago.cases_past7days) + (float(case_14days_7daysago.development7to7) * float(case_14days_7daysago.cases_past7days) /100) + (float(positivity_before7) * float(case_14days_7daysago.cases_past7days) / 50) + float((case_14days_7daysago.deaths_past14days * 20))
+            except:
+                print(f"{country} failed...")
+                score = None
 
             if (score):
                 if (score > score_7days_before):
