@@ -27,8 +27,8 @@ import urllib.request, json
 from decimal import *
 from measuremeterdata.tasks.socialmedia.tweet_impfdich import tweet as tweet_impf
 
-def tweet(week, geo):
-    create_image(week, geo)
+def tweet(year, week, geo):
+    create_image(year, week, geo)
 
 #    page_access_token = settings.FACEBOOK_ACCESS_TOKEN
 #    graph = facebook.GraphAPI(page_access_token)
@@ -114,8 +114,8 @@ def get_vals_by_agegroup(filename, date_str, age_group, date_week, zf, geo):
         return None, None, None, None, None
 
 
-def calc_week(week, geo, age_categories):
-    date_week = 202100 + week
+def calc_week(year, week, geo, age_categories):
+    date_week = (year * 100) + week
     age_categories_young = ["0 - 9", "10 - 19", "20 - 29", "30 - 39", "40 - 49", "50 - 59"]
     age_categories_old = ["60 - 69","70 - 79","80+"]
 
@@ -392,11 +392,11 @@ def calc_week(week, geo, age_categories):
 
     return response
 
-def create_csv(week, geo, age_categories):
+def create_csv(year, week, geo, age_categories):
     print("CSV:")
     print("Week;Category;Age Group;Vacc Num;Unvacc Num;Unknown Num;Vacc Incidence;Unvacc Incidence;Ratio;Eff")
     for week_to_load in range (30, (week+1)):
-        response = calc_week(week_to_load, geo, age_categories)
+        response = calc_week(year, week_to_load, geo, age_categories)
 
         for ac in age_categories:
             print(f"{week_to_load};Cases;'{ac}';{response['cases_vacc'][ac]};{response['cases_unvacc'][ac]};{response['cases_unknown'][ac]};{response['inz_vacccases'][ac]};{response['inz_nonvacccases'][ac]};{response['rel_cases_str'][ac]};;")
@@ -414,12 +414,12 @@ def create_csv(week, geo, age_categories):
 
 
     print("--------------------------------")
-def create_image(week, geo):
+def create_image(year, week, geo):
     age_categories = ["0 - 9","10 - 19","20 - 29","30 - 39","40 - 49","50 - 59","60 - 69","70 - 79","80+","all"]
 
-    create_csv(week, geo, age_categories)
+    create_csv(year, week, geo, age_categories)
 
-    response = calc_week(week, geo, age_categories)
+    response = calc_week(year, week, geo, age_categories)
 
     html = f'<html><head><meta charset="UTF-8" /><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>' \
            '<style>table, th, td { padding: 10px; font-size: 14; }' \
