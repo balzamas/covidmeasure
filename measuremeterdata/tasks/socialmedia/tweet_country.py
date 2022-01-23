@@ -267,11 +267,11 @@ def generate_list(scores, field, max, show_tend):
                 tend_icon = ""
                 if show_tend:
                     if (score["tendency"]> 5):
-                        tend_icon = "\U00002B06"
+                        tend_icon = "\U0001F53A"
                     elif (score["tendency"]> -5):
-                        tend_icon = "\U000027A1"
+                        tend_icon = "\U0001F539"
                     else:
-                        tend_icon = "\U00002B07"
+                        tend_icon = "\U0001F53B"
 
                 list += str(score[field]) + tend_icon + " " + flag.flag(score["code"]) + " " + score["code"] + "\n"
             else:
