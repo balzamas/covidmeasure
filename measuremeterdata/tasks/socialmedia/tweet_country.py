@@ -37,68 +37,68 @@ def create_messages(scores, type):
         #Tendency bad
         scores = sorted(scores, key=lambda i: i['tendency'],reverse=True)
         message_twitter = "Euro Stats\nHöchste Zunahme Fälle im Vergleich zur Vorwoche in %\n\n"
-        gen_message, countries = generate_list(scores, "tendency", 7)
+        gen_message, countries = generate_list(scores, "tendency", 7, False)
         message_twitter += gen_message
 
     if type == 2:
         #Tendency good
         scores = sorted(scores, key=lambda i: i['tendency'],reverse=False)
         message_twitter = "Euro Stats\nHöchste Rückgänge Fälle im Vergleich zur Vorwoche in %\n"
-        gen_message, countries = generate_list(scores, "tendency", 7)
+        gen_message, countries = generate_list(scores, "tendency", 7, False)
         message_twitter += gen_message
 
     if type == 3:
         #deaths bad
         scores = sorted(scores, key=lambda i: i['deaths'],reverse=True)
         message_twitter = emoji.emojize('Euro Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (worst)\n')
-        gen_message, countries = generate_list(scores, "deaths", 7)
+        gen_message, countries = generate_list(scores, "deaths", 7, False)
         message_twitter += gen_message
 
     if type == 4:
         #Tendency good
         scores = sorted(scores, key=lambda i: i['deaths'],reverse=False)
         message_twitter = emoji.emojize("Euro Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (best)\n")
-        gen_message, countries = generate_list(scores, "deaths", 7)
+        gen_message, countries = generate_list(scores, "deaths", 7, False)
         message_twitter += gen_message
 
     if type == 5:
         #Tendency bad
         scores = sorted(scores, key=lambda i: i['tendency'],reverse=True)
         message_twitter = "World Stats\nHöchste Zunahme Fälle im Vergleich zur Vorwoche in %\n\n"
-        gen_message, countries = generate_list(scores, "tendency", 11)
+        gen_message, countries = generate_list(scores, "tendency", 11, False)
         message_twitter += gen_message
 
     if type == 6:
         #Tendency good
         scores = sorted(scores, key=lambda i: i['tendency'],reverse=False)
         message_twitter = "World Stats\nHöchste Rückgänge Fälle im Vergleich zur Vorwoche in %\n"
-        gen_message, countries = generate_list(scores, "tendency", 11)
+        gen_message, countries = generate_list(scores, "tendency", 11, False)
         message_twitter += gen_message
 
     if type == 7:
         #deaths bad
         scores = sorted(scores, key=lambda i: i['deaths'],reverse=True)
         message_twitter = emoji.emojize('World Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (worst)\n')
-        gen_message, countries = generate_list(scores, "deaths", 11)
+        gen_message, countries = generate_list(scores, "deaths", 11, False)
         message_twitter += gen_message
 
     if type == 8:
         #Tendency good
         scores = sorted(scores, key=lambda i: i['deaths'],reverse=False)
         message_twitter = emoji.emojize("World Stats\nCovid-Tote/100k Einwohner in den verg. 2 Wochen (best)\n")
-        gen_message, countries = generate_list(scores, "deaths", 11)
+        gen_message, countries = generate_list(scores, "deaths", 11, False)
         message_twitter += gen_message
 
     if type == 9:
         scores = sorted(scores, key=lambda i: i['cur_prev14'],reverse=True)
         message_twitter = emoji.emojize("World Stats\nFall-Inzidenz (14 Tage/100k Einwohner)\n")
-        gen_message, countries = generate_list(scores, "cur_prev14", 11)
+        gen_message, countries = generate_list(scores, "cur_prev14", 11, True)
         message_twitter += gen_message
 
     if type == 10:
         scores = sorted(scores, key=lambda i: i['cur_prev14'],reverse=False)
         message_twitter = emoji.emojize("World Stats\nFall-Inzidenz (14 Tage/100k Einwohner) (tiefste)\n")
-        gen_message, countries = generate_list(scores, "cur_prev14", 11)
+        gen_message, countries = generate_list(scores, "cur_prev14", 11, True)
         message_twitter += gen_message
 
     cntry_list = ""
@@ -160,6 +160,7 @@ def create_list(countries):
             last_R_date = None
             positivity_before7 = None
             last_stringency = None
+            last_stringency_date = None
             for case in cases:
                 if (case.stringency_index != None and last_stringency == None):
                     last_stringency = case.stringency_index
@@ -254,7 +255,7 @@ def create_list(countries):
 
 
 
-def generate_list(scores, field, max):
+def generate_list(scores, field, max, show_tend):
     count = 0
     countries = []
 
@@ -263,7 +264,16 @@ def generate_list(scores, field, max):
     for score in scores:
         if (count < max):
             if max > 7:
-                list += str(score[field]) + " " + flag.flag(score["code"]) + " " + score["code"] + "\n"
+                tend_icon = ""
+                if show_tend:
+                    if (score["tendency"]> 5):
+                        tend_icon = "\U00002B06"
+                    elif (score["tendency"]> -5):
+                        tend_icon = "\U000027A1"
+                    else:
+                        tend_icon = "\U00002B07"
+
+                list += str(score[field]) + tend_icon + " " + flag.flag(score["code"]) + " " + score["code"] + "\n"
             else:
                 list += str(score[field]) + " " + flag.flag(score["code"]) + " " + score["name"] +"\n"
             countries.append(score["pk"])
