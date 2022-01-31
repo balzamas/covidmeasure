@@ -122,14 +122,6 @@ def create_image(districts, canton):
     rank = 1
     for score in scores:
         score["rank"] = rank
-        score["rank_diff"] = score["rank_old"] - rank
-        rank += 1
-        if (score["rank"] < score["rank_old"]):
-            score["rank_icon"] = "arrow circle up green"
-        elif (score["rank"] == score["rank_old"]):
-            score["rank_icon"] = "arrow circle left orange"
-        else:
-            score["rank_icon"] = "arrow circle down red"
 
         html += f'<tr>' \
                 f'<td>{score["rank"]}</td>' \
