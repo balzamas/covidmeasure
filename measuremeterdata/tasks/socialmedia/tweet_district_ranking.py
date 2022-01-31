@@ -105,7 +105,7 @@ def create_image(districts, canton):
         last_prev14 = cases[0].incidence_past14days
         last_tendency = cases[0].development7to7
 
-
+        past_date_tocheck = last_date - timedelta(days=7)
 
         cur_prev = last_prev7
 
@@ -117,7 +117,8 @@ def create_image(districts, canton):
         canton_vals.append(canton_toadd)
 
 
-    scores = sorted(scores, key=lambda i: i['cur_prev'], reverse=False)
+
+    scores = sorted(canton_vals, key=lambda i: i['cur_prev'], reverse=False)
     rank = 1
     for score in scores:
         score["rank"] = rank
