@@ -122,6 +122,7 @@ def create_image(districts, canton):
     rank = 1
     for score in scores:
         score["rank"] = rank
+        rank += 1
 
         html += f'<tr>' \
                 f'<td>{score["rank"]}</td>' \
