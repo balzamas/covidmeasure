@@ -107,6 +107,8 @@ def create_image(districts, canton):
 
 
 
+        cur_prev = last_prev7
+
         canton_toadd = {"name": district.name,
                         "date": last_date, "code": district.code, "level": district.level,
                         "cur_prev": cur_prev, "cur_prev14": last_prev14, "tendency": last_tendency,
