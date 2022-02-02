@@ -6,7 +6,7 @@
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 
     <script type="text/javascript" src="{% static 'js/geojson/switzerland_districts.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/district7.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/district_trend.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/leaflet.pattern.js' %}"></script>
 
 {% endblock %}
@@ -28,12 +28,12 @@
 
 {% endblock %}
 
-{% block title_header %}CovidLaws // {% trans 'Incidence by canton/district' %}{% endblock %}
-{% block description %}CovidLaws // {% trans 'Incidence by canton/district' %}{% endblock %}
-{% block title %}{% trans 'Incidence by canton/district' %}{% endblock %}
+{% block title_header %}CovidLaws // {% trans 'Case development by canton/district' %}{% endblock %}
+{% block description %}CovidLaws // {% trans 'Case development by canton/district' %}{% endblock %}
+{% block title %}{% trans 'Case development by canton/district' %}{% endblock %}
 {% block content %}
-  <p id="grande"><b>{% trans 'Incidence per 100k/past 7 days' %}</b></p>
-  <p><a href="/districtstend">{% trans 'Switch to week over week tendencies.' %}</a></p>
+  <p id="grande"><b>{% trans 'Case development week over week' %}</b></p>
+  <p><a href="/districts7">{% trans 'Switch to 7 day incidence.' %}</a></p>
 <p>{% trans 'You can follow the Bot on' %} <a href="https://twitter.com/CovidlawsStats">Twitter</a> {% trans 'or' %} <a href="https://t.me/covidlaws">Telegram</a> {% trans 'for updates on district data.' %}</p>
 
       {% trans 'Including neighbouring districts from Italy, Germany, France (data since May 13), Austria (data since March 25)'%}<br><br>

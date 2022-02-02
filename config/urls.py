@@ -108,6 +108,9 @@ urlpatterns += i18n_patterns(
         "districts7/", TemplateView.as_view(template_name="pages/district7.html"), name="CH districts"
     ),
     path(
+        "districtstend/", TemplateView.as_view(template_name="pages/district_trend.html"), name="CH districts"
+    ),
+    path(
         "districts_risklayer/", TemplateView.as_view(template_name="pages/districts_risklayer.html"), name="CH districts"
     ),
     path('ranking7/', views_ranking_ch.ranking7, name='ranking7'),
