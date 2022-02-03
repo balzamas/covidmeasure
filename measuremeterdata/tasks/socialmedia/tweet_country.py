@@ -273,7 +273,7 @@ def generate_list(scores, field, max, show_tend):
                     else:
                         tend_icon = "\U0001F538"
 
-                list += tend_icon + " " + str(score[field]) + " " + flag.flag(score["code"]) + " " + score["code"] + "\n"
+                list += tend_icon + " " + str(score[field]).split(".")[0] + " " + flag.flag(score["code"]) + " " + score["code"] + "\n"
             else:
                 list += str(score[field]) + " " + flag.flag(score["code"]) + " " + score["name"] +"\n"
             countries.append(score["pk"])
