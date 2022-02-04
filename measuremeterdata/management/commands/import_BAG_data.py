@@ -81,10 +81,10 @@ class Command(BaseCommand):
             df_death = df_death.set_index(['datum'])
             ch_only = df_death['geoRegion'] == 'CH'
 
-            date_death = date_to_load_date.strftime('%Y-%m-%d')
+            date_death = (date_to_load_date - timedelta(days=6)).strftime('%Y-%m-%d')
             death_7days = df_death[ch_only].loc[date_death]['sum7d']
 
-            date_death = (date_to_load_date - timedelta(days=7)).strftime('%Y-%m-%d')
+            date_death = (date_to_load_date - timedelta(days=13)).strftime('%Y-%m-%d')
             death_7days_7d = df_death[ch_only].loc[date_death]['sum7d']
 
             #---------------------------------------------------------------------------
@@ -246,7 +246,7 @@ class Command(BaseCommand):
 
             incidence_mar1 = 161
             date_inz = (date_to_load_date - timedelta(days=1)).strftime('%Y-%m-%d')
-            cases_14d = df_incidence[df_incidence_ch_only].loc[date_inz]['sum14d']
+            cases_14d = df_incidence[df_incidence_ch_only].loc[date_inz]['sumTotal_last14d']
 
             incidence_latest = 100000*cases_14d/8570146
             incidence_latest_date = (date_to_load_date - timedelta(days=1))
