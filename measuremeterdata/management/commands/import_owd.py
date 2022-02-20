@@ -84,11 +84,12 @@ class Command(BaseCommand):
 
                 try:
                     cd_existing = CasesDeaths.objects.get(country=country, date=date_tosave)
-                    cd_existing.positivity = pos
-                    cd_existing.tests_smoothed_per_thousand = tests_per_p
-                    cd_existing.tests = tests
-                    cd_existing.hosp_per_million = hosp_per_million
-                    cd_existing.people_vaccinated_per_hundred = people_vaccinated_per_hundred
-                    cd_existing.save()
+                    if cd_existing.positivity != pos or cd_existing.tests_smoothed_per_thousand != tests_per_p or cd_existing.tests != tests or cd_existing.hosp_per_million != hosp_per_million or cd_existing.people_vaccinated_per_hundred != people_vaccinated_per_hundred:
+                        cd_existing.positivity = pos
+                        cd_existing.tests_smoothed_per_thousand = tests_per_p
+                        cd_existing.tests = tests
+                        cd_existing.hosp_per_million = hosp_per_million
+                        cd_existing.people_vaccinated_per_hundred = people_vaccinated_per_hundred
+                        cd_existing.save()
                 except:
                     print("Day record does not exist yet")

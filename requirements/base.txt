@@ -35,3 +35,4 @@ django-import-export
 pdf2image
 PyPDF2
 PyMuPDF
+django-simple-history

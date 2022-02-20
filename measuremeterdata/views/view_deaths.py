@@ -59,7 +59,7 @@ def country_deaths(request):
         avg21_1_25 = 0
         avg21_rest = 0
 
-        last_week = 46
+        last_week = 51
         last_week_def = 0
 
 

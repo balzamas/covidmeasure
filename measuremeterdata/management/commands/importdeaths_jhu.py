@@ -50,8 +50,9 @@ class Command(BaseCommand):
 
                                     try:
                                         cd_existing = CasesDeaths.objects.get(country=country, date=date_object)
-                                        cd_existing.deaths = tdy_val
-                                        cd_existing.save()
+                                        if cd_existing.deaths != tdy_val:
+                                            cd_existing.deaths = tdy_val
+                                            cd_existing.save()
                                     except CasesDeaths.DoesNotExist:
                                         cd = CasesDeaths(country=country, deaths=tdy_val, date=date_object)
                                         cd.save()

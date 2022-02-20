@@ -70,8 +70,8 @@ DJANGO_APPS = [
     # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
     "django.forms",
-    "django.contrib.humanize"
-]
+    "django.contrib.humanize",
+    ]
 THIRD_PARTY_APPS = [
     "crispy_forms",
     "allauth",
@@ -81,7 +81,8 @@ THIRD_PARTY_APPS = [
     'django_filters',
     'ckeditor',
     'corsheaders',
-    'import_export'
+    'import_export',
+    'simple_history'
 ]
 
 LOCAL_APPS = [

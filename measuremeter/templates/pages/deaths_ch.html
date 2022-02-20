@@ -23,11 +23,12 @@
                    <tr><td>&#8709; 15-19:</td><td>&nbsp;</td><td>{{canton.total_avg|floatformat:0}}</td><td>&nbsp;</td><td>{{ canton.diff_avg|floatformat:2 }} %</td><td>&nbsp;&nbsp;</td><td>&#8709; 15-19:</td><td>&nbsp;</td><td>{{canton.total_avg_w12|floatformat:0}}</td><td>&nbsp;</td><td>{{ canton.diff_avg_w12|floatformat:2 }} %</td></tr>\
                   </table>\
               </td>\
-                </tr></table><hr>'
+                </tr></table>\
+                <hr>'
 
 
                 content.appendChild(div);
-                drawLineChart('{{canton.all20}}', '{{canton.all21}}', '{{canton.all_avg}}', '{{canton.all15}}', '{{canton.all19}}', '{{canton.canton.name}}', '{{canton.canton.code}}')
+                drawLineChart('{{canton.all20}}', '{{canton.all22}}','{{canton.all21}}', '{{canton.all_avg}}', '{{canton.all15}}', '{{canton.all19}}', '{{canton.canton.name}}', '{{canton.canton.code}}')
 
           {% endfor %}
 

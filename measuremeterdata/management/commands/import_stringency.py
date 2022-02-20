@@ -48,8 +48,9 @@ class Command(BaseCommand):
                                     stringency_index = float(col)
                                     try:
                                         measure = CasesDeaths.objects.get(country=country, date=date)
-                                        measure.stringency_index = stringency_index
-                                        measure.save()
+                                        if measure.stringency_index != stringency_index:
+                                            measure.stringency_index = stringency_index
+                                            measure.save()
                                     except:
                                         measure = CasesDeaths(country=country, date=date, stringency_index=stringency_index)
                                         measure.save()

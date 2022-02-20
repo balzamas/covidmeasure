@@ -25,6 +25,7 @@ class Command(BaseCommand):
 
         savedate20 = datetime.date(2019, 12, 30)
         savedate21 = datetime.date(2021, 1, 4)
+        savedate22 = datetime.date(2022, 1, 3)
 
         for index, row in read_file.iterrows():
             print(index)
@@ -73,6 +74,26 @@ class Command(BaseCommand):
 
                             savedate21 += timedelta(days=1)
 
+                    print(row["2022 2"])
+                    if  pd.notna(row["2022 2"]) and row["2022 2"]:
+                        val22 = int(row["2022 2"])
+
+                        avg22 = int(val22)/7
+                        avg_peak22 = float(val15)/7
+
+                        for number in range(1,8):
+                            try:
+                                cd_existing = CasesDeaths.objects.get(country=country, date=savedate22)
+                                print(cd_existing)
+                                cd_existing.deathstotal = avg22
+                                cd_existing.deathstotal_peak = avg_peak22
+                                cd_existing.deathstotal_average = avg_1519
+                                cd_existing.save()
+                            except CasesDeaths.DoesNotExist:
+                                cd = CasesDeaths(country=country, deathstotal=avg22, deathstotal_peak=avg_peak22, deathstotal_average = avg_1519, date=savedate21)
+                                cd.save()
+
+                            savedate22 += timedelta(days=1)
 
                     avg20 = int(val20) / 7
                     avg_peak20 = float(val15) / 7

@@ -160,6 +160,7 @@ class CHDeaths(MotherModel):
     average_deaths_15_19 = models.DecimalField(max_digits=50, decimal_places=2, null=True, blank=True)
     deaths15 = models.IntegerField(null=True,blank=True)
     deaths19 = models.IntegerField(null=True,blank=True)
+    deaths22 = models.IntegerField(null=True,blank=True)
 
     ordering = ['canton__pk', 'week']
 

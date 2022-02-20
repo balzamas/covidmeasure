@@ -1,5 +1,6 @@
 from django.db import models
 from ckeditor.fields import RichTextField
+from simple_history.models import HistoricalRecords
 
 class MotherModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -103,6 +104,7 @@ class CasesDeaths(MotherModel):
     death_to_cases = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
     people_vaccinated_per_hundred = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
     hosp_per_million = models.DecimalField(max_digits=50, decimal_places=2,blank=True,null=True)
+    history = HistoricalRecords()
     ordering = ['country__pk', 'date', 'cases', 'deaths']
 
     def __str__(self):

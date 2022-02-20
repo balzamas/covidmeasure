@@ -17,7 +17,14 @@
 
         for (const property in deaths_covid20) {
 
-                if (property > 53)
+                console.log(property)
+
+                if (property > 105)
+                {
+                    property22 = property-105
+                    label_array.push("Week " + property22 + "/22")
+                }
+                else if (property > 53)
                 {
                     property21 = property-53
                     label_array.push("Week " + property21 + "/21")

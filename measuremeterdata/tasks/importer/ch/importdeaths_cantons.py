@@ -40,6 +40,7 @@ def import_data():
                     val19 = None
                     val20 = None
                     val21 = None
+                    val22 = None
 
                     val20 = int(row[2020])
                     val15 = int(row[2015])
@@ -50,6 +51,9 @@ def import_data():
                         if pd.notna(row["2021 2"]) and row["2021 2"] != '':
                             print("Has 21 value")
                             val21 = int(row["2021 2"])
+                        if pd.notna(row["2022 2"]) and row["2022 2"] != '':
+                            print("Has 22 value")
+                            val22 = int(row["2022 2"])
 
                         val19 = int(row[2019])
                         val18 = int(row[2018])
@@ -63,6 +67,7 @@ def import_data():
                     try:
                         cd_existing = CHDeaths.objects.get(canton=canton, week=week)
                         print(cd_existing)
+                        cd_existing.deaths22 = val22
                         cd_existing.deaths21 = val21
                         cd_existing.deaths20 = val20
                         cd_existing.deaths19 = val19
@@ -71,7 +76,7 @@ def import_data():
                         cd_existing.save()
                         print("saved")
                     except CHDeaths.DoesNotExist:
-                        cd = CHDeaths(canton=canton, deaths21=val21, deaths20=val20, deaths19=val19, deaths15=val15, average_deaths_15_19=avg, week=week)
+                        cd = CHDeaths(canton=canton, deaths22=val22, deaths21=val21, deaths20=val20, deaths19=val19, deaths15=val15, average_deaths_15_19=avg, week=week)
                         cd.save()
                     except:
                         print("Other error")
