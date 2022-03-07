@@ -31,7 +31,12 @@ class Command(BaseCommand):
         for case in cases:
             if (case.history != None):
                 print(case)
+                old_value = None
                 for his_rec in case.history.all():
-                    print(f"{his_rec}:{his_rec.deathstotal}")
+                    if old_value:
+                        change_perc = (old_value * 100 / his_rec.deathstotal) -100
+                        if change_perc != 0:
+                            print(f"{his_rec}: New: {7*old_value} - Old: {7*his_rec.deathstotal} - {change_perc}%")
+                    old_value = his_rec.deathstotal
                 print("...........")
 
