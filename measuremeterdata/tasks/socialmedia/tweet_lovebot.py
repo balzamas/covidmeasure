@@ -24,6 +24,5 @@ def send_telegram():
 
     bot = telepot.Bot(settings.TELEGRAM_TOKEN_LOVE)
     print(bot.getMe())
-    bot.sendMessage(settings.TELEGRAM_CHATID_LOVE, f"Alles gute zum 40. Geburtstag mein liebstes Otterweibchen! ")
     bot.sendPhoto(settings.TELEGRAM_CHATID_LOVE, photo=open("/app/measuremeter/static/images/love/" + img, 'rb'))
 
