@@ -316,6 +316,10 @@ TELEGRAM_CHATID = env("TELEGRAM_CHATID")
 TELEGRAM_TOKEN_LOVE = env("TELEGRAM_TOKEN_LOVE")
 TELEGRAM_CHATID_LOVE = env("TELEGRAM_CHATID_LOVE")
 
+#Mastodon
+MASTODON_USER = env("MASTODON_USER")
+MASTODON_PASSWORD = env("MASTODON_PASSWORD")
+
 
 CRONJOBS = [
     ('*/5 * * * *', 'measuremeterdata.tasks.importer.ch.generate_graphs_districts.generate')
