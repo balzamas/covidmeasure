@@ -18,11 +18,11 @@ from mastodon import Mastodon
 def tweet():
     img = random.choice(os.listdir("/app/measuremeter/static/images/holiday"))
 
-    Mastodon.create_app(
-         'photobotapp',
-         api_base_url = 'https://bahn.social',
-         to_file = 'pytooter_clientcred.secret'
-    )
+#    Mastodon.create_app(
+#         'photobotapp',
+#         api_base_url = 'https://bahn.social',
+#         to_file = 'pytooter_clientcred.secret'
+#    )
 
     mastodon = Mastodon(
         client_id='pytooter_clientcred.secret',
