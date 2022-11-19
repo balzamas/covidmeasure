@@ -20,13 +20,13 @@ def tweet():
 
     Mastodon.create_app(
          'photobotapp',
-         api_base_url = 'https://mastodon.online',
+         api_base_url = 'https://bahn.social',
          to_file = 'pytooter_clientcred.secret'
     )
 
     mastodon = Mastodon(
         client_id='pytooter_clientcred.secret',
-        api_base_url='https://mastodon.online'
+        api_base_url='https://bahn.social'
     )
 
     mastodon.log_in(
